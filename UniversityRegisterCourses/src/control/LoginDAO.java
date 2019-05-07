@@ -5,19 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginDAO {  
-	
-	// 관리자 로그인 
+public class LoginDAO {
+
+	// 관리자 로그인
 	public boolean getLogin(String loginId, String loginPassword) throws Exception {
-		
-		String sql =  "select * from managerjoin where id = ? and password = ?";
+
+		String sql = "select * from managerjoin where id = ? and password = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		boolean loginResult = false;
 
 		try {
-			
+
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, loginId);
@@ -45,7 +45,7 @@ public class LoginDAO {
 				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
 				if (rs != null)
 					rs.close();
-				
+
 				if (pstmt != null)
 					pstmt.close();
 
@@ -58,26 +58,27 @@ public class LoginDAO {
 		}
 
 		return loginResult;
-		
-		}
-	
-	public String getLoginName(String loginId) throws Exception { 
-		String sql = "select * from managerjoin where id = ?";
+
+	}
+
+	public String getLoginName(String loginId) throws Exception {
+
+		String sql = "select name from managerjoin where id = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		boolean idOverlapResult = false;
+		String loginName = null;
 
 		try {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, idOverlap);
+			pstmt.setString(1, loginId);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 
-				idOverlapResult = true; // 중복된 아이디가 있다.
+				loginName = rs.getString(1);
 
 			}
 
@@ -94,6 +95,9 @@ public class LoginDAO {
 			try {
 
 				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
+				if (rs != null)
+					rs.close();
+
 				if (pstmt != null)
 					pstmt.close();
 
@@ -105,10 +109,7 @@ public class LoginDAO {
 			}
 		}
 
-		return idOverlapResult;
+		return loginName;
 	}
 
-		
-	}
-		
-
+}
