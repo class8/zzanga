@@ -118,7 +118,7 @@ public class JoinController implements Initializable {
 			oldStage.close();
 			mainMtage.show();
 		} catch (IOException e) {
-			System.out.println("오류" + e);
+			System.err.println("오류" + e);
 		}
 	}
 
