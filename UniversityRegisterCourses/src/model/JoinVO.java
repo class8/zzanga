@@ -6,19 +6,19 @@ public class JoinVO {
 	String password;
 	String name;
 
-	// µğÆúÆ® »ı¼ºÀÚ »ı¼º
+	// ë””í´íŠ¸ ìƒì„±ì ìƒì„±
 	public JoinVO() {
 		super();
 	}
 
-	// id, password »ı¼ºÀÚ 
+	// id, password ìƒì„±ì 
 	public JoinVO(String id, String password) {
 		super();
 		this.id = id;
 		this.password = password;
 	}
 
-	// ¸ğµç »ı¼ºÀÚ 
+	// ëª¨ë“  ìƒì„±ì 
 	public JoinVO(String id, String password, String name) {
 		super();
 		this.id = id;
@@ -26,7 +26,7 @@ public class JoinVO {
 		this.name = name;
 	}
 
-	// Á¢±ÙÀÚ¿Í ¼³Á¤ÀÚ »ı¼º 
+	// ì ‘ê·¼ìì™€ ì„¤ì •ì ìƒì„± 
 	public String getId() {
 		return id;
 	}

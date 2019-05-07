@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class LoginDAO {  
 	
-	// °ü¸®ÀÚ ·Î±×ÀÎ 
+	// ê´€ë¦¬ì ë¡œê·¸ì¸ 
 	public boolean getLogin(String loginId, String loginPassword) throws Exception {
 		
 		String sql =  "select * from managerjoin where id = ? and password = ?";
@@ -26,7 +26,7 @@ public class LoginDAO {
 
 			if (rs.next()) {
 
-				loginResult = true; // ¾ÆÀÌµğ¿Í ÆĞ½º¿öµå°¡ ÀÏÄ¡ÇÑ´Ù.
+				loginResult = true; // ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•œë‹¤.
 
 			}
 
@@ -42,7 +42,7 @@ public class LoginDAO {
 
 			try {
 
-				// µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦ÇÑ´Ù.
+				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
 				if (rs != null)
 					rs.close();
 				
@@ -77,7 +77,7 @@ public class LoginDAO {
 
 			if (rs.next()) {
 
-				idOverlapResult = true; // Áßº¹µÈ ¾ÆÀÌµğ°¡ ÀÖ´Ù.
+				idOverlapResult = true; // ì¤‘ë³µëœ ì•„ì´ë””ê°€ ìˆë‹¤.
 
 			}
 
@@ -93,7 +93,7 @@ public class LoginDAO {
 
 			try {
 
-				// µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦ÇÑ´Ù.
+				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
 				if (pstmt != null)
 					pstmt.close();
 

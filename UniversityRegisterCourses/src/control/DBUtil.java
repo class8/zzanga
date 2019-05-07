@@ -3,7 +3,7 @@ package control;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class DBUtil { // µ¥ÀÌÅÍº£ÀÌ½º ¿¬µ¿
+public class DBUtil { // ë°ì´í„°ë² ì´ìŠ¤ ì—°ë™
 
 	static final String driver = "oracle.jdbc.driver.OracleDriver";
 	static final String url = "jdbc:oracle:thin:@127.0.0.1:1521:orcl";
@@ -12,7 +12,7 @@ public class DBUtil { // µ¥ÀÌÅÍº£ÀÌ½º ¿¬µ¿
 		
 		Class.forName(driver);
 		Connection con = DriverManager.getConnection(url, "scott", "tiger");
-		System.out.println("DB ¿¬°á¿¡ ¼º°øÇÏ¿´½À´Ï´Ù.");
+		System.out.println("DB ì—°ê²°ì— ì„±ê³µí•˜ì˜€ìŠµë‹ˆë‹¤.");
 		return con;
 	}
 

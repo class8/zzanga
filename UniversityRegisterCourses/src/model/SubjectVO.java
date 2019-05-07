@@ -6,12 +6,12 @@ public class SubjectVO {
 	private String s_num;
 	private String s_name;
 
-	// µğÆúÆ® »ı¼ºÀÚ 
+	// ë””í´íŠ¸ ìƒì„±ì 
 	public SubjectVO() {
 		super();
 	}
 
-	// ¸ğµç »ı¼ºÀÚ 
+	// ëª¨ë“  ìƒì„±ì 
 	public SubjectVO(int no, String s_num, String s_name) {
 		super();
 		this.no = no;
@@ -19,14 +19,14 @@ public class SubjectVO {
 		this.s_name = s_name;
 	}
 
-	// s_num, s_name »ı¼ºÀÚ 
+	// s_num, s_name ìƒì„±ì 
 	public SubjectVO(String s_num, String s_name) {
 		super();
 		this.s_num = s_num;
 		this.s_name = s_name;
 	}
 
-	// Á¢±ÙÀÚ¿Í ¼³Á¤ÀÚ »ı¼º
+	// ì ‘ê·¼ìì™€ ì„¤ì •ì ìƒì„±
 	public int getNo() {
 		return no;
 	}

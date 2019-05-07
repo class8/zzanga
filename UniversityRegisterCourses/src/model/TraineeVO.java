@@ -9,12 +9,12 @@ public class TraineeVO {
 	String t_section;
 	String t_date;
 
-	// µğÆúÆ® »ı¼ºÀÚ 
+	// ë””í´íŠ¸ ìƒì„±ì 
 	public TraineeVO() {
 		super();
 	}
 
-	// sd_num, l_num, t_section »ı¼ºÀÚ 
+	// sd_num, l_num, t_section ìƒì„±ì 
 	public TraineeVO(String sd_num, String l_num, String t_section) {
 		super();
 		this.sd_num = sd_num;
@@ -22,7 +22,7 @@ public class TraineeVO {
 		this.t_section = t_section;
 	}
 
-	// sd_num, l_num, t_section, t_date »ı¼ºÀÚ 
+	// sd_num, l_num, t_section, t_date ìƒì„±ì 
 	public TraineeVO(String sd_num, String l_num, String t_section, String t_date) {
 		super();
 		this.sd_num = sd_num;
@@ -31,7 +31,7 @@ public class TraineeVO {
 		this.t_date = t_date;
 	}
 
-	// ¸ğµç »ı¼ºÀÚ 
+	// ëª¨ë“  ìƒì„±ì 
 	public TraineeVO(int no, String sd_num, String l_num, String t_section, String t_date) {
 		super();
 		this.no = no;
@@ -41,7 +41,7 @@ public class TraineeVO {
 		this.t_date = t_date;
 	}
 
-	// Á¢±ÙÀÚ¿Í ¼³Á¤ÀÚ »ı¼º 
+	// ì ‘ê·¼ìì™€ ì„¤ì •ì ìƒì„± 
 	public int getNo() {
 		return no;
 	}

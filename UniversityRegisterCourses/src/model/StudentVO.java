@@ -14,12 +14,12 @@ public class StudentVO {
 	String sd_email;
 	String sd_date;
 
-	// µğÆúÆ® »ı¼ºÀÚ
+	// ë””í´íŠ¸ ìƒì„±ì
 	public StudentVO() {
 		super();
 	}
 
-	// ¸ğµç »ı¼ºÀÚ
+	// ëª¨ë“  ìƒì„±ì
 	public StudentVO(int no, String sd_num, String sd_name, String sd_id, String sd_passwd, String s_num,
 			String sd_birthday, String sd_phone, String sd_address, String sd_email, String sd_date) {
 		super();
@@ -36,7 +36,7 @@ public class StudentVO {
 		this.sd_date = sd_date;
 	}
 
-	// noÀ» Á¦¿ÜÇÑ ¸ğµç »ı¼ºÀÚ
+	// noì„ ì œì™¸í•œ ëª¨ë“  ìƒì„±ì
 	public StudentVO(String sd_num, String sd_name, String sd_id, String sd_passwd, String s_num, String sd_birthday,
 			String sd_phone, String sd_address, String sd_email, String sd_date) {
 		super();
@@ -52,7 +52,7 @@ public class StudentVO {
 		this.sd_date = sd_date;
 	}
 
-	// no, sd_date¸¦ Á¦¿ÜÇÑ ¸ğµç »ı¼ºÀÚ
+	// no, sd_dateë¥¼ ì œì™¸í•œ ëª¨ë“  ìƒì„±ì
 	public StudentVO(String sd_num, String sd_name, String sd_id, String sd_passwd, String s_num, String sd_birthday,
 			String sd_phone, String sd_address, String sd_email) {
 		super();
@@ -67,7 +67,7 @@ public class StudentVO {
 		this.sd_email = sd_email;
 	}
 
-	// Á¢±ÙÀÚ¿Í ¼³Á¤ÀÚ »ı¼º
+	// ì ‘ê·¼ìì™€ ì„¤ì •ì ìƒì„±
 	public int getNo() {
 		return no;
 	}

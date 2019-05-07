@@ -4,18 +4,18 @@ public class LoginVO {
 	
 	private String id;
 	
-	// µğÆúÆ® »ı¼ºÀÚ »ı¼º
+	// ë””í´íŠ¸ ìƒì„±ì ìƒì„±
 	public LoginVO() {
 		super();
 	}
 
-	// ¸ğµç »ı¼ºÀÚ »ı¼º
+	// ëª¨ë“  ìƒì„±ì ìƒì„±
 	public LoginVO(String id) {
 		super();
 		this.id = id;
 	}
 
-	// Á¢±ÙÀÚ¿Í ¼³Á¤ÀÚ »ı¼º 
+	// ì ‘ê·¼ìì™€ ì„¤ì •ì ìƒì„± 
 	public String getId() {
 		return id;
 	}

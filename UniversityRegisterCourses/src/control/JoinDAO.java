@@ -11,7 +11,7 @@ import model.JoinVO;
 
 public class JoinDAO {
 
-	// °ü¸®ÀÚ µî·Ï
+	// ê´€ë¦¬ì ë“±ë¡
 	public boolean getManagerRegiste(JoinVO jvo) throws Exception {
 
 		String sql = "insert into managerjoin " + "(id, password, name)" + " values " + "(?, ?, ?)";
@@ -32,18 +32,18 @@ public class JoinDAO {
 			if (i == 1) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("°ü¸®ÀÚ µî·Ï");
-				alert.setHeaderText(jvo.getName() + " °ü¸®ÀÚ µî·Ï ¿Ï·á.");
-				alert.setContentText("°ü¸®ÀÚ µî·Ï ¼º°ø!!!");
+				alert.setTitle("ê´€ë¦¬ì ë“±ë¡");
+				alert.setHeaderText(jvo.getName() + " ê´€ë¦¬ì ë“±ë¡ ì™„ë£Œ.");
+				alert.setContentText("ê´€ë¦¬ì ë“±ë¡ ì„±ê³µ!!!");
 				alert.showAndWait();
 				joinSucess = true;
 
 			} else {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("°ü¸®ÀÚ µî·Ï");
-				alert.setHeaderText("°ü¸®ÀÚ µî·Ï ½ÇÆĞ");
-				alert.setContentText("°ü¸®ÀÚ µî·Ï ½ÇÆĞ!");
+				alert.setTitle("ê´€ë¦¬ì ë“±ë¡");
+				alert.setHeaderText("ê´€ë¦¬ì ë“±ë¡ ì‹¤íŒ¨");
+				alert.setContentText("ê´€ë¦¬ì ë“±ë¡ ì‹¤íŒ¨!");
 				alert.showAndWait();
 			}
 
@@ -59,7 +59,7 @@ public class JoinDAO {
 
 			try {
 
-				// µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦ÇÑ´Ù.
+				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
 				if (pstmt != null)
 					pstmt.close();
 
@@ -74,7 +74,7 @@ public class JoinDAO {
 		return joinSucess;
 	}
 
-	// ¾ÆÀÌµğ Áßº¹ Ã¼Å©
+	// ì•„ì´ë”” ì¤‘ë³µ ì²´í¬
 	public boolean getIdOverlap(String idOverlap) throws Exception {
 
 		String sql = "select * from managerjoin where id = ?";
@@ -92,7 +92,7 @@ public class JoinDAO {
 
 			if (rs.next()) {
 
-				idOverlapResult = true; // Áßº¹µÈ ¾ÆÀÌµğ°¡ ÀÖ´Ù.
+				idOverlapResult = true; // ì¤‘ë³µëœ ì•„ì´ë””ê°€ ìˆë‹¤.
 
 			}
 
@@ -108,7 +108,7 @@ public class JoinDAO {
 
 			try {
 
-				// µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦ÇÑ´Ù.
+				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
 				if (pstmt != null)
 					pstmt.close();
 

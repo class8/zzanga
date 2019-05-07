@@ -6,19 +6,19 @@ public class LessonVO {
 	String l_num;
 	String l_name;
 
-	// µğÆúÆ® »ı¼ºÀÚ
+	// ë””í´íŠ¸ ìƒì„±ì
 	public LessonVO() {
 		super();
 	}
 
-	// noÀ» Á¦¿ÜÇÑ ¸ğµç »ı¼ºÀÚ
+	// noì„ ì œì™¸í•œ ëª¨ë“  ìƒì„±ì
 	public LessonVO(String l_num, String l_name) {
 		super();
 		this.l_num = l_num;
 		this.l_name = l_name;
 	}
 
-	// ¸ğµç »ı¼ºÀÚ
+	// ëª¨ë“  ìƒì„±ì
 	public LessonVO(int no, String l_num, String l_name) {
 		super();
 		this.no = no;
@@ -26,7 +26,7 @@ public class LessonVO {
 		this.l_name = l_name;
 	}
 
-	// Á¢±ÙÀÚ¿Í »ı¼ºÀÚ ¼³Á¤
+	// ì ‘ê·¼ìì™€ ìƒì„±ì ì„¤ì •
 	public int getNo() {
 		return no;
 	}
