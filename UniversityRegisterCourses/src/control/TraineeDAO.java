@@ -13,7 +13,7 @@ import model.StudentVO;
 import model.SubjectVO;
 import model.TraineeVO;
 
-public class Trainee {
+public class TraineeDAO {
 
 	// 로그인한 학생의 정보
 	public StudentVO getStudentSubjectName(String sd_id) throws Exception {
