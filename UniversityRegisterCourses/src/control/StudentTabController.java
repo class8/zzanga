@@ -28,7 +28,7 @@ public class StudentTabController implements Initializable {
 
 	// 학생 등록 탭
 	@FXML
-	private ComboBox<StudentVO> cbx_subjectName;
+	private ComboBox<SubjectVO> cbx_subjectName;
 	@FXML
 	private TextField txtsd_num;
 	@FXML
@@ -56,7 +56,7 @@ public class StudentTabController implements Initializable {
 	@FXML
 	private Button btnStudentTotalList;
 	@FXML
-	private TableView<StudentVO> studentTableView = new TableView<StudentVO>();
+	private TableView<StudentVO> studentTableView = new TableView<>();
 
 	ObservableList<StudentVO> studentDataList = FXCollections.observableArrayList();
 	ObservableList<StudentVO> selectStudent = null; // 학생등록 테이블에서 선택한 정보 저장
@@ -143,7 +143,7 @@ public class StudentTabController implements Initializable {
 			studentTotalList();
 
 			// 추가된 학과명 호출
-			addSubjectName();
+			// addSubjectName();
 
 			btnStudentInsert.setOnAction(event -> handlerBtnStudentInsertAction(event));
 			cbx_subjectName.setOnAction(event -> handlerCbx_subjectNameAction(event));
@@ -166,6 +166,7 @@ public class StudentTabController implements Initializable {
 		cbx_subjectName.setItems(FXCollections.observableArrayList(subjectNameList));
 	}
 
+	// 학생 등록 이벤트 핸들러
 	public void handlerBtnStudentInsertAction(ActionEvent event) {
 		try {
 			studentDataList.removeAll(studentDataList);
@@ -199,7 +200,6 @@ public class StudentTabController implements Initializable {
 				txtsd_email.clear();
 				txtsd_name.requestFocus();
 			}
-
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("학과 정보 입력");
@@ -254,7 +254,6 @@ public class StudentTabController implements Initializable {
 
 				txtsd_id.requestFocus();
 			}
-
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("아이디 중복 검사 오류");
@@ -262,7 +261,6 @@ public class StudentTabController implements Initializable {
 			alert.setContentText("다시 하세요.");
 			alert.showAndWait();
 		}
-
 	}
 
 	// 학생 등록 탭의 학과 선택 이벤트 핸들러

@@ -62,7 +62,7 @@ public class SubjectTabController implements Initializable {
 			TableColumn colNo = new TableColumn("NO.");
 			colNo.setPrefWidth(50);
 			colNo.setStyle("-fx-alignment:CENTER");
-			colNo.setCellValueFactory(new PropertyValueFactory<>("s_num"));
+			colNo.setCellValueFactory(new PropertyValueFactory<>("no"));
 
 			TableColumn colSNum = new TableColumn("학과 번호");
 			colSNum.setPrefWidth(90);
@@ -117,7 +117,7 @@ public class SubjectTabController implements Initializable {
 
 	// 학과 등록 텍스트 필드 키 이벤트 핸들러
 	public void handlerTxtSubjectNumKeyPressed(KeyEvent event) {
-		if (txtSubjectNum.getText().length() >= 3) {
+		if ((txtSubjectNum.getText().length() >= 3)) {
 			txtSubjectNum.clear();
 		}
 		if (event.getCode() == KeyCode.ENTER) {
@@ -182,31 +182,32 @@ public class SubjectTabController implements Initializable {
 
 	}
 
-	// 테이블 뷰 읽기 테스트
-	public void handlerBtnReadAction(ActionEvent event) {
+	// 학과 수정 이벤트 핸들러
+	public void handlerBtnUpdateAction(ActionEvent event) {
 
 		try {
 
-			int count = subjectTableView.getItems().size();
-			System.out.println("count : " + count);
+			boolean sucess;
 
-			for (int i = 0; i < count; i++) {
+			SubjectDAO sDao = new SubjectDAO();
+			sucess = sDao.getSubjectUpdate(selectedIndex, txtSubjectNum.getText().trim(),
+					txtSubjectName.getText().trim());
 
-				selectSubject = subjectTableView.getItems();
-				int index = selectSubject.get(i).getNo();
-				String selectedS_num = selectSubject.get(i).getS_num();
-				String selectedS_name = selectSubject.get(i).getS_name();
+			if (sucess) {
 
-				System.out.print(index + "");
-				System.out.print(selectedS_num + "");
-				System.out.print(selectedS_name + "");
+				subjectDataList.removeAll(subjectDataList);
+				subjectTotalList();
+
+				txtSubjectNum.clear();
+				txtSubjectName.clear();
+				btnInsert.setDisable(false);
+				btnUpdate.setDisable(true);
+				btnDelete.setDisable(true);
 			}
-
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
-
 	}
 
 	// 학과 삭제 이벤트 핸들러
@@ -235,33 +236,28 @@ public class SubjectTabController implements Initializable {
 
 			e.printStackTrace();
 		}
-
 	}
 
-	// 학과 수정 이벤트 핸들러
-	public void handlerBtnUpdateAction(ActionEvent event) {
+	// 테이블 뷰 읽기 테스트
+	public void handlerBtnReadAction(ActionEvent event) {
 
 		try {
 
-			boolean sucess;
+			int count = subjectTableView.getItems().size();
+			System.out.println("count : " + count);
 
-			SubjectDAO sDao = new SubjectDAO();
-			sucess = sDao.getSubjectUpdate(selectedIndex, txtSubjectNum.getText().trim(),
-					txtSubjectName.getText().trim());
+			for (int i = 0; i < count; i++) {
 
-			if (sucess) {
+				selectSubject = subjectTableView.getItems();
+				int index = selectSubject.get(i).getNo();
+				String selectedS_num = selectSubject.get(i).getS_num();
+				String selectedS_name = selectSubject.get(i).getS_name();
 
-				subjectDataList.removeAll(subjectDataList);
-				subjectTotalList();
-
-				txtSubjectNum.clear();
-				txtSubjectName.clear();
-				btnInsert.setDisable(false);
-				btnUpdate.setDisable(true);
-				btnDelete.setDisable(true);
+				System.out.print(index + "");
+				System.out.print(selectedS_num + "");
+				System.out.println(selectedS_name + "");
 			}
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
 	}

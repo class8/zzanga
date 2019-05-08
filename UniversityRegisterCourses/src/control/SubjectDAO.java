@@ -97,7 +97,7 @@ public class SubjectDAO {
 
 			} else {
 
-				Alert alert = new Alert(AlertType.INFORMATION);
+				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("학과 등록");
 				alert.setHeaderText("학과 등록 실패");
 				alert.setContentText("학과 등록 실패!");
@@ -216,7 +216,7 @@ public class SubjectDAO {
 
 			} else {
 
-				Alert alert = new Alert(AlertType.INFORMATION);
+				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("학과 수정");
 				alert.setHeaderText("학과 수정 실패");
 				alert.setContentText("학과 수정 실패!");
@@ -268,7 +268,7 @@ public class SubjectDAO {
 
 			if (rs.next()) {
 
-				s_num = rs.getString(s_num);
+				s_num = rs.getString("s_num");
 			}
 
 		} catch (SQLException se) {
@@ -330,7 +330,7 @@ public class SubjectDAO {
 
 			} else {
 
-				Alert alert = new Alert(AlertType.INFORMATION);
+				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("학과 삭제");
 				alert.setHeaderText("학과 삭제 실패");
 				alert.setContentText("학과 삭제 실패!");

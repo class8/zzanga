@@ -148,9 +148,9 @@ public class StudentDAO {
 				sVo.setS_num(rs.getString("s_num"));
 				sVo.setSd_birthday(rs.getString("sd_birthday"));
 				sVo.setSd_phone(rs.getString("sd_phone"));
-				sVo.setSd_address(rs.getString("sd_adress"));
+				sVo.setSd_address(rs.getString("sd_address"));
 				sVo.setSd_email(rs.getString("sd_email"));
-				sVo.setSd_date(rs.getString("sd_date"));
+				sVo.setSd_date(rs.getDate("sd_date") + "");
 
 				list.add(sVo);
 			}
@@ -292,7 +292,7 @@ public class StudentDAO {
 	// 학생 등록
 	public void getStudentRegiste(StudentVO svo) throws Exception {
 
-		String sql = "insert into student values " + "(student_seq.nextnal, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+		String sql = "insert into student values " + "(student_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -322,7 +322,7 @@ public class StudentDAO {
 
 			} else {
 
-				Alert alert = new Alert(AlertType.INFORMATION);
+				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("학생 등록");
 				alert.setHeaderText("학생 등록 실패");
 				alert.setContentText("학생 등록 실패!");
@@ -372,6 +372,7 @@ public class StudentDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			rsmd = rs.getMetaData();
 
 			int cols = rsmd.getColumnCount();
 
@@ -443,7 +444,7 @@ public class StudentDAO {
 
 			} else {
 
-				Alert alert = new Alert(AlertType.INFORMATION);
+				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("학생정보 수정");
 				alert.setHeaderText("학생정보 수정 실패");
 				alert.setContentText("학생정보 수정 실패!");
@@ -499,7 +500,7 @@ public class StudentDAO {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("학생정보 삭제");
-				alert.setHeaderText("학생정보 삭제 완료.");
+				alert.setHeaderText(no + "학생정보 삭제 완료.");
 				alert.setContentText("학생정보 삭제 성공!!!");
 				alert.showAndWait();
 				studentDeleteSucess = true;
@@ -560,7 +561,6 @@ public class StudentDAO {
 			while (rs.next()) {
 
 				sVo = new SubjectVO();
-				sVo.setNo(rs.getInt("no"));
 				sVo.setS_name(rs.getString("s_name"));
 
 				list.add(sVo);

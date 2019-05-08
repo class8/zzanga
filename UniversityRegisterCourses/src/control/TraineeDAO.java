@@ -18,7 +18,7 @@ public class TraineeDAO {
 	// 로그인한 학생의 정보
 	public StudentVO getStudentSubjectName(String sd_id) throws Exception {
 
-		String sql = "select sd_num, sd_name, (select s_name from subject where s_num = (select s_num from student where sd_id = ?)) as s_num from student shere sd_id = ?";
+		String sql = "select sd_num, sd_name, (select s_name from subject where s_num = (select s_num from student where sd_id = ?)) as s_num from student where sd_id = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -141,7 +141,7 @@ public class TraineeDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, tvo.getSd_num());
 			pstmt.setString(2, tvo.getL_num());
-			pstmt.setString(1, tvo.getT_section());
+			pstmt.setString(3, tvo.getT_section());
 
 			int i = pstmt.executeUpdate();
 
