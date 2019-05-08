@@ -20,7 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.TraineeVO;
 
-public class TraineeTotalController implements Initializable {
+public class TraineeTotalTabController implements Initializable {
 
 	@FXML
 	ComboBox<String> cbx_searchList;
