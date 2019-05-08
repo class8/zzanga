@@ -546,7 +546,7 @@ public class StudentDAO {
 
 		ArrayList<SubjectVO> list = new ArrayList<>();
 
-		String sql = "select s_name subject order by no";
+		String sql = "select s_name from subject order by no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

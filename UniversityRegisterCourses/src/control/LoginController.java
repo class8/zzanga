@@ -95,7 +95,9 @@ public class LoginController implements Initializable {
 
 	// 패스워드 입력에서 Enter 키 이벤트 적용
 	public void handlerTxtPasswordKeyPressed(KeyEvent event) {
+		
 		if (event.getCode() == KeyCode.ENTER) {
+			
 			login();
 		}
 	}
