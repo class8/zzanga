@@ -9,20 +9,21 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import model.LessonVO;
 import model.SubjectVO;
 
-public class SubjectDAO {
+public class LessonDAO {
 
-	// 학과 목록
-	public ArrayList<SubjectVO> getSubjectTotalList() throws Exception {
+	// 과목등록
+	public ArrayList<LessonVO> getLessonTotalList() throws Exception {
 
-		ArrayList<SubjectVO> list = new ArrayList<>();
+		ArrayList<LessonVO> list = new ArrayList<>();
 
-		String sql = "select * from subject order by no";
+		String sql = "select * from lesson order by no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		SubjectVO sVo = null;
+		LessonVO lVo = null;
 
 		try {
 
@@ -32,12 +33,12 @@ public class SubjectDAO {
 
 			while (rs.next()) {
 
-				sVo = new SubjectVO();
-				sVo.setNo(rs.getInt("no"));
-				sVo.setS_num(rs.getString("s_num"));
-				sVo.setS_name(rs.getString("s_name"));
+				lVo = new LessonVO();
+				lVo.setNo(rs.getInt("no"));
+				lVo.setL_num(rs.getString("l_num"));
+				lVo.setL_name(rs.getString("l_name"));
 
-				list.add(sVo);
+				list.add(lVo);
 			}
 
 		} catch (SQLException se) {
@@ -70,10 +71,10 @@ public class SubjectDAO {
 		return list;
 	}
 
-	// 학과 등록
-	public void getSubjectRegiste(SubjectVO svo) throws Exception {
+	// 과목 등록
+	public void getLessonRegiste(LessonVO lvo) throws Exception {
 
-		String sql = "insert into subject " + "(no, s_num, s_name)" + " values " + "(subject_seq.nextval, ?, ?)";
+		String sql = "insert into lesson " + "(no, l_num, l_name)" + " values " + "(lesson_seq.nextval, ?, ?)";
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -82,25 +83,25 @@ public class SubjectDAO {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, svo.getS_num());
-			pstmt.setString(2, svo.getS_name());
+			pstmt.setString(1, lvo.getL_num());
+			pstmt.setString(2, lvo.getL_name());
 
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("학과 등록");
-				alert.setHeaderText(svo.getS_name() + " 학과 등록 완료.");
-				alert.setContentText("학과 등록 성공!!!");
+				alert.setTitle("과목 등록");
+				alert.setHeaderText(lvo.getL_name() + " 과목 등록 완료.");
+				alert.setContentText("과목 등록 성공!!!");
 				alert.showAndWait();
 
 			} else {
 
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("학과 등록");
-				alert.setHeaderText("학과 등록 실패");
-				alert.setContentText("학과 등록 실패!");
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("과목 등록");
+				alert.setHeaderText("과목 등록 실패");
+				alert.setContentText("과목 등록 실패!");
 				alert.showAndWait();
 			}
 
@@ -130,12 +131,12 @@ public class SubjectDAO {
 
 	}
 
-	// 데이터베이스에서 학과 테이블의 컬럼의 갯수
-	public ArrayList<String> getSubjectColumnName() throws Exception {
+	// 데이터베이스에서 과목 테이블의 컬럼의 갯수
+	public ArrayList<String> getLessonColumnName() throws Exception {
 
 		ArrayList<String> columnName = new ArrayList<String>();
 
-		String sql = "select * from subject";
+		String sql = "select * from lesson";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -187,20 +188,20 @@ public class SubjectDAO {
 
 	}
 
-	// 학과 수정
-	public boolean getSubjectUpdate(int no, String s_num, String s_name) throws Exception {
+	// 과목 수정
+	public boolean getLessonUpdate(int no, String l_num, String l_name) throws Exception {
 
-		String sql = "update subject set s_num=?, s_name=? where no=?";
+		String sql = "update lesson set l_num=?, l_name=? where no=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		boolean subjectUpdateSucess = false;
+		boolean lessonUpdateSucess = false;
 
 		try {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, s_num);
-			pstmt.setString(2, s_name);
+			pstmt.setString(1, l_num);
+			pstmt.setString(2, l_name);
 			pstmt.setInt(3, no);
 
 			int i = pstmt.executeUpdate();
@@ -208,18 +209,18 @@ public class SubjectDAO {
 			if (i == 1) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("학과 수정");
-				alert.setHeaderText(s_name + " 학과 수정 완료.");
-				alert.setContentText("학과 수정 성공!!!");
+				alert.setTitle("과목 수정");
+				alert.setHeaderText(l_name + " 과목 수정 완료.");
+				alert.setContentText("과목 수정 성공!!!");
 				alert.showAndWait();
-				subjectUpdateSucess = true;
+				lessonUpdateSucess = true;
 
 			} else {
 
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("학과 수정");
-				alert.setHeaderText("학과 수정 실패");
-				alert.setContentText("학과 수정 실패!");
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("과목 수정");
+				alert.setHeaderText("과목 수정 실패");
+				alert.setContentText("과목 수정 실패!");
 				alert.showAndWait();
 			}
 
@@ -247,69 +248,18 @@ public class SubjectDAO {
 			}
 		}
 
-		return subjectUpdateSucess;
+		return lessonUpdateSucess;
 	}
 
-	// 학과 번호
-	public String getSubjectNum(String s_name) throws Exception {
-
-		String sql = "select s_num from subject where s_name = ?";
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String s_num = "";
-
-		try {
-
-			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, s_name);
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-
-				s_num = rs.getString("s_num");
-			}
-
-		} catch (SQLException se) {
-
-			System.out.println(se);
-
-		} catch (Exception e) {
-
-			System.out.println(e);
-
-		} finally {
-
-			try {
-
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
-				if (rs != null)
-					rs.close();
-
-				if (pstmt != null)
-					pstmt.close();
-
-				if (con != null)
-					con.close();
-
-			} catch (SQLException se) {
-
-			}
-		}
-
-		return s_num;
-	}
-
-	// 학과 삭제
-	public boolean getSubjectDelete(int no) throws Exception {
+	// 과목 삭제
+	public boolean getLessonDelete(int no) throws Exception {
 
 		StringBuffer sql = new StringBuffer();
-		sql.append("delete from subject where no = ?");
+		sql.append("delete from lesson where no = ?");
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		boolean subjectDeleteSucess = false;
+		boolean lessonDeleteSucess = false;
 
 		try {
 
@@ -322,18 +272,18 @@ public class SubjectDAO {
 			if (i == 1) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("학과 삭제");
-				alert.setHeaderText("학과 삭제 완료.");
-				alert.setContentText("학과 삭제 성공!!!");
+				alert.setTitle("과목 삭제");
+				alert.setHeaderText("과목 삭제 완료.");
+				alert.setContentText("과목 삭제 성공!!!");
 				alert.showAndWait();
-				subjectDeleteSucess = true;
+				lessonDeleteSucess = true;
 
 			} else {
 
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("학과 삭제");
-				alert.setHeaderText("학과 삭제 실패");
-				alert.setContentText("학과 삭제 실패!");
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("과목 삭제");
+				alert.setHeaderText("과목 삭제 실패");
+				alert.setContentText("과목 삭제 실패!");
 				alert.showAndWait();
 			}
 
@@ -361,7 +311,7 @@ public class SubjectDAO {
 			}
 		}
 
-		return subjectDeleteSucess;
+		return lessonDeleteSucess;
 	}
 
 }

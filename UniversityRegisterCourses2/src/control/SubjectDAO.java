@@ -13,9 +13,8 @@ import model.SubjectVO;
 
 public class SubjectDAO {
 
-	// í•™ê³¼ ëª©ë¡
+	// ÇĞ°ú ¸ñ·Ï
 	public ArrayList<SubjectVO> getSubjectTotalList() throws Exception {
-
 		ArrayList<SubjectVO> list = new ArrayList<>();
 
 		String sql = "select * from subject order by no";
@@ -29,9 +28,7 @@ public class SubjectDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
-
 				sVo = new SubjectVO();
 				sVo.setNo(rs.getInt("no"));
 				sVo.setS_num(rs.getString("s_num"));
@@ -41,40 +38,27 @@ public class SubjectDAO {
 			}
 
 		} catch (SQLException se) {
-
 			System.out.println(se);
-
 		} catch (Exception e) {
-
 			System.out.println(e);
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
 				if (rs != null)
 					rs.close();
-
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException se) {
-
 			}
 		}
-
 		return list;
 	}
 
-	// í•™ê³¼ ë“±ë¡
+	// ÇĞ°ú µî·Ï
 	public void getSubjectRegiste(SubjectVO svo) throws Exception {
 
 		String sql = "insert into subject " + "(no, s_num, s_name)" + " values " + "(subject_seq.nextval, ?, ?)";
-
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -88,106 +72,73 @@ public class SubjectDAO {
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
-
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("í•™ê³¼ ë“±ë¡");
-				alert.setHeaderText(svo.getS_name() + " í•™ê³¼ ë“±ë¡ ì™„ë£Œ.");
-				alert.setContentText("í•™ê³¼ ë“±ë¡ ì„±ê³µ!!!");
+				alert.setTitle("ÇĞ°ú µî·Ï");
+				alert.setHeaderText(svo.getS_name() + " ÇĞ°ú µî·Ï ¿Ï·á.");
+				alert.setContentText("ÇĞ°ú µî·Ï ¼º°ø!!!");
 				alert.showAndWait();
-
 			} else {
-
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("í•™ê³¼ ë“±ë¡");
-				alert.setHeaderText("í•™ê³¼ ë“±ë¡ ì‹¤íŒ¨");
-				alert.setContentText("í•™ê³¼ ë“±ë¡ ì‹¤íŒ¨!");
+				alert.setTitle("ÇĞ°ú µî·Ï");
+				alert.setHeaderText("ÇĞ°ú µî·Ï ½ÇÆĞ.");
+				alert.setContentText("ÇĞ°ú µî·Ï ½ÇÆĞ!!!");
 				alert.showAndWait();
 			}
 
 		} catch (SQLException e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} catch (Exception e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
+				// µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException e) {
-
 			}
 		}
-
 	}
 
-	// ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ í•™ê³¼ í…Œì´ë¸”ì˜ ì»¬ëŸ¼ì˜ ê°¯ìˆ˜
+	// µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ ÇĞ°ú Å×ÀÌºíÀÇ ÄÃ·³ÀÇ °¹¼ö
 	public ArrayList<String> getSubjectColumnName() throws Exception {
-
 		ArrayList<String> columnName = new ArrayList<String>();
 
 		String sql = "select * from subject";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		// ResultSetMetaData ê°ì²´ ë³€ìˆ˜ ì„ ì–¸
+		// ResultSetMetaData °´Ã¼ º¯¼ö ¼±¾ğ
 		ResultSetMetaData rsmd = null;
-
 		try {
-
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			rsmd = rs.getMetaData();
 			int cols = rsmd.getColumnCount();
-
 			for (int i = 1; i <= cols; i++) {
-
 				columnName.add(rsmd.getColumnName(i));
-
 			}
-
 		} catch (SQLException se) {
-
 			System.out.println(se);
-
 		} catch (Exception e) {
-
 			System.out.println(e);
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
 				if (rs != null)
 					rs.close();
-
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException se) {
-
 			}
 		}
-
 		return columnName;
-
 	}
 
-	// í•™ê³¼ ìˆ˜ì •
+	// ÇĞ°ú ¼öÁ¤
 	public boolean getSubjectUpdate(int no, String s_num, String s_name) throws Exception {
 
 		String sql = "update subject set s_num=?, s_name=? where no=?";
@@ -196,7 +147,6 @@ public class SubjectDAO {
 		boolean subjectUpdateSucess = false;
 
 		try {
-
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, s_num);
@@ -206,57 +156,44 @@ public class SubjectDAO {
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
-
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("í•™ê³¼ ìˆ˜ì •");
-				alert.setHeaderText(s_name + " í•™ê³¼ ìˆ˜ì • ì™„ë£Œ.");
-				alert.setContentText("í•™ê³¼ ìˆ˜ì • ì„±ê³µ!!!");
+				alert.setTitle("ÇĞ°ú ¼öÁ¤");
+				alert.setHeaderText(s_name + " ÇĞ°ú ¼öÁ¤ ¿Ï·á.");
+				alert.setContentText("ÇĞ°ú ¼öÁ¤ ¼º°ø!!!");
 				alert.showAndWait();
 				subjectUpdateSucess = true;
-
 			} else {
-
 				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("í•™ê³¼ ìˆ˜ì •");
-				alert.setHeaderText("í•™ê³¼ ìˆ˜ì • ì‹¤íŒ¨");
-				alert.setContentText("í•™ê³¼ ìˆ˜ì • ì‹¤íŒ¨!");
+				alert.setTitle("ÇĞ°ú ¼öÁ¤");
+				alert.setHeaderText("ÇĞ°ú ¼öÁ¤ ½ÇÆĞ.");
+				alert.setContentText("ÇĞ°ú ¼öÁ¤ ½ÇÆĞ!!!");
 				alert.showAndWait();
 			}
-
 		} catch (SQLException e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} catch (Exception e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
+				// µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException e) {
-
 			}
 		}
-
 		return subjectUpdateSucess;
 	}
 
-	// í•™ê³¼ ë²ˆí˜¸
+	// ÇĞ°ú ¹øÈ£
 	public String getSubjectNum(String s_name) throws Exception {
 
 		String sql = "select s_num from subject where s_name = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		String s_num = "";
 
 		try {
@@ -264,44 +201,31 @@ public class SubjectDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, s_name);
+			
 			rs = pstmt.executeQuery();
-
 			if (rs.next()) {
-
 				s_num = rs.getString("s_num");
 			}
-
+			
 		} catch (SQLException se) {
-
 			System.out.println(se);
-
 		} catch (Exception e) {
-
 			System.out.println(e);
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
 				if (rs != null)
 					rs.close();
-
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException se) {
-
 			}
 		}
-
 		return s_num;
 	}
 
-	// í•™ê³¼ ì‚­ì œ
+	// ÇĞ°ú »èÁ¦
 	public boolean getSubjectDelete(int no) throws Exception {
 
 		StringBuffer sql = new StringBuffer();
@@ -312,56 +236,41 @@ public class SubjectDAO {
 		boolean subjectDeleteSucess = false;
 
 		try {
-
 			con = DBUtil.getConnection();
+
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, no);
 
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
-
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("í•™ê³¼ ì‚­ì œ");
-				alert.setHeaderText("í•™ê³¼ ì‚­ì œ ì™„ë£Œ.");
-				alert.setContentText("í•™ê³¼ ì‚­ì œ ì„±ê³µ!!!");
+				alert.setTitle("ÇĞ°ú »èÁ¦");
+				alert.setHeaderText("ÇĞ°ú »èÁ¦ ¿Ï·á.");
+				alert.setContentText("ÇĞ°ú »èÁ¦ ¼º°ø!!!");
 				alert.showAndWait();
 				subjectDeleteSucess = true;
-
 			} else {
-
 				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("í•™ê³¼ ì‚­ì œ");
-				alert.setHeaderText("í•™ê³¼ ì‚­ì œ ì‹¤íŒ¨");
-				alert.setContentText("í•™ê³¼ ì‚­ì œ ì‹¤íŒ¨!");
+				alert.setTitle("ÇĞ°ú »èÁ¦");
+				alert.setHeaderText("ÇĞ°ú »èÁ¦ ½ÇÆĞ.");
+				alert.setContentText("ÇĞ°ú »èÁ¦ ½ÇÆĞ!!!");
 				alert.showAndWait();
 			}
-
 		} catch (SQLException e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} catch (Exception e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
+				// ¨ì µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException e) {
-
 			}
 		}
-
 		return subjectDeleteSucess;
 	}
-
 }

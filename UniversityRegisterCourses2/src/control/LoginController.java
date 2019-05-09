@@ -4,26 +4,29 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.fxml.Initializable;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
 
 public class LoginController implements Initializable {
 
@@ -49,201 +52,204 @@ public class LoginController implements Initializable {
 	private Label lblIconImg;
 	@FXML
 	private ImageView iconImg;
-	public static String managerName = "";
+
+	public static String managerName ="";
 	public static String studentId = "";
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		txtId.setOnKeyPressed(event -> handlerTxtIdKeyPressed(event)); // ì•„ì´ë”” ì…ë ¥ì—ì„œ Enter í‚¤ ì´ë²¤íŠ¸ ì ìš©
-		txtPassword.setOnKeyPressed(event -> handlerTxtPasswordKeyPressed(event)); // íŒ¨ìŠ¤ì›Œë“œ ì…ë ¥ì—ì„œ Enterí‚¤ ì´ë²¤íŠ¸ ì ìš©
-
-		btnJoin.setOnAction(event -> handlerBtnJoinAction(event));
-		btnLogin.setOnAction(event -> handlerBtnLoginAction(event));
-		btnCancel.setOnAction(event -> handlerBtnCancelAction(event));
-		rbManager.setOnAction(event -> handlerRbManagerAction(event));
-		rbStudent.setOnAction(event -> handlerRbStudentAction(event));
+		
+		txtId.setOnKeyPressed(event -> handerTxtIdKeyPressed(event)); // ¾ÆÀÌµğ ÀÔ·Â¿¡¼­ EnterÅ° ÀÌº¥Æ® Àû¿ë
+		txtPassword.setOnKeyPressed(event -> handerTxtPasswordKeyPressed(event)); // ÆĞ½º¿öµå ÀÔ·Â¿¡¼­ EnterÅ° ÀÌº¥Æ® Àû¿ë
+		btnJoin.setOnAction(event -> handerBtnJoinAction(event)); // °ü¸®ÀÚ µî·ÏÃ¢À¸·Î ÀüÈ¯
+		btnLogin.setOnAction(event -> handlerBtnLoginActoion(event)); // ·Î±×ÀÎ
+		btnCancel.setOnAction(event -> handlerBtnCancelActoion(event)); // ·Î±×ÀÎÃ¢ ´İ±â
+		rbManager.setOnAction(event -> handlerRbManagerActoion(event));
+		rbStudent.setOnAction(event -> handlerRbStudentActoion(event));
 
 	}
 
-	// í•™ìƒ ë¼ë””ì˜¤ ë²„íŠ¼ ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬
-	public void handlerRbStudentAction(ActionEvent event) {
+	// ÇĞ»ı ¶óµğ¿À ¹öÆ° ÀÌº¥Æ® ÇÚµé·¯
+	public void handlerRbStudentActoion(ActionEvent event) {
 		URL srtImg = getClass().getResource("../image/student.png");
 		Image image = new Image(srtImg.toString());
 		iconImg.setImage(image);
-		lblLogin.setText("í•™ìƒ ë¡œê·¸ì¸");
+		lblLogin.setText("ÇĞ»ı ·Î±×ÀÎ");
 		btnJoin.setDisable(true);
-		btnLogin.setText("í•™ìƒ ë¡œê·¸ì¸");
+		btnLogin.setText("ÇĞ»ı ·Î±×ÀÎ");
 	}
 
-	// ê´€ë¦¬ì ë¼ë””ì˜¤ ë²„íŠ¼ ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬
-	public void handlerRbManagerAction(ActionEvent event) {
+	// °ü¸®ÀÚ ¶óµğ¿À ¹öÆ° ÀÌº¥Æ® ÇÚµé·¯
+	public void handlerRbManagerActoion(ActionEvent event) {
 		URL srtImg = getClass().getResource("../image/manager.png");
 		Image image = new Image(srtImg.toString());
 		iconImg.setImage(image);
-		lblLogin.setText("ê´€ë¦¬ì ë¡œê·¸ì¸");
+		lblLogin.setText("°ü¸®ÀÚ ·Î±×ÀÎ");
 		btnJoin.setDisable(false);
-		btnLogin.setText("ê´€ë¦¬ì ë¡œê·¸ì¸");
+		btnLogin.setText("°ü¸®ÀÚ ·Î±×ÀÎ");
 	}
 
-	// ì•„ì´ë”” ì…ë ¥ì—ì„œ Enter í‚¤ ì´ë²¤íŠ¸ ì ìš©
-	public void handlerTxtIdKeyPressed(KeyEvent event) {
+	// ¾ÆÀÌµğ ÀÔ·Â¿¡¼­ EnterÅ° ÀÌº¥Æ® Àû¿ë
+	public void handerTxtIdKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			txtPassword.requestFocus();
 		}
 	}
 
-	// íŒ¨ìŠ¤ì›Œë“œ ì…ë ¥ì—ì„œ Enter í‚¤ ì´ë²¤íŠ¸ ì ìš©
-	public void handlerTxtPasswordKeyPressed(KeyEvent event) {
-
+	// ÆĞ½º¿öµå ÀÔ·Â¿¡¼­ EnterÅ° ÀÌº¥Æ® Àû¿ë
+	public void handerTxtPasswordKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			login();
 		}
 	}
 
-	// ê´€ë¦¬ì ë“±ë¡ì°½ìœ¼ë¡œ ì „í™˜
-	public void handlerBtnJoinAction(ActionEvent event) {
+	// °ü¸®ÀÚ µî·ÏÃ¢À¸·Î ÀüÈ¯
+	public void handerBtnJoinAction(ActionEvent event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/join.fxml"));
 			Parent mainView = (Parent) loader.load();
-			Scene scene = new Scene(mainView);
+			Scene scane = new Scene(mainView);
 			Stage mainMtage = new Stage();
-			mainMtage.setTitle("ê´€ë¦¬ì ë“±ë¡");
-			mainMtage.setScene(scene);
+			mainMtage.setTitle("°ü¸®ÀÚ µî·Ï");
+			mainMtage.setScene(scane);
 			Stage oldStage = (Stage) btnLogin.getScene().getWindow();
 			oldStage.close();
 			mainMtage.show();
 		} catch (IOException e) {
-			System.err.println("ì˜¤ë¥˜" + e);
+			// TODO Auto-generated catch block
+			System.err.println("¿À·ù" + e);
 		}
 	}
 
-	public void handlerBtnCancelAction(ActionEvent event) {
-
+	// ·Î±×ÀÎÃ¢ ´İ±â
+	public void handlerBtnCancelActoion(ActionEvent event) {
 		Platform.exit();
 	}
 
-	public void handlerBtnLoginAction(ActionEvent event) {
-
+	// ·Î±×ÀÎ
+	public void handlerBtnLoginActoion(ActionEvent event) {
 		login();
-
 	}
 
+	// ·Î±×ÀÎ ¸Ş¼Òµå
 	public void login() {
 		LoginDAO login = new LoginDAO();
 		StudentDAO sLogin = new StudentDAO();
+
 		boolean sucess = false;
+
 		try {
 			if ("manager".equals(loginGroup.getSelectedToggle().getUserData().toString())) {
 				managerName = managerLoginName();
 				sucess = login.getLogin(txtId.getText().trim(), txtPassword.getText().trim());
-				
-				// ë¡œê·¸ì¸ ì„±ê³µì‹œ ë©”ì¸ í˜ì´ì§€ë¡œ ì´ë™
+				// ·Î±×ÀÎ ¼º°ø½Ã ¸ŞÀÎ ÆäÀÌÁö·Î ÀÌµ¿
 				if (sucess) {
 					try {
 						FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/mainView.fxml"));
 						Parent mainView = (Parent) loader.load();
-						Scene scene = new Scene(mainView);
+						Scene scane = new Scene(mainView);
 						Stage mainMtage = new Stage();
-						mainMtage.setTitle("ë¯¸ë˜ ëŒ€í•™êµ í•™ì‚¬ê´€ë¦¬");
+						mainMtage.setTitle("¹Ì·¡ ´ëÇĞ±³ ÇĞ»ç°ü¸®");
 						mainMtage.setResizable(false);
-						mainMtage.setScene(scene);
+						mainMtage.setScene(scane);
 						Stage oldStage = (Stage) btnLogin.getScene().getWindow();
 						oldStage.close();
 						mainMtage.show();
-						
 					} catch (IOException e) {
-						
-						System.err.println("ì˜¤ë¥˜" + e);
+						// TODO Auto-generated catch block
+						System.err.println("¿À·ù" + e);
 					}
 				} else {
-					// ì•„ì´ë”” íŒ¨ìŠ¤ì›Œë“œ í™•ì¸ í•˜ë¼ëŠ” ì°½
+					// ¾ÆÀÌµğÆĞ½º¿öµå È®ÀÎÇÏ¶ó´Â Ã¢
 					Alert alert;
 					alert = new Alert(AlertType.WARNING);
-					alert.setTitle("ë¡œê·¸ì¸ ì‹¤íŒ¨");
-					alert.setHeaderText("ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ ë¶ˆì¼ì¹˜");
-					alert.setContentText("ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤." + "\n ë‹¤ì‹œ ì œëŒ€ë¡œ ì…ë ¥í•˜ì„¸ìš”.");
+					alert.setTitle("·Î±×ÀÎ ½ÇÆĞ");
+					alert.setHeaderText("¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡");
+					alert.setContentText("¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù." + "\n ´Ù½Ã Á¦´ë·Î ÀÔ·ÂÇÏ½Ã¿À.");
 					alert.setResizable(false);
 					alert.showAndWait();
+
 					txtId.clear();
 					txtPassword.clear();
 				}
-				
-			} else if ("student".equals(loginGroup.getSelectedToggle().getUserData().toString())) {
+
+			} else if("student".equals(loginGroup.getSelectedToggle().getUserData().toString())){
 				sucess = sLogin.getLogin(txtId.getText().trim(), txtPassword.getText().trim());
-				// ë¡œê·¸ì¸ ì„±ê³µì‹œ ë©”ì¸ í˜ì´ì§€ë¡œ ì´ë™
+				// ·Î±×ÀÎ ¼º°ø½Ã ¸ŞÀÎ ÆäÀÌÁö·Î ÀÌµ¿
 				if (sucess) {
 					try {
-						studentId = txtId.getText();
+						studentId= txtId.getText();
+						
 						FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/trainee.fxml"));
 						Parent mainView = (Parent) loader.load();
-						Scene scene = new Scene(mainView);
+						Scene scane = new Scene(mainView);
 						Stage mainMtage = new Stage();
-						mainMtage.setTitle("ë¯¸ë˜ ëŒ€í•™êµ í•™ì‚¬ê´€ë¦¬");
+						mainMtage.setTitle("¹Ì·¡ ´ëÇĞ±³ ÇĞ»ç°ü¸®");
 						mainMtage.setResizable(false);
-						mainMtage.setScene(scene);
+						mainMtage.setScene(scane);
 						Stage oldStage = (Stage) btnLogin.getScene().getWindow();
 						oldStage.close();
 						mainMtage.show();
-						
 					} catch (IOException e) {
-						
-						System.err.println("ì˜¤ë¥˜" + e);
-						
+						// TODO Auto-generated catch block
+						System.err.println("¿À·ù" + e);
 					}
-					
-					
 				} else {
-					// ì•„ì´ë”” íŒ¨ìŠ¤ì›Œë“œ í™•ì¸í•˜ë¼ëŠ” ì°½
+					// ¾ÆÀÌµğÆĞ½º¿öµå È®ÀÎÇÏ¶ó´Â Ã¢
 					Alert alert;
 					alert = new Alert(AlertType.WARNING);
-					alert.setTitle("ë¡œê·¸ì¸ ì‹¤íŒ¨");
-					alert.setHeaderText("ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ ë¶ˆì¼ì¹˜");
-					alert.setContentText("ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤." + "\n ë‹¤ì‹œ ì œëŒ€ë¡œ ì…ë ¥í•˜ì„¸ìš”.");
+					alert.setTitle("·Î±×ÀÎ ½ÇÆĞ");
+					alert.setHeaderText("¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡");
+					alert.setContentText("¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù." + "\n ´Ù½Ã Á¦´ë·Î ÀÔ·ÂÇÏ½Ã¿À.");
 					alert.setResizable(false);
 					alert.showAndWait();
+
 					txtId.clear();
 					txtPassword.clear();
-			
 				}
+
 			}
-			
 		} catch (Exception e1) {
-			
 			e1.printStackTrace();
-			
 		}
+
 		
 		if (txtId.getText().equals("") || txtPassword.getText().equals("")) {
 			Alert alert;
 			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("ë¡œê·¸ì¸ ì‹¤íŒ¨");
-			alert.setHeaderText("ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ ë¯¸ì…ë ¥");
-			alert.setContentText("ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ì¤‘ ì…ë ¥í•˜ì§€ ì•Šì€ í•­ëª©ì´ ìˆìŠµë‹ˆë‹¤." + "\n ë‹¤ì‹œ ì œëŒ€ë¡œ ì…ë ¥í•˜ì„¸ìš”.");
+			alert.setTitle("·Î±×ÀÎ ½ÇÆĞ");
+			alert.setHeaderText("¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£ ¹ÌÀÔ·Â");
+			alert.setContentText("¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£Áß ÀÔ·ÂÇÏÁö ¾ÊÀº Ç×¸ñÀÌ ÀÖ½À´Ï´Ù." + "\n ´Ù½Ã Á¦´ë·Î ÀÔ·ÂÇÏ½Ã¿À.");
 			alert.setResizable(false);
 			alert.showAndWait();
-			
 		}
+
+		
 	}
 
 	public String managerLoginName() {
 		LoginDAO ldao = new LoginDAO();
+
 		String name = null;
+
 		try {
 			name = ldao.getLoginName(txtId.getText());
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return name;
 	}
-
+	
 	public String studentLoginName() {
-		StudentDAO sDao = new StudentDAO();
+		StudentDAO sdao = new StudentDAO();
+
 		String name = null;
+
 		try {
-			name = sDao.getLoginName(txtId.getText());
-			
+			name = sdao.getLoginName(txtId.getText());
 		} catch (Exception e) {
-			
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return name;

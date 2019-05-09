@@ -4,21 +4,22 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import model.JoinVO;
+import javafx.fxml.Initializable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import model.JoinVO;
+import javafx.scene.control.PasswordField;
 
 public class JoinController implements Initializable {
+
 	@FXML
 	private TextField txtId;
 	@FXML
@@ -38,19 +39,17 @@ public class JoinController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
 		btnJoin.setDisable(true);
 		txtPassword.setEditable(false);
 		txtPasswordRepeat.setEditable(false);
 
-		btnOverlap.setOnAction(event -> handlerBtnOverlapAction(event));
-		btnJoin.setOnAction(event -> handlerBtnJoinAction(event));
-		btnCancel.setOnAction(event -> handlerBtnCancelAction(event));
-
-		// ì•„ì´ë”” ì¤‘ë³µ ê²€ì‚¬
+		btnOverlap.setOnAction(event -> handlerBtnOverlapActoion(event)); // ¾ÆÀÌµğ Áßº¹ °Ë»ç
+		btnJoin.setOnAction(event -> handlerBtnJoinActoion(event));   // °ü¸®ÀÚ µî·Ï
+		btnCancel.setOnAction(event -> handlerBtnCancelActoion(event));  // µî·ÏÃ¢ ´İ±â
 	}
 
-	public void handlerBtnOverlapAction(ActionEvent event) {
+	// ¾ÆÀÌµğ Áßº¹ °Ë»ç
+	public void handlerBtnOverlapActoion(ActionEvent event) {
 		btnJoin.setDisable(false);
 		btnOverlap.setDisable(true);
 
@@ -58,6 +57,7 @@ public class JoinController implements Initializable {
 
 		String searchId = "";
 		boolean searchResult = true;
+
 		try {
 			searchId = txtId.getText().trim();
 			jDao = new JoinDAO();
@@ -66,9 +66,9 @@ public class JoinController implements Initializable {
 			if (!searchResult && !searchId.equals("")) {
 				txtId.setDisable(true);
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("ì•„ì´ë”” ì¤‘ë³µ ê²€ì‚¬");
-				alert.setHeaderText(searchId + "ë¥¼ ì‚¬ìš©í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
-				alert.setContentText("íŒ¨ìŠ¤ì›Œë“œë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+				alert.setTitle("¾ÆÀÌµğ Áßº¹ °Ë»ç");
+				alert.setHeaderText(searchId + "¸¦ »ç¿ëÇÒ ¼ö ÀÖ½À´Ï´Ù.");
+				alert.setContentText("ÆĞ½º¾îµå¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
 				alert.showAndWait();
 
 				btnJoin.setDisable(false);
@@ -76,14 +76,14 @@ public class JoinController implements Initializable {
 				txtPassword.setEditable(true);
 				txtPasswordRepeat.setEditable(true);
 				txtPassword.requestFocus();
+
 			} else if (searchId.equals("")) {
 				btnJoin.setDisable(true);
 				btnOverlap.setDisable(false);
-
 				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("ì•„ì´ë”” ì¤‘ë³µ ê²€ì‚¬");
-				alert.setHeaderText("ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
-				alert.setContentText("ë“±ë¡í•  ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+				alert.setTitle("¾ÆÀÌµğ Áßº¹ °Ë»ö");
+				alert.setHeaderText("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ½Ã¿À.");
+				alert.setContentText("µî·ÏÇÒ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä!");
 				alert.showAndWait();
 			} else {
 				btnJoin.setDisable(true);
@@ -91,54 +91,56 @@ public class JoinController implements Initializable {
 				txtId.clear();
 
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("ì•„ì´ë”” ì¤‘ë³µ ê²€ì‚¬");
-				alert.setHeaderText(searchId + "ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
-				alert.setContentText("íŒ¨ìŠ¤ì›Œë“œë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
+				alert.setTitle("¾ÆÀÌµğ Áßº¹ °Ë»ç");
+				alert.setHeaderText(searchId + "¸¦ »ç¿ëÇÒ ¼ö ¾ø½À´Ï´Ù.");
+				alert.setContentText("¾ÆÀÌµğ¸¦ ´Ù¸¥°ÍÀ¸·Î ÀÔ·ÂÇÏ¼¼¿ä.");
 				alert.showAndWait();
+
 				txtId.requestFocus();
 			}
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("ì•„ì´ë”” ì¤‘ë³µ ê²€ì‚¬ ì˜¤ë¥˜");
-			alert.setHeaderText("ì•„ì´ë”” ì¤‘ë³µ ê²€ì‚¬ì— ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.");
-			alert.setContentText("ë‹¤ì‹œ í•˜ì„¸ìš”.");
+			alert.setTitle("¾ÆÀÌµğ Áßº¹ °Ë»ç ¿À·ù");
+			alert.setHeaderText("¾ÆÀÌµğ Áßº¹ °Ë»ç¿¡ ¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù.");
+			alert.setContentText("´Ù½Ã ÇÏ¼¼¿ä.");
 			alert.showAndWait();
 		}
 	}
 
-	// ë“±ë¡ì°½ ë‹«ê¸°
-	public void handlerBtnCancelAction(ActionEvent event) {
+	// µî·ÏÃ¢ ´İ±â
+	public void handlerBtnCancelActoion(ActionEvent event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
 			Parent mainView = (Parent) loader.load();
-			Scene scene = new Scene(mainView);
+			Scene scane = new Scene(mainView);
 			Stage mainMtage = new Stage();
-			mainMtage.setTitle("ê´€ë¦¬ì ë¡œê·¸ì¸");
-			mainMtage.setScene(scene);
+			mainMtage.setTitle("°ü¸®ÀÚ ·Î±×ÀÎ");
+			mainMtage.setScene(scane);
 			Stage oldStage = (Stage) btnJoin.getScene().getWindow();
 			oldStage.close();
 			mainMtage.show();
 		} catch (IOException e) {
-			System.err.println("ì˜¤ë¥˜" + e);
+			// TODO Auto-generated catch block
+			System.err.println("¿À·ù" + e);
 		}
 	}
 
-	// ê´€ë¦¬ì ë“±ë¡
-	public void handlerBtnJoinAction(ActionEvent event) {
+	// °ü¸®ÀÚ µî·Ï
+	public void handlerBtnJoinActoion(ActionEvent event) {
+
 		JoinVO jvo = null;
 		JoinDAO jdao = null;
 
 		boolean joinSucess = false;
 
-		// íŒ¨ìŠ¤ì›Œë“œ í™•ì¸
-		if (txtPassword.getText().trim().equals(txtPasswordRepeat.getText().trim())
-				&& !txtName.getText().trim().equals("")) {
+		// ÆĞ½º¿öµå È®ÀÎ
+		if (txtPassword.getText().trim().equals(txtPasswordRepeat.getText().trim()) && !txtName.getText().trim().equals("")) {
 			jvo = new JoinVO(txtId.getText().trim(), txtPassword.getText().trim(), txtName.getText().trim());
 			jdao = new JoinDAO();
 			try {
 				joinSucess = jdao.getManagerRegiste(jvo);
 				if (joinSucess) {
-					handlerBtnCancelAction(event);
+					handlerBtnCancelActoion(event);
 				}
 			} catch (Exception e1) {
 				e1.printStackTrace();
@@ -146,13 +148,11 @@ public class JoinController implements Initializable {
 		} else {
 			txtPassword.clear();
 			txtPasswordRepeat.clear();
-
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("íŒ¨ìŠ¤ì›Œë“œ, ì´ë¦„ í™•ì¸");
-			alert.setHeaderText("íŒ¨ìŠ¤ì›Œë“œ, ì´ë¦„ í™•ì¸ ê²€ì‚¬ì— ì˜¤ë¥˜ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤.");
-			alert.setContentText("íŒ¨ìŠ¤ì›Œë“œì™€ ì´ë¦„ì„ ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”.");
+			alert.setTitle("ÆĞ½º¿öµå, ÀÌ¸§ È®ÀÎ");
+			alert.setHeaderText("ÆĞ½º¿öµå, ÀÌ¸§ È®ÀÎ °Ë»ç¿¡ ¿À·ù°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù.");
+			alert.setContentText("ÆĞ½º¿öµå¿Í ÀÌ¸§À» ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä.");
 			alert.showAndWait();
 		}
 	}
-
 }

@@ -14,7 +14,7 @@ import model.SubjectVO;
 
 public class StudentDAO {
 
-	// ë¡œê·¸ì¸ í•™ìƒì´ë¦„
+	// ·Î±×ÀÎ ÇĞ»ıÀÌ¸§
 	public String getLoginName(String loginId) throws Exception {
 
 		String sql = "select sd_name from student where sd_id = ?";
@@ -24,49 +24,34 @@ public class StudentDAO {
 		String loginName = null;
 
 		try {
-
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, loginId);
 			rs = pstmt.executeQuery();
-
 			if (rs.next()) {
-
 				loginName = rs.getString(1);
-
 			}
 
 		} catch (SQLException e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} catch (Exception e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
+				// µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦
 				if (rs != null)
 					rs.close();
-
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException e) {
-				System.out.println(e);
 			}
 		}
-
 		return loginName;
 	}
 
-	// í•™ìƒ ë¡œê·¸ì¸
+	// ÇĞ»ı ·Î±×ÀÎ
 	public boolean getLogin(String loginId, String loginPassword) throws Exception {
 
 		String sql = "select * from student where sd_id = ? and sd_passwd = ?";
@@ -76,56 +61,40 @@ public class StudentDAO {
 		boolean loginResult = false;
 
 		try {
-
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, loginId);
 			pstmt.setString(2, loginPassword);
 			rs = pstmt.executeQuery();
-
 			if (rs.next()) {
-
-				loginResult = true; // ì•„ì´ë””ì™€ íŒ¨ìŠ¤ì›Œë“œê°€ ì¼ì¹˜í•œë‹¤.
-
+				loginResult = true; // ¾ÆÀÌµğ¿Í ÆĞ½º¿öµå°¡ ÀÏÄ¡ÇÑ´Ù.
 			}
-
 		} catch (SQLException e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} catch (Exception e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
+				// µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦
 				if (rs != null)
 					rs.close();
-
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException e) {
-				System.out.println(e);
 			}
 		}
-
 		return loginResult;
 	}
 
-	// í•™ìƒ ì „ì²´ ëª©ë¡
+	// ÇĞ»ı ÀüÃ¼ ¸ñ·Ï
 	public ArrayList<StudentVO> getStudentTotalList() throws Exception {
-
 		ArrayList<StudentVO> list = new ArrayList<>();
 
-		String sql = "select st.no as no, sd_num, sd_name, sd_id, sd_passwd, su.s_name as s_num, sd_birthday, sd_phone, sd_address, sd_email, sd_date "
+		String sql = "select st.no as no, sd_num, sd_name, sd_id, sd_passwd, su.s_name as s_num, sd_birthday, sd_phone, sd_address, sd_email, sd_date"
 				+ " from STUDENT st, SUBJECT su" + " where st.s_num = su.s_num" + " order by no";
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -136,9 +105,7 @@ public class StudentDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
-
 				sVo = new StudentVO();
 				sVo.setNo(rs.getInt("no"));
 				sVo.setSd_num(rs.getString("sd_num"));
@@ -156,88 +123,60 @@ public class StudentDAO {
 			}
 
 		} catch (SQLException se) {
-
 			System.out.println(se);
-
 		} catch (Exception e) {
-
 			System.out.println(e);
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
 				if (rs != null)
 					rs.close();
-
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException se) {
-
 			}
 		}
-
 		return list;
 	}
 
-	// ë™ì¼í•™ê³¼ í•™ìƒ ì¼ë ¨ë²ˆí˜¸
-	public String getStudentCount(String subjectNum) throws Exception {
+	// µ¿ÀÏ ÇĞ°ú ÇĞ»ı ÀÏ·Ã¹øÈ£
+	public String getStudentCount(String subejectNum) throws Exception {
 
-		String sql = "select LPAD(count(*) + 1, 4, '0') as studentCount from student where s_num = ?";
+		String sql = "select LPAD(count(*)+1, 4,'0') as studentCount from student where s_num = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+
 		String serialNumber = "";
 
 		try {
-
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, subjectNum);
+			pstmt.setString(1, subejectNum);
 			rs = pstmt.executeQuery();
-
 			if (rs.next()) {
-
 				serialNumber = rs.getString("studentCount");
-
 			}
-
 		} catch (SQLException se) {
-
 			System.out.println(se);
-
 		} catch (Exception e) {
-
 			System.out.println(e);
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
 				if (rs != null)
 					rs.close();
-
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException se) {
-
 			}
 		}
-
 		return serialNumber;
 	}
 
-	// í•™ìƒ ì•„ì´ë”” ì¤‘ë³µ ì²´í¬
+	// ÇĞ»ı ¾ÆÀÌµğ Áßº¹ Ã¼Å©
 	public boolean getStudentIdOverlap(String idOverlap) throws Exception {
 
 		String sql = "select * from student where sd_id = ?";
@@ -247,49 +186,34 @@ public class StudentDAO {
 		boolean idOverlapResult = false;
 
 		try {
-
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, idOverlap);
 			rs = pstmt.executeQuery();
-
 			if (rs.next()) {
-
-				idOverlapResult = true; // ì¤‘ë³µëœ ì•„ì´ë””ê°€ ìˆë‹¤.
-
+				idOverlapResult = true; // Áßº¹µÈ ¾ÆÀÌµğ°¡ ÀÖ´Ù.
 			}
 
 		} catch (SQLException e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} catch (Exception e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
+				// ¨ì µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦
 				if (rs != null)
 					rs.close();
-
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException e) {
-
 			}
 		}
-
 		return idOverlapResult;
 	}
 
-	// í•™ìƒ ë“±ë¡
+	// ÇĞ»ı µî·Ï
 	public void getStudentRegiste(StudentVO svo) throws Exception {
 
 		String sql = "insert into student values " + "(student_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
@@ -313,115 +237,82 @@ public class StudentDAO {
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
-
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("í•™ìƒ ë“±ë¡");
-				alert.setHeaderText(svo.getSd_name() + " í•™ìƒ ë“±ë¡ ì™„ë£Œ.");
-				alert.setContentText("í•™ìƒ ë“±ë¡ ì„±ê³µ!!!");
+				alert.setTitle("ÇĞ»ı µî·Ï");
+				alert.setHeaderText(svo.getSd_name() + " ÇĞ»ı µî·Ï ¿Ï·á.");
+				alert.setContentText("ÇĞ»ı µî·Ï ¼º°ø!!!");
 				alert.showAndWait();
-
 			} else {
-
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("í•™ìƒ ë“±ë¡");
-				alert.setHeaderText("í•™ìƒ ë“±ë¡ ì‹¤íŒ¨");
-				alert.setContentText("í•™ìƒ ë“±ë¡ ì‹¤íŒ¨!");
+				alert.setTitle("ÇĞ»ı µî·Ï");
+				alert.setHeaderText("ÇĞ»ı µî·Ï ½ÇÆĞ.");
+				alert.setContentText("ÇĞ»ı µî·Ï ½ÇÆĞ!!!");
 				alert.showAndWait();
 			}
 
 		} catch (SQLException e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} catch (Exception e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
+				// µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException e) {
-
 			}
 		}
-
 	}
 
-	// ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ í•™ìƒ í…Œì´ë¸”ì˜ ì»¬ëŸ¼ ê°¯ìˆ˜
-	public ArrayList<String> getStudentColumnName() throws Exception {
-
+	// µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ ÇĞ»ı Å×ÀÌºíÀÇ ÄÃ·³ÀÇ °¹¼ö
+	public ArrayList<String> getStudnetColumnName() throws Exception {
 		ArrayList<String> columnName = new ArrayList<String>();
 
 		String sql = "select * from student order by no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		// ResultSetMetaData ê°ì²´ ë³€ìˆ˜ ì„ ì–¸
+		// ResultSetMetaData °´Ã¼ º¯¼ö ¼±¾ğ
 		ResultSetMetaData rsmd = null;
-
 		try {
-
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			rsmd = rs.getMetaData();
-
 			int cols = rsmd.getColumnCount();
-
 			for (int i = 1; i <= cols; i++) {
-
 				columnName.add(rsmd.getColumnName(i));
 			}
-
 		} catch (SQLException se) {
-
 			System.out.println(se);
-
 		} catch (Exception e) {
-
 			System.out.println(e);
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
 				if (rs != null)
 					rs.close();
-
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException se) {
-
 			}
 		}
-
 		return columnName;
 	}
 
-// í•™ìƒ ì •ë³´ ìˆ˜ì •
+	// ÇĞ»ı Á¤º¸ ¼öÁ¤
 	public boolean getStudentUpdate(int no, String sd_passwd, String sd_birthday, String sd_phone, String sd_address,
 			String sd_email) throws Exception {
 
-		String sql = "update student set sd_passwd=?, sd_birthday=?, sd_phone=?, sd_address=?, sd_email=? where no=?";
+		String sql = "update student set sd_passwd=?, sd_birthday=?, sd_phone=?, sd_address=?, sd_email=?  where no=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean studentUpdateSucess = false;
 
 		try {
-
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, sd_passwd);
@@ -434,51 +325,37 @@ public class StudentDAO {
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
-
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("í•™ìƒì •ë³´ ìˆ˜ì •");
-				alert.setHeaderText(no + " í•™ìƒì •ë³´ ìˆ˜ì • ì™„ë£Œ.");
-				alert.setContentText("í•™ìƒì •ë³´ ìˆ˜ì • ì„±ê³µ!!!");
+				alert.setTitle("ÇĞ»ı Á¤º¸ ¼öÁ¤");
+				alert.setHeaderText(no + " ÇĞ»ı Á¤º¸ ¼öÁ¤ ¿Ï·á.");
+				alert.setContentText("ÇĞ»ı Á¤º¸ ¼öÁ¤ ¼º°ø!!!");
 				alert.showAndWait();
 				studentUpdateSucess = true;
-
 			} else {
-
 				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("í•™ìƒì •ë³´ ìˆ˜ì •");
-				alert.setHeaderText("í•™ìƒì •ë³´ ìˆ˜ì • ì‹¤íŒ¨");
-				alert.setContentText("í•™ìƒì •ë³´ ìˆ˜ì • ì‹¤íŒ¨!");
+				alert.setTitle("ÇĞ»ı Á¤º¸ ¼öÁ¤");
+				alert.setHeaderText("ÇĞ»ı Á¤º¸ ¼öÁ¤ ½ÇÆĞ.");
+				alert.setContentText("ÇĞ»ı Á¤º¸ ¼öÁ¤ ½ÇÆĞ!!!");
 				alert.showAndWait();
 			}
-
 		} catch (SQLException e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} catch (Exception e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
+				// µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException e) {
-
 			}
 		}
-
 		return studentUpdateSucess;
 	}
 
-	// í•™ìƒ ì •ë³´ ì‚­ì œ
+	// ÇĞ»ı Á¤º¸ »èÁ¦
 	public boolean getStudentDelete(int no) throws Exception {
 
 		StringBuffer sql = new StringBuffer();
@@ -489,61 +366,46 @@ public class StudentDAO {
 		boolean studentDeleteSucess = false;
 
 		try {
-
 			con = DBUtil.getConnection();
+
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, no);
 
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
-
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("í•™ìƒì •ë³´ ì‚­ì œ");
-				alert.setHeaderText(no + "í•™ìƒì •ë³´ ì‚­ì œ ì™„ë£Œ.");
-				alert.setContentText("í•™ìƒì •ë³´ ì‚­ì œ ì„±ê³µ!!!");
+				alert.setTitle("ÇĞ»ı Á¤º¸ »èÁ¦");
+				alert.setHeaderText("ÇĞ»ı Á¤º¸ »èÁ¦ ¿Ï·á.");
+				alert.setContentText("ÇĞ»ı Á¤º¸ »èÁ¦ ¼º°ø!!!");
 				alert.showAndWait();
 				studentDeleteSucess = true;
-
 			} else {
-
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("í•™ìƒì •ë³´ ì‚­ì œ");
-				alert.setHeaderText("í•™ìƒì •ë³´ ì‚­ì œ ì‹¤íŒ¨");
-				alert.setContentText("í•™ìƒì •ë³´ ì‚­ì œ ì‹¤íŒ¨!");
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("ÇĞ»ı Á¤º¸ »èÁ¦");
+				alert.setHeaderText("ÇĞ»ı Á¤º¸ »èÁ¦ ½ÇÆĞ.");
+				alert.setContentText("ÇĞ»ı Á¤º¸ »èÁ¦ ½ÇÆĞ!!!");
 				alert.showAndWait();
 			}
-
 		} catch (SQLException e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} catch (Exception e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
+				// ¨ì µ¥ÀÌÅÍº£ÀÌ½º¿ÍÀÇ ¿¬°á¿¡ »ç¿ëµÇ¾ú´ø ¿ÀºêÁ§Æ®¸¦ ÇØÁ¦
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException e) {
-				System.out.println(e);
 			}
 		}
-
 		return studentDeleteSucess;
 	}
 
-	// í•™ê³¼ ëª©ë¡
+	// ÇĞ°ú ¸ñ·Ï
 	public ArrayList<SubjectVO> subjectTotalList() throws Exception {
-
 		ArrayList<SubjectVO> list = new ArrayList<>();
 
 		String sql = "select s_name from subject order by no";
@@ -557,9 +419,7 @@ public class StudentDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
-
 				sVo = new SubjectVO();
 				sVo.setS_name(rs.getString("s_name"));
 
@@ -567,32 +427,20 @@ public class StudentDAO {
 			}
 
 		} catch (SQLException se) {
-
 			System.out.println(se);
-
 		} catch (Exception e) {
-
 			System.out.println(e);
-
 		} finally {
-
 			try {
-
-				// ë°ì´í„°ë² ì´ìŠ¤ì™€ì˜ ì—°ê²°ì— ì‚¬ìš©ë˜ì—ˆë˜ ì˜¤ë¸Œì íŠ¸ë¥¼ í•´ì œí•œë‹¤.
 				if (rs != null)
 					rs.close();
-
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
 			} catch (SQLException se) {
-
 			}
 		}
-
 		return list;
 	}
 

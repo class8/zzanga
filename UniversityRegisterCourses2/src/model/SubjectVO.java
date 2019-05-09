@@ -6,12 +6,10 @@ public class SubjectVO {
 	private String s_num;
 	private String s_name;
 
-	// 디폴트 생성자
 	public SubjectVO() {
 		super();
 	}
 
-	// 모든 생성자
 	public SubjectVO(int no, String s_num, String s_name) {
 		super();
 		this.no = no;
@@ -19,14 +17,12 @@ public class SubjectVO {
 		this.s_name = s_name;
 	}
 
-	// s_num, s_name 생성자
 	public SubjectVO(String s_num, String s_name) {
 		super();
 		this.s_num = s_num;
 		this.s_name = s_name;
 	}
 
-	// 접근자와 설정자 생성
 	public int getNo() {
 		return no;
 	}
@@ -53,8 +49,7 @@ public class SubjectVO {
 
 	@Override
 	public String toString() {
-		// return "학과명 : " + getS_name() + ", 학과 번호 : " + getS_num();
+		//return "�а��� : " + getS_name() + ", �а� ��ȣ : " + getS_num();
 		return getS_name();
 	}
-
 }
