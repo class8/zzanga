@@ -59,7 +59,7 @@ public class StudentDAO {
 					con.close();
 
 			} catch (SQLException e) {
-
+				System.out.println(e);
 			}
 		}
 
@@ -112,7 +112,7 @@ public class StudentDAO {
 					con.close();
 
 			} catch (SQLException e) {
-
+				System.out.println(e);
 			}
 		}
 
@@ -124,7 +124,7 @@ public class StudentDAO {
 
 		ArrayList<StudentVO> list = new ArrayList<>();
 
-		String sql = "select st.no as no, sd_num, sd_name, sd_id, sd_passwd, su.s_name as s_num, sd_birthday, sd_phone, sd_address, sd_email, sd_date"
+		String sql = "select st.no as no, sd_num, sd_name, sd_id, sd_passwd, su.s_name as s_num, sd_birthday, sd_phone, sd_address, sd_email, sd_date "
 				+ " from STUDENT st, SUBJECT su" + " where st.s_num = su.s_num" + " order by no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -507,7 +507,7 @@ public class StudentDAO {
 
 			} else {
 
-				Alert alert = new Alert(AlertType.INFORMATION);
+				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("학생정보 삭제");
 				alert.setHeaderText("학생정보 삭제 실패");
 				alert.setContentText("학생정보 삭제 실패!");
@@ -534,7 +534,7 @@ public class StudentDAO {
 					con.close();
 
 			} catch (SQLException e) {
-
+				System.out.println(e);
 			}
 		}
 
