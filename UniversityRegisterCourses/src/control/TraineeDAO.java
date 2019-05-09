@@ -49,9 +49,7 @@ public class TraineeDAO {
 			System.out.println(e);
 
 		} finally {
-
 			try {
-
 				if (rs != null)
 					rs.close();
 
@@ -60,7 +58,6 @@ public class TraineeDAO {
 
 				if (con != null)
 					con.close();
-
 			} catch (SQLException se) {
 
 			}
