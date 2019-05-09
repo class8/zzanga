@@ -27,7 +27,7 @@
 							<items>
 								<MenuItem text="로그아웃" fx:id="menuLogout">
 								</MenuItem>
-								<MenuItem text="종료" fx:id="enuExit">
+								<MenuItem text="종료" fx:id="menuExit">
 								</MenuItem>
 							</items>
 						</Menu>

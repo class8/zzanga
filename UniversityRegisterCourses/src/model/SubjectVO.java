@@ -6,12 +6,12 @@ public class SubjectVO {
 	private String s_num;
 	private String s_name;
 
-	// 디폴트 생성자 
+	// 디폴트 생성자
 	public SubjectVO() {
 		super();
 	}
 
-	// 모든 생성자 
+	// 모든 생성자
 	public SubjectVO(int no, String s_num, String s_name) {
 		super();
 		this.no = no;
@@ -19,7 +19,7 @@ public class SubjectVO {
 		this.s_name = s_name;
 	}
 
-	// s_num, s_name 생성자 
+	// s_num, s_name 생성자
 	public SubjectVO(String s_num, String s_name) {
 		super();
 		this.s_num = s_num;
@@ -49,6 +49,12 @@ public class SubjectVO {
 
 	public void setS_name(String s_name) {
 		this.s_name = s_name;
+	}
+
+	@Override
+	public String toString() {
+		// return "학과명 : " + getS_name() + ", 학과 번호 : " + getS_num();
+		return getS_name();
 	}
 
 }
