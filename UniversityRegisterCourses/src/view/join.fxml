@@ -39,7 +39,7 @@
 
 			<HBox alignment="CENTER">
 				<Label text="관리자 이름 : " />
-				<PasswordField fx:id="txtName" />
+				<TextField fx:id="txtName" />
 			</HBox>
 
 			<HBox alignment="CENTER">

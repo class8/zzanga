@@ -38,6 +38,7 @@ public class JoinController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
 		btnJoin.setDisable(true);
 		txtPassword.setEditable(false);
 		txtPasswordRepeat.setEditable(false);

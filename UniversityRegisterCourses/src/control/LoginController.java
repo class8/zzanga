@@ -24,7 +24,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import model.StudentVO;
 
 public class LoginController implements Initializable {
 
@@ -95,9 +94,9 @@ public class LoginController implements Initializable {
 
 	// 패스워드 입력에서 Enter 키 이벤트 적용
 	public void handlerTxtPasswordKeyPressed(KeyEvent event) {
-		
+
 		if (event.getCode() == KeyCode.ENTER) {
-			
+
 			login();
 		}
 	}
@@ -120,11 +119,14 @@ public class LoginController implements Initializable {
 	}
 
 	public void handlerBtnCancelAction(ActionEvent event) {
+
 		Platform.exit();
 	}
 
 	public void handlerBtnLoginAction(ActionEvent event) {
+
 		login();
+
 	}
 
 	public void login() {
