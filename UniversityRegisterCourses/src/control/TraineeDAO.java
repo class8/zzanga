@@ -374,9 +374,8 @@ public class TraineeDAO {
 
 		ArrayList<TraineeVO> list = new ArrayList<>();
 
-		String sql = "select tr.no as no, tr.sd_num, le.l_name as l_num, st.sd_name as sd_name, t_section, t_date "
-				+ "from trainee tr, lesson le , student st"
-				+ "where tr.l_num = le.l_num and tr.sd_num = st.sd_num order by t_date";
+		String sql = "select tr.no as no, tr.sd_num, le.l_name as l_num, st.sd_name as sd_name, t_section, t_date " + "from trainee tr, lesson le, student st " + 
+				"where tr.l_num = le.l_num and tr.sd_num = st.sd_num order by t_date";
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
