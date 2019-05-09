@@ -46,7 +46,7 @@ public class LoginController implements Initializable {
 	@FXML
 	private RadioButton rbStudent;
 	@FXML
-	private Label lblconImg;
+	private Label lblIconImg;
 	@FXML
 	private ImageView iconImg;
 	public static String managerName = "";
@@ -96,7 +96,6 @@ public class LoginController implements Initializable {
 	public void handlerTxtPasswordKeyPressed(KeyEvent event) {
 
 		if (event.getCode() == KeyCode.ENTER) {
-
 			login();
 		}
 	}

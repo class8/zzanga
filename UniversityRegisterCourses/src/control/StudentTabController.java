@@ -68,7 +68,6 @@ public class StudentTabController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
 			// 학생 등록 초기화
-			btnStudentInsert.setDisable(true);
 			btnStudentInit.setDisable(true);
 			btnStudentUpdate.setDisable(true);
 			studentTableView.setEditable(false);
@@ -135,7 +134,7 @@ public class StudentTabController implements Initializable {
 			colStudentDate.setCellValueFactory(new PropertyValueFactory<>("sd_date"));
 
 			studentTableView.setItems(studentDataList);
-			
+
 			studentTableView.getColumns().addAll(colStudentNo, colStudentNum, colStudentName, colStudentId,
 					colStudentPassword, colSubjectNum, colStudentBirthday, colStudentPhone, colStudentAddress,
 					colStudentEmail, colStudentDate);
@@ -163,7 +162,7 @@ public class StudentTabController implements Initializable {
 		StudentDAO sDao = new StudentDAO();
 		ArrayList subjectNameList = new ArrayList<>();
 		subjectNameList = sDao.subjectTotalList();
-		
+
 		// 학생 등록 탭 학과 번호 콤보 값 설정
 		cbx_subjectName.setItems(FXCollections.observableArrayList(subjectNameList));
 	}
@@ -217,12 +216,12 @@ public class StudentTabController implements Initializable {
 		btnIdCheck.setDisable(true);
 
 		StudentDAO sDao = null;
-		
+
 		String searchId = "";
 		boolean searchResult = true;
-		
+
 		try {
-			
+
 			searchId = txtsd_id.getText().trim();
 			sDao = new StudentDAO();
 			searchResult = (boolean) sDao.getStudentIdOverlap(searchId);
@@ -246,9 +245,9 @@ public class StudentTabController implements Initializable {
 				alert.setHeaderText("아이디를 입력하세요.");
 				alert.setContentText("등록할 아이디를 입력하세요.");
 				alert.showAndWait();
-				
+
 			} else {
-				
+
 				btnStudentInsert.setDisable(true);
 				btnIdCheck.setDisable(false);
 				txtsd_id.clear();
@@ -261,7 +260,7 @@ public class StudentTabController implements Initializable {
 
 				txtsd_id.requestFocus();
 			}
-			
+
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("아이디 중복 검사 오류");
