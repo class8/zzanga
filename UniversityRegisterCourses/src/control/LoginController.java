@@ -136,6 +136,7 @@ public class LoginController implements Initializable {
 			if ("manager".equals(loginGroup.getSelectedToggle().getUserData().toString())) {
 				managerName = managerLoginName();
 				sucess = login.getLogin(txtId.getText().trim(), txtPassword.getText().trim());
+				
 				// 로그인 성공시 메인 페이지로 이동
 				if (sucess) {
 					try {
@@ -149,7 +150,9 @@ public class LoginController implements Initializable {
 						Stage oldStage = (Stage) btnLogin.getScene().getWindow();
 						oldStage.close();
 						mainMtage.show();
+						
 					} catch (IOException e) {
+						
 						System.err.println("오류" + e);
 					}
 				} else {
@@ -164,6 +167,7 @@ public class LoginController implements Initializable {
 					txtId.clear();
 					txtPassword.clear();
 				}
+				
 			} else if ("student".equals(loginGroup.getSelectedToggle().getUserData().toString())) {
 				sucess = sLogin.getLogin(txtId.getText().trim(), txtPassword.getText().trim());
 				// 로그인 성공시 메인 페이지로 이동
@@ -180,9 +184,14 @@ public class LoginController implements Initializable {
 						Stage oldStage = (Stage) btnLogin.getScene().getWindow();
 						oldStage.close();
 						mainMtage.show();
+						
 					} catch (IOException e) {
+						
 						System.err.println("오류" + e);
+						
 					}
+					
+					
 				} else {
 					// 아이디 패스워드 확인하라는 창
 					Alert alert;
@@ -194,11 +203,16 @@ public class LoginController implements Initializable {
 					alert.showAndWait();
 					txtId.clear();
 					txtPassword.clear();
+			
 				}
 			}
+			
 		} catch (Exception e1) {
+			
 			e1.printStackTrace();
+			
 		}
+		
 		if (txtId.getText().equals("") || txtPassword.getText().equals("")) {
 			Alert alert;
 			alert = new Alert(AlertType.WARNING);
@@ -207,6 +221,7 @@ public class LoginController implements Initializable {
 			alert.setContentText("아이디와 비밀번호중 입력하지 않은 항목이 있습니다." + "\n 다시 제대로 입력하세요.");
 			alert.setResizable(false);
 			alert.showAndWait();
+			
 		}
 	}
 
@@ -222,11 +237,13 @@ public class LoginController implements Initializable {
 	}
 
 	public String studentLoginName() {
-		StudentDAO sdao = new StudentDAO();
+		StudentDAO sDao = new StudentDAO();
 		String name = null;
 		try {
-			name = sdao.getLoginName(txtId.getText());
+			name = sDao.getLoginName(txtId.getText());
+			
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
 		return name;
