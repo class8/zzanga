@@ -111,7 +111,7 @@ public class TraineeController implements Initializable {
 				TableColumn colLNum = new TableColumn("과목명");
 				colLNum.setPrefWidth(100);
 				colLNum.setStyle("-fx-alignment:CENTER");
-				colLNum.setCellValueFactory(new PropertyValueFactory<>("sd_num"));
+				colLNum.setCellValueFactory(new PropertyValueFactory<>("l_num"));
 
 				TableColumn colTSection = new TableColumn("과목 구분");
 				colLNum.setPrefWidth(100);
