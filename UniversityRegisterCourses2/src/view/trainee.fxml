@@ -66,14 +66,14 @@
 								<Label text="학 과 명 : " layoutX="50.0" layoutY="122.0" />
 								<TextField fx:id="txtSubjectName" layoutX="115.0"
 									layoutY="120.0" />
-
+									
 								<Label text="수강 과목 선택 " layoutX="50.0" layoutY="172.0" />
 								<fx:define>
 									<ToggleGroup fx:id="sectionGroup" />
 								</fx:define>
 								<RadioButton fx:id="rbMajor" userData="major"
-									text="전공" toggleGroup="$sectionGroup" layoutX="50.0"
-									layoutY="190.0" />
+									text="전공" toggleGroup="$sectionGroup"
+									layoutX="50.0" layoutY="190.0" />
 								<RadioButton fx:id="rbMinor" userData="minor"
 									text="부전공" toggleGroup="$sectionGroup" layoutX="110.0"
 									layoutY="190.0" />
@@ -83,8 +83,8 @@
 
 								<ComboBox fx:id="cbx_subjectName" layoutX="50.0"
 									layoutY="220.0" promptText="선택" />
-								<TextField fx:id="txtSectionName" layoutX="170.0"
-									promptText="수강 과목 선택" layoutY="220.0" prefWidth="100" />
+								<TextField fx:id="txtSectionName" layoutX="170.0" promptText="수강 과목 선택"
+									layoutY="220.0" prefWidth="100" />
 
 								<Button fx:id="btnTraineeInsert" layoutX="50.0"
 									layoutY="290.0" text="수강 신청" />
