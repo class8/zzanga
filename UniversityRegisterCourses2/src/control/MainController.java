@@ -24,7 +24,7 @@ import control.TraineeTotalTabController;
 import javafx.application.Platform;
 
 public class MainController implements Initializable {
-	
+
 	@FXML
 	private TabPane mainPane;
 	@FXML
@@ -51,35 +51,34 @@ public class MainController implements Initializable {
 	private MenuItem menuLogout;
 	@FXML
 	private MenuItem menuInfo;
-	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			
+
 			mainPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 				@Override
 				public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-					if(newValue == subject) {
+					if (newValue == subject) {
 						System.out.println("학과");
 						try {
 							subjectTabController.subjectTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					}else if(newValue == student) {
+					} else if (newValue == student) {
 						try {
 							studentTabController.studentTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					}else if(newValue == lesson) {
+					} else if (newValue == lesson) {
 						try {
 							lessonTabController.lessonTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
-						}	
-					}else if(newValue == traineeTotal) {
+						}
+					} else if (newValue == traineeTotal) {
 						try {
 							traineeTotalTabController.traineeTotalList();
 						} catch (Exception e) {
@@ -135,7 +134,7 @@ public class MainController implements Initializable {
 		alert.setContentText("확인 버튼을 클릭하면 미래 대학교 수강신청 프로그램 종료합니다.");
 		alert.setResizable(false);
 		alert.showAndWait();
-		
+
 		Platform.exit();
 	}
 
