@@ -1,26 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-	prefHeight="500" prefWidth="1000">
-	<children>
-		<Label text="고객 정보 관리" layoutX="10.0" layoutY="15.0"
-			scaleShape="" />
-		<TextField prefWidth="150.0" promptText="찾으려는 고객명"
-			layoutX="10.0" layoutY="40.0" />
-		<Button text="검  색" layoutX="160.0" layoutY="40.0" />
-		<Button text="등  록" layoutX="780.0" layoutY="30.0" />
-		<Button text="수  정" layoutX="850.0" layoutY="30.0" />
-		<Button text="삭  제" layoutX="920.0" layoutY="30.0" />
+	prefHeight="300" prefWidth="1200">
+	<HBox>
+		<children>
+			<VBox>
+				<padding>
+					<Insets top="10" right="10" bottom="10" left="10" />
+				</padding>
+				<spacing>10</spacing>
+				<children>
 
-		<TableView layoutX="10.0" layoutY="70.0" prefWidth="980.0"
-			prefHeight="380.0" />
-	</children>
+					<HBox alignment="CENTER"> 		   				<!-- HBox 컨테이너 선언 -->
+						<children>				<!-- 자식 컨트롤 추가 -->
+							<Label text="고객 정보" />
+						</children>
+					</HBox>
+
+					<HBox alignment="CENTER">
+						<spacing>10</spacing>
+						<children>				<!-- 자식 컨트롤 추가 -->
+							<Label text="고객번호 : " prefWidth="75" alignment="CENTER" />
+							<TextField prefWidth="220" promptText="고객번호" />
+						</children>
+					</HBox>
+
+					<HBox>
+						<spacing>10</spacing>
+						<children>				<!-- 자식 컨트롤 추가 -->
+							<Label text="고객명 : " prefWidth="75" alignment="CENTER" />
+							<TextField prefWidth="220" promptText="고객명" />
+						</children>
+					</HBox>
+
+					<HBox>
+						<spacing>10</spacing>
+						<children>				<!-- 자식 컨트롤 추가 -->
+							<Label text="업체명 : " prefWidth="75" alignment="CENTER" />
+							<TextField prefWidth="220" promptText="업체명" />
+						</children>
+					</HBox>
+
+					<HBox>
+						<spacing>10</spacing>
+						<children>				<!-- 자식 컨트롤 추가 -->
+							<Label text="연락처 : " prefWidth="75" alignment="CENTER" />
+							<TextField prefWidth="220" promptText="연락처" />
+						</children>
+					</HBox>
+
+					<HBox>
+						<spacing>10</spacing>
+						<children>				<!-- 자식 컨트롤 추가 -->
+							<Label text="주 소 : " prefWidth="75" alignment="CENTER" />
+							<TextField prefWidth="220" promptText="주 소" />
+						</children>
+					</HBox>
+
+					<HBox>
+						<spacing>10</spacing>
+						<children>				<!-- 자식 컨트롤 추가 -->
+							<Label text="사업자번호 : " prefWidth="75" alignment="CENTER" />
+							<TextField prefWidth="220" promptText="사업자번호" />
+						</children>
+					</HBox>
+
+					<HBox>
+						<spacing>10</spacing>
+						<children>				<!-- 자식 컨트롤 추가 -->
+							<Label text="이메일 : " prefWidth="75" alignment="CENTER" />
+							<TextField prefWidth="220" promptText="이메일" />
+						</children>
+					</HBox>
+
+					<HBox>
+						<spacing>10</spacing>
+						<children>				<!-- 자식 컨트롤 추가 -->
+							<Label text="비 고 : " prefWidth="75" alignment="CENTER" />
+							<TextArea prefWidth="220" prefHeight="50"
+								promptText="비 고" />
+						</children>
+					</HBox>
+
+					<HBox>
+						<spacing>5</spacing>
+						<children>				<!-- 자식 컨트롤 추가 -->
+							<Label text="---------------------------------------" />
+						</children>
+					</HBox>
+
+					<HBox alignment="center">
+						<spacing>10</spacing>
+						<children>				<!-- 자식 컨트롤 추가 -->
+							<Button>등 록</Button>
+							<Button>초기화</Button>
+							<Button>수 정</Button>
+						</children>
+					</HBox>
+					<HBox alignment="center">
+						<spacing>20</spacing>
+						<children>				<!-- 자식 컨트롤 추가 -->
+							<Button>삭 제</Button>
+							<Button>종 료</Button>
+						</children>
+					</HBox>
+
+
+				</children>
+			</VBox>
+		</children>
+		<VBox>
+			<padding>
+				<Insets top="10" right="10" bottom="10" left="10" />
+			</padding>
+			<spacing>10</spacing>
+			<children>
+				<HBox>
+					<Label text="고객 정보 관리" />
+				</HBox>
+				<HBox alignment="CENTER_LEFT">
+					<TextField prefWidth="150.0" promptText="찾으려는 고객명" />
+					<Button text="검  색" />
+				</HBox>
+				<HBox>
+					<TableView prefWidth="850.0" prefHeight="450.0" />
+				</HBox>
+			</children>
+		</VBox>
+	</HBox>
 </AnchorPane>
 

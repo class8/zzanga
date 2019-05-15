@@ -1,8 +1,201 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.beans.*?>
+<?import javafx.collections.ObservableList?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Button?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+	prefHeight="300" prefWidth="1200">
+	<HBox>
+		<children>
+			<VBox>
+				<padding>
+					<Insets top="10" right="10" bottom="10" left="10" />
+				</padding>
+				<spacing>10</spacing>
+				<HBox alignment="CENTER"> 		   				<!-- HBox 컨테이너 선언 -->
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="거래 정보" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="거래번호 : " />
+						<TextField prefWidth="80" promptText="거래번호" />
+						<Label text="제품코드 : " />
+						<TextField prefWidth="110" promptText="제품코드" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="고객번호 : " />
+						<TextField prefWidth="92" promptText="고객번호" />
+						<Label text="고객명 : " />
+						<TextField prefWidth="110" promptText="고객명" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="총 수량 : " />
+						<TextField prefWidth="92" promptText="총 수량" />
+						<Label text="총 가격 : " />
+						<TextField prefWidth="102" promptText="총 가격" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="선 금 : " />
+						<TextField prefWidth="100" promptText="선 금" />
+						<Label text="위약금 : " />
+						<TextField prefWidth="102" promptText="위약금" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="잔 금 : " />
+						<TextField prefWidth="100" promptText="잔 금" />
+						<Label text="수령액 : " />
+						<TextField prefWidth="102" promptText="수령액" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="미납금 : " />
+						<TextField prefWidth="100" promptText="미납금" />
+						<Label text="거래상태: " />
+						<TextField prefWidth="102" promptText="거래상태" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="연락처 : " />
+						<TextField prefWidth="92" promptText="연락처" />
+						<Label text="거래일 : " />
+						<DatePicker prefWidth="130"></DatePicker>
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="배달주소 : " />
+						<TextField prefWidth="230" promptText="배달주소" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="비 고 : " />
+						<TextArea prefWidth="270" prefHeight="50"
+							promptText="비 고" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="---------------------------------------" />
+					</children>
+				</HBox>
+
+				<HBox alignment="center">
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Button>등 록</Button>
+						<Button>초기화</Button>
+						<Button>수 정</Button>
+					</children>
+				</HBox>
+				<HBox alignment="center">
+					<spacing>20</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Button>삭 제</Button>
+						<Button>종 료</Button>
+					</children>
+				</HBox>
+			</VBox>
+		</children>
+
+		<VBox>
+			<padding>
+				<Insets top="10" right="10" bottom="10" left="10" />
+			</padding>
+			<spacing>10</spacing>
+
+			<HBox>
+				<Label text="거래 내역" />
+			</HBox>
+
+			<HBox>
+				<HBox>
+					<DatePicker prefWidth="110"></DatePicker>
+					<Label text="~" />
+					<DatePicker prefWidth="110"></DatePicker>
+				</HBox>
+
+				<HBox>
+					<padding>
+						<Insets left="60" />
+					</padding>
+					<TextField promptText="제품명" />
+					<Button text="검색" />
+				</HBox>
+
+				<HBox>
+					<padding>
+						<Insets left="60" />
+					</padding>
+					<ComboBox promptText="거래상태"></ComboBox>
+					<Button text="변 경" />
+				</HBox>
+
+				<HBox>
+					<padding>
+						<Insets left="60" />
+					</padding>
+					<Button text="주문 등록" />
+				</HBox>
+
+			</HBox>
+
+			<HBox>
+				<TableView prefWidth="850.0" prefHeight="450.0" />
+			</HBox>
+
+		</VBox>
+
+	</HBox>
+
 </AnchorPane>
+
 
