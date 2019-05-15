@@ -54,23 +54,29 @@
 				<Tab text="고객 정보" fx:id="customer">
 					<content>
 						<fx:include fx:id="customerInfo"
-							source="CustomerInfo.fxml" />
+							source="customerInfo.fxml" />
 					</content>
 				</Tab>
 				<Tab text="거래처정보" fx:id="account">
 					<content>
 						<fx:include fx:id="accountInfo"
-							source="AccountInfo.fxml" />
+							source="accountInfo.fxml" />
 					</content>
 				</Tab>
 				<Tab text="원단 정보" fx:id="fabric">
 					<content>
-						<fx:include fx:id="fabricInfo" source="FabricInfo.fxml" />
+						<fx:include fx:id="fabricInfo" source="fabricInfo.fxml" />
 					</content>
 				</Tab>
-				<Tab text="주문 정보" fx:id="orderInfo">
+				<Tab text="거래 내역" fx:id="tradeInfo">
 					<content>
-						<fx:include fx:id="orderInfo" source="OrderInfo.fxml" />
+						<fx:include fx:id="tradeInfo" source="tradeInfo.fxml" />
+					</content>
+				</Tab>
+				
+				<Tab text="주문 내역" fx:id="orderInfo">
+					<content>
+						<fx:include fx:id="orderInfo" source="orderInfo.fxml" />
 					</content>
 				</Tab>
 			</tabs>
