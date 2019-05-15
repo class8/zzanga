@@ -37,19 +37,20 @@
 				<HBox>
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Label text="제품코드 : " />
-						<TextField prefWidth="80" promptText="제품코드" />
-						<Label text="종 류 : " />
+						<Label text="제품코드 : " prefWidth="60"/>
+						<TextField prefWidth="110" promptText="제품코드" />
+						<Label text="종    류: " prefWidth="50"/>
 						<TextField prefWidth="110" promptText="종 류" />
 					</children>
 				</HBox>
 
 				<HBox>
+				
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Label text="제품명 : " />
-						<TextField prefWidth="92" promptText="제품명" />
-						<Label text="색 상 : " />
+						<Label text="제품명 : " prefWidth="60"/>
+						<TextField prefWidth="110" promptText="제품명" />
+						<Label text="색상 : " prefWidth="50" />
 						<TextField prefWidth="110" promptText="색 상" />
 					</children>
 				</HBox>
@@ -57,9 +58,9 @@
 				<HBox>
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Label text="사이즈 : " />
-						<TextField prefWidth="92" promptText="사이즈" />
-						<Label text="중 량 : " />
+						<Label text="사이즈 : " prefWidth="60" />
+						<TextField prefWidth="110" promptText="사이즈" />
+						<Label text="중량 : " prefWidth="50" />
 						<TextField prefWidth="110" promptText="중 량" />
 					</children>
 				</HBox>
@@ -67,45 +68,45 @@
 				<HBox>
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Label text="원산지 : " />
-						<TextField prefWidth="92" promptText="원산지" />
-						<Label text="제조사 : " />
-						<TextField prefWidth="102" promptText="제조사" />
+						<Label text="원산지 : " prefWidth="60"/>
+						<TextField prefWidth="110" promptText="원산지" />
+						<Label text="제조사 : " prefWidth="50"/>
+						<TextField prefWidth="110" promptText="제조사" />
 					</children>
 				</HBox>
 
 				<HBox>
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Label text="가 격 : " />
-						<TextField prefWidth="100" promptText="가 격" />
-						<Label text="연락처 : " />
-						<TextField prefWidth="102" promptText="담당자연락처" />
+						<Label text="가격 : " prefWidth="60" />
+						<TextField prefWidth="110" promptText="가 격" />
+						<Label text="연락처 : " prefWidth="50"/>
+						<TextField prefWidth="110" promptText="담당자연락처" />
 					</children>
 				</HBox>
 
 				<HBox>
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Label text="소 재 : " />
-						<TextField prefWidth="270" promptText="소 재" />
+						<Label text="소재 : " prefWidth="60"/>
+						<TextField prefWidth="290" promptText="소 재" />
 					</children>
 				</HBox>
 
 				<HBox>
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Label text="특 징 : " />
-						<TextField prefWidth="270" promptText="특 징" />
+						<Label text="특징 : " prefWidth="60"/>
+						<TextField prefWidth="290" promptText="특 징" />
 					</children>
 				</HBox>
 
 				<HBox>
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Label text="비 고 : " />
-						<TextArea prefWidth="270" prefHeight="50"
-							promptText="비 고" />
+						<Label text="비고 : " prefWidth="60" />
+						<TextArea prefWidth="290" prefHeight="50"
+							promptText="비고" />
 					</children>
 				</HBox>
 
