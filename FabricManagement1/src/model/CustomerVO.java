@@ -2,7 +2,7 @@ package model;
 
 public class CustomerVO {
 
-	private int c_no; // 고객번호
+	private int c_number; // 고객번호
 	private String c_name; // 고객명
 	private String c_cname; // 업체명
 	private String c_phone; // 연락처
@@ -15,6 +15,21 @@ public class CustomerVO {
 	// 디폴트 생성자
 	public CustomerVO() {
 		super();
+	}
+
+	// 모든 생성자
+	public CustomerVO(int c_number, String c_name, String c_cname, String c_phone, String c_bnumber, String c_address,
+			String c_email, String c_remarks, String c_registdate) {
+		super();
+		this.c_number = c_number;
+		this.c_name = c_name;
+		this.c_cname = c_cname;
+		this.c_phone = c_phone;
+		this.c_bnumber = c_bnumber;
+		this.c_address = c_address;
+		this.c_email = c_email;
+		this.c_remarks = c_remarks;
+		this.c_registdate = c_registdate;
 	}
 
 	// 고객번호와 등록일을 제외한 모든 생성자
@@ -30,28 +45,13 @@ public class CustomerVO {
 		this.c_remarks = c_remarks;
 	}
 
-	// 모든 생성자
-	public CustomerVO(int c_no, String c_name, String c_cname, String c_phone, String c_bnumber, String c_address,
-			String c_email, String c_remarks, String c_registdate) {
-		super();
-		this.c_no = c_no;
-		this.c_name = c_name;
-		this.c_cname = c_cname;
-		this.c_phone = c_phone;
-		this.c_bnumber = c_bnumber;
-		this.c_address = c_address;
-		this.c_email = c_email;
-		this.c_remarks = c_remarks;
-		this.c_registdate = c_registdate;
-	}
-
 	// 접근자와 설정자 생성
-	public int getC_no() {
-		return c_no;
+	public int getC_number() {
+		return c_number;
 	}
 
-	public void setC_no(int c_no) {
-		this.c_no = c_no;
+	public void setC_number(int c_no) {
+		this.c_number = c_no;
 	}
 
 	public String getC_name() {
