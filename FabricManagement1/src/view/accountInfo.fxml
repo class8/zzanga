@@ -25,7 +25,8 @@
 <?import javafx.scene.control.TextArea?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-	prefHeight="300" prefWidth="1200">
+	prefHeight="300" prefWidth="1200"
+	fx:controller="control.AccountController">
 	<HBox>
 		<children>
 			<VBox>
@@ -132,7 +133,7 @@
 					<HBox alignment="center">
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
-							<Button fx:id="a_btnRegiste">등 록</Button>
+							<Button fx:id="a_btnRegist">등 록</Button>
 							<Button fx:id="a_btnInit">초기화</Button>
 							<Button fx:id="a_btnUpdate">수 정</Button>
 						</children>
@@ -166,7 +167,8 @@
 				</HBox>
 
 				<HBox>
-					<TableView prefWidth="850.0" prefHeight="450.0" />
+					<TableView fx:id="a_tableView" prefWidth="850.0"
+						prefHeight="450.0" />
 				</HBox>
 			</children>
 		</VBox>
