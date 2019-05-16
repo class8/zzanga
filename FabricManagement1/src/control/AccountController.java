@@ -22,11 +22,13 @@ public class AccountController implements Initializable {
 	TextField a_txtPhone;
 	@FXML
 	TextField a_txtEmail;
-
+	@FXML
+	TextField 
 	
 	
 
-
+	@FXML
+	Button a_btn
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
