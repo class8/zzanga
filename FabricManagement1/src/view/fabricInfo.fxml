@@ -38,9 +38,9 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="제품코드 : " prefWidth="60"/>
-						<TextField prefWidth="110" promptText="제품코드" />
+						<TextField fx:id="f_txtNumber" prefWidth="110" promptText="제품코드" />
 						<Label text="종    류: " prefWidth="50"/>
-						<TextField prefWidth="110" promptText="종 류" />
+						<TextField fx:id="f_txtSort" prefWidth="110" promptText="종 류" />
 					</children>
 				</HBox>
 
@@ -49,9 +49,9 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="제품명 : " prefWidth="60"/>
-						<TextField prefWidth="110" promptText="제품명" />
+						<TextField fx:id="f_txtname" prefWidth="110" promptText="제품명" />
 						<Label text="색상 : " prefWidth="50" />
-						<TextField prefWidth="110" promptText="색 상" />
+						<TextField fx:id="f_txtColor" prefWidth="110" promptText="색 상" />
 					</children>
 				</HBox>
 
@@ -59,9 +59,9 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="사이즈 : " prefWidth="60" />
-						<TextField prefWidth="110" promptText="사이즈" />
+						<TextField fx:id="f_txtSize" prefWidth="110" promptText="사이즈" />
 						<Label text="중량 : " prefWidth="50" />
-						<TextField prefWidth="110" promptText="중 량" />
+						<TextField fx:id="f_txtWeight" prefWidth="110" promptText="중 량" />
 					</children>
 				</HBox>
 
@@ -69,9 +69,9 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="원산지 : " prefWidth="60"/>
-						<TextField prefWidth="110" promptText="원산지" />
+						<TextField fx:id="f_txtOrigin" prefWidth="110" promptText="원산지" />
 						<Label text="제조사 : " prefWidth="50"/>
-						<TextField prefWidth="110" promptText="제조사" />
+						<TextField fx:id="f_txtCname" prefWidth="110" promptText="제조사" />
 					</children>
 				</HBox>
 
@@ -79,9 +79,9 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="가격 : " prefWidth="60" />
-						<TextField prefWidth="110" promptText="가 격" />
+						<TextField fx:id="f_txtprice" prefWidth="110" promptText="가 격" />
 						<Label text="연락처 : " prefWidth="50"/>
-						<TextField prefWidth="110" promptText="담당자연락처" />
+						<TextField fx:id="f_txtPhone" prefWidth="110" promptText="담당자연락처" />
 					</children>
 				</HBox>
 
@@ -89,7 +89,7 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="소재 : " prefWidth="60"/>
-						<TextField prefWidth="290" promptText="소 재" />
+						<TextField fx:id="f_txtMaterial" prefWidth="290" promptText="소 재" />
 					</children>
 				</HBox>
 
@@ -97,7 +97,7 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="특징 : " prefWidth="60"/>
-						<TextField prefWidth="290" promptText="특 징" />
+						<TextField fx:id="f_txtTrait" prefWidth="290" promptText="특 징" />
 					</children>
 				</HBox>
 
@@ -105,7 +105,7 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="비고 : " prefWidth="60" />
-						<TextArea prefWidth="290" prefHeight="50"
+						<TextArea fx:id="f_txtRemarks" prefWidth="290" prefHeight="50"
 							promptText="비고" />
 					</children>
 				</HBox>
@@ -129,16 +129,16 @@
 				<HBox alignment="center">
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Button>등 록</Button>
-						<Button>초기화</Button>
-						<Button>수 정</Button>
+						<Button fx:id="f_btnRegist" >등 록</Button>
+						<Button fx:id="f_btnInit" >초기화</Button>
+						<Button fx:id="f_btnUpdate" >수 정</Button>
 					</children>
 				</HBox>
 				<HBox alignment="center">
 					<spacing>20</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Button>삭 제</Button>
-						<Button>종 료</Button>
+						<Button fx:id="f_btnDelete" >삭 제</Button>
+						<Button fx:id="f_btnExit" >종 료</Button>
 					</children>
 				</HBox>
 			</VBox>
@@ -157,15 +157,15 @@
 			<HBox>
 
 				<HBox>
-					<TextField promptText="제품명" />
-					<Button text="검색" />
+					<TextField fx:id="f_txtSearch" promptText="제품명" />
+					<Button fx:id="f_btnSearch" text="검색" />
 				</HBox>
 
 				<HBox>
 					<padding>
 						<Insets left="600" />
 					</padding>
-					<Button text="거래등록" />
+					<Button fx:id="f_btnTrade" text="거래등록" />
 				</HBox>
 
 			</HBox>

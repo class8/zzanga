@@ -45,7 +45,8 @@
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="거래처번호 : " prefWidth="75" alignment="CENTER" />
-							<TextField prefWidth="220" promptText="거래처번호" />
+							<TextField fx:id="a_txtNumber" prefWidth="220"
+								promptText="거래처번호" />
 						</children>
 					</HBox>
 
@@ -53,7 +54,8 @@
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="거래처명 : " prefWidth="75" alignment="CENTER" />
-							<TextField prefWidth="220" promptText="거래처명" />
+							<TextField fx:id="a_txtCname" prefWidth="220"
+								promptText="거래처명" />
 						</children>
 					</HBox>
 
@@ -61,7 +63,8 @@
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="담당자명 : " prefWidth="75" alignment="CENTER" />
-							<TextField prefWidth="220" promptText="담당자명" />
+							<TextField fx:id="a_txtMname" prefWidth="220"
+								promptText="담당자명" />
 						</children>
 					</HBox>
 
@@ -69,7 +72,8 @@
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="연락처 : " prefWidth="75" alignment="CENTER" />
-							<TextField prefWidth="220" promptText="연락처" />
+							<TextField fx:id="a_txtPhone" prefWidth="220"
+								promptText="연락처" />
 						</children>
 					</HBox>
 
@@ -77,7 +81,8 @@
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="이메일 : " prefWidth="75" alignment="CENTER" />
-							<TextField prefWidth="220" promptText="이메일" />
+							<TextField fx:id="a_txtEmail" prefWidth="220"
+								promptText="이메일" />
 						</children>
 					</HBox>
 
@@ -85,7 +90,8 @@
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="주 소 : " prefWidth="75" alignment="CENTER" />
-							<TextField prefWidth="220" promptText="주 소" />
+							<TextField fx:id="a_txtAddress" prefWidth="220"
+								promptText="주 소" />
 						</children>
 					</HBox>
 
@@ -93,7 +99,8 @@
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="사업자번호 : " prefWidth="75" alignment="CENTER" />
-							<TextField prefWidth="220" promptText="사업자번호" />
+							<TextField fx:id="a_txtBnumber" prefWidth="220"
+								promptText="사업자번호" />
 						</children>
 					</HBox>
 
@@ -101,7 +108,8 @@
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="주종목 : " prefWidth="75" alignment="CENTER" />
-							<TextField prefWidth="220" promptText="주종목" />
+							<TextField fx:id="a_txtMsubject" prefWidth="220"
+								promptText="주종목" />
 						</children>
 					</HBox>
 
@@ -109,8 +117,8 @@
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="비 고 : " prefWidth="75" alignment="CENTER" />
-							<TextArea prefWidth="220" prefHeight="50"
-								promptText="비 고" />
+							<TextArea fx:id="a_txtRemarks" prefWidth="220"
+								prefHeight="50" promptText="비 고" />
 						</children>
 					</HBox>
 
@@ -124,16 +132,16 @@
 					<HBox alignment="center">
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
-							<Button>등 록</Button>
-							<Button>초기화</Button>
-							<Button>수 정</Button>
+							<Button fx:id="a_btnRegiste">등 록</Button>
+							<Button fx:id="a_btnInit">초기화</Button>
+							<Button fx:id="a_btnUpdate">수 정</Button>
 						</children>
 					</HBox>
 					<HBox alignment="center">
 						<spacing>20</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
-							<Button>삭 제</Button>
-							<Button>종 료</Button>
+							<Button fx:id="a_btnDelete">삭 제</Button>
+							<Button fx:id="a_btnExit">종 료</Button>
 						</children>
 					</HBox>
 
@@ -152,9 +160,11 @@
 					<Label text="거래처 정보 관리" />
 				</HBox>
 				<HBox alignment="CENTER_LEFT">
-					<TextField prefWidth="150.0" promptText="찾으려는 거래처명" />
-					<Button text="검  색" />
+					<TextField fx:id="a_txtSearch" prefWidth="150.0"
+						promptText="찾으려는 거래처명" />
+					<Button fx:id="a_btnSearch" text="검  색" />
 				</HBox>
+
 				<HBox>
 					<TableView prefWidth="850.0" prefHeight="450.0" />
 				</HBox>
