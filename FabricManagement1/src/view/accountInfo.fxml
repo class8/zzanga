@@ -25,7 +25,8 @@
 <?import javafx.scene.control.TextArea?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-	prefHeight="300" prefWidth="1200">
+	prefHeight="300" prefWidth="1200"
+	fx:controller="control.AccountController">
 	<HBox>
 		<children>
 			<VBox>

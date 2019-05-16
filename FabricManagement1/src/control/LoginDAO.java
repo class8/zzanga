@@ -10,7 +10,7 @@ public class LoginDAO {
 	// 아이디 중복 체크
 	public boolean getLogin(String loginId, String loginPassword) throws Exception {
 
-		String sql = "select * from account where id = ? and password = ?";
+		String sql = "select * from administrator where id = ? and password = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

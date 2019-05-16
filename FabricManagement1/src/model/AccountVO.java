@@ -13,41 +13,10 @@ public class AccountVO {
 	private String a_remarks; // 비고
 	private String a_registdate; // 등록일
 
-	// 디폴트 생성자
 	public AccountVO() {
 		super();
 	}
 
-	// 거래처번호와 등록일을 제외한 모든 생성자
-	public AccountVO(String a_cname, String a_mname, String a_phone, String a_email, String a_bnumber,
-			String a_msubject, String a_address, String a_remarks) {
-		super();
-		this.a_cname = a_cname;
-		this.a_mname = a_mname;
-		this.a_phone = a_phone;
-		this.a_email = a_email;
-		this.a_bnumber = a_bnumber;
-		this.a_msubject = a_msubject;
-		this.a_address = a_address;
-		this.a_remarks = a_remarks;
-	}
-
-	// 등록일만 빠진 생성자
-	public AccountVO(int a_number, String a_cname, String a_mname, String a_phone, String a_email, String a_bnumber,
-			String a_msubject, String a_address, String a_remarks) {
-		super();
-		this.a_number = a_number;
-		this.a_cname = a_cname;
-		this.a_mname = a_mname;
-		this.a_phone = a_phone;
-		this.a_email = a_email;
-		this.a_bnumber = a_bnumber;
-		this.a_msubject = a_msubject;
-		this.a_address = a_address;
-		this.a_remarks = a_remarks;
-	}
-
-	// 모든 생성자
 	public AccountVO(int a_number, String a_cname, String a_mname, String a_phone, String a_email, String a_bnumber,
 			String a_msubject, String a_address, String a_remarks, String a_registdate) {
 		super();
@@ -63,7 +32,33 @@ public class AccountVO {
 		this.a_registdate = a_registdate;
 	}
 
-	// 접근자와 설정자 생성
+	public AccountVO(String a_cname, String a_mname, String a_phone, String a_email, String a_bnumber,
+			String a_msubject, String a_address, String a_remarks) {
+		super();
+		this.a_cname = a_cname;
+		this.a_mname = a_mname;
+		this.a_phone = a_phone;
+		this.a_email = a_email;
+		this.a_bnumber = a_bnumber;
+		this.a_msubject = a_msubject;
+		this.a_address = a_address;
+		this.a_remarks = a_remarks;
+	}
+
+	public AccountVO(int a_number, String a_cname, String a_mname, String a_phone, String a_email, String a_bnumber,
+			String a_msubject, String a_address, String a_remarks) {
+		super();
+		this.a_number = a_number;
+		this.a_cname = a_cname;
+		this.a_mname = a_mname;
+		this.a_phone = a_phone;
+		this.a_email = a_email;
+		this.a_bnumber = a_bnumber;
+		this.a_msubject = a_msubject;
+		this.a_address = a_address;
+		this.a_remarks = a_remarks;
+	}
+
 	public int getA_number() {
 		return a_number;
 	}
