@@ -4,23 +4,21 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import control.LoginDAO;
+import javafx.fxml.Initializable;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
 
 public class LoginController implements Initializable {
 
@@ -29,19 +27,18 @@ public class LoginController implements Initializable {
 	@FXML
 	private PasswordField l_txtPassword;
 	@FXML
-	private Button l_btnLogin;
-	@FXML
 	private Button l_btnExit;
+	@FXML
+	private Button l_btnLogin;
 
-	public static String idName;
+	public static String Name;
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		l_txtId.setOnKeyPressed(event -> handerTxtIdKeyPressed(event)); // 아이디 입력에서 Enter키 이벤트 적용
 		l_txtPassword.setOnKeyPressed(event -> handerTxtPasswordKeyPressed(event)); // 패스워드 입력에서 Enter키 이벤트 적용
-		l_btnLogin.setOnAction(event -> handlerBtnLoginAction(event));
-		l_btnExit.setOnAction(event -> handlerBtnExitAction(event));
-
+		l_btnLogin.setOnAction(event -> handlerBtnLoginActoion(event)); // 로그인
+		l_btnExit.setOnAction(event -> handlerBtnCancelActoion(event)); // 로그인창 닫기
 	}
 
 	// 아이디 입력에서 Enter키 이벤트 적용
@@ -59,12 +56,12 @@ public class LoginController implements Initializable {
 	}
 
 	// 로그인창 닫기
-	public void handlerBtnExitAction(ActionEvent event) {
+	public void handlerBtnCancelActoion(ActionEvent event) {
 		Platform.exit();
 	}
 
 	// 로그인
-	public void handlerBtnLoginAction(ActionEvent event) {
+	public void handlerBtnLoginActoion(ActionEvent event) {
 		login();
 	}
 
@@ -75,7 +72,6 @@ public class LoginController implements Initializable {
 		boolean sucess = false;
 
 		try {
-			idName = loginName();
 			sucess = login.getLogin(l_txtId.getText().trim(), l_txtPassword.getText().trim());
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -105,7 +101,6 @@ public class LoginController implements Initializable {
 				oldStage.close();
 				mainMtage.show();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				System.err.println("오류" + e);
 			}
 		} else {
@@ -120,19 +115,5 @@ public class LoginController implements Initializable {
 			l_txtId.clear();
 			l_txtPassword.clear();
 		}
-	}
-
-	// 아이디 불러오기
-	public String loginName() {
-		LoginDAO ldao = new LoginDAO();
-
-		String id = null;
-
-		try {
-			id = ldao.getLoginId(l_txtId.getText());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return id;
 	}
 }
