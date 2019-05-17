@@ -96,9 +96,11 @@ public class SubjectTabController implements Initializable {
 
 	// 학과 테이블 뷰 더블클릭 선택 이벤트 핸들러
 	public void handlerSubjectTableViewAction(MouseEvent event) {
+		
 		if (event.getClickCount() == 2) {
+			
 			try {
-				selectSubject = subjectTableView.getSelectionModel().getSelectedItems();
+				selectSubject = subjectTableView.getSelectionModel().getSelectedItems(); 
 				selectedIndex = selectSubject.get(0).getNo();
 				String selectedS_num = selectSubject.get(0).getS_num();
 				String selectedS_name = selectSubject.get(0).getS_name();

@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,15 +16,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import model.AccountVO;
 import model.CustomerVO;
 
 public class CustomerController implements Initializable {
 
-	private static final String selectedCustomerIndex = null;
 	@FXML
 	private TextField c_txtNumber; // 고객번호
 	@FXML
@@ -60,12 +62,13 @@ public class CustomerController implements Initializable {
 	private DatePicker dpDate; // 등록일
 
 	@FXML
-	private TableView<CustomerVO> customerTableView = new TableView<>();
+	private TableView<CustomerVO> c_tableView = new TableView<>();
 
 	CustomerVO customer = new CustomerVO();
 	ObservableList<CustomerVO> customerDataList = FXCollections.observableArrayList();
-	ObservableList<CustomerVO> selectStudent = null; // 학생등록 테이블에서 선택한 정보 저장
-	int selectedIndex; // 테이블에서 선택한 정보 인덱스 저장
+	ObservableList<CustomerVO> selectCustomer = null; // 학생등록 테이블에서 선택한 정보 저장
+	int selectedCustomerIndex; // 테이블에서 선택한 정보 인덱스 저장
+	private TextInputControl txtSearchWord;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -75,69 +78,59 @@ public class CustomerController implements Initializable {
 			// 고객등록초기화
 			c_btnUpdate.setDisable(true);
 			c_btnDelete.setDisable(true);
-			customerTableView.setEditable(false);
+			c_tableView.setEditable(false);
 
-			@SuppressWarnings("rawtypes")
-
-			TableColumn colC_no = new TableColumn("고객번호");
-			colC_no.setPrefWidth(30);
-			colC_no.setStyle("-fx-alignment: CENTER");
-			colC_no.setCellValueFactory(new PropertyValueFactory<>("c_no"));
+			TableColumn colC_number = new TableColumn("번호");
+			colC_number.setPrefWidth(40);
+			colC_number.setCellValueFactory(new PropertyValueFactory<>("c_number"));
 
 			TableColumn colC_name = new TableColumn("고객명");
-			colC_name.setPrefWidth(30);
-			colC_name.setStyle("-fx-alignment: CENTER");
+			colC_name.setPrefWidth(70);
 			colC_name.setCellValueFactory(new PropertyValueFactory<>("c_name"));
 
 			TableColumn colC_cname = new TableColumn("업체명");
-			colC_cname.setPrefWidth(30);
-			colC_cname.setStyle("-fx-alignment: CENTER");
+			colC_cname.setPrefWidth(70);
 			colC_cname.setCellValueFactory(new PropertyValueFactory<>("c_cname"));
 
 			TableColumn colC_phone = new TableColumn("연락처");
-			colC_phone.setPrefWidth(30);
-			colC_phone.setStyle("-fx-alignment: CENTER");
+			colC_phone.setPrefWidth(90);
 			colC_cname.setCellValueFactory(new PropertyValueFactory<>("c_phone"));
 
 			TableColumn colC_bnumber = new TableColumn("사업자번호");
-			colC_bnumber.setPrefWidth(30);
-			colC_bnumber.setStyle("-fx-alignment: CENTER");
+			colC_bnumber.setPrefWidth(100);
 			colC_bnumber.setCellValueFactory(new PropertyValueFactory<>("c_bnumber"));
 
 			TableColumn colC_address = new TableColumn("주소");
-			colC_address.setPrefWidth(30);
-			colC_address.setStyle("-fx-alignment: CENTER");
+			colC_address.setPrefWidth(150);
 			colC_address.setCellValueFactory(new PropertyValueFactory<>("c_address"));
 
 			TableColumn colC_email = new TableColumn("이메일");
-			colC_email.setPrefWidth(30);
-			colC_email.setStyle("-fx-alignment: CENTER");
+			colC_email.setPrefWidth(100);
 			colC_email.setCellValueFactory(new PropertyValueFactory<>("c_email"));
 
 			TableColumn colC_remarks = new TableColumn("비고");
-			colC_remarks.setPrefWidth(30);
-			colC_remarks.setStyle("-fx-alignment: CENTER");
+			colC_remarks.setPrefWidth(150);
 			colC_remarks.setCellValueFactory(new PropertyValueFactory<>("c_remarks"));
 
 			TableColumn colC_registdate = new TableColumn("등록일");
 			colC_registdate.setPrefWidth(80);
-			colC_registdate.setStyle("-fx-alignment: CENTER");
 			colC_registdate.setCellValueFactory(new PropertyValueFactory<>("c_registdate"));
 
-			customerTableView.setItems(customerDataList);
+			c_tableView.setItems(customerDataList);
 
-			customerTableView.getColumns().addAll(colC_no, colC_name, colC_cname, colC_phone, colC_bnumber,
-					colC_address, colC_email, colC_remarks, colC_registdate);
+			c_tableView.getColumns().addAll(colC_number, colC_name, colC_cname, colC_phone, colC_bnumber, colC_address,
+					colC_email, colC_remarks, colC_registdate);
 
 			// 고객 전체 목록
 			customerTotalList();
 
-			c_btnRegist.setOnAction(event -> handlerC_btnRegistAction(event));
-			c_btnInit.setOnAction(event -> handlerC_btnInitAction(event));
-			c_btnUpdate.setOnAction(event -> handlerC_btnUpdateAction(event));
-			c_btnDelete.setOnAction(event -> handlerC_btnDelete(event));
-			c_btnExit.setOnAction(event -> handlerC_btnExitAction(event));
-			customerTableView.setOnMouseClicked(event -> handlerCustomerTableViewAction(event));
+			c_btnRegist.setOnAction(event -> handlerC_btnRegistAction(event)); // 고객 등록 이벤트
+			c_btnInit.setOnAction(event -> handlerC_btnInitAction(event)); // 초기화버튼 이벤트
+			c_btnUpdate.setOnAction(event -> handlerC_btnUpdateAction(event)); // 수정버튼 이벤트
+			c_btnDelete.setOnAction(event -> handlerC_btnDelete(event)); // 삭제버튼 이벤트
+			c_btnExit.setOnAction(event -> handlerC_btnExitAction(event)); // 종료버튼 이벤트
+			c_tableView.setOnMouseClicked(event -> handlerCustomerTableViewAction(event)); // 테이블뷰 마우스클릭 이벤트
+			c_btnSearch.setOnAction(event -> handlerBtnSearchAction(event));
 
 		} catch (Exception e) {
 
@@ -146,12 +139,122 @@ public class CustomerController implements Initializable {
 		}
 	}
 
+	public void handlerBtnSearchAction(ActionEvent event) {
+
+		CustomerVO cVo = new CustomerVO();
+		CustomerDAO cDao = new CustomerDAO();
+
+		ArrayList<String> title;
+		ArrayList<CustomerVO> list = null;
+
+		title = cDao.getCustomerColumnName();
+		int columnCount = title.size();
+
+		if (c_txtSearch.equals("고객명")) { 
+
+			list = cDao.getCustomerSearchList(c_txtName);
+
+			if (list.size() == 0) {
+
+				txtSearchWord.clear();
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("학생 학번 정보 검색");
+				alert.setHeaderText(c_txtName + " 학번의 수강 리스트에 없습니다.");
+				alert.setContentText("다시 검색하세요.");
+				alert.showAndWait();
+
+				list = cDao.getCustomerTotalList();
+
+			}
+
+		}
+
+		try {
+			c_txtName = c_txtSearch.getText().trim();
+			cDao = new CustomerDAO();
+			searchList = cDao.getCustomerCheck(c_txtName);
+
+			if (c_txtName.equals("")) {
+				searchResult = true;
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("고객 정보 검색");
+				alert.setHeaderText("고객명을 입력하세요.");
+				alert.setContentText("다시 시도해주세요.");
+				alert.showAndWait();
+			}
+
+			if (searchList != null) {
+				int rowCount = searchList.size();
+
+				c_txtSearch.clear();
+				customerDataList.removeAll(customerDataList);
+				for (int index = 0; index < rowCount; index++) {
+					cVo = searchList.get(index);
+					customerDataList.add(cVo);
+					searchResult = true;
+				}
+			}
+
+			if (!searchResult) {
+				c_txtSearch.clear();
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("고객 정보 검색");
+				alert.setHeaderText(c_txtName + "이(가) 리스트에 없습니다.");
+				alert.setContentText("다시 시도해주세요.");
+				alert.showAndWait();
+
+				customerTotalList();
+			}
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("고객 정보 검색 오류");
+			alert.setHeaderText("고객 정보 검색에 오류가 발생하였습니다.");
+			alert.setContentText("다시 시도해주세요.");
+		}
+	}
+
 	// 테이블뷰마우스
 	public void handlerCustomerTableViewAction(MouseEvent event) {
+
+		if (event.getClickCount() == 2) {
+
+			try {
+
+				selectCustomer = c_tableView.getSelectionModel().getSelectedItems();
+				selectedCustomerIndex = selectCustomer.get(0).getC_number();
+				String selectedC_name = selectCustomer.get(0).getC_name();
+				String selectedC_cname = selectCustomer.get(0).getC_cname();
+				String selectedC_phone = selectCustomer.get(0).getC_phone();
+				String selectedC_address = selectCustomer.get(0).getC_address();
+				String selectedC_email = selectCustomer.get(0).getC_email();
+				String selectedC_bnumber = selectCustomer.get(0).getC_bnumber();
+				String selectedC_remarks = selectCustomer.get(0).getC_remarks();
+
+				c_txtName.setText(selectedC_name);
+				c_txtCname.setText(selectedC_cname);
+				c_txtPhone.setText(selectedC_phone);
+				c_txtAddress.setText(selectedC_address);
+				c_txtEmail.setText(selectedC_email);
+				c_txtBnumber.setText(selectedC_bnumber);
+				c_txtRemarks.setText(selectedC_remarks);
+
+				c_btnRegist.setDisable(true);
+				c_btnUpdate.setDisable(false);
+				c_btnInit.setDisable(false);
+				c_btnExit.setDisable(false);
+				c_btnDelete.setDisable(false);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	// 종료버튼 이벤트 핸들러
 	public void handlerC_btnExitAction(ActionEvent event) {
+		Platform.exit();
+
 	}
 
 	// 삭제버튼 이벤트 핸들러
@@ -162,7 +265,7 @@ public class CustomerController implements Initializable {
 			boolean sucess;
 
 			CustomerDAO cDao = new CustomerDAO();
-			sucess = cDao.getCustomerDelete(selectedIndex);
+			sucess = cDao.getCustomerDelete(selectedCustomerIndex);
 
 			if (sucess) {
 
@@ -202,7 +305,7 @@ public class CustomerController implements Initializable {
 
 			sucess = cdao.getcustomerUpdate(selectedCustomerIndex, c_txtName.getText().trim(),
 					c_txtCname.getText().trim(), c_txtPhone.getText().trim(), c_txtBnumber.getText().trim(),
-					c_txtAddress.getText().trim(), c_txtEmail.getText().trim(), c_txtRemarks.getText().trim());
+					c_txtAddress.getText().trim(), c_txtEmail.getText().trim(), c_txtRemarks.getText().trim(), null);
 
 			if (sucess) {
 				customerDataList.removeAll(customerDataList);
@@ -233,7 +336,6 @@ public class CustomerController implements Initializable {
 			customerDataList.removeAll(customerDataList);
 			customerTotalList();
 
-			c_txtNumber.clear();
 			c_txtName.clear();
 			c_txtCname.clear();
 			c_txtPhone.clear();

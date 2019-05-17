@@ -25,7 +25,8 @@
 <?import javafx.scene.control.TextArea?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-	prefHeight="300" prefWidth="1200">
+	prefHeight="300" prefWidth="1200"
+	fx:controller="control.CustomerController">
 	<HBox>
 		<children>
 			<VBox>
@@ -146,7 +147,8 @@
 					<Button fx:id="c_btnSearch" text="검  색" />
 				</HBox>
 				<HBox>
-					<TableView prefWidth="850.0" prefHeight="450.0" />
+					<TableView fx:id="c_tableView" prefWidth="900.0"
+						prefHeight="450.0" />
 				</HBox>
 			</children>
 		</VBox>

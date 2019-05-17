@@ -78,15 +78,137 @@ public class CustomerDAO {
 		return list;
 	}
 
-	public boolean getCustomerDelete(Object selectedIndex) {
-		// TODO Auto-generated method stub
-		return false;
+	// 고객정보 삭제
+	public boolean getCustomerDelete(int c_number) throws Exception {
+
+		StringBuffer sql = new StringBuffer();
+		sql.append("delete from customer where c_number = ?");
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean customerDeleteSucess = false;
+
+		try {
+
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setInt(1, c_number);
+
+			int i = pstmt.executeUpdate();
+
+			if (i == 1) {
+
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("고객정보 삭제");
+				alert.setHeaderText("고객정보 삭제 완료.");
+				alert.setContentText("고객정보 삭제 성공!!!");
+				alert.showAndWait();
+				customerDeleteSucess = true;
+
+			} else {
+
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("고객정보 삭제");
+				alert.setHeaderText("고객정보 삭제 실패");
+				alert.setContentText("고객정보 삭제 실패!");
+				alert.showAndWait();
+			}
+
+		} catch (SQLException e) {
+
+			System.out.println("e=[" + e + "]");
+
+		} catch (Exception e) {
+
+			System.out.println("e=[" + e + "]");
+
+		} finally {
+
+			try {
+
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
+				if (pstmt != null)
+					pstmt.close();
+
+				if (con != null)
+					con.close();
+
+			} catch (SQLException e) {
+
+			}
+		}
+
+		return customerDeleteSucess;
 	}
 
-	public boolean getcustomerUpdate(String selectedcustomerindex, String trim, String trim2, String trim3,
-			String trim4, String trim5, String trim6, String trim7) {
-		// TODO Auto-generated method stub
-		return false;
+	// 고객정보 수정
+	public boolean getcustomerUpdate(int c_number, String c_name, String c_cname, String c_phone, String c_address,
+			String c_bnumber, String c_email, String c_remarks, String c_registdate) throws Exception {
+
+		String sql = "update customer set c_name=?, c_cname=?, c_phone=?, c_address=?, c_bnumber=?, c_email=?, c_remarks=? where c_number=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean customerUpdateSucess = false;
+
+		try {
+
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, c_name);
+			pstmt.setString(2, c_cname);
+			pstmt.setString(3, c_phone);
+			pstmt.setString(4, c_address);
+			pstmt.setString(5, c_bnumber);
+			pstmt.setString(6, c_remarks);
+			pstmt.setString(7, c_email);
+
+			pstmt.setInt(8, c_number);
+
+			int i = pstmt.executeUpdate();
+
+			if (i == 1) {
+
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("고객정보 수정");
+				alert.setHeaderText(c_number + " 고객정보 수정 완료.");
+				alert.setContentText("고객정보 수정 성공!!!");
+				alert.showAndWait();
+				customerUpdateSucess = true;
+
+			} else {
+
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("고객정보 수정");
+				alert.setHeaderText("고객정보 수정 실패");
+				alert.setContentText("고객정보 수정 실패!");
+				alert.showAndWait();
+			}
+
+		} catch (SQLException e) {
+
+			System.out.println("e=[" + e + "]");
+
+		} catch (Exception e) {
+
+			System.out.println("e=[" + e + "]");
+
+		} finally {
+
+			try {
+
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
+				if (pstmt != null)
+					pstmt.close();
+
+				if (con != null)
+					con.close();
+
+			} catch (SQLException e) {
+
+			}
+		}
+
+		return customerUpdateSucess;
 	}
 
 	// 데이터베이스에서 고객 테이블의 컬럼 갯수
@@ -208,5 +330,7 @@ public class CustomerDAO {
 		}
 
 	}
+
+	// 고객이름 검색
 
 }

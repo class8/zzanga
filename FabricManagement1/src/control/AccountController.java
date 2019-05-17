@@ -141,6 +141,7 @@ public class AccountController implements Initializable {
 
 	public void handlerAccountTableViewAction(MouseEvent event) {
 		if (event.getClickCount() == 2) {
+			
 			try {
 				selectAccount = a_tableView.getSelectionModel().getSelectedItems();
 				selectedAccountIndex = selectAccount.get(0).getA_number();
@@ -349,16 +350,16 @@ public class AccountController implements Initializable {
 
 	public void handlerBtnSearchAction(ActionEvent event) {
 		ArrayList<AccountVO> searchList = new ArrayList<AccountVO>();
-		AccountVO sVo = null;
-		AccountDAO sDao = null;
+		AccountVO aVo = null;
+		AccountDAO aDao = null;
 
 		String searchName = "";
 		boolean searchResult = false;
 
 		try {
 			searchName = a_txtSearch.getText().trim();
-			sDao = new AccountDAO();
-			searchList = sDao.getStudentCheck(searchName);
+			aDao = new AccountDAO();
+			searchList = aDao.getStudentCheck(searchName);
 
 			if (searchName.equals("")) {
 				searchResult = true;
@@ -375,8 +376,8 @@ public class AccountController implements Initializable {
 				a_txtSearch.clear();
 				accountDataList.removeAll(accountDataList);
 				for (int index = 0; index < rowCount; index++) {
-					sVo = searchList.get(index);
-					accountDataList.add(sVo);
+					aVo = searchList.get(index);
+					accountDataList.add(aVo);
 					searchResult = true;
 				}
 			}
