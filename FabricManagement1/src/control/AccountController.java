@@ -57,9 +57,8 @@ public class AccountController implements Initializable {
 	private TableView<AccountVO> a_tableView = new TableView<>();
 
 	ObservableList<AccountVO> accountDataList = FXCollections.observableArrayList();
-	ObservableList<AccountVO> selectAccount = null; // 학생등록 테이블에서 선택한 정보 저장
-	int selectedAccountIndex; // 학생 등록 탭에서 선택한 학과 정보 인덱스 저장
-	String accountNumber = "";
+	ObservableList<AccountVO> selectAccount = null;
+	int selectedAccountIndex;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -181,11 +180,6 @@ public class AccountController implements Initializable {
 			AccountVO avo = null;
 			AccountDAO adao = null;
 
-			avo = new AccountVO(a_txtCname.getText().trim(), a_txtMname.getText().trim(), a_txtPhone.getText().trim(),
-					a_txtEmail.getText().trim(), a_txtAddress.getText().trim(), a_txtBnumber.getText().trim(),
-					a_txtMsubject.getText().trim(), a_txtRemarks.getText().trim());
-			adao = new AccountDAO();
-			adao.getAccountRegist(avo);
 			/*
 			 * a_txtCname.getText().trim() != null && a_txtMname.getText().trim() != null &&
 			 * a_txtPhone.getText().trim() != null && a_txtEmail.getText().trim() != null &&
@@ -193,7 +187,16 @@ public class AccountController implements Initializable {
 			 * null && a_txtMsubject.getText().trim() != null
 			 */
 
-			if (adao != null) {
+			if (a_txtCname.getLength() != 0 && a_txtMname.getLength() != 0 && a_txtPhone.getLength() != 0
+					&& a_txtEmail.getLength() != 0 && a_txtAddress.getLength() != 0 && a_txtBnumber.getLength() != 0
+					&& a_txtMsubject.getLength() != 0) {
+
+				avo = new AccountVO(a_txtCname.getText().trim(), a_txtMname.getText().trim(),
+						a_txtPhone.getText().trim(), a_txtEmail.getText().trim(), a_txtAddress.getText().trim(),
+						a_txtBnumber.getText().trim(), a_txtMsubject.getText().trim(), a_txtRemarks.getText().trim());
+				adao = new AccountDAO();
+				adao.getAccountRegist(avo);
+
 				accountTotalList();
 
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -211,6 +214,16 @@ public class AccountController implements Initializable {
 				a_txtMsubject.clear();
 				a_txtRemarks.clear();
 				a_txtCname.requestFocus();
+			} else {
+				accountDataList.removeAll(accountDataList);
+
+				accountTotalList();
+
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("거래처 정보 미입력");
+				alert.setHeaderText("거래처 정보중에 미입력된 항목이 있습니다.");
+				alert.setContentText("거래처 정보를 정확히 입력하세요.");
+				alert.showAndWait();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -359,7 +372,11 @@ public class AccountController implements Initializable {
 		try {
 			searchName = a_txtSearch.getText().trim();
 			aDao = new AccountDAO();
+<<<<<<< HEAD
 			searchList = aDao.getStudentCheck(searchName);
+=======
+			searchList = aDao.getAccountCheck(searchName);
+>>>>>>> cae1d61eb0e3c2da7e4d5df1cb805126501f04ce
 
 			if (searchName.equals("")) {
 				searchResult = true;

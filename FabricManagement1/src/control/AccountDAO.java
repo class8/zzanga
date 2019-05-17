@@ -337,7 +337,7 @@ public class AccountDAO {
 	}
 
 	// 거래처명을 입력받아 정보 조회
-	public ArrayList<AccountVO> getStudentCheck(String name) throws Exception {
+	public ArrayList<AccountVO> getAccountCheck(String name) throws Exception {
 		ArrayList<AccountVO> list = new ArrayList<AccountVO>();
 
 		String sql = "select * from account where a_cname like ? order by a_number desc";

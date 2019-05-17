@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 import model.CustomerVO;
 
 public class CustomerDAO {
@@ -332,5 +333,10 @@ public class CustomerDAO {
 	}
 
 	// 고객이름 검색
+	public ArrayList<CustomerVO> getCustomerSearchList(TextField c_txtName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
