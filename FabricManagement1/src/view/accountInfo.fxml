@@ -45,15 +45,6 @@
 					<HBox>
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->
-							<Label text="거래처번호 : " prefWidth="75" alignment="CENTER" />
-							<TextField fx:id="a_txtNumber" prefWidth="220"
-								promptText="거래처번호" />
-						</children>
-					</HBox>
-
-					<HBox>
-						<spacing>10</spacing>
-						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="거래처명 : " prefWidth="75" alignment="CENTER" />
 							<TextField fx:id="a_txtCname" prefWidth="220"
 								promptText="거래처명" />

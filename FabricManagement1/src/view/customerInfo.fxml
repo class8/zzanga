@@ -41,15 +41,6 @@
 						</children>
 					</HBox>
 
-					<HBox alignment="CENTER">
-						<spacing>10</spacing>
-						<children>				<!-- 자식 컨트롤 추가 -->
-							<Label text="고객번호 : " prefWidth="75" alignment="CENTER" />
-							<TextField fx:id="c_txtNumber" prefWidth="220"
-								promptText="고객번호" />
-						</children>
-					</HBox>
-
 					<HBox>
 						<spacing>10</spacing>
 						<children>				<!-- 자식 컨트롤 추가 -->

@@ -24,8 +24,6 @@ import model.AccountVO;
 public class AccountController implements Initializable {
 
 	@FXML
-	TextField a_txtNumber;
-	@FXML
 	TextField a_txtCname;
 	@FXML
 	TextField a_txtMname;
@@ -66,10 +64,9 @@ public class AccountController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
+			AccountDAO dao = new AccountDAO();
 			a_btnUpdate.setDisable(true);
 			a_btnDelete.setDisable(true);
-			a_txtNumber.setEditable(false);
-			// a_txtNumber.setText(value);
 
 			TableColumn colAnumber = new TableColumn("번호");
 			colAnumber.setPrefWidth(40);
@@ -142,9 +139,37 @@ public class AccountController implements Initializable {
 		}
 	}
 
-	private Object handlerAccountTableViewAction(MouseEvent event) {
-		// TODO Auto-generated method stub
-		return null;
+	public void handlerAccountTableViewAction(MouseEvent event) {
+		if (event.getClickCount() == 2) {
+			try {
+				selectAccount = a_tableView.getSelectionModel().getSelectedItems();
+				selectedAccountIndex = selectAccount.get(0).getA_number();
+				String selectedA_cname = selectAccount.get(0).getA_cname();
+				String selectedA_mname = selectAccount.get(0).getA_mname();
+				String selectedA_phone = selectAccount.get(0).getA_phone();
+				String selectedA_email = selectAccount.get(0).getA_email();
+				String selectedA_address = selectAccount.get(0).getA_address();
+				String selectedA_bnumber = selectAccount.get(0).getA_bnumber();
+				String selectedA_msubject = selectAccount.get(0).getA_msubject();
+				String selectedA_remarks = selectAccount.get(0).getA_remarks();
+
+				a_txtCname.setText(selectedA_cname);
+				a_txtMname.setText(selectedA_mname);
+				a_txtPhone.setText(selectedA_phone);
+				a_txtEmail.setText(selectedA_email);
+				a_txtAddress.setText(selectedA_address);
+				a_txtBnumber.setText(selectedA_bnumber);
+				a_txtMsubject.setText(selectedA_msubject);
+				a_txtRemarks.setText(selectedA_remarks);
+
+				a_txtCname.setEditable(false);
+
+				a_btnUpdate.setDisable(false);
+				a_btnDelete.setDisable(false);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	// 등록버튼 이벤트
@@ -160,17 +185,22 @@ public class AccountController implements Initializable {
 					a_txtMsubject.getText().trim(), a_txtRemarks.getText().trim());
 			adao = new AccountDAO();
 			adao.getAccountRegist(avo);
+			/*
+			 * a_txtCname.getText().trim() != null && a_txtMname.getText().trim() != null &&
+			 * a_txtPhone.getText().trim() != null && a_txtEmail.getText().trim() != null &&
+			 * a_txtAddress.getText().trim() != null && a_txtBnumber.getText().trim() !=
+			 * null && a_txtMsubject.getText().trim() != null
+			 */
 
 			if (adao != null) {
 				accountTotalList();
 
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("학생 입력");
+				alert.setTitle("거래처 입력");
 				alert.setHeaderText(a_txtCname.getText() + " 거래처가 성공적으로 추가되었습니다.");
 				alert.setContentText("다음 거래처를 입력하세요.");
 				alert.showAndWait();
 
-				a_txtNumber.clear();
 				a_txtCname.clear();
 				a_txtMname.clear();
 				a_txtPhone.clear();
@@ -182,9 +212,10 @@ public class AccountController implements Initializable {
 				a_txtCname.requestFocus();
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("학과 정보 입력");
-			alert.setHeaderText("학과 정보를 정확히 입력하세요.");
+			alert.setTitle("거래처 정보 입력");
+			alert.setHeaderText("거래처 정보를 정확히 입력하세요.");
 			alert.setContentText("다음에는 주의하세요.");
 			alert.showAndWait();
 		}
@@ -192,7 +223,6 @@ public class AccountController implements Initializable {
 
 	// 전체 목록
 	public void accountTotalList() throws Exception {
-		Object[][] totalData;
 
 		AccountDAO aDao = new AccountDAO();
 		AccountVO aVo = null;
@@ -204,8 +234,6 @@ public class AccountController implements Initializable {
 
 		list = aDao.getAccountTotalList();
 		int rowCount = list.size();
-
-		totalData = new Object[rowCount][columnCount];
 
 		for (int index = 0; index < rowCount; index++) {
 			aVo = list.get(index);
@@ -228,7 +256,6 @@ public class AccountController implements Initializable {
 			accountDataList.removeAll(accountDataList);
 			accountTotalList();
 
-			a_txtNumber.clear();
 			a_txtCname.clear();
 			a_txtMname.clear();
 			a_txtPhone.clear();
@@ -238,27 +265,138 @@ public class AccountController implements Initializable {
 			a_txtMsubject.clear();
 			a_txtRemarks.clear();
 
+			a_txtCname.setEditable(true);
+			a_btnUpdate.setDisable(true);
+			a_btnDelete.setDisable(true);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void handlerBtnUpdateAction(ActionEvent event) {
+		try {
+			boolean sucess;
 
+			AccountDAO sdao = new AccountDAO();
+			if (a_txtRemarks.getLength() != 0) {
+				sucess = sdao.getAccountUpdate(selectedAccountIndex, a_txtCname.getText().trim(),
+						a_txtMname.getText().trim(), a_txtPhone.getText().trim(), a_txtEmail.getText().trim(),
+						a_txtAddress.getText().trim(), a_txtBnumber.getText().trim(), a_txtMsubject.getText().trim(),
+						a_txtRemarks.getText().trim());
+			} else {
+				sucess = sdao.getAccountUpdate(selectedAccountIndex, a_txtCname.getText().trim(),
+						a_txtMname.getText().trim(), a_txtPhone.getText().trim(), a_txtEmail.getText().trim(),
+						a_txtAddress.getText().trim(), a_txtBnumber.getText().trim(), a_txtMsubject.getText().trim());
+			}
+
+			if (sucess) {
+				accountDataList.removeAll(accountDataList);
+				accountTotalList();
+
+				a_txtCname.clear();
+				a_txtMname.clear();
+				a_txtPhone.clear();
+				a_txtEmail.clear();
+				a_txtAddress.clear();
+				a_txtBnumber.clear();
+				a_txtMsubject.clear();
+				a_txtRemarks.clear();
+
+				a_txtCname.setEditable(true);
+				a_btnUpdate.setDisable(true);
+				a_btnDelete.setDisable(true);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	private Object handlerBtnDeleteAction(ActionEvent event) {
-		// TODO Auto-generated method stub
-		return null;
+	public void handlerBtnDeleteAction(ActionEvent event) {
+		try {
+			boolean sucess;
+			AccountDAO sDao = new AccountDAO();
+			sucess = sDao.getAccountDelete(selectedAccountIndex);
+
+			if (sucess) {
+
+				accountDataList.removeAll(accountDataList);
+				accountTotalList();
+
+				a_txtCname.clear();
+				a_txtMname.clear();
+				a_txtPhone.clear();
+				a_txtEmail.clear();
+				a_txtAddress.clear();
+				a_txtBnumber.clear();
+				a_txtMsubject.clear();
+				a_txtRemarks.clear();
+
+				a_txtCname.setEditable(true);
+				a_btnUpdate.setDisable(true);
+				a_btnDelete.setDisable(true);
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 	}
 
 	public void handlerBtnExitAction(ActionEvent event) {
 		Platform.exit();
 	}
 
-	private Object handlerBtnSearchAction(ActionEvent event) {
-		// TODO Auto-generated method stub
-		return null;
+	public void handlerBtnSearchAction(ActionEvent event) {
+		ArrayList<AccountVO> searchList = new ArrayList<AccountVO>();
+		AccountVO sVo = null;
+		AccountDAO sDao = null;
+
+		String searchName = "";
+		boolean searchResult = false;
+
+		try {
+			searchName = a_txtSearch.getText().trim();
+			sDao = new AccountDAO();
+			searchList = sDao.getStudentCheck(searchName);
+
+			if (searchName.equals("")) {
+				searchResult = true;
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("거래처 정보 검색");
+				alert.setHeaderText("거래처명을 입력하세요.");
+				alert.setContentText("다시 시도해주세요.");
+				alert.showAndWait();
+			}
+
+			if (searchList != null) {
+				int rowCount = searchList.size();
+
+				a_txtSearch.clear();
+				accountDataList.removeAll(accountDataList);
+				for (int index = 0; index < rowCount; index++) {
+					sVo = searchList.get(index);
+					accountDataList.add(sVo);
+					searchResult = true;
+				}
+			}
+
+			if (!searchResult) {
+				a_txtSearch.clear();
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("거래처 정보 검색");
+				alert.setHeaderText(searchName + "이(가) 리스트에 없습니다.");
+				alert.setContentText("다시 시도해주세요.");
+				alert.showAndWait();
+
+				accountTotalList();
+			}
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("거래처 정보 검색 오류");
+			alert.setHeaderText("거래처 정보 검색에 오류가 발생하였습니다.");
+			alert.setContentText("다시 시도해주세요.");
+		}
 	}
 
 }
