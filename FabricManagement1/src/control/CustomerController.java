@@ -1,7 +1,6 @@
 package control;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -19,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import model.CustomerVO;
 
 public class CustomerController implements Initializable {
@@ -51,9 +51,9 @@ public class CustomerController implements Initializable {
 	@FXML
 	private Button c_btnDelete; // 삭제버튼
 	@FXML
-	private Button c_btnSearch; // 검색버튼 
+	private Button c_btnSearch; // 검색버튼
 	@FXML
-	private TextField c_txtSearch; // 검색 
+	private TextField c_txtSearch; // 검색
 	@FXML
 	private Button c_btnExit; // 종료버튼
 	@FXML
@@ -71,9 +71,11 @@ public class CustomerController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		try {
+
 			// 고객등록초기화
 			c_btnUpdate.setDisable(true);
 			c_btnDelete.setDisable(true);
+			customerTableView.setEditable(false);
 
 			@SuppressWarnings("rawtypes")
 
@@ -135,12 +137,17 @@ public class CustomerController implements Initializable {
 			c_btnUpdate.setOnAction(event -> handlerC_btnUpdateAction(event));
 			c_btnDelete.setOnAction(event -> handlerC_btnDelete(event));
 			c_btnExit.setOnAction(event -> handlerC_btnExitAction(event));
+			customerTableView.setOnMouseClicked(event -> handlerCustomerTableViewAction(event));
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
 
 		}
+	}
+
+	// 테이블뷰마우스
+	public void handlerCustomerTableViewAction(MouseEvent event) {
 	}
 
 	// 종료버튼 이벤트 핸들러
@@ -293,7 +300,7 @@ public class CustomerController implements Initializable {
 	}
 
 	// 고객전체 목록 메소드
-	private void customerTotalList() throws Exception {
+	public void customerTotalList() throws Exception {
 		customerDataList.removeAll(customerDataList);
 
 		CustomerDAO cDao = new CustomerDAO();
@@ -301,7 +308,7 @@ public class CustomerController implements Initializable {
 		ArrayList<String> title;
 		ArrayList<CustomerVO> list;
 
-		title = cDao.getCsutomerColumnName();
+		title = cDao.getCustomerColumnName();
 		int columnCount = title.size();
 
 		list = cDao.getCustomerTotalList();
@@ -314,9 +321,4 @@ public class CustomerController implements Initializable {
 
 	}
 
-	/*
-	 * c_btnRegist.setDisable(true); c_btnInit.setDisable(true);
-	 * c_btnUpdate.setDisable(true); c_btnDelete.setDisable(true);
-	 * c_btnExit.setDisable(true); dpDate.setValue(LocalDate.now());
-	 */
 }
