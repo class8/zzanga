@@ -134,6 +134,60 @@ public class AccountDAO {
 		return columnName;
 	}
 
+	public String getAccountNumber() {
+		ArrayList<String> columnName = new ArrayList<String>();
+
+		String sql = "select * from account order by a_number";
+		String result = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ResultSetMetaData rsmd = null;
+
+		try {
+
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			rsmd = rs.getMetaData();
+
+			int cols = rsmd.getColumnCount();
+
+			for (int i = 1; i <= cols; i++) {
+
+				columnName.add(rsmd.getColumnName(i));
+			}
+
+		} catch (SQLException se) {
+
+			System.out.println(se);
+
+		} catch (Exception e) {
+
+			System.out.println(e);
+
+		} finally {
+
+			try {
+
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
+				if (rs != null)
+					rs.close();
+
+				if (pstmt != null)
+					pstmt.close();
+
+				if (con != null)
+					con.close();
+
+			} catch (SQLException se) {
+
+			}
+		}
+
+		return result;
+	}
+
 	// 학생 전체 목록
 	public ArrayList<AccountVO> getAccountTotalList() throws Exception {
 

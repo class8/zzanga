@@ -68,6 +68,8 @@ public class AccountController implements Initializable {
 		try {
 			a_btnUpdate.setDisable(true);
 			a_btnDelete.setDisable(true);
+			a_txtNumber.setEditable(false);
+			// a_txtNumber.setText(value);
 
 			TableColumn colAnumber = new TableColumn("번호");
 			colAnumber.setPrefWidth(40);
