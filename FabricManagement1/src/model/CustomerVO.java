@@ -44,6 +44,20 @@ public class CustomerVO {
 		this.c_email = c_email;
 		this.c_remarks = c_remarks;
 	}
+	
+
+	public CustomerVO(int c_number, String c_name, String c_cname, String c_phone, String c_bnumber, String c_address,
+			String c_email, String c_remarks) {
+		super();
+		this.c_number = c_number;
+		this.c_name = c_name;
+		this.c_cname = c_cname;
+		this.c_phone = c_phone;
+		this.c_bnumber = c_bnumber;
+		this.c_address = c_address;
+		this.c_email = c_email;
+		this.c_remarks = c_remarks;
+	}
 
 	// 접근자와 설정자 생성
 	public int getC_number() {
