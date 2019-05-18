@@ -10,7 +10,7 @@ public class AccountVO {
 	private String a_bnumber; // 사업자번호
 	private String a_msubject; // 주종목
 	private String a_address; // 주소
-	private String a_remarks; // 비고
+	private String a_remarks = null; // 비고
 	private String a_registdate; // 등록일
 
 	public AccountVO() {

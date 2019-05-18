@@ -179,13 +179,6 @@ public class AccountController implements Initializable {
 			AccountVO avo = null;
 			AccountDAO adao = null;
 
-			/*
-			 * a_txtCname.getText().trim() != null && a_txtMname.getText().trim() != null &&
-			 * a_txtPhone.getText().trim() != null && a_txtEmail.getText().trim() != null &&
-			 * a_txtAddress.getText().trim() != null && a_txtBnumber.getText().trim() !=
-			 * null && a_txtMsubject.getText().trim() != null
-			 */
-
 			if (a_txtCname.getLength() != 0 && a_txtMname.getLength() != 0 && a_txtPhone.getLength() != 0
 					&& a_txtEmail.getLength() != 0 && a_txtAddress.getLength() != 0 && a_txtBnumber.getLength() != 0
 					&& a_txtMsubject.getLength() != 0) {
@@ -292,16 +285,10 @@ public class AccountController implements Initializable {
 			boolean sucess;
 
 			AccountDAO sdao = new AccountDAO();
-			if (a_txtRemarks.getLength() != 0) {
-				sucess = sdao.getAccountUpdate(selectedAccountIndex, a_txtCname.getText().trim(),
-						a_txtMname.getText().trim(), a_txtPhone.getText().trim(), a_txtEmail.getText().trim(),
-						a_txtAddress.getText().trim(), a_txtBnumber.getText().trim(), a_txtMsubject.getText().trim(),
-						a_txtRemarks.getText().trim());
-			} else {
-				sucess = sdao.getAccountUpdate(selectedAccountIndex, a_txtCname.getText().trim(),
-						a_txtMname.getText().trim(), a_txtPhone.getText().trim(), a_txtEmail.getText().trim(),
-						a_txtAddress.getText().trim(), a_txtBnumber.getText().trim(), a_txtMsubject.getText().trim());
-			}
+			sucess = sdao.getAccountUpdate(selectedAccountIndex, a_txtCname.getText().trim(),
+					a_txtMname.getText().trim(), a_txtPhone.getText().trim(), a_txtEmail.getText().trim(),
+					a_txtAddress.getText().trim(), a_txtBnumber.getText().trim(), a_txtMsubject.getText().trim(),
+					a_txtRemarks.getText());
 
 			if (sucess) {
 				accountDataList.removeAll(accountDataList);

@@ -177,7 +177,7 @@ public class FabricDAO {
 	public boolean getFabricUpdate(String f_number, String f_sort, String f_name, String f_color, String f_size,
 			String f_origin, String f_cname, String f_phone, String f_weight, String f_price, String f_material,
 			String f_trait, String f_remarks) throws Exception {
-
+		
 		String sql = "update fabric set f_sort=?, f_name=?, f_color=?, f_size=?, f_origin=?, f_cname=?, f_phone=?, f_weight=?, f_price=?, f_material=?, f_trait=?, f_remarks=? where f_number=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -235,67 +235,11 @@ public class FabricDAO {
 		return fabricUpdateSucess;
 	}
 
-	// 정보 수정
-	public boolean getAccountUpdate(int a_number, String a_cname, String a_mname, String a_phone, String a_email,
-			String a_address, String a_bnumber, String a_msubject) throws Exception {
-
-		String sql = "update account set a_cname=?, a_mname=?, a_phone=?, a_email=?, a_address=?, a_bnumber=?, a_msubject=? where a_number=?";
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		boolean accountUpdateSucess = false;
-
-		try {
-			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, a_cname);
-			pstmt.setString(2, a_mname);
-			pstmt.setString(3, a_phone);
-			pstmt.setString(4, a_email);
-			pstmt.setString(5, a_address);
-			pstmt.setString(6, a_bnumber);
-			pstmt.setString(7, a_msubject);
-			pstmt.setInt(8, a_number);
-
-			int i = pstmt.executeUpdate();
-
-			if (i == 1) {
-
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("거래처 정보 수정");
-				alert.setHeaderText(a_number + "번 거래처 수정 완료.");
-				alert.setContentText("거래처 정보 수정 성공!");
-				alert.showAndWait();
-				accountUpdateSucess = true;
-			} else {
-
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("거래처 정보 수정");
-				alert.setHeaderText("거래처 정보 수정 실패");
-				alert.setContentText("거래처 정보 수정 실패!");
-				alert.showAndWait();
-			}
-		} catch (SQLException e) {
-			System.out.println("e=[" + e + "]");
-		} catch (Exception e) {
-			System.out.println("e=[" + e + "]");
-		} finally {
-			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
-				if (pstmt != null)
-					pstmt.close();
-				if (con != null)
-					con.close();
-			} catch (SQLException e) {
-			}
-		}
-		return accountUpdateSucess;
-	}
-
 	// 정보 삭제
-	public boolean getAccountDelete(int a_number) throws Exception {
+	public boolean getFabricDelete(String f_number) throws Exception {
 
 		StringBuffer sql = new StringBuffer();
-		sql.append("delete from account where a_number = ?");
+		sql.append("delete from fabric where f_number = ?");
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -305,25 +249,25 @@ public class FabricDAO {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql.toString());
-			pstmt.setInt(1, a_number);
+			pstmt.setString(1, f_number);
 
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("거래처 정보 삭제");
-				alert.setHeaderText(a_number + "번 거래처 정보 삭제 완료.");
-				alert.setContentText("거래처 정보 삭제 성공!!!");
+				alert.setTitle("원단 정보 삭제");
+				alert.setHeaderText(f_number + "번 원단 정보 삭제 완료.");
+				alert.setContentText("원단 정보 삭제 성공!");
 				alert.showAndWait();
 				accountDeleteSucess = true;
 
 			} else {
 
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("거래처 정보 삭제");
-				alert.setHeaderText("거래처 정보 삭제 실패");
-				alert.setContentText("거래처 정보 삭제 실패!");
+				alert.setTitle("원단 정보 삭제");
+				alert.setHeaderText("원단 정보 삭제 실패");
+				alert.setContentText("원단 정보 삭제 실패!");
 				alert.showAndWait();
 			}
 		} catch (SQLException e) {
@@ -346,15 +290,15 @@ public class FabricDAO {
 	}
 
 	// 거래처명을 입력받아 정보 조회
-	public ArrayList<AccountVO> getAccountCheck(String name) throws Exception {
-		ArrayList<AccountVO> list = new ArrayList<AccountVO>();
+	public ArrayList<FabricVO> getFabricCheck(String name) throws Exception {
+		ArrayList<FabricVO> list = new ArrayList<FabricVO>();
 
-		String sql = "select * from account where a_cname like ? order by a_number desc";
+		String sql = "select * from fabric where f_name like ? order by f_number desc";
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		AccountVO aVo = null;
+		FabricVO fVo = null;
 
 		try {
 			con = DBUtil.getConnection();
@@ -365,18 +309,21 @@ public class FabricDAO {
 
 			while (rs.next()) {
 
-				aVo = new AccountVO();
-				aVo.setA_number(rs.getInt("a_number"));
-				aVo.setA_cname(rs.getString("a_cname"));
-				aVo.setA_mname(rs.getString("a_mname"));
-				aVo.setA_phone(rs.getString("a_phone"));
-				aVo.setA_email(rs.getString("a_email"));
-				aVo.setA_bnumber(rs.getString("a_bnumber"));
-				aVo.setA_msubject(rs.getString("a_msubject"));
-				aVo.setA_address(rs.getString("a_address"));
-				aVo.setA_remarks(rs.getString("a_remarks"));
-				aVo.setA_registdate(rs.getDate("a_registdate") + "");
-				list.add(aVo);
+				fVo = new FabricVO();
+				fVo.setF_number(rs.getString("f_number"));
+				fVo.setF_sort(rs.getString("f_sort"));
+				fVo.setF_name(rs.getString("f_name"));
+				fVo.setF_color(rs.getString("f_color"));
+				fVo.setF_size(rs.getString("f_size"));
+				fVo.setF_origin(rs.getString("f_origin"));
+				fVo.setF_cname(rs.getString("f_cname"));
+				fVo.setF_phone(rs.getString("f_phone"));
+				fVo.setF_weight(rs.getString("f_weight"));
+				fVo.setF_price(rs.getString("f_price"));
+				fVo.setF_material(rs.getString("f_material"));
+				fVo.setF_trait(rs.getString("f_trait"));
+				fVo.setF_remarks(rs.getString("f_remarks"));
+				list.add(fVo);
 			}
 		} catch (SQLException se) {
 			System.out.println(se);

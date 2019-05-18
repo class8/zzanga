@@ -226,62 +226,6 @@ public class AccountDAO {
 		return accountUpdateSucess;
 	}
 
-	// 정보 수정
-	public boolean getAccountUpdate(int a_number, String a_cname, String a_mname, String a_phone, String a_email,
-			String a_address, String a_bnumber, String a_msubject) throws Exception {
-
-		String sql = "update account set a_cname=?, a_mname=?, a_phone=?, a_email=?, a_address=?, a_bnumber=?, a_msubject=? where a_number=?";
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		boolean accountUpdateSucess = false;
-
-		try {
-			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, a_cname);
-			pstmt.setString(2, a_mname);
-			pstmt.setString(3, a_phone);
-			pstmt.setString(4, a_email);
-			pstmt.setString(5, a_address);
-			pstmt.setString(6, a_bnumber);
-			pstmt.setString(7, a_msubject);
-			pstmt.setInt(8, a_number);
-
-			int i = pstmt.executeUpdate();
-
-			if (i == 1) {
-
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("거래처 정보 수정");
-				alert.setHeaderText(a_number + "번 거래처 수정 완료.");
-				alert.setContentText("거래처 정보 수정 성공!");
-				alert.showAndWait();
-				accountUpdateSucess = true;
-			} else {
-
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("거래처 정보 수정");
-				alert.setHeaderText("거래처 정보 수정 실패");
-				alert.setContentText("거래처 정보 수정 실패!");
-				alert.showAndWait();
-			}
-		} catch (SQLException e) {
-			System.out.println("e=[" + e + "]");
-		} catch (Exception e) {
-			System.out.println("e=[" + e + "]");
-		} finally {
-			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
-				if (pstmt != null)
-					pstmt.close();
-				if (con != null)
-					con.close();
-			} catch (SQLException e) {
-			}
-		}
-		return accountUpdateSucess;
-	}
-
 	// 정보 삭제
 	public boolean getAccountDelete(int a_number) throws Exception {
 

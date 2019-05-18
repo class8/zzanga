@@ -13,8 +13,8 @@ public class FabricVO {
 	private String f_weight; // 중량
 	private String f_price; // 가격
 	private String f_material; // 소재
-	private String f_trait; // 특징
-	private String f_remarks; // 비고
+	private String f_trait = null; // 특징
+	private String f_remarks = null; // 비고
 
 	// 디폴트 생성자
 	public FabricVO() {

@@ -228,8 +228,8 @@ public class FabricController implements Initializable {
 				fvo = new FabricVO(f_txtNumber.getText().trim(), f_txtSort.getText().trim(), f_txtName.getText().trim(),
 						f_txtColor.getText().trim(), f_txtSize.getText().trim(), f_txtWeight.getText().trim(),
 						f_txtOrigin.getText().trim(), f_txtCname.getText().trim(), f_txtPrice.getText().trim(),
-						f_txtPhone.getText().trim(), f_txtMaterial.getText().trim(), f_txtTrait.getText().trim(),
-						f_txtRemarks.getText().trim());
+						f_txtPhone.getText().trim(), f_txtMaterial.getText().trim(), f_txtTrait.getText(),
+						f_txtRemarks.getText());
 				fdao = new FabricDAO();
 				fdao.getFabricRegist(fvo);
 
@@ -341,19 +341,11 @@ public class FabricController implements Initializable {
 			boolean sucess;
 
 			FabricDAO sdao = new FabricDAO();
-			if (f_txtRemarks.getLength() != 0) {
-				sucess = sdao.getFabricUpdate(f_txtNumber.getText().trim(), f_txtSort.getText().trim(),
-						f_txtName.getText().trim(), f_txtColor.getText().trim(), f_txtSize.getText().trim(),
-						f_txtWeight.getText().trim(), f_txtOrigin.getText().trim(), f_txtCname.getText().trim(),
-						f_txtPrice.getText().trim(), f_txtPhone.getText().trim(), f_txtMaterial.getText().trim(),
-						f_txtTrait.getText().trim(), f_txtRemarks.getText().trim());
-			} else {
-				sucess = sdao.getFabricUpdate(f_txtNumber.getText().trim(), f_txtSort.getText().trim(),
-						f_txtName.getText().trim(), f_txtColor.getText().trim(), f_txtSize.getText().trim(),
-						f_txtWeight.getText().trim(), f_txtOrigin.getText().trim(), f_txtCname.getText().trim(),
-						f_txtPrice.getText().trim(), f_txtPhone.getText().trim(), f_txtMaterial.getText().trim(),
-						f_txtTrait.getText().trim());
-			}
+			sucess = sdao.getFabricUpdate(f_txtNumber.getText().trim(), f_txtSort.getText().trim(),
+					f_txtName.getText().trim(), f_txtColor.getText().trim(), f_txtSize.getText().trim(),
+					f_txtWeight.getText().trim(), f_txtOrigin.getText().trim(), f_txtCname.getText().trim(),
+					f_txtPrice.getText().trim(), f_txtPhone.getText().trim(), f_txtMaterial.getText().trim(),
+					f_txtTrait.getText().trim(), f_txtRemarks.getText().trim());
 
 			if (sucess) {
 				fabricDataList.removeAll(fabricDataList);
