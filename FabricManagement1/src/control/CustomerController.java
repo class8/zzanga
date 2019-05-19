@@ -139,42 +139,22 @@ public class CustomerController implements Initializable {
 		}
 	}
 
+	// 검색버튼 이벤트
 	public void handlerBtnSearchAction(ActionEvent event) {
+		ArrayList<CustomerVO> searchList = new ArrayList<CustomerVO>();
+		CustomerVO cVo = null;
+		CustomerDAO cDao = null;
 
-		CustomerVO cVo = new CustomerVO();
-		CustomerDAO cDao = new CustomerDAO();
-
-		ArrayList<String> title;
-		ArrayList<CustomerVO> list = null;
-
-		title = cDao.getCustomerColumnName();
-		int columnCount = title.size();
-
-		if (c_txtSearch.equals("고객명")) { 
-
-			list = cDao.getCustomerSearchList(c_txtName);
-
-			if (list.size() == 0) {
-
-				txtSearchWord.clear();
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("학생 학번 정보 검색");
-				alert.setHeaderText(c_txtName + " 학번의 수강 리스트에 없습니다.");
-				alert.setContentText("다시 검색하세요.");
-				alert.showAndWait();
-
-				list = cDao.getCustomerTotalList();
-
-			}
-
-		}
+		String searchName = "";
+		boolean searchResult = false;
 
 		try {
-			c_txtName = c_txtSearch.getText().trim();
+			searchName = c_txtSearch.getText().trim();
 			cDao = new CustomerDAO();
-			searchList = cDao.getCustomerCheck(c_txtName);
+			searchList = cDao.getCustomerCheck(searchName);
+			searchList = cDao.getCustomerCheck(searchName);
 
-			if (c_txtName.equals("")) {
+			if (searchName.equals("")) {
 				searchResult = true;
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("고객 정보 검색");
@@ -199,7 +179,7 @@ public class CustomerController implements Initializable {
 				c_txtSearch.clear();
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("고객 정보 검색");
-				alert.setHeaderText(c_txtName + "이(가) 리스트에 없습니다.");
+				alert.setHeaderText(searchName + "이(가) 리스트에 없습니다.");
 				alert.setContentText("다시 시도해주세요.");
 				alert.showAndWait();
 
@@ -272,7 +252,7 @@ public class CustomerController implements Initializable {
 				customerDataList.removeAll(customerDataList);
 				customerTotalList();
 
-				c_txtNumber.clear();
+				//c_txtNumber.clear();
 				c_txtName.clear();
 				c_txtCname.clear();
 				c_txtPhone.clear();
@@ -280,7 +260,7 @@ public class CustomerController implements Initializable {
 				c_txtAddress.clear();
 				c_txtEmail.clear();
 				c_txtRemarks.clear();
-				c_registdate.clear();
+				//c_registdate.clear();
 
 				c_btnRegist.setDisable(false);
 				c_btnUpdate.setDisable(true);

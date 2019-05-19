@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
+import model.AccountVO;
 import model.CustomerVO;
 
 public class CustomerDAO {
@@ -333,10 +334,53 @@ public class CustomerDAO {
 	}
 
 	// 고객이름 검색
-	public ArrayList<CustomerVO> getCustomerSearchList(TextField c_txtName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ArrayList<CustomerVO> getCustomerCheck(String name) throws Exception {
+		ArrayList<CustomerVO> list = new ArrayList<CustomerVO>();
 
+		String sql = "select * from customer where c_name like ? order by c_number desc";
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CustomerVO cVo = null;
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + name + "%");
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				cVo = new CustomerVO();
+				cVo.setC_number(rs.getInt("C_number"));
+				cVo.setC_name(rs.getString("c_name"));
+				cVo.setC_cname(rs.getString("c_cname"));
+				cVo.setC_phone(rs.getString("c_phone"));
+				cVo.setC_email(rs.getString("c_email"));
+				cVo.setC_bnumber(rs.getString("c_bnumber"));
+				cVo.setC_address(rs.getString("c_address"));
+				cVo.setC_remarks(rs.getString("c_remarks"));
+				cVo.setC_registdate(rs.getDate("c_registdate") + "");
+				list.add(cVo);
+			}
+		} catch (SQLException se) {
+			System.out.println(se);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+			}
+		}
+		return list;
+	}
 
 }
