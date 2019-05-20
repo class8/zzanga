@@ -20,7 +20,7 @@
 <?import javafx.scene.control.Button?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="300"
-	prefWidth="380">
+	prefWidth="380" fx:controller="control.TradeRegController">
 
 	<padding>
 		<Insets top="10" right="10" bottom="10" left="10" />
