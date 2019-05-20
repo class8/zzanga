@@ -219,7 +219,6 @@ public class AccountController implements Initializable {
 				alert.showAndWait();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("거래처 정보 입력");
 			alert.setHeaderText("거래처 정보를 정확히 입력하세요.");

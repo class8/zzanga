@@ -252,7 +252,7 @@ public class CustomerController implements Initializable {
 				customerDataList.removeAll(customerDataList);
 				customerTotalList();
 
-				//c_txtNumber.clear();
+				// c_txtNumber.clear();
 				c_txtName.clear();
 				c_txtCname.clear();
 				c_txtPhone.clear();
@@ -260,7 +260,7 @@ public class CustomerController implements Initializable {
 				c_txtAddress.clear();
 				c_txtEmail.clear();
 				c_txtRemarks.clear();
-				//c_registdate.clear();
+				// c_registdate.clear();
 
 				c_btnRegist.setDisable(false);
 				c_btnUpdate.setDisable(true);
@@ -343,14 +343,15 @@ public class CustomerController implements Initializable {
 			CustomerVO cvo = null;
 			CustomerDAO cdao = null;
 
-			cvo = new CustomerVO(c_txtName.getText().trim(), c_txtCname.getText().trim(), c_txtPhone.getText().trim(),
-					c_txtBnumber.getText().trim(), c_txtAddress.getText().trim(), c_txtEmail.getText().trim(),
-					c_txtRemarks.getText().trim());
+			if (c_txtName.getLength() != 0 && c_txtPhone.getLength() != 0) {
 
-			cdao = new CustomerDAO();
-			cdao.getCustomerRegiste(cvo);
+				cvo = new CustomerVO(c_txtName.getText().trim(), c_txtCname.getText().trim(),
+						c_txtPhone.getText().trim(), c_txtBnumber.getText().trim(), c_txtAddress.getText().trim(),
+						c_txtEmail.getText().trim(), c_txtRemarks.getText().trim());
 
-			if (cdao != null) {
+				cdao = new CustomerDAO();
+				cdao.getCustomerRegiste(cvo);
+
 				customerTotalList();
 
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -359,7 +360,6 @@ public class CustomerController implements Initializable {
 				alert.setContentText("다음 고객님을 입력하세요.");
 				alert.showAndWait();
 
-				c_txtNumber.clear();
 				c_txtName.clear();
 				c_txtCname.clear();
 				c_txtPhone.clear();
@@ -368,6 +368,16 @@ public class CustomerController implements Initializable {
 				c_txtEmail.clear();
 				c_txtRemarks.clear();
 				c_txtName.requestFocus();
+			} else {
+				customerDataList.removeAll(customerDataList);
+
+				customerTotalList();
+
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("고객 정보 미입력");
+				alert.setHeaderText("고객 정보중에 미입력된 항목이 있습니다.");
+				alert.setContentText("고객 정보를 정확히 입력하세요.");
+				alert.showAndWait();
 			}
 
 		} catch (Exception e) {
