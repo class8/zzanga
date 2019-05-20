@@ -88,4 +88,29 @@ create sequence customer_seq
 start with 1
 increment by 1;
 
+create table trade(
+t_number number,
+f_number number not null,
+c_number number not null,
+t_amount number(5) not null,
+t_price number(15) not null,
+t_deposit number(15) not null,
+t_penalty number(15) not null,
+t_balance number(15) not null,
+t_receipt number(15) not null,
+t_unpaid number(15) not null,
+t_status varchar2(8) not null,
+t_registdate date DEFAULT sysdate not null,
+t_address varchar2(100) not null,
+t_remarks varchar2(50),
+primary key(t_number),
+foreign key(f_number) references fabric(f_number),
+foreign key(c_number) references customer(c_number)
+);
 
+create sequence trade_seq
+start with 1
+increment by 1;
+
+select *
+from trade;
