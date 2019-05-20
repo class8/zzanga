@@ -20,7 +20,8 @@
 <?import javafx.scene.control.Button?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-	prefHeight="300" prefWidth="1200">
+	prefHeight="300" prefWidth="1200"
+	fx:controller="control.TradeInfoController">
 	<HBox>
 		<children>
 			<VBox>
@@ -62,10 +63,11 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="총 수량 : " prefWidth="60" />
-						<TextField fx:id="r_txtAmount" prefWidth="110"
+						<TextField fx:id="t_txtAmount" prefWidth="110"
 							promptText="총 수량" />
 						<Label text="총 가격 : " prefWidth="60" />
-						<TextField prefWidth="110" promptText="총 가격" />
+						<TextField fx:id="t_txtPrice" prefWidth="110"
+							promptText="총 가격" />
 					</children>
 				</HBox>
 
@@ -109,7 +111,7 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="연락처 : " prefWidth="60" />
-						<TextField fx:id="r_txtPhone" prefWidth="110"
+						<TextField fx:id="t_txtPhone" prefWidth="110"
 							promptText="연락처" />
 						<Label text="거래일 : " prefWidth="60" />
 						<DatePicker fx:id="t_dpDate" prefWidth="110"></DatePicker>
@@ -120,7 +122,7 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="배달주소 : " />
-						<TextField fx:id="r_txtAddress" prefWidth="300"
+						<TextField fx:id="t_txtAddress" prefWidth="300"
 							promptText="배달주소" />
 					</children>
 				</HBox>
@@ -147,7 +149,6 @@
 					</padding>
 					<spacing>20</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Button fx:id="t_btnRegist">등 록</Button>
 						<Button fx:id="t_btnInit">초기화</Button>
 						<Button fx:id="t_btnUpdate">수 정</Button>
 					</children>
@@ -200,13 +201,14 @@
 					<padding>
 						<Insets left="60" />
 					</padding>
-					<Button text="주문 등록" />
+					<Button fx:id="t_or_btnRegist" text="주문 등록" />
 				</HBox>
 
 			</HBox>
 
 			<HBox>
-				<TableView prefWidth="850.0" prefHeight="450.0" />
+				<TableView fx:id="t_tableView" fxprefWidth="850.0"
+					prefHeight="450.0" />
 			</HBox>
 
 		</VBox>

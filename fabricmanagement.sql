@@ -55,7 +55,7 @@ f_weight varchar2(10) not null,
 f_trait varchar2(50),
 f_price varchar2(15) not null,
 f_remarks varchar2(50),
-a_registdate date DEFAULT sysdate not null,
+f_registdate date DEFAULT sysdate not null,
 FILENAME     VARCHAR2(100)  not null,
 primary key(f_number)  
 );
@@ -94,12 +94,12 @@ f_number number not null,
 c_number number not null,
 t_amount number(5) not null,
 t_price number(15) not null,
-t_deposit number(15) not null,
-t_penalty number(15) not null,
-t_balance number(15) not null,
-t_receipt number(15) not null,
-t_unpaid number(15) not null,
-t_status varchar2(8) not null,
+t_deposit number(15) DEFAULT 0,
+t_penalty number(15) DEFAULT 0,
+t_balance number(15) DEFAULT 0,
+t_receipt number(15) DEFAULT 0,
+t_unpaid number(15) DEFAULT 0,
+t_status varchar2(8) DEFAULT '거래시작' not null,
 t_registdate date DEFAULT sysdate not null,
 t_address varchar2(100) not null,
 t_remarks varchar2(50),
@@ -112,5 +112,19 @@ create sequence trade_seq
 start with 1
 increment by 1;
 
+insert into trade(t_number,t_amount,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,t_registdate,t_address,t_remarks)
+values (1,1,1,1,1,1,1,'1',sysdate,'1','1');
+
+
+insert into trade values (1,1,1,1,1,1,1,1,1,1,'1',sysdate,'1','1');
+
 select *
 from trade;
+
+insert into fabric values (1,'1','1','1',1,'1','1','1','1','1','1','1','1',sysdate);
+
+desc trade;
+
+select t_number,t_amount,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,t_registdate,t_address,t_remarks,
+from trade t, customer c
+where t.c_number=c.c_number;
