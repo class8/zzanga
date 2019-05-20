@@ -56,6 +56,7 @@ f_trait varchar2(50),
 f_price varchar2(15) not null,
 f_remarks varchar2(50),
 a_registdate date DEFAULT sysdate not null,
+FILENAME     VARCHAR2(100)  not null,
 primary key(f_number)  
 );
 
