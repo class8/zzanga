@@ -280,6 +280,7 @@ public class CustomerDAO {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
+			
 			pstmt.setString(1, cvo.getC_name());
 			pstmt.setString(2, cvo.getC_cname());
 			pstmt.setString(3, cvo.getC_phone());
@@ -365,6 +366,7 @@ public class CustomerDAO {
 				cVo.setC_registdate(rs.getDate("c_registdate") + "");
 				list.add(cVo);
 			}
+			
 		} catch (SQLException se) {
 			System.out.println(se);
 		} catch (Exception e) {

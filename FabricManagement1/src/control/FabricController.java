@@ -1,10 +1,6 @@
 package control;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,15 +27,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.CustomerVO;
 import model.FabricVO;
-import model.TradeVO;
 
 public class FabricController implements Initializable {
 
@@ -100,7 +93,8 @@ public class FabricController implements Initializable {
 
 	ObservableList<FabricVO> fabricDataList = FXCollections.observableArrayList();
 	ObservableList<FabricVO> selectFabric = null;
-	String selectedFabricIndex = "";
+	// String selectedFabricIndex = "";
+	String selectedFabricIndex;
 
 	// 추가
 	private Stage primaryStage;
@@ -108,13 +102,12 @@ public class FabricController implements Initializable {
 	String localUrl = ""; // 이미지 파일 경로
 	Image localImage;
 
-	File selectedFile = null;
-
-	// 이미지 처리
 	// 이미지 저장할 폴더를 매개변수로 파일 객체 생성
 	private File dirSave = new File("C:/images");
 	// 이미지 불러올 파일을 저장할 파일 객체 선언
 	private File file = null;
+
+	File selectedFile = null;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -214,16 +207,15 @@ public class FabricController implements Initializable {
 	public void handlerBtnTradeAction(ActionEvent event) {
 
 		try {
-			
+
 			Stage dialog = new Stage(StageStyle.UTILITY);
 			dialog.initModality(Modality.WINDOW_MODAL);
-			
-			//dialog.initOwner(f_btnTrade.getScene().getWindow());
+
+			// dialog.initOwner(f_btnTrade.getScene().getWindow());
 
 			Parent parent = FXMLLoader.load(getClass().getResource("/view/tradeReg.fxml"));
 
-			//TradeVO tradeReg = (TradeVO) parent.lookup("#tradeReg");
-
+			// TradeVO tradeReg = (TradeVO) parent.lookup("#tradeReg");
 
 			Scene scene = new Scene(parent);
 			dialog.setScene(scene);
@@ -245,27 +237,18 @@ public class FabricController implements Initializable {
 			FabricVO fvo = null;
 			FabricDAO fdao = new FabricDAO();
 
-			File dirMake = new File(dirSave.getAbsolutePath());
-
-			// 이미지 저장 폴더 생성
-			if (!dirMake.exists()) {
-				dirMake.mkdir();
-			}
-
-			// 이미지 파일 저장
-			String fileName = imageSave(selectedFile);
-
 			fabricDataList.removeAll(fabricDataList);
 
-			if (f_txtSort.getLength() != 0 && f_txtName.getLength() != 0 && f_txtColor.getLength() != 0
-					&& f_txtSize.getLength() != 0 && f_txtMaterial.getLength() != 0 && f_txtWeight.getLength() != 0
-					&& f_txtOrigin.getLength() != 0 && f_txtCname.getLength() != 0 && f_txtPrice.getLength() != 0
-					&& f_txtPhone.getLength() != 0) {
+			if (f_txtNumber.getLength() != 0 && f_txtSort.getLength() != 0 && f_txtName.getLength() != 0
+					&& f_txtColor.getLength() != 0 && f_txtSize.getLength() != 0 && f_txtMaterial.getLength() != 0
+					&& f_txtWeight.getLength() != 0 && f_txtOrigin.getLength() != 0 && f_txtCname.getLength() != 0
+					&& f_txtPrice.getLength() != 0 && f_txtPhone.getLength() != 0) {
 
-				fvo = new FabricVO(f_txtSort.getText().trim(), f_txtName.getText().trim(), f_txtColor.getText().trim(),
-						f_txtSize.getText().trim(), f_txtWeight.getText().trim(), f_txtOrigin.getText().trim(),
-						f_txtCname.getText().trim(), f_txtPrice.getText().trim(), f_txtPhone.getText().trim(),
-						f_txtMaterial.getText().trim(), f_txtTrait.getText(), f_txtRemarks.getText(), fileName);
+				fvo = new FabricVO(f_txtNumber.getText().trim(), f_txtSort.getText().trim(), f_txtName.getText().trim(),
+						f_txtColor.getText().trim(), f_txtSize.getText().trim(), f_txtWeight.getText().trim(),
+						f_txtOrigin.getText().trim(), f_txtCname.getText().trim(), f_txtPrice.getText().trim(),
+						f_txtPhone.getText().trim(), f_txtMaterial.getText().trim(), f_txtTrait.getText(),
+						f_txtRemarks.getText().trim(), localUrl);
 
 				fdao = new FabricDAO();
 				fdao.getFabricRegist(fvo);
@@ -316,8 +299,11 @@ public class FabricController implements Initializable {
 
 	// 테이블뷰 마우스클릭 이벤트
 	public void handlerFabricTableViewAction(MouseEvent event) {
+
 		if (event.getClickCount() == 2) {
+
 			try {
+
 				selectFabric = f_tableView.getSelectionModel().getSelectedItems();
 				selectedFabricIndex = selectFabric.get(0).getF_number();
 				String selectedf_sort = selectFabric.get(0).getF_sort();
@@ -357,42 +343,6 @@ public class FabricController implements Initializable {
 		}
 	}
 
-	private String imageSave(File selectedFile) {
-
-		BufferedInputStream bis = null;
-		BufferedOutputStream bos = null;
-
-		int data = -1;
-		String fileName = null;
-		try {
-			// 이미지 파일명 생성
-			fileName = "fabric" + System.currentTimeMillis() + "_" + file.getName();
-
-			bis = new BufferedInputStream(new FileInputStream(file));
-			bos = new BufferedOutputStream(new FileOutputStream(dirSave.getAbsolutePath() + "\\" + fileName));
-
-			// 선택한 이미지 파일 InputStream의 마지막에 이르렀을 경우는 -1
-			while ((data = bis.read()) != -1) {
-				bos.write(data);
-				bos.flush();
-			}
-		} catch (Exception e) {
-			e.getMessage();
-		} finally {
-			try {
-				if (bos != null) {
-					bos.close();
-				}
-				if (bis != null) {
-					bis.close();
-				}
-			} catch (IOException e) {
-				e.getMessage();
-			}
-		}
-		return fileName;
-	}
-
 	// 이미지 파일 선택 창
 	public void handlerBtnImageFileAction(ActionEvent event) {
 		FileChooser fileChooser = new FileChooser();
@@ -403,10 +353,14 @@ public class FabricController implements Initializable {
 			if (selectedFile != null) {
 				// 이미지 파일 경로
 				localUrl = selectedFile.toURI().toURL().toString();
+
 			}
 		} catch (MalformedURLException e) {
+
 			e.printStackTrace();
+
 		}
+
 		localImage = new Image(localUrl, false);
 
 		imageView.setImage(localImage);
@@ -416,7 +370,10 @@ public class FabricController implements Initializable {
 		f_btnRegist.setDisable(false);
 
 		if (selectedFile != null) {
+
 			selectFileName = selectedFile.getName();
+
+			System.out.println("selectFileName : " + selectFileName);
 		}
 	}
 
@@ -482,23 +439,23 @@ public class FabricController implements Initializable {
 
 	// 수정 버튼 이벤트
 	public void handlerBtnUpdateAction(ActionEvent event) {
+
 		try {
+
 			boolean sucess;
 
 			FabricDAO sdao = new FabricDAO();
-			sucess = sdao.getFabricUpdate(f_txtNumber.getText().trim(), f_txtSort.getText().trim(),
-					f_txtName.getText().trim(), f_txtColor.getText().trim(), f_txtSize.getText().trim(),
-					f_txtWeight.getText().trim(), f_txtOrigin.getText().trim(), f_txtCname.getText().trim(),
-					f_txtPrice.getText().trim(), f_txtPhone.getText().trim(), f_txtMaterial.getText().trim(),
-					f_txtTrait.getText().trim(), f_txtRemarks.getText().trim());
+
+			sucess = sdao.getFabricUpdate(selectedFabricIndex, f_txtNumber.getText().trim(), f_txtSort.getText().trim(),
+					f_txtName.getText().trim(), null, f_txtColor.getText().trim(), f_txtSize.getText().trim(),
+					f_txtOrigin.getText().trim(), f_txtCname.getText().trim(), f_txtPhone.getText().trim(),
+					f_txtWeight.getText().trim(), f_txtPrice.getText().trim(), f_txtMaterial.getText().trim(),
+					f_txtTrait.getText().trim(), f_txtRemarks.getText().trim(), fileName.getText().trim());
 
 			if (sucess) {
 				fabricDataList.removeAll(fabricDataList);
 				fabricTotalList();
 
-				f_txtNumber.clear();
-				f_txtSort.clear();
-				f_txtName.clear();
 				f_txtColor.clear();
 				f_txtSize.clear();
 				f_txtWeight.clear();
@@ -508,7 +465,7 @@ public class FabricController implements Initializable {
 				f_txtPhone.clear();
 				f_txtMaterial.clear();
 				f_txtTrait.clear();
-				f_txtRemarks.clear();
+				f_txtName.requestFocus();
 
 				f_txtNumber.setEditable(true);
 				f_txtName.setEditable(true);

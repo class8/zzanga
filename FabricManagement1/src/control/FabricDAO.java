@@ -18,7 +18,7 @@ public class FabricDAO {
 
 		ArrayList<FabricVO> list = new ArrayList<>();
 
-		String sql = "select * from fabric order by f_number";
+		String sql = "select f_number, f_sort, f_name, f_color, f_size, f_material, f_origin, f_cname, f_phone, f_weight, f_trait, f_price, f_remarks, f_registdate, filename from fabric";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -37,22 +37,28 @@ public class FabricDAO {
 				fVo.setF_name(rs.getString("f_name"));
 				fVo.setF_color(rs.getString("f_color"));
 				fVo.setF_size(rs.getString("f_size"));
-				fVo.setF_weight(rs.getString("f_weight"));
+				fVo.setF_material(rs.getString("f_material"));
 				fVo.setF_origin(rs.getString("f_origin"));
 				fVo.setF_cname(rs.getString("f_cname"));
-				fVo.setF_price(rs.getString("f_price"));
-				fVo.setF_material(rs.getString("f_material"));
+				fVo.setF_phone(rs.getString("f_phone"));
+				fVo.setF_weight(rs.getString("f_weight"));
 				fVo.setF_trait(rs.getString("f_trait"));
+				fVo.setF_price(rs.getString("f_price"));
 				fVo.setF_remarks(rs.getString("f_remarks"));
 				fVo.setF_registdate(rs.getString("f_registdate"));
 				fVo.setFilename(rs.getString("filename"));
 				list.add(fVo);
 			}
 		} catch (SQLException se) {
+
 			System.out.println(se);
+
 		} catch (Exception e) {
+
 			System.out.println(e);
+
 		} finally {
+
 			try {
 				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
 				if (rs != null)
@@ -92,10 +98,28 @@ public class FabricDAO {
 			pstmt.setString(11, fvo.getF_trait());
 			pstmt.setString(12, fvo.getF_price());
 			pstmt.setString(13, fvo.getF_remarks());
-			System.out.println(123);
 			pstmt.setString(14, fvo.getFilename());
+			
+			System.out.println(fvo.getFilename());
 
 			int i = pstmt.executeUpdate();
+
+			if (i == 1) {
+
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("원단 등록");
+				alert.setHeaderText(fvo.getF_name() + " 원단 등록 완료.");
+				alert.setContentText("원단 등록 성공!!!");
+				alert.showAndWait();
+
+			} else {
+
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("원단 등록");
+				alert.setHeaderText("원단 등록 실패");
+				alert.setContentText("원단 등록 실패!");
+				alert.showAndWait();
+			}
 
 		} catch (SQLException e) {
 
@@ -182,9 +206,9 @@ public class FabricDAO {
 	// 정보 수정
 	public boolean getFabricUpdate(String f_number, String f_sort, String f_name, String f_color, String f_size,
 			String f_origin, String f_cname, String f_phone, String f_weight, String f_price, String f_material,
-			String f_trait, String f_remarks) throws Exception {
+			String f_trait, String f_remarks, String string, String f_registdate, String filename) throws Exception {
 
-		String sql = "update fabric set f_sort=?, f_name=?, f_color=?, f_size=?, f_origin=?, f_cname=?, f_phone=?, f_weight=?, f_price=?, f_material=?, f_trait=?, f_remarks=? where f_number=?";
+		String sql = "update fabric set f_color=?, f_size=?, f_origin=?, f_cname=?, f_phone=?, f_weight=?, f_price=?, f_material=?, f_trait=?, f_remarks=? where f_number=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean fabricUpdateSucess = false;
@@ -193,18 +217,17 @@ public class FabricDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 
-			pstmt.setString(1, f_sort);
-			pstmt.setString(2, f_name);
-			pstmt.setString(3, f_color);
-			pstmt.setString(4, f_size);
-			pstmt.setString(5, f_weight);
-			pstmt.setString(6, f_origin);
-			pstmt.setString(7, f_cname);
-			pstmt.setString(8, f_price);
-			pstmt.setString(9, f_material);
-			pstmt.setString(10, f_trait);
-			pstmt.setString(11, f_remarks);
-			pstmt.setString(12, f_number);
+			pstmt.setString(1, f_color);
+			pstmt.setString(2, f_size);
+			pstmt.setString(3, f_origin);
+			pstmt.setString(4, f_cname);
+			pstmt.setString(5, f_phone);
+			pstmt.setString(6, f_weight);
+			pstmt.setString(7, f_price);
+			pstmt.setString(8, f_material);
+			pstmt.setString(9, f_trait);
+			pstmt.setString(10, f_remarks);
+			pstmt.setString(11, f_name);
 
 			int i = pstmt.executeUpdate();
 
@@ -216,6 +239,7 @@ public class FabricDAO {
 				alert.setContentText("원단 정보 수정 성공!");
 				alert.showAndWait();
 				fabricUpdateSucess = true;
+
 			} else {
 
 				Alert alert = new Alert(AlertType.WARNING);
