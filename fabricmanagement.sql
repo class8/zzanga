@@ -42,18 +42,26 @@ increment by 1;
 select account_seq.nextval from dual;
 
 create table fabric(
-f_number varchar2,
-a_cname varchar2(15) not null,
-a_mname varchar2(15) not null,
-a_phone varchar2(15) not null,
-a_email varchar2(50) not null,
-a_address varchar2(100) not null,
-a_bnumber varchar2(20) unique not null,
-a_msubject varchar2(20) not null,
-a_remarks varchar2(50),
+f_number number,
+f_sort varchar2(10) not null,
+f_name varchar2(20) not null,
+f_color varchar2(10) not null,
+f_size number(5) not null,
+f_material varchar2(20) not null,
+f_origin varchar2(10) not null,
+f_cname varchar2(15) not null,
+f_phone varchar2(15) not null,
+f_weight varchar2(10) not null,
+f_trait varchar2(50),
+f_price varchar2(15) not null,
+f_remarks varchar2(50),
 a_registdate date DEFAULT sysdate not null,
-primary key(a_number)   
+primary key(f_number)  
 );
+
+create sequence fabric_seq
+start with 1
+increment by 1;
 
 desc account;
 
