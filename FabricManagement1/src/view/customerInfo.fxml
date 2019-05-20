@@ -146,12 +146,15 @@
 						promptText="찾으려는 고객명" />
 					<Button fx:id="c_btnSearch" text="검  색" />
 				</HBox>
+				
 				<HBox>
 					<TableView fx:id="c_tableView" prefWidth="900.0"
 						prefHeight="450.0" />
 				</HBox>
+				
 			</children>
 		</VBox>
+		
 	</HBox>
 </AnchorPane>
 

@@ -13,10 +13,64 @@ import model.FabricVO;
 
 public class FabricDAO {
 
+	// 원단 전체 목록
+	public ArrayList<FabricVO> getFabricTotalList() throws Exception {
+
+		ArrayList<FabricVO> list = new ArrayList<>();
+
+		String sql = "select * from fabric order by f_number";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		FabricVO fVo = null;
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				fVo = new FabricVO();
+				fVo.setF_number(rs.getString("f_number"));
+				fVo.setF_sort(rs.getString("f_sort"));
+				fVo.setF_name(rs.getString("f_name"));
+				fVo.setF_color(rs.getString("f_color"));
+				fVo.setF_size(rs.getString("f_size"));
+				fVo.setF_weight(rs.getString("f_weight"));
+				fVo.setF_origin(rs.getString("f_origin"));
+				fVo.setF_cname(rs.getString("f_cname"));
+				fVo.setF_price(rs.getString("f_price"));
+				fVo.setF_material(rs.getString("f_material"));
+				fVo.setF_trait(rs.getString("f_trait"));
+				fVo.setF_remarks(rs.getString("f_remarks"));
+				fVo.setF_registdate(rs.getString("f_registdate"));
+				fVo.setFilename(rs.getString("filename"));
+				list.add(fVo);
+			}
+		} catch (SQLException se) {
+			System.out.println(se);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+			}
+		}
+		return list;
+	}
+
 	// 원단 등록
 	public void getFabricRegist(FabricVO fvo) throws Exception {
 
-		String sql = "insert into fabric values " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into fabric values " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -24,18 +78,22 @@ public class FabricDAO {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
+
 			pstmt.setString(1, fvo.getF_number());
 			pstmt.setString(2, fvo.getF_sort());
 			pstmt.setString(3, fvo.getF_name());
 			pstmt.setString(4, fvo.getF_color());
 			pstmt.setString(5, fvo.getF_size());
-			pstmt.setString(6, fvo.getF_weight());
+			pstmt.setString(6, fvo.getF_material());
 			pstmt.setString(7, fvo.getF_origin());
 			pstmt.setString(8, fvo.getF_cname());
-			pstmt.setString(9, fvo.getF_price());
-			pstmt.setString(10, fvo.getF_material());
+			pstmt.setString(9, fvo.getF_phone());
+			pstmt.setString(10, fvo.getF_weight());
 			pstmt.setString(11, fvo.getF_trait());
-			pstmt.setString(12, fvo.getF_remarks());
+			pstmt.setString(12, fvo.getF_price());
+			pstmt.setString(13, fvo.getF_remarks());
+			System.out.println(123);
+			pstmt.setString(14, fvo.getFilename());
 
 			int i = pstmt.executeUpdate();
 
@@ -121,63 +179,11 @@ public class FabricDAO {
 		return columnName;
 	}
 
-	// 학생 전체 목록
-	public ArrayList<FabricVO> getFabricTotalList() throws Exception {
-
-		ArrayList<FabricVO> list = new ArrayList<>();
-
-		String sql = "select * from fabric order by f_number";
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		FabricVO fVo = null;
-
-		try {
-			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-
-				fVo = new FabricVO();
-				fVo.setF_number(rs.getString("f_number"));
-				fVo.setF_sort(rs.getString("f_sort"));
-				fVo.setF_name(rs.getString("f_name"));
-				fVo.setF_color(rs.getString("f_color"));
-				fVo.setF_size(rs.getString("f_size"));
-				fVo.setF_weight(rs.getString("f_weight"));
-				fVo.setF_origin(rs.getString("f_origin"));
-				fVo.setF_cname(rs.getString("f_cname"));
-				fVo.setF_price(rs.getString("f_price"));
-				fVo.setF_material(rs.getString("f_material"));
-				fVo.setF_trait(rs.getString("f_trait"));
-				fVo.setF_remarks(rs.getString("f_remarks"));
-				list.add(fVo);
-			}
-		} catch (SQLException se) {
-			System.out.println(se);
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
-			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-				if (con != null)
-					con.close();
-			} catch (SQLException se) {
-			}
-		}
-		return list;
-	}
-
 	// 정보 수정
 	public boolean getFabricUpdate(String f_number, String f_sort, String f_name, String f_color, String f_size,
 			String f_origin, String f_cname, String f_phone, String f_weight, String f_price, String f_material,
 			String f_trait, String f_remarks) throws Exception {
-		
+
 		String sql = "update fabric set f_sort=?, f_name=?, f_color=?, f_size=?, f_origin=?, f_cname=?, f_phone=?, f_weight=?, f_price=?, f_material=?, f_trait=?, f_remarks=? where f_number=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;

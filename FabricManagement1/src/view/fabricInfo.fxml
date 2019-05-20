@@ -184,7 +184,7 @@
 			</HBox>
 
 			<HBox>
-				<TableView prefWidth="850.0" prefHeight="450.0" />
+				<TableView fx:id="f_tableView" prefWidth="850.0" prefHeight="450.0" />
 			</HBox>
 
 		</VBox>

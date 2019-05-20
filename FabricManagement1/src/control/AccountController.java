@@ -125,13 +125,13 @@ public class AccountController implements Initializable {
 			// 전체 목록
 			accountTotalList();
 
-			a_btnRegist.setOnAction(event -> handlerBtnRegistAction(event));
-			a_btnInit.setOnAction(event -> handlerBtnInitAction(event));
-			a_btnUpdate.setOnAction(event -> handlerBtnUpdateAction(event));
-			a_btnDelete.setOnAction(event -> handlerBtnDeleteAction(event));
-			a_btnExit.setOnAction(event -> handlerBtnExitAction(event));
-			a_btnSearch.setOnAction(event -> handlerBtnSearchAction(event));
-			a_tableView.setOnMouseClicked(event -> handlerAccountTableViewAction(event));
+			a_btnRegist.setOnAction(event -> handlerBtnRegistAction(event)); // 등록버튼 이벤트
+			a_btnInit.setOnAction(event -> handlerBtnInitAction(event)); // 초기화 버튼 이벤트 
+			a_btnUpdate.setOnAction(event -> handlerBtnUpdateAction(event)); // 수정버튼 이벤트 
+			a_btnDelete.setOnAction(event -> handlerBtnDeleteAction(event)); // 삭제 버튼 이벤트 
+			a_btnExit.setOnAction(event -> handlerBtnExitAction(event)); // 종료버튼 이벤트 
+			a_btnSearch.setOnAction(event -> handlerBtnSearchAction(event)); // 검색버튼 이벤트 
+			a_tableView.setOnMouseClicked(event -> handlerAccountTableViewAction(event)); // 테이블뷰 더블클릭 이벤트 
 
 		} catch (Exception e) {
 			e.printStackTrace();

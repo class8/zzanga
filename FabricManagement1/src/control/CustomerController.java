@@ -21,7 +21,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import model.AccountVO;
 import model.CustomerVO;
 
 public class CustomerController implements Initializable {
@@ -68,7 +67,7 @@ public class CustomerController implements Initializable {
 	ObservableList<CustomerVO> customerDataList = FXCollections.observableArrayList();
 	ObservableList<CustomerVO> selectCustomer = null; // 학생등록 테이블에서 선택한 정보 저장
 	int selectedCustomerIndex; // 테이블에서 선택한 정보 인덱스 저장
-	private TextInputControl txtSearchWord;
+	// private TextInputControl txtSearchWord;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
