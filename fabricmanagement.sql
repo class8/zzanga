@@ -60,3 +60,20 @@ desc account;
 select *
 from account;
 
+create table customer(
+c_number number,
+c_name varchar2(15) not null,
+c_cname varchar2(15) not null,
+c_phone varchar2(15) not null,
+c_email varchar2(50),
+c_address varchar2(100),
+c_bnumber varchar2(20) unique,
+c_remarks varchar2(50),
+c_registdate date DEFAULT sysdate not null,
+primary key(c_number)   
+);
+
+create sequence customer_seq
+start with 1
+increment by 1;
+
