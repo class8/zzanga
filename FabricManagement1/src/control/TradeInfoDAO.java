@@ -76,8 +76,7 @@ public class TradeInfoDAO {
 
 		ArrayList<TradeVO> list = new ArrayList<>();
 
-		String sql = "select a_number, a_cname, a_mname, a_phone, a_email, a_bnumber, a_msubject, a_address, a_remarks, a_registdate "
-				+ " from account" + " order by a_number";
+		String sql = "select t_number,f_number,c.c_number,c_name,t_amount,t_price,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,c_phone,t_registdate,t_address,t_remarks from trade t, customer c where t.c_number=c.c_number";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -89,12 +88,24 @@ public class TradeInfoDAO {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-
 				tVo = new TradeVO();
 				tVo.setT_number(rs.getInt("t_number"));
 				tVo.setF_number(rs.getString("f_number"));
-				tVo.setC_number(rs.getString("c_number"));
-				tVo.setT_registdate(rs.getDate("t_registdate"));
+				tVo.setC_number(rs.getInt("c_number"));
+				tVo.setC_name(rs.getString("c_name"));
+				tVo.setT_amount(rs.getInt("t_amount"));
+				tVo.setT_price(rs.getInt("t_price"));
+				tVo.setT_deposit(rs.getInt("t_deposit"));
+				tVo.setT_penalty(rs.getInt("t_penalty"));
+				tVo.setT_balance(rs.getInt("t_balance"));
+				tVo.setT_receipt(rs.getInt("t_receipt"));
+				tVo.setT_unpaid(rs.getInt("t_unpaid"));
+				tVo.setT_status(rs.getString("t_status"));
+				tVo.setC_phone(rs.getString("c_phone"));
+				tVo.setT_registdate(rs.getString("t_registdate"));
+				tVo.setT_address(rs.getString("t_address"));
+				tVo.setT_remarks(rs.getString("t_remarks"));
+
 				list.add(tVo);
 			}
 		} catch (SQLException se) {
@@ -117,10 +128,11 @@ public class TradeInfoDAO {
 	}
 
 	// 정보 수정
-	public boolean getAccountUpdate(int t_number, String a_cname, String a_mname, String a_phone, String a_email,
-			String a_address, String a_bnumber, String a_msubject, String a_remarks) throws Exception {
+	public boolean getTradeUpdate(int t_number, String f_number, String c_number, String c_name, String t_amount,
+			String t_price, String t_deposit, String t_penalty, String t_balance, String t_receipt, String t_unpaid,
+			String t_status, String c_phone, String t_registdate, String t_address, String t_remarks) throws Exception {
 
-		String sql = "update account set a_cname=?, a_mname=?, a_phone=?, a_email=?, a_address=?, a_bnumber=?, a_msubject=?, a_remarks=? where a_number=?";
+		String sql = "update trade set f_number=?, c_number=?, c_name=?, t_amount=?, t_price=?, t_deposit=?, t_penalty=?, t_balance=?, t_receipt=?, t_unpaid=?, t_status=?, c_phone=?, t_registdate=?, t_address=?, t_remarks=? where t_number=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean accountUpdateSucess = false;
@@ -128,32 +140,40 @@ public class TradeInfoDAO {
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, a_cname);
-			pstmt.setString(2, a_mname);
-			pstmt.setString(3, a_phone);
-			pstmt.setString(4, a_email);
-			pstmt.setString(5, a_address);
-			pstmt.setString(6, a_bnumber);
-			pstmt.setString(7, a_msubject);
-			pstmt.setString(8, a_remarks);
-			pstmt.setInt(9, a_number);
+
+			pstmt.setString(1, f_number);
+			pstmt.setString(2, c_number);
+			pstmt.setString(3, c_name);
+			pstmt.setString(4, t_amount);
+			pstmt.setString(5, t_price);
+			pstmt.setString(6, t_deposit);
+			pstmt.setString(7, t_penalty);
+			pstmt.setString(8, t_balance);
+			pstmt.setString(9, t_receipt);
+			pstmt.setString(10, t_unpaid);
+			pstmt.setString(11, t_status);
+			pstmt.setString(12, c_phone);
+			pstmt.setString(13, t_registdate);
+			pstmt.setString(14, t_address);
+			pstmt.setString(15, t_remarks);
+			pstmt.setInt(16, t_number);
 
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("거래처 정보 수정");
-				alert.setHeaderText(a_number + "번 거래처 수정 완료.");
-				alert.setContentText("거래처 정보 수정 성공!");
+				alert.setTitle("거래 정보 수정");
+				alert.setHeaderText(t_number + "번 거래 수정 완료.");
+				alert.setContentText("거래 정보 수정 성공!");
 				alert.showAndWait();
 				accountUpdateSucess = true;
 			} else {
 
 				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("거래처 정보 수정");
-				alert.setHeaderText("거래처 정보 수정 실패");
-				alert.setContentText("거래처 정보 수정 실패!");
+				alert.setTitle("거래 정보 수정");
+				alert.setHeaderText("거래 정보 수정 실패");
+				alert.setContentText("거래 정보 수정 실패!");
 				alert.showAndWait();
 			}
 		} catch (SQLException e) {
@@ -174,10 +194,10 @@ public class TradeInfoDAO {
 	}
 
 	// 정보 삭제
-	public boolean getTradeDelete(int a_number) throws Exception {
+	public boolean getTradeDelete(int t_number) throws Exception {
 
 		StringBuffer sql = new StringBuffer();
-		sql.append("delete from account where a_number = ?");
+		sql.append("delete from trade where t_number = ?");
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -187,25 +207,25 @@ public class TradeInfoDAO {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql.toString());
-			pstmt.setInt(1, a_number);
+			pstmt.setInt(1, t_number);
 
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("거래처 정보 삭제");
-				alert.setHeaderText(a_number + "번 거래처 정보 삭제 완료.");
-				alert.setContentText("거래처 정보 삭제 성공!!!");
+				alert.setTitle("거래 정보 삭제");
+				alert.setHeaderText(t_number + "번 거래 정보 삭제 완료.");
+				alert.setContentText("거래 정보 삭제 성공!!!");
 				alert.showAndWait();
 				accountDeleteSucess = true;
 
 			} else {
 
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("거래처 정보 삭제");
-				alert.setHeaderText("거래처 정보 삭제 실패");
-				alert.setContentText("거래처 정보 삭제 실패!");
+				alert.setTitle("거래 정보 삭제");
+				alert.setHeaderText("거래 정보 삭제 실패");
+				alert.setContentText("거래 정보 삭제 실패!");
 				alert.showAndWait();
 			}
 		} catch (SQLException e) {
@@ -227,16 +247,16 @@ public class TradeInfoDAO {
 		return accountDeleteSucess;
 	}
 
-	// 거래처명을 입력받아 정보 조회
+	// 고객명을 입력받아 정보 조회
 	public ArrayList<TradeVO> getTradeCheck(String name) throws Exception {
 		ArrayList<TradeVO> list = new ArrayList<TradeVO>();
 
-		String sql = "select * from account where a_cname like ? order by a_number desc";
+		String sql = "select t_number,f_number,c.c_number,c_name,t_amount,t_price,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,c_phone,t_registdate,t_address,t_remarks from trade t, customer c where t.c_number=c.c_number and c_name like ? order by t_number desc";
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		AccountVO aVo = null;
+		TradeVO tVo = null;
 
 		try {
 			con = DBUtil.getConnection();
@@ -247,18 +267,24 @@ public class TradeInfoDAO {
 
 			while (rs.next()) {
 
-				aVo = new AccountVO();
-				aVo.setA_number(rs.getInt("a_number"));
-				aVo.setA_cname(rs.getString("a_cname"));
-				aVo.setA_mname(rs.getString("a_mname"));
-				aVo.setA_phone(rs.getString("a_phone"));
-				aVo.setA_email(rs.getString("a_email"));
-				aVo.setA_bnumber(rs.getString("a_bnumber"));
-				aVo.setA_msubject(rs.getString("a_msubject"));
-				aVo.setA_address(rs.getString("a_address"));
-				aVo.setA_remarks(rs.getString("a_remarks"));
-				aVo.setA_registdate(rs.getDate("a_registdate") + "");
-				list.add(aVo);
+				tVo = new TradeVO();
+				tVo.setT_number(rs.getInt("t_number"));
+				tVo.setF_number(rs.getString("f_number"));
+				tVo.setC_number(rs.getInt("c_number"));
+				tVo.setC_name(rs.getString("c_name"));
+				tVo.setT_amount(rs.getInt("t_amount"));
+				tVo.setT_price(rs.getInt("t_price"));
+				tVo.setT_deposit(rs.getInt("t_deposit"));
+				tVo.setT_penalty(rs.getInt("t_penalty"));
+				tVo.setT_balance(rs.getInt("t_balance"));
+				tVo.setT_receipt(rs.getInt("t_receipt"));
+				tVo.setT_unpaid(rs.getInt("t_unpaid"));
+				tVo.setT_status(rs.getString("t_status"));
+				tVo.setC_phone(rs.getString("c_phone"));
+				tVo.setT_registdate(rs.getString("t_registdate"));
+				tVo.setT_address(rs.getString("t_address"));
+				tVo.setT_remarks(rs.getString("t_remarks"));
+				list.add(tVo);
 			}
 		} catch (SQLException se) {
 			System.out.println(se);
