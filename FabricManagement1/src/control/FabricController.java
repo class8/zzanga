@@ -310,7 +310,7 @@ public class FabricController implements Initializable {
 			f_txtPrice.setOnKeyPressed(event -> handlerF_txtPriceKeyPressed(event));
 			f_txtRemarks.setOnKeyPressed(event -> handlerF_txtRemarksKeyPressed(event));
 
-			// f_btnRegist.setOnAction(event -> handlerBtnRegistAction(event)); // 등록버튼 이벤트
+			f_btnRegist.setOnAction(event -> handlerBtnRegistAction(event)); // 등록버튼 이벤트
 			f_btnInit.setOnAction(event -> handlerBtnInitAction(event)); // 초기화버튼 이벤트
 			// f_btnUpdate.setOnAction(event -> handlerBtnUpdateAction(event)); // 수정버튼 이벤트
 			f_btnDelete.setOnAction(event -> handlerBtnDeleteAction(event)); // 삭제버튼 이벤트
@@ -327,6 +327,14 @@ public class FabricController implements Initializable {
 
 		}
 
+	}
+
+	// 등록 버튼 이벤트 
+	public void handlerBtnRegistAction(ActionEvent event) {
+		
+		FXMLLoader loader = new FXMLLoader();// fxml에서 객체를 로드
+		loader.setLocation(getClass().getResource("/View/tradeReg.fxml"));// 수정 모달창을 호출한다 
+		
 	}
 
 	// 마우스클릭 이벤트
