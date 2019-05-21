@@ -87,6 +87,7 @@ public class FabricVO {
 		this.filename = filename;
 	}
 
+	
 	// 접근자와 설정자 생성
 	public String getF_number() {
 		return f_number;

@@ -20,8 +20,7 @@
 <?import javafx.scene.control.Button?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-	prefHeight="300" prefWidth="1200"
-	fx:controller="control.TradeInfoController">
+	prefHeight="300" prefWidth="1200">
 	<HBox>
 		<children>
 			<VBox>
