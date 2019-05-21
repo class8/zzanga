@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -35,9 +36,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.CustomerVO;
 import model.FabricVO;
 import model.TradeVO;
@@ -102,7 +101,7 @@ public class FabricController implements Initializable {
 	ObservableList<FabricVO> fabricDataList = FXCollections.observableArrayList();
 	ObservableList<FabricVO> selectFabric = null;
 	// String selectedFabricIndex = "";
-	int selectedFabricIndex;
+	String selectedFabricIndex;
 
 	// 이미지 추가
 	private Stage primaryStage;
@@ -221,14 +220,19 @@ public class FabricController implements Initializable {
 					// 이미지 파일 저장
 					String fileName = imageSave(selectedFile);
 
-					if (event.getSource().equals(f_btnRegist)) {
+					if (f_txtNumber.getLength() != 0 && f_txtSort.getLength() != 0 && f_txtName.getLength() != 0
+							&& f_txtColor.getLength() != 0 && f_txtSize.getLength() != 0
+							&& f_txtMaterial.getLength() != 0 && f_txtOrigin.getLength() != 0
+							&& f_txtCname.getLength() != 0 && f_txtPhone.getLength() != 0
+							&& f_txtWeight.getLength() != 0 && f_txtTrait.getLength() != 0
+							&& f_txtPrice.getLength() != 0 && f_txtRemarks.getLength() != 0) {
 
 						fvo = new FabricVO(f_txtNumber.getText().trim(), f_txtSort.getText().trim(),
 								f_txtName.getText().trim(), f_txtColor.getText().trim(), f_txtSize.getText().trim(),
 								f_txtMaterial.getText().trim(), f_txtOrigin.getText().trim(),
 								f_txtCname.getText().trim(), f_txtPhone.getText().trim(), f_txtWeight.getText().trim(),
 								f_txtTrait.getText().trim(), f_txtPrice.getText().trim(), f_txtRemarks.getText().trim(),
-								localUrl);
+								fileName);
 
 						fdao = new FabricDAO();
 						fdao.getFabricRegist(fvo);
@@ -265,31 +269,30 @@ public class FabricController implements Initializable {
 							f_txtRemarks.setEditable(true);
 
 							handlerBtnInitAction(event);
-							//fabricTotalList();
+							// fabricTotalList();
 						}
+
+					} else {
+						fabricDataList.removeAll(fabricDataList);
+
+						fabricTotalList();
+
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setTitle("원단 정보 미입력");
+						alert.setHeaderText("원단정보 중에 미입력된 항목이 있습니다.");
+						alert.setContentText("원단 정보를 정확히 입력하세요.");
+						alert.showAndWait();
 					}
 
 				} catch (Exception e) {
+
 					Alert alert = new Alert(AlertType.WARNING);
+
 					alert.setTitle("원단정보 입력");
-					alert.setHeaderText("원단정보를 정확히 입력하시오.");
+					alert.setHeaderText("원단정보를 정확히 입력하세요.");
 					alert.setContentText("다음에는 주의하세요!");
 					alert.showAndWait();
 
-					f_txtNumber.setEditable(true);
-					f_txtSort.setEditable(true);
-					f_txtName.setEditable(true);
-					f_txtColor.setEditable(true);
-					f_txtSize.setEditable(true);
-					f_txtMaterial.setEditable(true);
-					f_txtOrigin.setEditable(true);
-					f_txtCname.setEditable(true);
-					f_txtPhone.setEditable(true);
-					f_txtWeight.setEditable(true);
-					f_txtTrait.setEditable(true);
-					f_txtPrice.setEditable(true);
-					f_txtRemarks.setEditable(true);
-					handlerBtnInitAction(event);
 				}
 			});
 
@@ -310,10 +313,10 @@ public class FabricController implements Initializable {
 			// f_btnRegist.setOnAction(event -> handlerBtnRegistAction(event)); // 등록버튼 이벤트
 			// f_btnInit.setOnAction(event -> handlerBtnInitAction(event)); // 초기화버튼 이벤트
 			// f_btnUpdate.setOnAction(event -> handlerBtnUpdateAction(event)); // 수정버튼 이벤트
-			// f_btnDelete.setOnAction(event -> handlerBtnDeleteAction(event)); // 삭제버튼 이벤트
-			// f_btnExit.setOnAction(event -> handlerBtnExitAction(event)); // 종료버튼 이벤트
+			f_btnDelete.setOnAction(event -> handlerBtnDeleteAction(event)); // 삭제버튼 이벤트
+			f_btnExit.setOnAction(event -> handlerBtnExitAction(event)); // 종료버튼 이벤트
 			// f_btnSearch.setOnAction(event -> handlerBtnSearchAction(event)); // 검색버튼 이벤트
-			// f_tableView.setOnMouseClicked(event -> handlerFabricTableViewAction(event));
+			f_tableView.setOnMouseClicked(event -> handlerFabricTableViewAction(event));
 			// // 마우스 더블클릭 이벤트
 			btnImageFile.setOnAction(event -> handlerBtnImageFileAction(event));
 			// f_btnTrade.setOnAction(event -> handlerBtnTradeAction(event)); // 거래등록버튼 이벤트
@@ -324,6 +327,109 @@ public class FabricController implements Initializable {
 
 		}
 
+	}
+
+	// 마우스클릭 이벤트
+	public void handlerFabricTableViewAction(MouseEvent event) {
+
+		if (event.getClickCount() == 2) {
+
+			try {
+
+				selectFabric = f_tableView.getSelectionModel().getSelectedItems();
+
+				selectedFabricIndex = selectFabric.get(0).getF_number();
+
+				String selectedF_number = selectFabric.get(0).getF_number();
+				String selectedF_sort = selectFabric.get(0).getF_sort();
+				String selectedF_name = selectFabric.get(0).getF_name();
+				String selectedF_color = selectFabric.get(0).getF_color();
+				String selectedF_size = selectFabric.get(0).getF_size();
+				String selectedF_material = selectFabric.get(0).getF_material();
+				String selectedF_origin = selectFabric.get(0).getF_origin();
+				String selectedF_cname = selectFabric.get(0).getF_cname();
+				String selectedF_phone = selectFabric.get(0).getF_phone();
+				String selectedF_weight = selectFabric.get(0).getF_weight();
+				String selectedF_trait = selectFabric.get(0).getF_trait();
+				String selectedF_price = selectFabric.get(0).getF_price();
+				String selectedF_remarks = selectFabric.get(0).getF_remarks();
+				// String selectedFileName = selectFabric.get(0).getFilename();
+
+				f_txtNumber.setText(selectedF_number);
+				f_txtSort.setText(selectedF_sort);
+				f_txtName.setText(selectedF_name);
+				f_txtColor.setText(selectedF_color);
+				f_txtSize.setText(selectedF_size);
+				f_txtMaterial.setText(selectedF_material);
+				f_txtOrigin.setText(selectedF_origin);
+				f_txtCname.setText(selectedF_cname);
+				f_txtPhone.setText(selectedF_phone);
+				f_txtWeight.setText(selectedF_weight);
+				f_txtTrait.setText(selectedF_trait);
+				f_txtPrice.setText(selectedF_price);
+				f_txtRemarks.setText(selectedF_remarks);
+				// fileName.setText(selectedFileName);
+
+				f_btnRegist.setDisable(true);
+				f_btnUpdate.setDisable(false);
+				f_btnInit.setDisable(false);
+				f_btnExit.setDisable(false);
+				f_btnDelete.setDisable(false);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	// 삭제버튼 이벤트
+	public void handlerBtnDeleteAction(ActionEvent event) {
+
+		try {
+
+			boolean sucess;
+
+			FabricDAO fDao = new FabricDAO();
+
+			sucess = fDao.getFabricDelete(selectedFabricIndex);
+
+			if (sucess) {
+
+				fabricDataList.removeAll(fabricDataList);
+				fabricTotalList();
+
+				f_txtNumber.clear();
+				f_txtSort.clear();
+				f_txtName.clear();
+				f_txtColor.clear();
+				f_txtSize.clear();
+				f_txtMaterial.clear();
+				f_txtOrigin.clear();
+				f_txtCname.clear();
+				f_txtPhone.clear();
+				f_txtWeight.clear();
+				f_txtTrait.clear();
+				f_txtPrice.clear();
+				f_txtRemarks.clear();
+				f_registdate.clear();
+
+				f_btnRegist.setDisable(false);
+				f_btnUpdate.setDisable(true);
+				f_btnDelete.setDisable(true);
+
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	// 종료버튼 이벤트
+	public void handlerBtnExitAction(ActionEvent event) {
+
+		Platform.exit();
 	}
 
 	public void handlerF_txtRemarksKeyPressed(KeyEvent event) {
@@ -431,6 +537,7 @@ public class FabricController implements Initializable {
 		String fileName = null;
 
 		try {
+
 			// 이미지 파일명 생성
 			fileName = "fabric" + System.currentTimeMillis() + "_" + file.getName(); // 이게 무슨 네임이 오는 걸까?
 

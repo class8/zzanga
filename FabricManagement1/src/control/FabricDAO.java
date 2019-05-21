@@ -207,41 +207,39 @@ public class FabricDAO {
 		return columnName;
 	}
 
-	// 원단정보 삭제
-
-	public void getFabricDelete(String f_txtNumber) throws Exception {
+	// 고객정보 삭제
+	public boolean getFabricDelete(String selectedFabricIndex) throws Exception {
 
 		StringBuffer sql = new StringBuffer();
-
 		sql.append("delete from fabric where f_number = ?");
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		boolean fabricDeleteSucess = false;
+		boolean FabricDeleteSucess = false;
 
 		try {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql.toString());
-			pstmt.setString(1, f_txtNumber);
+			pstmt.setString(1, selectedFabricIndex);
 
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("원단 정보 삭제");
-				alert.setHeaderText(f_txtNumber + "번 원단 정보 삭제 완료.");
-				alert.setContentText("원단 정보 삭제 성공!");
+				alert.setTitle("원단정보 삭제");
+				alert.setHeaderText("원단정보 삭제 완료.");
+				alert.setContentText("원단정보 삭제 성공!!!");
 				alert.showAndWait();
-				fabricDeleteSucess = true;
+				FabricDeleteSucess = true;
 
 			} else {
 
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("원단 정보 삭제");
-				alert.setHeaderText("원단 정보 삭제 실패");
-				alert.setContentText("원단 정보 삭제 실패!");
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("원단정보 삭제");
+				alert.setHeaderText("원단정보 삭제 실패");
+				alert.setContentText("원단정보 삭제 실패!");
 				alert.showAndWait();
 			}
 
@@ -250,16 +248,26 @@ public class FabricDAO {
 			System.out.println("e=[" + e + "]");
 
 		} catch (Exception e) {
+
 			System.out.println("e=[" + e + "]");
+
 		} finally {
-			try { // 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다. if (pstmt != null) pstmt.close();
+
+			try {
+
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
+				if (pstmt != null)
+					pstmt.close();
 
 				if (con != null)
 					con.close();
+
 			} catch (SQLException e) {
-				System.out.println(e);
+
 			}
 		}
+
+		return FabricDeleteSucess;
 	}
 
 	// 정보 수정
