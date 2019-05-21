@@ -73,8 +73,11 @@
 							</content>
 						</Tab>
 
-						<!-- <Tab text="거래 내역" fx:id="tradeInfo"> <content> <fx:include fx:id="tradeInfo" 
-							source="tradeInfo.fxml" /> </content> </Tab> -->
+						<Tab text="거래 내역" fx:id="tradeInfo">
+							<content>
+								<fx:include fx:id="tradeInfo" source="tradeInfo.fxml" />
+							</content>
+						</Tab>
 
 						<Tab text="주문 내역" fx:id="orderInfo">
 							<content>

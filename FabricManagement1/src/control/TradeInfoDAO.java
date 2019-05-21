@@ -71,12 +71,12 @@ public class TradeInfoDAO {
 		return columnName;
 	}
 
-	// 학생 전체 목록
+	// 전체 목록
 	public ArrayList<TradeVO> getTradeTotalList() throws Exception {
 
 		ArrayList<TradeVO> list = new ArrayList<>();
 
-		String sql = "select t_number,f_number,c.c_number,c_name,t_amount,t_price,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,c_phone,t_registdate,t_address,t_remarks from trade t, customer c where t.c_number=c.c_number";
+		String sql = "select t_number, f_number, c.c_number, c_name, t_amount, t_price, t_deposit, t_penalty, t_balance, t_receipt, t_unpaid, t_status, c_phone, t_registdate, t_address, t_remarks from trade t, customer c where t.c_number=c.c_number";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -102,7 +102,7 @@ public class TradeInfoDAO {
 				tVo.setT_unpaid(rs.getInt("t_unpaid"));
 				tVo.setT_status(rs.getString("t_status"));
 				tVo.setC_phone(rs.getString("c_phone"));
-				tVo.setT_registdate(rs.getString("t_registdate"));
+				tVo.setT_registdate(rs.getDate("t_registdate") + "");
 				tVo.setT_address(rs.getString("t_address"));
 				tVo.setT_remarks(rs.getString("t_remarks"));
 
@@ -122,6 +122,7 @@ public class TradeInfoDAO {
 				if (con != null)
 					con.close();
 			} catch (SQLException se) {
+				System.out.println(se);
 			}
 		}
 		return list;

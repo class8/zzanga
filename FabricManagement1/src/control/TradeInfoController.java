@@ -93,9 +93,13 @@ public class TradeInfoController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
+			tradeTotalList();
+
 			TradeInfoDAO dao = new TradeInfoDAO();
 			t_btnUpdate.setDisable(true);
 			t_btnDelete.setDisable(true);
+
+			t_cbStatus.setItems(FXCollections.observableArrayList("주문확인", "입금완료", "배송중", "거래완료"));
 
 			TableColumn colTnumber = new TableColumn("거래번호");
 			colTnumber.setPrefWidth(40);
@@ -321,8 +325,8 @@ public class TradeInfoController implements Initializable {
 	public void handlerBtnDeleteAction(ActionEvent event) {
 		try {
 			boolean sucess;
-			AccountDAO sDao = new AccountDAO();
-			sucess = sDao.getAccountDelete(selectedTradeIndex);
+			TradeInfoDAO sDao = new TradeInfoDAO();
+			sucess = sDao.getTradeDelete(selectedTradeIndex);
 
 			if (sucess) {
 
@@ -406,9 +410,6 @@ public class TradeInfoController implements Initializable {
 		if (event.getClickCount() == 2) {
 			try {
 				selectTrade = t_tableView.getSelectionModel().getSelectedItems();
-				
-				System.out.println(selectTrade.get(0).getT_registdate());
-				
 				selectedTradeIndex = selectTrade.get(0).getT_number();
 				String selectedF_number = selectTrade.get(0).getF_number();
 				int selectedC_number = selectTrade.get(0).getC_number();
@@ -422,9 +423,10 @@ public class TradeInfoController implements Initializable {
 				int selectedT_unpaid = selectTrade.get(0).getT_unpaid();
 				String selectedT_status = selectTrade.get(0).getT_status();
 				String selectedT_phone = selectTrade.get(0).getC_phone();
-				String selectedT_registdate = selectTrade.get(0).getT_registdate();
+				String selectedT_registdate = selectTrade.get(0).getT_registdate(); // 문자열에 날짜 넣기
 				String selectedT_address = selectTrade.get(0).getT_address();
 				String selectedT_remarks = selectTrade.get(0).getT_remarks();
+
 				t_txtNumber.setText(String.valueOf(selectedTradeIndex));
 				f_txtNumber.setText(selectedF_number);
 				c_txtNumber.setText(String.valueOf(selectedC_number));

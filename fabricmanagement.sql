@@ -99,7 +99,7 @@ t_penalty number(15) DEFAULT 0,
 t_balance number(15) DEFAULT 0,
 t_receipt number(15) DEFAULT 0,
 t_unpaid number(15) DEFAULT 0,
-t_status varchar2(8) DEFAULT '거래시작' not null,
+t_status varchar2(8) DEFAULT '확인준비' not null,
 t_registdate date DEFAULT sysdate not null,
 t_address varchar2(100) not null,
 t_remarks varchar2(50),
@@ -108,23 +108,22 @@ foreign key(f_number) references fabric(f_number),
 foreign key(c_number) references customer(c_number)
 );
 
-create sequence trade_seq
-start with 1
-increment by 1;
+select t_number,f_number,c.c_number,c_name,t_amount,t_price,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,c_phone,t_registdate,t_address,t_remarks from trade t, customer c where t.c_number=c.c_number;
 
-insert into trade(t_number,t_amount,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,t_registdate,t_address,t_remarks)
-values (1,1,1,1,1,1,1,'1',sysdate,'1','1');
+select t_number,f_number,c.c_number,c_name,t_amount,t_price,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,c_phone,t_registdate,t_address,t_remarks from trade t, customer c where t.c_number=c.c_number and c_name like ? order by t_number desc;
 
-
-insert into trade values (1,1,1,1,1,1,1,1,1,1,'1',sysdate,'1','1');
 
 select *
 from trade;
 
-insert into fabric values (1,'1','1','1',1,'1','1','1','1','1','1','1','1',sysdate);
+create sequence trade_seq
+start with 1
+increment by 1;
 
-desc trade;
+select *
+from trade;
 
-select t_number,t_amount,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,t_registdate,t_address,t_remarks,
-from trade t, customer c
-where t.c_number=c.c_number;
+select trade_seq.nextval
+from dual;
+
+select * from trade order by t_number;
