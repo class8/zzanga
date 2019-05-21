@@ -383,49 +383,6 @@ public class FabricController implements Initializable {
 
 	}
 
-	// 삭제버튼 이벤트
-	public void handlerBtnDeleteAction(ActionEvent event) {
-
-		try {
-
-			boolean sucess;
-
-			FabricDAO fDao = new FabricDAO();
-
-			sucess = fDao.getFabricDelete(selectedFabricIndex);
-
-			if (sucess) {
-
-				fabricDataList.removeAll(fabricDataList);
-				fabricTotalList();
-
-				f_txtNumber.clear();
-				f_txtSort.clear();
-				f_txtName.clear();
-				f_txtColor.clear();
-				f_txtSize.clear();
-				f_txtMaterial.clear();
-				f_txtOrigin.clear();
-				f_txtCname.clear();
-				f_txtPhone.clear();
-				f_txtWeight.clear();
-				f_txtTrait.clear();
-				f_txtPrice.clear();
-				f_txtRemarks.clear();
-				f_registdate.clear();
-
-				f_btnRegist.setDisable(false);
-				f_btnUpdate.setDisable(true);
-				f_btnDelete.setDisable(true);
-
-			}
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
-	}
-
 	// 종료버튼 이벤트
 	public void handlerBtnExitAction(ActionEvent event) {
 
@@ -603,6 +560,27 @@ public class FabricController implements Initializable {
 
 		if (selectedFile != null) {
 			selectFileName = selectedFile.getName();
+		}
+	}
+
+	// 원단정보삭제
+	public void handlerBtnDeleteAction(ActionEvent event) {
+
+		FabricDAO fDao = null;
+		fDao = new FabricDAO();
+
+		try {
+
+			fDao.getFabricDelete(f_txtNumber.toString());
+			fabricDataList.removeAll(fabricDataList);
+			// 학생 전체 정보
+			fabricTotalList();
+			handlerBtnInitAction(event);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
 		}
 	}
 
