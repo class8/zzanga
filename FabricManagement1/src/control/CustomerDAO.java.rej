@@ -1,0 +1,9 @@
+diff a/FabricManagement1/src/control/CustomerDAO.java b/FabricManagement1/src/control/CustomerDAO.java	(rejected hunks)
+@@ -280,6 +280,7 @@
+ 
+ 			con = DBUtil.getConnection();
+ 			pstmt = con.prepareStatement(sql);
++			
+ 			pstmt.setString(1, cvo.getC_name());
+ 			pstmt.setString(2, cvo.getC_cname());
+ 			pstmt.setString(3, cvo.getC_phone());

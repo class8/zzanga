@@ -157,6 +157,11 @@ public class TradeInfoController implements Initializable {
 			colTstatus.setStyle("-fx-alignment: CENTER");
 			colTstatus.setCellValueFactory(new PropertyValueFactory<>("t_status"));
 
+			TableColumn colTphone = new TableColumn("연락처");
+			colTphone.setPrefWidth(150);
+			colTphone.setStyle("-fx-alignment: CENTER");
+			colTphone.setCellValueFactory(new PropertyValueFactory<>("t_phone"));
+
 			TableColumn colTregistdate = new TableColumn("거래일");
 			colTregistdate.setPrefWidth(150);
 			colTregistdate.setStyle("-fx-alignment: CENTER");
@@ -186,7 +191,7 @@ public class TradeInfoController implements Initializable {
 			t_btnDelete.setOnAction(event -> handlerBtnDeleteAction(event)); // 삭제 버튼 이벤트
 			t_btnExit.setOnAction(event -> handlerBtnExitAction(event)); // 종료버튼 이벤트
 			t_btnSearch.setOnAction(event -> handlerBtnSearchAction(event)); // 검색버튼 이벤트
-			t_tableView.setOnMouseClicked(event -> handlerAccountTableViewAction(event)); // 테이블뷰 더블클릭 이벤트
+			t_tableView.setOnMouseClicked(event -> handlerTradeTableViewAction(event)); // 테이블뷰 더블클릭 이벤트
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -205,13 +210,12 @@ public class TradeInfoController implements Initializable {
 			searchName = t_txtSearch.getText().trim();
 			tDao = new TradeInfoDAO();
 			searchList = tDao.getTradeCheck(searchName);
-			searchList = tDao.getTradeCheck(searchName);
 
 			if (searchName.equals("")) {
 				searchResult = true;
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("거래 정보 검색");
-				alert.setHeaderText("제품명을 입력하세요.");
+				alert.setHeaderText("고객명을 입력하세요.");
 				alert.setContentText("다시 시도해주세요.");
 				alert.showAndWait();
 			}
@@ -276,7 +280,7 @@ public class TradeInfoController implements Initializable {
 					c_txtName.getText().trim(), t_txtAmount.getText().trim(), t_txtPrice.getText().trim(),
 					t_txtDeposit.getText().trim(), t_txtPenalty.getText().trim(), t_txtBalance.getText().trim(),
 					t_txtReceipt.getText().trim(), t_txtUnpaid.getText().trim(), t_txtStatus.getText().trim(),
-					t_txtPhone.getText().trim(), t_dpDate, t_txtAddress.getText().trim(),
+					t_txtPhone.getText().trim(), String.valueOf(t_dpDate), t_txtAddress.getText().trim(),
 					t_txtRemarks.getText().trim());
 
 			if (sucess) {
@@ -398,38 +402,45 @@ public class TradeInfoController implements Initializable {
 		}
 	}
 
-	public void handlerAccountTableViewAction(MouseEvent event) {
+	public void handlerTradeTableViewAction(MouseEvent event) {
 		if (event.getClickCount() == 2) {
 			try {
 				selectTrade = t_tableView.getSelectionModel().getSelectedItems();
+				
+				System.out.println(selectTrade.get(0).getT_registdate());
+				
 				selectedTradeIndex = selectTrade.get(0).getT_number();
 				String selectedF_number = selectTrade.get(0).getF_number();
-				String selectedC_number = selectTrade.get(0).getC_number();
+				int selectedC_number = selectTrade.get(0).getC_number();
 				String selectedC_name = selectTrade.get(0).getC_name();
-				String selectedT_amount = selectTrade.get(0).getT_amount();
-				String selectedT_price = selectTrade.get(0).getT_price();
-				String selectedT_deposit = selectTrade.get(0).getT_deposit();
-				String selectedT_balance = selectTrade.get(0).getT_balance();
-				String selectedT_receipt = selectTrade.get(0).getT_receipt();
-				String selectedT_unpaid = selectTrade.get(0).getT_unpaid();
-				String selectetT_status = selectTrade.get(0).getT_status();
-				LocalDate selectedT_registdate = selectTrade.get(0).getT_registdate();
+				int selectedT_amount = selectTrade.get(0).getT_amount();
+				int selectedT_price = selectTrade.get(0).getT_price();
+				int selectedT_deposit = selectTrade.get(0).getT_deposit();
+				int selectedT_penalty = selectTrade.get(0).getT_penalty();
+				int selectedT_balance = selectTrade.get(0).getT_balance();
+				int selectedT_receipt = selectTrade.get(0).getT_receipt();
+				int selectedT_unpaid = selectTrade.get(0).getT_unpaid();
+				String selectedT_status = selectTrade.get(0).getT_status();
+				String selectedT_phone = selectTrade.get(0).getC_phone();
+				String selectedT_registdate = selectTrade.get(0).getT_registdate();
 				String selectedT_address = selectTrade.get(0).getT_address();
 				String selectedT_remarks = selectTrade.get(0).getT_remarks();
 				t_txtNumber.setText(String.valueOf(selectedTradeIndex));
 				f_txtNumber.setText(selectedF_number);
-				c_txtNumber.setText(selectedC_number);
-				c_txtName.setText(selectedC_number);
-				t_txtAmount.setText(selectedC_number);
-				t_txtPrice.setText(selectedC_number);
-				t_txtDeposit.setText(selectedC_number);
-				t_txtBalance.setText(selectedC_number);
-				t_txtReceipt.setText(selectedC_number);
-				t_txtUnpaid.setText(selectedC_number);
-				t_txtStatus.setText(selectedC_number);
-				t_txtAddress.setText(selectedC_number);
-				t_dpDate.setValue(selectedT_registdate);
-				t_txtRemarks.setText(selectedC_number);
+				c_txtNumber.setText(String.valueOf(selectedC_number));
+				c_txtName.setText(selectedC_name);
+				t_txtAmount.setText(String.valueOf(selectedT_amount));
+				t_txtPrice.setText(String.valueOf(selectedT_price));
+				t_txtDeposit.setText(String.valueOf(selectedT_deposit));
+				t_txtPenalty.setText(String.valueOf(selectedT_penalty));
+				t_txtBalance.setText(String.valueOf(selectedT_balance));
+				t_txtReceipt.setText(String.valueOf(selectedT_receipt));
+				t_txtUnpaid.setText(String.valueOf(selectedT_unpaid));
+				t_txtStatus.setText(selectedT_status);
+				t_txtPhone.setText(selectedT_phone);
+				t_txtAddress.setText(selectedT_address);
+				t_dpDate.setValue(LocalDate.parse(selectedT_registdate));
+				t_txtRemarks.setText(selectedT_remarks);
 
 				t_txtNumber.setEditable(false);
 				f_txtNumber.setEditable(false);

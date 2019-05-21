@@ -6,18 +6,18 @@ public class TradeVO {
 
 	private int t_number; // 거래번호
 	private String f_number; // 제품코드
-	private String c_number; // 고객번호
+	private int c_number; // 고객번호
 	private String c_name; // 고객명
-	private String t_amount; // 총수량
-	private String t_price; // 총가격
-	private String t_deposit; // 선금
-	private String t_penalty; // 위약금
-	private String t_balance; // 잔금
-	private String t_receipt; // 수령액
-	private String t_unpaid; // 미납금
+	private int t_amount; // 총수량
+	private int t_price; // 총가격
+	private int t_deposit; // 선금
+	private int t_penalty; // 위약금
+	private int t_balance; // 잔금
+	private int t_receipt; // 수령액
+	private int t_unpaid; // 미납금
 	private String t_status; // 거래상태
-	private String t_phone; // 연락처
-	private LocalDate t_registdate; // 거래일
+	private String c_phone; // 연락처
+	private String t_registdate; // 거래일
 	private String t_address; // 배달주소
 	private String t_remarks; // 비고
 
@@ -25,9 +25,9 @@ public class TradeVO {
 		super();
 	}
 
-	public TradeVO(int t_number, String f_number, String c_number, String c_name, String t_amount, String t_price,
-			String t_deposit, String t_penalty, String t_balance, String t_receipt, String t_unpaid, String t_status,
-			String t_phone, LocalDate t_registdate, String t_address, String t_remarks) {
+	public TradeVO(int t_number, String f_number, int c_number, String c_name, int t_amount, int t_price, int t_deposit,
+			int t_penalty, int t_balance, int t_receipt, int t_unpaid, String t_status, String c_phone,
+			String t_registdate, String t_address, String t_remarks) {
 		super();
 		this.t_number = t_number;
 		this.f_number = f_number;
@@ -41,7 +41,7 @@ public class TradeVO {
 		this.t_receipt = t_receipt;
 		this.t_unpaid = t_unpaid;
 		this.t_status = t_status;
-		this.t_phone = t_phone;
+		this.c_phone = c_phone;
 		this.t_registdate = t_registdate;
 		this.t_address = t_address;
 		this.t_remarks = t_remarks;
@@ -63,11 +63,11 @@ public class TradeVO {
 		this.f_number = f_number;
 	}
 
-	public String getC_number() {
+	public int getC_number() {
 		return c_number;
 	}
 
-	public void setC_number(String c_number) {
+	public void setC_number(int c_number) {
 		this.c_number = c_number;
 	}
 
@@ -79,59 +79,59 @@ public class TradeVO {
 		this.c_name = c_name;
 	}
 
-	public String getT_amount() {
+	public int getT_amount() {
 		return t_amount;
 	}
 
-	public void setT_amount(String t_amount) {
+	public void setT_amount(int t_amount) {
 		this.t_amount = t_amount;
 	}
 
-	public String getT_price() {
+	public int getT_price() {
 		return t_price;
 	}
 
-	public void setT_price(String t_price) {
+	public void setT_price(int t_price) {
 		this.t_price = t_price;
 	}
 
-	public String getT_deposit() {
+	public int getT_deposit() {
 		return t_deposit;
 	}
 
-	public void setT_deposit(String t_deposit) {
+	public void setT_deposit(int t_deposit) {
 		this.t_deposit = t_deposit;
 	}
 
-	public String getT_penalty() {
+	public int getT_penalty() {
 		return t_penalty;
 	}
 
-	public void setT_penalty(String t_penalty) {
+	public void setT_penalty(int t_penalty) {
 		this.t_penalty = t_penalty;
 	}
 
-	public String getT_balance() {
+	public int getT_balance() {
 		return t_balance;
 	}
 
-	public void setT_balance(String t_balance) {
+	public void setT_balance(int t_balance) {
 		this.t_balance = t_balance;
 	}
 
-	public String getT_receipt() {
+	public int getT_receipt() {
 		return t_receipt;
 	}
 
-	public void setT_receipt(String t_receipt) {
+	public void setT_receipt(int t_receipt) {
 		this.t_receipt = t_receipt;
 	}
 
-	public String getT_unpaid() {
+	public int getT_unpaid() {
 		return t_unpaid;
 	}
 
-	public void setT_unpaid(String t_unpaid) {
+	public void setT_unpaid(int t_unpaid) {
 		this.t_unpaid = t_unpaid;
 	}
 
@@ -143,19 +143,19 @@ public class TradeVO {
 		this.t_status = t_status;
 	}
 
-	public String getT_phone() {
-		return t_phone;
+	public String getC_phone() {
+		return c_phone;
 	}
 
-	public void setT_phone(String t_phone) {
-		this.t_phone = t_phone;
+	public void setC_phone(String c_phone) {
+		this.c_phone = c_phone;
 	}
 
-	public LocalDate getT_registdate() {
+	public String getT_registdate() {
 		return t_registdate;
 	}
 
-	public void setT_registdate(LocalDate t_registdate) {
+	public void setT_registdate(String t_registdate) {
 		this.t_registdate = t_registdate;
 	}
 

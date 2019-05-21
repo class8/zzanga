@@ -185,7 +185,7 @@
 					<padding>
 						<Insets left="60" />
 					</padding>
-					<TextField fx:id="t_txtSearch" promptText="제품명" />
+					<TextField fx:id="t_txtSearch" promptText="고객명" />
 					<Button fx:id="t_btnSearch" text="검색" />
 				</HBox>
 
@@ -207,7 +207,7 @@
 			</HBox>
 
 			<HBox>
-				<TableView fx:id="t_tableView" fxprefWidth="850.0"
+				<TableView fx:id="t_tableView" prefWidth="850.0"
 					prefHeight="450.0" />
 			</HBox>
 
