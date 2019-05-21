@@ -202,7 +202,7 @@ public class FabricController implements Initializable {
 
 			// 원단 정보 등록
 			f_btnRegist.setOnAction(event -> {
-
+				
 				try {
 
 					fabricDataList.removeAll(fabricDataList);
@@ -577,21 +577,39 @@ public class FabricController implements Initializable {
 	// 원단정보삭제
 	public void handlerBtnDeleteAction(ActionEvent event) {
 
-		FabricDAO fDao = null;
-		fDao = new FabricDAO();
-
 		try {
+			boolean sucess;
+			FabricDAO fDao = new FabricDAO();
+			sucess = fDao.getFabricDelete(selectedFabricIndex);
 
-			fDao.getFabricDelete(f_txtNumber.toString());
-			fabricDataList.removeAll(fabricDataList);
-			// 학생 전체 정보
-			fabricTotalList();
-			handlerBtnInitAction(event);
+			if (sucess) {
+
+				fabricDataList.removeAll(fabricDataList);
+				fabricTotalList();
+
+				f_txtNumber.clear();
+				f_txtSort.clear();
+				f_txtName.clear();
+				f_txtColor.clear();
+				f_txtSize.clear();
+				f_txtMaterial.clear();
+				f_txtOrigin.clear();
+				f_txtCname.clear();
+				f_txtPhone.clear();
+				f_txtWeight.clear();
+				f_txtTrait.clear();
+				f_txtPrice.clear();
+				f_txtRemarks.clear();
+
+				f_btnUpdate.setDisable(true);
+				f_btnDelete.setDisable(true);
+				f_btnRegist.setDisable(false);
+				
+			}
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
-
 		}
 	}
 
