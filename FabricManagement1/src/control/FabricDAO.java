@@ -20,7 +20,7 @@ public class FabricDAO {
 
 		ArrayList<FabricVO> list = new ArrayList<>();
 
-		String sql = "select f_number, f_sort, f_name, f_color, f_size, f_material, f_origin, f_cname, f_phone, f_weight, f_trait, f_price, f_remarks, f_registdate, filename from fabric";
+		String sql = "select * from fabric";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -207,7 +207,6 @@ public class FabricDAO {
 		return columnName;
 	}
 
-
 	// 정보 수정
 	public boolean getFabricUpdate(String f_number, String f_sort, String f_name, String f_color, String f_size,
 			String f_origin, String f_cname, String f_phone, String f_weight, String f_price, String f_material,
@@ -270,44 +269,54 @@ public class FabricDAO {
 		return fabricUpdateSucess;
 	}
 
-	// 원단정보삭제 메소드 
-	public void getFabricDelete( String f_number) throws Exception {
-		// ② 데이터 처리를 위한 SQL 문
-		
-		StringBuffer sql = new StringBuffer();
-		
-		sql.append("delete from fabric where f_number = ?");
+	// 원단정보삭제 메소드
+	public void getFabricDelete(String f_number) throws Exception {
+
+		String sql;
+
+		sql = "delete from fabric where f_number=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
+
 			// ③ DBUtil 이라는 클래스의 getConnection( )메서드로 데이터베이스와 연결
 			con = DBUtil.getConnection();
 			// ⑤ SQL 문을 수행후 처리 결과를 얻어옴
-			pstmt = con.prepareStatement(sql.toString());
+			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, f_number);
 			// ⑤ SQL 문을 수행후 처리 결과를 얻어옴
 			int i = pstmt.executeUpdate();
-			
+
 			if (i == 1) {
+
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("원단정보 삭제");
 				alert.setHeaderText("원단정보 삭제 완료.");
 				alert.setContentText("원단정보 삭제 성공!!!");
 				alert.showAndWait();
+
 			} else {
+
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("원단정보 삭제");
 				alert.setHeaderText("원단 삭제 실패.");
 				alert.setContentText("원단 삭제 실패!!!");
 				alert.showAndWait();
 			}
+
 		} catch (SQLException e) {
+
 			System.out.println("e=[" + e + "]");
+
 		} catch (Exception e) {
+
 			System.out.println("e=[" + e + "]");
+
 		} finally {
+
 			try {
+
 				// ⑥ 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
 				if (pstmt != null)
 					pstmt.close();
@@ -317,7 +326,7 @@ public class FabricDAO {
 			}
 		}
 	}
-	
+
 	// 거래처명을 입력받아 정보 조회
 	public ArrayList<FabricVO> getFabricCheck(String name) throws Exception {
 		ArrayList<FabricVO> list = new ArrayList<FabricVO>();

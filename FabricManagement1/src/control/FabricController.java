@@ -311,7 +311,7 @@ public class FabricController implements Initializable {
 			f_txtRemarks.setOnKeyPressed(event -> handlerF_txtRemarksKeyPressed(event));
 
 			// f_btnRegist.setOnAction(event -> handlerBtnRegistAction(event)); // 등록버튼 이벤트
-			// f_btnInit.setOnAction(event -> handlerBtnInitAction(event)); // 초기화버튼 이벤트
+			f_btnInit.setOnAction(event -> handlerBtnInitAction(event)); // 초기화버튼 이벤트
 			// f_btnUpdate.setOnAction(event -> handlerBtnUpdateAction(event)); // 수정버튼 이벤트
 			f_btnDelete.setOnAction(event -> handlerBtnDeleteAction(event)); // 삭제버튼 이벤트
 			f_btnExit.setOnAction(event -> handlerBtnExitAction(event)); // 종료버튼 이벤트
@@ -369,6 +369,16 @@ public class FabricController implements Initializable {
 				f_txtPrice.setText(selectedF_price);
 				f_txtRemarks.setText(selectedF_remarks);
 				// fileName.setText(selectedFileName);
+
+				selectFabric = f_tableView.getSelectionModel().getSelectedItems();
+				// f_txtNumber = selectFabric.get(0).getF_number();
+				selectFileName = selectFabric.get(0).getFilename();
+				localUrl = "file:/C:/images/" + selectFileName;
+				localImage = new Image(localUrl, false);
+
+				imageView.setImage(localImage);
+				imageView.setFitHeight(250);
+				imageView.setFitWidth(230);
 
 				f_btnRegist.setDisable(true);
 				f_btnUpdate.setDisable(false);
@@ -484,6 +494,7 @@ public class FabricController implements Initializable {
 
 	}
 
+	// 이미지저장 폴더
 	public String imageSave(File file) {
 
 		BufferedInputStream bis = null;
@@ -603,7 +614,7 @@ public class FabricController implements Initializable {
 
 		f_btnUpdate.setDisable(true);
 		f_btnDelete.setDisable(true);
-		f_btnRegist.setDisable(true);
+		f_btnRegist.setDisable(false);
 
 		// 기본 이미지
 		localUrl = "/image/default.png";
