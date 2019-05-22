@@ -302,9 +302,9 @@ public class FabricInfoController implements Initializable {
 
 				fabricTotalList();
 
-				//f_txtNumber.clear();
+				// f_txtNumber.clear();
 				f_txtSort.clear();
-				//f_txtName.clear();
+				// f_txtName.clear();
 				f_txtColor.clear();
 				f_txtSize.clear();
 				f_txtMaterial.clear();
@@ -323,7 +323,7 @@ public class FabricInfoController implements Initializable {
 
 				handlerBtnInitAction(event);
 				f_btnDelete.setDisable(true);
-				f_btnInit.setDisable(false);
+				//f_btnInit.setDisable(false);
 				// btnImageFile.setDisable(false);
 
 			}
@@ -487,7 +487,7 @@ public class FabricInfoController implements Initializable {
 
 				f_txtNumber.setEditable(false);
 				f_txtSort.setEditable(false);
-				
+
 				f_btnRegist.setDisable(true);
 				f_btnUpdate.setDisable(false);
 				f_btnInit.setDisable(false);
@@ -659,6 +659,8 @@ public class FabricInfoController implements Initializable {
 
 	// 원단 전체 리스트
 	public void fabricTotalList() throws Exception {
+
+		fabricDataList.removeAll(fabricDataList);
 
 		FabricDAO fDao = new FabricDAO();
 		FabricVO fVo = null;
