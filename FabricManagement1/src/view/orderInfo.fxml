@@ -124,11 +124,29 @@
 							prefHeight="50" promptText="비 고" />
 					</children>
 				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="---------------------------------------" />
+					</children>
+				</HBox>
+
+				<HBox alignment="center">
+					<padding>
+						<Insets top="20" right="10" bottom="10" left="10" />
+					</padding>
+					<spacing>20</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Button fx:id="o_btnInit">초기화</Button>
+						<Button fx:id="o_btnUpdate">수 정</Button>
+					</children>
+				</HBox>
 				<HBox alignment="center">
 					<spacing>20</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Button fx:id="o_btnUpdate1">수 정</Button>
-						<Button fx:id="o_btnDelete1">삭 제</Button>
+						<Button fx:id="o_btnDelete">삭 제</Button>
+						<Button fx:id="o_btnExit">종 료</Button>
 					</children>
 				</HBox>
 			</VBox>
@@ -166,15 +184,6 @@
 					</padding>
 					<ComboBox fx:id="o_cbStatus" promptText="주문상태"></ComboBox>
 					<Button fx:id="o_btnChange" text="변 경" />
-				</HBox>
-
-				<HBox>
-					<padding>
-						<Insets left="60" />
-					</padding>
-					<spacing>10</spacing>
-					<Button fx:id="o_btnUpdate2" text="수정" />
-					<Button fx:id="o_btnDelete2" text="삭제" />
 				</HBox>
 
 			</HBox>

@@ -1,6 +1,7 @@
 package control;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +24,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import model.AccountVO;
 import model.TradeVO;
 
 public class TradeInfoController implements Initializable {
@@ -205,26 +205,44 @@ public class TradeInfoController implements Initializable {
 		ArrayList<TradeVO> searchList = new ArrayList<TradeVO>();
 		TradeVO tVo = null;
 		TradeDAO tDao = null;
+		LocalDate startdate = null;
+		LocalDate enddate = null;
 
 		String searchName = "";
 		boolean searchResult = false;
-		String dateStart = t_dpStart.getValue().toString();
-		String dateEnd = t_dpFinish.getValue().toString();
 
 		try {
 			searchName = t_txtSearch.getText().trim();
-			tDao = new TradeDAO();
-			searchList = tDao.getTradeCheck(searchName, dateStart, dateEnd);
 
-			if (searchName.equals("")) {
-				searchResult = true;
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("거래 정보 검색");
-				alert.setHeaderText("고객명을 입력하세요.");
-				alert.setContentText("다시 시도해주세요.");
-				alert.showAndWait();
-				tradeDataList.removeAll(tradeDataList);
-				tradeTotalList();
+			tDao = new TradeDAO();
+
+			// 시작과 끝 날짜가 공백이 아닐경우
+			if (t_dpStart.getValue() != null && t_dpFinish.getValue() != null) {
+				startdate = t_dpStart.getValue();
+				enddate = t_dpFinish.getValue().plusDays(1);
+				searchList = tDao.getTradeCheck(searchName, startdate.toString().trim(), enddate.toString().trim());
+
+				// 검색 텍스트필드가 공백일 경우
+				if (searchName.equals("")) {
+					searchResult = true;
+					tradeDataList.removeAll(tradeDataList);
+					tradeTotalList();
+				}
+
+				// 시작과 끝 날짜가 공백일경우
+			} else {
+				searchList = tDao.getTradeCheck(searchName);
+				// 검색 텍스트필드가 공백일 경우
+				if (searchName.equals("")) {
+					searchResult = true;
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("거래 정보 검색");
+					alert.setHeaderText("고객명을 입력하세요.");
+					alert.setContentText("다시 시도해주세요.");
+					alert.showAndWait();
+					tradeDataList.removeAll(tradeDataList);
+					tradeTotalList();
+				}
 			}
 
 			if (searchList != null) {
@@ -249,7 +267,10 @@ public class TradeInfoController implements Initializable {
 
 				tradeTotalList();
 			}
+		} catch (SQLException se) {
+			se.printStackTrace();
 		} catch (Exception e) {
+			e.printStackTrace();
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("거래 정보 검색 오류");
 			alert.setHeaderText("거래정보 검색에 오류가 발생하였습니다.");
@@ -282,14 +303,12 @@ public class TradeInfoController implements Initializable {
 	public void handlerBtnUpdateAction(ActionEvent event) {
 		try {
 			boolean sucess;
-
 			TradeDAO tdao = new TradeDAO();
 			sucess = tdao.getTradeUpdate(selectedTradeIndex, f_txtNumber.getText().trim(), c_txtNumber.getText().trim(),
-					c_txtName.getText().trim(), t_txtAmount.getText().trim(), t_txtPrice.getText().trim(),
-					t_txtDeposit.getText().trim(), t_txtPenalty.getText().trim(), t_txtBalance.getText().trim(),
-					t_txtReceipt.getText().trim(), t_txtUnpaid.getText().trim(), t_txtStatus.getText().trim(),
-					t_txtPhone.getText().trim(), String.valueOf(t_dpDate), t_txtAddress.getText().trim(),
-					t_txtRemarks.getText().trim());
+					t_txtAmount.getText().trim(), t_txtPrice.getText().trim(), t_txtDeposit.getText().trim(),
+					t_txtPenalty.getText().trim(), t_txtBalance.getText().trim(), t_txtReceipt.getText().trim(),
+					t_txtUnpaid.getText().trim(), t_txtStatus.getText().trim(), t_dpDate.getValue().toString(),
+					t_txtAddress.getText().trim(), t_txtRemarks.getText().trim());
 
 			if (sucess) {
 				tradeDataList.removeAll(tradeDataList);
@@ -311,6 +330,8 @@ public class TradeInfoController implements Initializable {
 				t_dpDate.setValue(null);
 				t_txtAddress.clear();
 				t_txtRemarks.clear();
+				t_dpStart.setValue(null);
+				t_dpFinish.setValue(null);
 
 				t_txtNumber.setEditable(true);
 				f_txtNumber.setEditable(true);
@@ -353,6 +374,8 @@ public class TradeInfoController implements Initializable {
 				t_dpDate.setValue(null);
 				t_txtAddress.clear();
 				t_txtRemarks.clear();
+				t_dpStart.setValue(null);
+				t_dpFinish.setValue(null);
 
 				t_txtNumber.setEditable(true);
 				f_txtNumber.setEditable(true);
@@ -396,6 +419,8 @@ public class TradeInfoController implements Initializable {
 			t_dpDate.setValue(null);
 			t_txtAddress.clear();
 			t_txtRemarks.clear();
+			t_dpStart.setValue(null);
+			t_dpFinish.setValue(null);
 
 			t_txtNumber.setEditable(true);
 			f_txtNumber.setEditable(true);
@@ -449,9 +474,8 @@ public class TradeInfoController implements Initializable {
 				t_txtRemarks.setText(selectedT_remarks);
 
 				t_txtNumber.setEditable(false);
-				f_txtNumber.setEditable(false);
-				c_txtNumber.setEditable(false);
 				c_txtName.setEditable(false);
+				t_txtPhone.setEditable(false);
 
 				t_btnUpdate.setDisable(false);
 				t_btnDelete.setDisable(false);

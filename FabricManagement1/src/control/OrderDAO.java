@@ -15,7 +15,7 @@ public class OrderDAO {
 
 		ArrayList<String> columnName = new ArrayList<String>();
 
-		String sql = "select o_number,o.a_number,f_number,o_name,o_ph one,o_address,o_amount,o_price,o_status,o_registdate,o_remarks,a_email from order1 o, account a where o.a_number=a.a_number";
+		String sql = "select o_number,o.a_number,f_number,o_name,o_phone,o_address,o_amount,o_price,o_status,o_registdate,o_remarks,a_email from order1 o, account a where o.a_number=a.a_number";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -71,7 +71,7 @@ public class OrderDAO {
 
 		ArrayList<OrderVO> list = new ArrayList<>();
 
-		String sql = "select o_number,o.a_number,f_number,o_name,o_ph one,o_address,o_amount,o_price,o_status,o_registdate,o_remarks,a_email from order1 o, account a where o.a_number=a.a_number";
+		String sql = "select o_number,o.a_number,f_number,o_name,o_phone,o_address,o_amount,o_price,o_status,o_registdate,o_remarks,a_email from order1 o, account a where o.a_number=a.a_number";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

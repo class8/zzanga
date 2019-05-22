@@ -160,6 +160,7 @@
 						<Button fx:id="t_btnExit">종 료</Button>
 					</children>
 				</HBox>
+				
 			</VBox>
 		</children>
 
