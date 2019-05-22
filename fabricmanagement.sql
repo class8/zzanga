@@ -160,3 +160,5 @@ foreign key(a_number) references account(a_number)
 create sequence order_seq
 start with 1
 increment by 1;
+
+select o_number,o.a_number,f_number,o_name,o_ph one,o_address,o_amount,o_price,o_status,o_registdate,o_remarks,a_email from order1 o, account a where o.a_number=a.a_number;
