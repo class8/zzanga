@@ -260,6 +260,7 @@ public class TradeInfoController implements Initializable {
 	// 전체 목록
 	public void tradeTotalList() throws Exception {
 
+		tradeDataList.removeAll(tradeDataList);
 		TradeDAO tDao = new TradeDAO();
 		TradeVO tVo = null;
 		ArrayList<String> title;

@@ -42,7 +42,7 @@ increment by 1;
 select account_seq.nextval from dual;
 
 create table fabric(
-f_number number,
+f_number varchar2(10),
 f_sort varchar2(10) not null,
 f_name varchar2(20) not null,
 f_color varchar2(10) not null,
@@ -90,7 +90,7 @@ increment by 1;
 
 create table trade(
 t_number number,
-f_number number not null,
+f_number varchar2(10) not null,
 c_number number not null,
 t_amount number(5) not null,
 t_price number(15) not null,
@@ -112,18 +112,51 @@ select t_number,f_number,c.c_number,c_name,t_amount,t_price,t_deposit,t_penalty,
 
 select t_number,f_number,c.c_number,c_name,t_amount,t_price,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,c_phone,t_registdate,t_address,t_remarks from trade t, customer c where t.c_number=c.c_number and c_name like ? order by t_number desc;
 
+select t_number,f_number,c.c_number,c_name,t_amount,t_price,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,c_phone,t_registdate,t_address,t_remarks from trade t, customer c where t.c_number=c.c_number;
 
+insert into trade values(trade_seq.nextval,1,12,5,10,10,10,10,10,10,'거래중2',sysdate,'너네집3','기아아아타3');
+
+commit;
 select *
-from trade;
+from customer;
+
+desc trade;
 
 create sequence trade_seq
 start with 1
 increment by 1;
 
 select *
-from trade;
+from order1;
+
+commit;
 
 select trade_seq.nextval
 from dual;
 
+select t_number,f_number,c.c_number,c_name,t_amount,t_price,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,c_phone,t_registdate,t_address,t_remarks from trade t, customer c where t.c_number=c.c_number;
 select * from trade order by t_number;
+
+
+select t_number, f_number, c.c_number, c_name, t_amount, t_price, t_deposit, t_penalty, t_balance, t_receipt, t_unpaid, t_status, c_phone, t_registdate, t_address, t_remarks from trade t, customer c where t.c_number=c.c_number;
+
+create table order1(
+o_number number,
+a_number number not null,
+f_number varchar2(10) not null,
+o_name varchar2(15) not null,
+o_phone varchar2(15) not null,
+o_address varchar2(100) not null,
+o_amount number(5) DEFAULT 0 not null,
+o_price number(15) DEFAULT 0 not null,
+o_status varchar2(10) DEFAULT '주문시작' not null,
+o_registdate date DEFAULT sysdate not null,
+o_remarks varchar2(50),
+primary key(o_number),
+foreign key(f_number) references fabric(f_number),
+foreign key(a_number) references account(a_number)
+);
+
+create sequence order_seq
+start with 1
+increment by 1;
