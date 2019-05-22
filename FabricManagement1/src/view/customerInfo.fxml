@@ -26,7 +26,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
 	prefHeight="300" prefWidth="1200"
-	fx:controller="control.CustomerController">
+	fx:controller="control.CustomerInfoController">
 	<HBox>
 		<children>
 			<VBox>

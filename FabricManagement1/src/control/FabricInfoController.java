@@ -38,7 +38,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.FabricVO;
 
-public class FabricController implements Initializable {
+public class FabricInfoController implements Initializable {
 
 	@FXML
 	TextField f_txtNumber;

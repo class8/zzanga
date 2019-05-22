@@ -93,9 +93,8 @@ public class TradeInfoController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
-			tradeTotalList();
 
-			TradeInfoDAO dao = new TradeInfoDAO();
+			TradeDAO dao = new TradeDAO();
 			t_btnUpdate.setDisable(true);
 			t_btnDelete.setDisable(true);
 
@@ -205,15 +204,17 @@ public class TradeInfoController implements Initializable {
 	public void handlerBtnSearchAction(ActionEvent event) {
 		ArrayList<TradeVO> searchList = new ArrayList<TradeVO>();
 		TradeVO tVo = null;
-		TradeInfoDAO tDao = null;
+		TradeDAO tDao = null;
 
 		String searchName = "";
 		boolean searchResult = false;
+		String dateStart = t_dpStart.getValue().toString();
+		String dateEnd = t_dpFinish.getValue().toString();
 
 		try {
 			searchName = t_txtSearch.getText().trim();
-			tDao = new TradeInfoDAO();
-			searchList = tDao.getTradeCheck(searchName);
+			tDao = new TradeDAO();
+			searchList = tDao.getTradeCheck(searchName, dateStart, dateEnd);
 
 			if (searchName.equals("")) {
 				searchResult = true;
@@ -222,6 +223,8 @@ public class TradeInfoController implements Initializable {
 				alert.setHeaderText("고객명을 입력하세요.");
 				alert.setContentText("다시 시도해주세요.");
 				alert.showAndWait();
+				tradeDataList.removeAll(tradeDataList);
+				tradeTotalList();
 			}
 
 			if (searchList != null) {
@@ -257,7 +260,7 @@ public class TradeInfoController implements Initializable {
 	// 전체 목록
 	public void tradeTotalList() throws Exception {
 
-		TradeInfoDAO tDao = new TradeInfoDAO();
+		TradeDAO tDao = new TradeDAO();
 		TradeVO tVo = null;
 		ArrayList<String> title;
 		ArrayList<TradeVO> list;
@@ -279,7 +282,7 @@ public class TradeInfoController implements Initializable {
 		try {
 			boolean sucess;
 
-			TradeInfoDAO tdao = new TradeInfoDAO();
+			TradeDAO tdao = new TradeDAO();
 			sucess = tdao.getTradeUpdate(selectedTradeIndex, f_txtNumber.getText().trim(), c_txtNumber.getText().trim(),
 					c_txtName.getText().trim(), t_txtAmount.getText().trim(), t_txtPrice.getText().trim(),
 					t_txtDeposit.getText().trim(), t_txtPenalty.getText().trim(), t_txtBalance.getText().trim(),
@@ -325,7 +328,7 @@ public class TradeInfoController implements Initializable {
 	public void handlerBtnDeleteAction(ActionEvent event) {
 		try {
 			boolean sucess;
-			TradeInfoDAO sDao = new TradeInfoDAO();
+			TradeDAO sDao = new TradeDAO();
 			sucess = sDao.getTradeDelete(selectedTradeIndex);
 
 			if (sucess) {

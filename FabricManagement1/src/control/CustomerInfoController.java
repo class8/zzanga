@@ -23,7 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import model.CustomerVO;
 
-public class CustomerController implements Initializable {
+public class CustomerInfoController implements Initializable {
 
 	@FXML
 	private TextField c_txtNumber; // 고객번호
