@@ -22,7 +22,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -31,15 +30,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import model.CustomerVO;
+import javafx.stage.StageStyle;
 import model.FabricVO;
-import model.TradeVO;
 
 public class FabricController implements Initializable {
 
@@ -119,8 +116,6 @@ public class FabricController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		f_tableView.setEditable(false);
-
 		try {
 
 			TableColumn colFnumber = new TableColumn("제품코드");
@@ -190,136 +185,17 @@ public class FabricController implements Initializable {
 					colFcname, colFprice, colFphone, colFmaterial, colFtrait, colFremarks, colFregistdate,
 					colImageFileName);
 
-			// 원단 전체 정보
-			fabricTotalList();
-
-			f_tableView.setItems(fabricDataList);
-
-			// 기본 이미지
-			localUrl = "/image/default.png";
-			localImage = new Image(localUrl, false);
-			imageView.setImage(localImage);
-
-			// 원단 정보 등록
-			f_btnRegist.setOnAction(event -> {
-				
-				try {
-
-					fabricDataList.removeAll(fabricDataList);
-
-					FabricVO fvo = null;
-					FabricDAO fdao = new FabricDAO();
-
-					File dirMake = new File(dirSave.getAbsolutePath());
-
-					// 이미지 저장 폴더 생성
-					if (!dirMake.exists()) {
-						dirMake.mkdir();
-					}
-
-					// 이미지 파일 저장
-					String fileName = imageSave(selectedFile);
-
-					if (f_txtNumber.getLength() != 0 && f_txtSort.getLength() != 0 && f_txtName.getLength() != 0
-							&& f_txtColor.getLength() != 0 && f_txtSize.getLength() != 0
-							&& f_txtMaterial.getLength() != 0 && f_txtOrigin.getLength() != 0
-							&& f_txtCname.getLength() != 0 && f_txtPhone.getLength() != 0
-							&& f_txtWeight.getLength() != 0 && f_txtTrait.getLength() != 0
-							&& f_txtPrice.getLength() != 0 && f_txtRemarks.getLength() != 0) {
-
-						fvo = new FabricVO(f_txtNumber.getText().trim(), f_txtSort.getText().trim(),
-								f_txtName.getText().trim(), f_txtColor.getText().trim(), f_txtSize.getText().trim(),
-								f_txtMaterial.getText().trim(), f_txtOrigin.getText().trim(),
-								f_txtCname.getText().trim(), f_txtPhone.getText().trim(), f_txtWeight.getText().trim(),
-								f_txtTrait.getText().trim(), f_txtPrice.getText().trim(), f_txtRemarks.getText().trim(),
-								fileName);
-
-						fdao = new FabricDAO();
-						fdao.getFabricRegist(fvo);
-
-						if (fdao != null) {
-
-							fabricTotalList();
-
-							Alert alert = new Alert(AlertType.INFORMATION);
-							alert.setTitle("원단정보 입력");
-							alert.setHeaderText(f_txtName.getText() + " 원단이 성공적으로 추가되었습니다..");
-							alert.setContentText("다음 원단정보를 입력하세요");
-							alert.showAndWait();
-
-							btnImageFile.setDisable(true);
-
-							// 기본 이미지
-							localUrl = "/image/default.png";
-							localImage = new Image(localUrl, false);
-							imageView.setImage(localImage);
-
-							f_txtNumber.setEditable(true);
-							f_txtSort.setEditable(true);
-							f_txtName.setEditable(true);
-							f_txtColor.setEditable(true);
-							f_txtSize.setEditable(true);
-							f_txtMaterial.setEditable(true);
-							f_txtOrigin.setEditable(true);
-							f_txtCname.setEditable(true);
-							f_txtPhone.setEditable(true);
-							f_txtWeight.setEditable(true);
-							f_txtTrait.setEditable(true);
-							f_txtPrice.setEditable(true);
-							f_txtRemarks.setEditable(true);
-
-							handlerBtnInitAction(event);
-							// fabricTotalList();
-						}
-
-					} else {
-						fabricDataList.removeAll(fabricDataList);
-
-						fabricTotalList();
-
-						Alert alert = new Alert(AlertType.WARNING);
-						alert.setTitle("원단 정보 미입력");
-						alert.setHeaderText("원단정보 중에 미입력된 항목이 있습니다.");
-						alert.setContentText("원단 정보를 정확히 입력하세요.");
-						alert.showAndWait();
-					}
-
-				} catch (Exception e) {
-
-					Alert alert = new Alert(AlertType.WARNING);
-
-					alert.setTitle("원단정보 입력");
-					alert.setHeaderText("원단정보를 정확히 입력하세요.");
-					alert.setContentText("다음에는 주의하세요!");
-					alert.showAndWait();
-
-				}
-			});
-
-			f_txtNumber.setOnKeyPressed(event -> handlerF_txtNumberKeyPressed(event));
-			f_txtName.setOnKeyPressed(event -> handlerF_txtNameKeyPressed(event));
-			f_txtSort.setOnKeyPressed(event -> handlerF_txtSortKeyPressed(event));
-			f_txtColor.setOnKeyPressed(event -> handlerF_txtColorKeyPressed(event));
-			f_txtSize.setOnKeyPressed(event -> handlerF_txtSizeKeyPressed(event));
-			f_txtMaterial.setOnKeyPressed(event -> handlerF_txtMaterialKeyPressed(event));
-			f_txtOrigin.setOnKeyPressed(event -> handlerF_txtOriginKeyPressed(event));
-			f_txtCname.setOnKeyPressed(event -> handlerF_txtCnameKeyPressed(event));
-			f_txtPhone.setOnKeyPressed(event -> handlerF_txtPhoneKeyPressed(event));
-			f_txtWeight.setOnKeyPressed(event -> handlerF_txtWeightKeyPressed(event));
-			f_txtTrait.setOnKeyPressed(event -> handlerF_txtTraitKeyPressed(event));
-			f_txtPrice.setOnKeyPressed(event -> handlerF_txtPriceKeyPressed(event));
-			f_txtRemarks.setOnKeyPressed(event -> handlerF_txtRemarksKeyPressed(event));
-
 			f_btnRegist.setOnAction(event -> handlerBtnRegistAction(event)); // 등록버튼 이벤트
 			f_btnInit.setOnAction(event -> handlerBtnInitAction(event)); // 초기화버튼 이벤트
-			// f_btnUpdate.setOnAction(event -> handlerBtnUpdateAction(event)); // 수정버튼 이벤트
+			f_btnUpdate.setOnAction(event -> handlerBtnUpdateAction(event)); // 수정버튼 이벤트
 			f_btnDelete.setOnAction(event -> handlerBtnDeleteAction(event)); // 삭제버튼 이벤트
 			f_btnExit.setOnAction(event -> handlerBtnExitAction(event)); // 종료버튼 이벤트
-			// f_btnSearch.setOnAction(event -> handlerBtnSearchAction(event)); // 검색버튼 이벤트
-			f_tableView.setOnMouseClicked(event -> handlerFabricTableViewAction(event));
-			// // 마우스 더블클릭 이벤트
-			btnImageFile.setOnAction(event -> handlerBtnImageFileAction(event));
-			// f_btnTrade.setOnAction(event -> handlerBtnTradeAction(event)); // 거래등록버튼 이벤트
+			f_btnSearch.setOnAction(event -> handlerBtnSearchAction(event)); // 검색버튼 이벤트
+			f_tableView.setOnMouseClicked(event -> handlerFabricTableViewAction(event)); // 마우스 더블클릭 이벤트
+			btnImageFile.setOnAction(event -> handlerBtnImageFileAction(event)); // 이미지파일
+			f_btnTrade.setOnAction(event -> handlerBtnTradeAction(event)); // 거래등록버튼 이벤트
+
+			fabricTotalList();
 
 		} catch (Exception e) {
 
@@ -329,12 +205,233 @@ public class FabricController implements Initializable {
 
 	}
 
-	// 등록 버튼 이벤트 
+	// 거래등록버튼 이벤트
+	public void handlerBtnTradeAction(ActionEvent event) {
+
+		try {
+			Stage dialog = new Stage(StageStyle.UTILITY);
+			dialog.initModality(Modality.WINDOW_MODAL);
+			dialog.initOwner(f_btnRegist.getScene().getWindow());
+			dialog.setTitle("거래 등록");
+			Parent parent = FXMLLoader.load(getClass().getResource("/view/tradeReg.fxml"));
+
+			// Button btnClose = (Button) parent.lookup("#btnClose");
+			// btnClose.setOnAction(e -> dialog.close());
+			Scene scene = new Scene(parent);
+			dialog.setScene(scene);
+			dialog.show();
+
+		} catch (IOException e) {
+			System.out.println(e.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 검색버튼 이벤트
+	public void handlerBtnSearchAction(ActionEvent event) {
+
+		ArrayList<FabricVO> searchList = new ArrayList<FabricVO>();
+		FabricVO fVo = null;
+		FabricDAO fDao = null;
+
+		String searchName = "";
+		boolean searchResult = false;
+
+		try {
+
+			searchName = f_txtSearch.getText().trim();
+			fDao = new FabricDAO();
+			searchList = fDao.getFabricCheck(searchName);
+			searchList = fDao.getFabricCheck(searchName);
+
+			if (searchList != null) {
+				int rowCount = searchList.size();
+
+				f_txtSearch.clear();
+				fabricDataList.removeAll(fabricDataList);
+				for (int index = 0; index < rowCount; index++) {
+					fVo = searchList.get(index);
+					fabricDataList.add(fVo);
+					searchResult = true;
+				}
+			}
+
+			if (!searchResult) {
+				f_txtSearch.clear();
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("원단 정보 검색");
+				alert.setHeaderText(searchName + " 원단이 리스트에 없습니다.");
+				alert.setContentText("다시 시도해주세요.");
+				alert.showAndWait();
+
+				fabricTotalList();
+			}
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("원단 정보 검색 오류");
+			alert.setHeaderText("원단 정보 검색에 오류가 발생하였습니다.");
+			alert.setContentText("다시 시도해주세요.");
+		}
+
+	}
+
+	// 수정버튼 이벤트
+	public void handlerBtnUpdateAction(ActionEvent event) {
+
+		try {
+
+			boolean sucess;
+
+			FabricVO fvo = null;
+			FabricDAO fdao = new FabricDAO();
+
+			// 이미지 파일 저장
+			String fileName = imageSave(selectedFile);
+
+			fvo = new FabricVO(selectedFabricIndex, f_txtColor.getText().trim(), f_txtSize.getText().trim(),
+					f_txtOrigin.getText().trim(), f_txtCname.getText().trim(), f_txtPhone.getText().trim(),
+					f_txtWeight.getText().trim(), f_txtPrice.getText().trim(), f_txtMaterial.getText().trim(),
+					f_txtTrait.getText().trim(), f_txtRemarks.getText(), fileName);
+
+			sucess = fdao.getfabricUpdate(fvo);
+
+			if (sucess) {
+
+				fabricDataList.removeAll(fabricDataList);
+
+				fabricTotalList();
+
+				f_txtNumber.clear();
+				f_txtSort.clear();
+				f_txtName.clear();
+				f_txtColor.clear();
+				f_txtSize.clear();
+				f_txtMaterial.clear();
+				f_txtOrigin.clear();
+				f_txtCname.clear();
+				f_txtPhone.clear();
+				f_txtWeight.clear();
+				f_txtTrait.clear();
+				f_txtPrice.clear();
+				f_txtRemarks.clear();
+				// fileName.clear();
+
+				// f_txtName.requestFocus();
+				f_txtNumber.setEditable(true);
+				f_txtName.setEditable(true);
+
+				handlerBtnInitAction(event);
+				f_btnDelete.setDisable(true);
+				f_btnInit.setDisable(false);
+				// btnImageFile.setDisable(false);
+
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+
+	}
+
+	// 등록 버튼 이벤트
 	public void handlerBtnRegistAction(ActionEvent event) {
-		
-		FXMLLoader loader = new FXMLLoader();// fxml에서 객체를 로드
-		loader.setLocation(getClass().getResource("/View/tradeReg.fxml"));// 수정 모달창을 호출한다 
-		
+
+		try {
+
+			fabricDataList.removeAll(fabricDataList);
+
+			FabricVO fvo = null;
+			FabricDAO fdao = new FabricDAO();
+
+			File dirMake = new File(dirSave.getAbsolutePath());
+
+			// 이미지 저장 폴더 생성
+			if (!dirMake.exists()) {
+				dirMake.mkdir();
+			}
+
+			// 이미지 파일 저장
+			String fileName = imageSave(selectedFile);
+
+			if (f_txtNumber.getLength() != 0 && f_txtSort.getLength() != 0 && f_txtName.getLength() != 0
+					&& f_txtColor.getLength() != 0 && f_txtSize.getLength() != 0 && f_txtMaterial.getLength() != 0
+					&& f_txtOrigin.getLength() != 0 && f_txtCname.getLength() != 0 && f_txtPhone.getLength() != 0
+					&& f_txtWeight.getLength() != 0 && f_txtTrait.getLength() != 0 && f_txtPrice.getLength() != 0
+					&& f_txtRemarks.getLength() != 0 && fileName.length() != 0) {
+
+				fvo = new FabricVO(f_txtNumber.getText().trim(), f_txtSort.getText().trim(), f_txtName.getText().trim(),
+						f_txtColor.getText().trim(), f_txtSize.getText().trim(), f_txtMaterial.getText().trim(),
+						f_txtOrigin.getText().trim(), f_txtCname.getText().trim(), f_txtPhone.getText().trim(),
+						f_txtWeight.getText().trim(), f_txtTrait.getText().trim(), f_txtPrice.getText().trim(),
+						f_txtRemarks.getText().trim(), fileName);
+
+				fdao = new FabricDAO();
+				fdao.getFabricRegist(fvo);
+
+				if (fdao != null) {
+
+					fabricTotalList();
+
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("원단정보 입력");
+					alert.setHeaderText(f_txtName.getText() + " 원단이 성공적으로 추가되었습니다..");
+					alert.setContentText("다음 원단정보를 입력하세요");
+					alert.showAndWait();
+
+					btnImageFile.setDisable(true);
+
+					// 기본 이미지
+					localUrl = "/image/default.png";
+					localImage = new Image(localUrl, false);
+					imageView.setImage(localImage);
+
+					f_txtNumber.setEditable(true);
+					f_txtSort.setEditable(true);
+					f_txtName.setEditable(true);
+					f_txtColor.setEditable(true);
+					f_txtSize.setEditable(true);
+					f_txtMaterial.setEditable(true);
+					f_txtOrigin.setEditable(true);
+					f_txtCname.setEditable(true);
+					f_txtPhone.setEditable(true);
+					f_txtWeight.setEditable(true);
+					f_txtTrait.setEditable(true);
+					f_txtPrice.setEditable(true);
+					f_txtRemarks.setEditable(true);
+
+					handlerBtnInitAction(event);
+					// fabricTotalList();
+					f_btnDelete.setDisable(true);
+					f_btnUpdate.setDisable(true);
+				}
+
+			} else {
+
+				fabricDataList.removeAll(fabricDataList);
+
+				fabricTotalList();
+
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("원단 정보 미입력");
+				alert.setHeaderText("원단정보 중에 미입력된 항목이 있습니다.");
+				alert.setContentText("원단 정보를 정확히 입력하세요.");
+				alert.showAndWait();
+			}
+
+		} catch (Exception e) {
+
+			Alert alert = new Alert(AlertType.WARNING);
+
+			alert.setTitle("원단정보 입력");
+			alert.setHeaderText("원단정보를 정확히 입력하세요.");
+			alert.setContentText("다음에는 주의하세요!");
+			alert.showAndWait();
+
+		}
+
 	}
 
 	// 마우스클릭 이벤트
@@ -385,8 +482,8 @@ public class FabricController implements Initializable {
 				localImage = new Image(localUrl, false);
 
 				imageView.setImage(localImage);
-				imageView.setFitHeight(250);
-				imageView.setFitWidth(230);
+				imageView.setFitHeight(200);
+				imageView.setFitWidth(180);
 
 				f_btnRegist.setDisable(true);
 				f_btnUpdate.setDisable(false);
@@ -395,7 +492,9 @@ public class FabricController implements Initializable {
 				f_btnDelete.setDisable(false);
 
 			} catch (Exception e) {
+
 				e.printStackTrace();
+
 			}
 		}
 
@@ -405,101 +504,6 @@ public class FabricController implements Initializable {
 	public void handlerBtnExitAction(ActionEvent event) {
 
 		Platform.exit();
-	}
-
-	public void handlerF_txtRemarksKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			btnImageFile.requestFocus();
-		}
-
-	}
-
-	public void handlerF_txtPriceKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			f_txtRemarks.requestFocus();
-		}
-	}
-
-	public void handlerF_txtTraitKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			f_txtPrice.requestFocus();
-		}
-	}
-
-	public void handlerF_txtWeightKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			f_txtTrait.requestFocus();
-		}
-	}
-
-	public void handlerF_txtPhoneKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			f_txtWeight.requestFocus();
-		}
-	}
-
-	public void handlerF_txtCnameKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			f_txtPhone.requestFocus();
-		}
-
-	}
-
-	public void handlerF_txtOriginKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			f_txtCname.requestFocus();
-		}
-	}
-
-	public void handlerF_txtMaterialKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			f_txtOrigin.requestFocus();
-		}
-	}
-
-	public void handlerF_txtSizeKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			f_txtMaterial.requestFocus();
-		}
-	}
-
-	public void handlerF_txtColorKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			f_txtSize.requestFocus();
-		}
-	}
-
-	public void handlerF_txtSortKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			f_txtColor.requestFocus();
-		}
-	}
-
-	public void handlerF_txtNameKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			f_txtSort.requestFocus();
-		}
-	}
-
-	// 텍스트 필드 키 이벤트 등록
-	public void handlerF_txtNumberKeyPressed(KeyEvent event) {
-
-		if (event.getCode() == KeyCode.ENTER) {
-			f_txtName.requestFocus();
-		}
-
 	}
 
 	// 이미지저장 폴더
@@ -612,7 +616,7 @@ public class FabricController implements Initializable {
 				f_btnUpdate.setDisable(true);
 				f_btnDelete.setDisable(true);
 				f_btnRegist.setDisable(false);
-				
+
 			}
 
 		} catch (Exception e) {
@@ -641,11 +645,13 @@ public class FabricController implements Initializable {
 		f_btnUpdate.setDisable(true);
 		f_btnDelete.setDisable(true);
 		f_btnRegist.setDisable(false);
+		btnImageFile.setDisable(false);
 
 		// 기본 이미지
 		localUrl = "/image/default.png";
 		localImage = new Image(localUrl, false);
 		imageView.setImage(localImage);
+
 	}
 
 	// 원단 전체 리스트

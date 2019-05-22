@@ -64,8 +64,8 @@ public class FabricVO {
 		this.f_registdate = f_registdate;
 		this.filename = filename;
 	}
-	
-	// 등록일을 제외한 모든 생성자 
+
+	// 등록일을 제외한 모든 생성자
 
 	public FabricVO(String f_number, String f_sort, String f_name, String f_color, String f_size, String f_origin,
 			String f_cname, String f_phone, String f_weight, String f_price, String f_material, String f_trait,
@@ -87,10 +87,27 @@ public class FabricVO {
 		this.filename = filename;
 	}
 
-	
 	// 접근자와 설정자 생성
 	public String getF_number() {
 		return f_number;
+	}
+
+	// 종류, 이름, 등록일을 제외한 모든 생성자
+	public FabricVO(String f_number, String f_color, String f_size, String f_origin, String f_cname, String f_phone,
+			String f_weight, String f_price, String f_material, String f_trait, String f_remarks, String filename) {
+		super();
+		this.f_number = f_number;
+		this.f_color = f_color;
+		this.f_size = f_size;
+		this.f_origin = f_origin;
+		this.f_cname = f_cname;
+		this.f_phone = f_phone;
+		this.f_weight = f_weight;
+		this.f_price = f_price;
+		this.f_material = f_material;
+		this.f_trait = f_trait;
+		this.f_remarks = f_remarks;
+		this.filename = filename;
 	}
 
 	public void setF_number(String f_number) {

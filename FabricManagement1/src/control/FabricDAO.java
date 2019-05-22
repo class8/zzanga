@@ -207,68 +207,6 @@ public class FabricDAO {
 		return columnName;
 	}
 
-	// 정보 수정
-	public boolean getFabricUpdate(String f_number, String f_sort, String f_name, String f_color, String f_size,
-			String f_origin, String f_cname, String f_phone, String f_weight, String f_price, String f_material,
-			String f_trait, String f_remarks, String string, String f_registdate, String filename) throws Exception {
-
-		String sql = "update fabric set f_color=?, f_size=?, f_origin=?, f_cname=?, f_phone=?, f_weight=?, f_price=?, f_material=?, f_trait=?, f_remarks=? where f_number=?";
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		boolean fabricUpdateSucess = false;
-
-		try {
-			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement(sql);
-
-			pstmt.setString(1, f_color);
-			pstmt.setString(2, f_size);
-			pstmt.setString(3, f_origin);
-			pstmt.setString(4, f_cname);
-			pstmt.setString(5, f_phone);
-			pstmt.setString(6, f_weight);
-			pstmt.setString(7, f_price);
-			pstmt.setString(8, f_material);
-			pstmt.setString(9, f_trait);
-			pstmt.setString(10, f_remarks);
-			pstmt.setString(11, f_name);
-
-			int i = pstmt.executeUpdate();
-
-			if (i == 1) {
-
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("원단 정보 수정");
-				alert.setHeaderText(f_name + " 원단 수정 완료.");
-				alert.setContentText("원단 정보 수정 성공!");
-				alert.showAndWait();
-				fabricUpdateSucess = true;
-
-			} else {
-
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("원단 정보 수정");
-				alert.setHeaderText("원단 정보 수정 실패");
-				alert.setContentText("원단 정보 수정 실패!");
-				alert.showAndWait();
-			}
-		} catch (SQLException e) {
-			System.out.println("e=[" + e + "]");
-		} catch (Exception e) {
-			System.out.println("e=[" + e + "]");
-		} finally {
-			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
-				if (pstmt != null)
-					pstmt.close();
-				if (con != null)
-					con.close();
-			} catch (SQLException e) {
-			}
-		}
-		return fabricUpdateSucess;
-	}
-
 	// 원단정보삭제 메소드
 	public boolean getFabricDelete(String f_number) throws Exception {
 
@@ -384,6 +322,80 @@ public class FabricDAO {
 			}
 		}
 		return list;
+	}
+
+	// 고객정보 수정
+	public boolean getfabricUpdate(FabricVO fvo) throws Exception {
+
+		String sql = "update fabric set f_color=?, f_size=?, f_material=?, f_origin=?, f_cname=?, "
+				+ "f_phone=?, f_weight=?, f_trait=?, f_price=?, f_remarks=?, filename=? where f_number=?";
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean customerUpdateSucess = false;
+
+		try {
+
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, fvo.getF_color());
+			pstmt.setString(2, fvo.getF_size());
+			pstmt.setString(3, fvo.getF_material());
+			pstmt.setString(4, fvo.getF_origin());
+			pstmt.setString(5, fvo.getF_cname());
+			pstmt.setString(6, fvo.getF_phone());
+			pstmt.setString(7, fvo.getF_weight());
+			pstmt.setString(8, fvo.getF_trait());
+			pstmt.setString(9, fvo.getF_price());
+			pstmt.setString(10, fvo.getF_remarks());
+			pstmt.setString(11, fvo.getFilename());
+			pstmt.setString(12, fvo.getF_number());
+
+			int i = pstmt.executeUpdate();
+
+			if (i == 1) {
+
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("원단정보 수정");
+				alert.setHeaderText(" 원단정보 수정 완료.");
+				alert.setContentText("원단정보 수정 성공!!!");
+				alert.showAndWait();
+				customerUpdateSucess = true;
+
+			} else {
+
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("원단정보 수정");
+				alert.setHeaderText("원단정보 수정 실패");
+				alert.setContentText("원단정보 수정 실패!");
+				alert.showAndWait();
+			}
+
+		} catch (SQLException e) {
+
+			System.out.println("e=[" + e + "]");
+
+		} catch (Exception e) {
+
+			System.out.println("e=[" + e + "]");
+
+		} finally {
+
+			try {
+
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
+				if (pstmt != null)
+					pstmt.close();
+
+				if (con != null)
+					con.close();
+
+			} catch (SQLException e) {
+
+			}
+		}
+
+		return customerUpdateSucess;
 	}
 
 }
