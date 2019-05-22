@@ -107,7 +107,7 @@ public class FabricInfoController implements Initializable {
 	Image localImage;
 
 	int no; // 삭제시 테이블에서 선택한 학생의 번호 저장
-	File selectedFile = null;
+	File selectedFile;
 
 	// 이미지 처리
 	// 이미지 저장할 폴더를 매개변수로 파일 객체 생성
@@ -195,7 +195,14 @@ public class FabricInfoController implements Initializable {
 			btnImageFile.setOnAction(event -> handlerBtnImageFileAction(event)); // 이미지파일
 			f_btnTrade.setOnAction(event -> handlerBtnTradeAction(event)); // 거래등록버튼 이벤트
 
-			fabricTotalList();
+			// fabricTotalList();
+
+			// 기본 이미지
+			localUrl = "/image/default.png";
+			localImage = new Image(localUrl, false);
+			imageView.setImage(localImage);
+			imageView.setFitHeight(200);
+			imageView.setFitWidth(180);
 
 		} catch (Exception e) {
 
@@ -290,21 +297,19 @@ public class FabricInfoController implements Initializable {
 			String fileName = imageSave(selectedFile);
 
 			fvo = new FabricVO(selectedFabricIndex, f_txtColor.getText().trim(), f_txtSize.getText().trim(),
-					f_txtOrigin.getText().trim(), f_txtCname.getText().trim(), f_txtPhone.getText().trim(),
-					f_txtWeight.getText().trim(), f_txtPrice.getText().trim(), f_txtMaterial.getText().trim(),
-					f_txtTrait.getText().trim(), f_txtRemarks.getText(), fileName);
+					f_txtMaterial.getText().trim(), f_txtOrigin.getText().trim(), f_txtCname.getText().trim(),
+					f_txtPhone.getText().trim(), f_txtWeight.getText().trim(), f_txtTrait.getText(),
+					f_txtPrice.getText().trim(), f_txtRemarks.getText(), selectFileName);
 
 			sucess = fdao.getfabricUpdate(fvo);
 
 			if (sucess) {
 
-				fabricDataList.removeAll(fabricDataList);
-
 				fabricTotalList();
 
-				// f_txtNumber.clear();
+				f_txtNumber.clear();
+				f_txtName.clear();
 				f_txtSort.clear();
-				// f_txtName.clear();
 				f_txtColor.clear();
 				f_txtSize.clear();
 				f_txtMaterial.clear();
@@ -315,16 +320,20 @@ public class FabricInfoController implements Initializable {
 				f_txtTrait.clear();
 				f_txtPrice.clear();
 				f_txtRemarks.clear();
-				// fileName.clear();
 
-				// f_txtName.requestFocus();
 				f_txtNumber.setEditable(true);
 				f_txtName.setEditable(true);
 
-				handlerBtnInitAction(event);
 				f_btnDelete.setDisable(true);
-				//f_btnInit.setDisable(false);
+				f_btnUpdate.setDisable(true);
+				f_btnRegist.setDisable(false);
 				// btnImageFile.setDisable(false);
+				// 기본 이미지
+				localUrl = "/image/default.png";
+				localImage = new Image(localUrl, false);
+				imageView.setImage(localImage);
+				imageView.setFitHeight(200);
+				imageView.setFitWidth(180);
 
 			}
 
@@ -359,8 +368,7 @@ public class FabricInfoController implements Initializable {
 			if (f_txtNumber.getLength() != 0 && f_txtSort.getLength() != 0 && f_txtName.getLength() != 0
 					&& f_txtColor.getLength() != 0 && f_txtSize.getLength() != 0 && f_txtMaterial.getLength() != 0
 					&& f_txtOrigin.getLength() != 0 && f_txtCname.getLength() != 0 && f_txtPhone.getLength() != 0
-					&& f_txtWeight.getLength() != 0 && f_txtTrait.getLength() != 0 && f_txtPrice.getLength() != 0
-					&& f_txtRemarks.getLength() != 0 && fileName.length() != 0) {
+					&& f_txtWeight.getLength() != 0 && f_txtPrice.getLength() != 0 && fileName.length() != 0)  {
 
 				fvo = new FabricVO(f_txtNumber.getText().trim(), f_txtSort.getText().trim(), f_txtName.getText().trim(),
 						f_txtColor.getText().trim(), f_txtSize.getText().trim(), f_txtMaterial.getText().trim(),
@@ -403,7 +411,7 @@ public class FabricInfoController implements Initializable {
 					f_txtRemarks.setEditable(true);
 
 					handlerBtnInitAction(event);
-					// fabricTotalList();
+					fabricTotalList();
 					f_btnDelete.setDisable(true);
 					f_btnUpdate.setDisable(true);
 				}
@@ -458,7 +466,6 @@ public class FabricInfoController implements Initializable {
 				String selectedF_trait = selectFabric.get(0).getF_trait();
 				String selectedF_price = selectFabric.get(0).getF_price();
 				String selectedF_remarks = selectFabric.get(0).getF_remarks();
-				// String selectedFileName = selectFabric.get(0).getFilename();
 
 				f_txtNumber.setText(selectedF_number);
 				f_txtSort.setText(selectedF_sort);
@@ -473,17 +480,14 @@ public class FabricInfoController implements Initializable {
 				f_txtTrait.setText(selectedF_trait);
 				f_txtPrice.setText(selectedF_price);
 				f_txtRemarks.setText(selectedF_remarks);
-				// fileName.setText(selectedFileName);
 
-				selectFabric = f_tableView.getSelectionModel().getSelectedItems();
-				// f_txtNumber = selectFabric.get(0).getF_number();
+				// 이미지 가져오기
 				selectFileName = selectFabric.get(0).getFilename();
+
 				localUrl = "file:/C:/images/" + selectFileName;
 				localImage = new Image(localUrl, false);
 
 				imageView.setImage(localImage);
-				imageView.setFitHeight(200);
-				imageView.setFitWidth(180);
 
 				f_txtNumber.setEditable(false);
 				f_txtSort.setEditable(false);
@@ -524,6 +528,7 @@ public class FabricInfoController implements Initializable {
 			// 이미지 파일명 생성
 			fileName = "fabric" + System.currentTimeMillis() + "_" + file.getName(); // 이게 무슨 네임이 오는 걸까?
 
+			System.out.println(fileName);
 			bis = new BufferedInputStream(new FileInputStream(file));
 			bos = new BufferedOutputStream(new FileOutputStream(dirSave.getAbsolutePath() + "\\" + fileName));
 
@@ -557,7 +562,9 @@ public class FabricInfoController implements Initializable {
 
 	// 이미지 파일 선택 창
 	public void handlerBtnImageFileAction(ActionEvent event) {
+
 		FileChooser fileChooser = new FileChooser();
+
 		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image File", "*.png", "*.jpg", "*.gif"));
 
 		try {
@@ -583,8 +590,11 @@ public class FabricInfoController implements Initializable {
 		imageView.setFitWidth(180);
 
 		f_btnRegist.setDisable(false);
+		f_btnUpdate.setDisable(false);
+		f_btnDelete.setDisable(true);
 
 		if (selectedFile != null) {
+
 			selectFileName = selectedFile.getName();
 		}
 	}
@@ -619,6 +629,7 @@ public class FabricInfoController implements Initializable {
 				f_btnUpdate.setDisable(true);
 				f_btnDelete.setDisable(true);
 				f_btnRegist.setDisable(false);
+				handlerBtnInitAction(event);
 
 			}
 
@@ -650,10 +661,23 @@ public class FabricInfoController implements Initializable {
 		f_btnRegist.setDisable(false);
 		btnImageFile.setDisable(false);
 
+		f_txtNumber.setEditable(true);
+		f_txtName.setEditable(true);
+		f_txtSort.setEditable(true);
+
 		// 기본 이미지
 		localUrl = "/image/default.png";
 		localImage = new Image(localUrl, false);
 		imageView.setImage(localImage);
+		imageView.setFitHeight(200);
+		imageView.setFitWidth(180);
+
+		try {
+			fabricTotalList();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

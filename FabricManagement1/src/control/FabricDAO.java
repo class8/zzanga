@@ -326,13 +326,13 @@ public class FabricDAO {
 
 	// 고객정보 수정
 	public boolean getfabricUpdate(FabricVO fvo) throws Exception {
-
+		
 		String sql = "update fabric set f_color=?, f_size=?, f_material=?, f_origin=?, f_cname=?, "
 				+ "f_phone=?, f_weight=?, f_trait=?, f_price=?, f_remarks=?, filename=? where f_number=?";
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		boolean customerUpdateSucess = false;
+		boolean fabricUpdateSucess = false;
 
 		try {
 
@@ -360,7 +360,7 @@ public class FabricDAO {
 				alert.setHeaderText(" 원단정보 수정 완료.");
 				alert.setContentText("원단정보 수정 성공!!!");
 				alert.showAndWait();
-				customerUpdateSucess = true;
+				fabricUpdateSucess = true;
 
 			} else {
 
@@ -395,7 +395,7 @@ public class FabricDAO {
 			}
 		}
 
-		return customerUpdateSucess;
+		return fabricUpdateSucess;
 	}
 
 }
