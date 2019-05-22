@@ -21,7 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import model.AccountVO;
 
-public class AccountController implements Initializable {
+public class AccountInfoController implements Initializable {
 
 	@FXML
 	TextField a_txtCname;

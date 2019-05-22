@@ -13,7 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import model.AccountVO;
 import model.TradeVO;
 
-public class TradeInfoDAO {
+public class TradeDAO {
 
 	// 데이터베이스에서 거래처 테이블의 컬럼 갯수
 	public ArrayList<String> getTradeColumnName() throws Exception {
@@ -249,7 +249,7 @@ public class TradeInfoDAO {
 	}
 
 	// 고객명을 입력받아 정보 조회
-	public ArrayList<TradeVO> getTradeCheck(String name) throws Exception {
+	public ArrayList<TradeVO> getTradeCheck(String name, String startdate, String enddate) throws Exception {
 		ArrayList<TradeVO> list = new ArrayList<TradeVO>();
 
 		String sql = "select t_number,f_number,c.c_number,c_name,t_amount,t_price,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,c_phone,t_registdate,t_address,t_remarks from trade t, customer c where t.c_number=c.c_number and c_name like ? order by t_number desc";

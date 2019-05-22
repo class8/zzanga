@@ -41,7 +41,7 @@ import model.CustomerVO;
 import model.FabricVO;
 import model.TradeVO;
 
-public class FabricController implements Initializable {
+public class FabricInfoController implements Initializable {
 
 	@FXML
 	TextField f_txtNumber;
