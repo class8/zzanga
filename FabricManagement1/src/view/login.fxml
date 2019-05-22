@@ -22,7 +22,8 @@
 		<children>
 			<Label text="로 그 인" />
 			<HBox alignment="CENTER">
-				<ImageView pickOnBounds="true" preserveRatio="true">
+				<ImageView fitWidth="300" fitHeight="150"
+					pickOnBounds="true" preserveRatio="true">
 					<image>
 						<Image url="@../image/login.png" />
 					</image>

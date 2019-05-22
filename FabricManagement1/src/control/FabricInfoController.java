@@ -302,9 +302,9 @@ public class FabricInfoController implements Initializable {
 
 				fabricTotalList();
 
-				f_txtNumber.clear();
+				//f_txtNumber.clear();
 				f_txtSort.clear();
-				f_txtName.clear();
+				//f_txtName.clear();
 				f_txtColor.clear();
 				f_txtSize.clear();
 				f_txtMaterial.clear();
@@ -485,6 +485,9 @@ public class FabricInfoController implements Initializable {
 				imageView.setFitHeight(200);
 				imageView.setFitWidth(180);
 
+				f_txtNumber.setEditable(false);
+				f_txtSort.setEditable(false);
+				
 				f_btnRegist.setDisable(true);
 				f_btnUpdate.setDisable(false);
 				f_btnInit.setDisable(false);
