@@ -15,68 +15,12 @@ import model.TradeVO;
 
 public class TradeDAO {
 
-	// 데이터베이스에서 거래처 테이블의 컬럼 갯수
-	public ArrayList<String> getTradeColumnName() throws Exception {
-
-		ArrayList<String> columnName = new ArrayList<String>();
-
-		String sql = "select * from trade order by t_number";
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		// ResultSetMetaData 객체 변수 선언
-		ResultSetMetaData rsmd = null;
-
-		try {
-
-			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			rsmd = rs.getMetaData();
-
-			int cols = rsmd.getColumnCount();
-
-			for (int i = 1; i <= cols; i++) {
-
-				columnName.add(rsmd.getColumnName(i));
-			}
-
-		} catch (SQLException se) {
-
-			System.out.println(se);
-
-		} catch (Exception e) {
-
-			System.out.println(e);
-
-		} finally {
-
-			try {
-
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
-				if (rs != null)
-					rs.close();
-
-				if (pstmt != null)
-					pstmt.close();
-
-				if (con != null)
-					con.close();
-
-			} catch (SQLException se) {
-
-			}
-		}
-
-		return columnName;
-	}
-
 	// 전체 목록
 	public ArrayList<TradeVO> getTradeTotalList() throws Exception {
 
 		ArrayList<TradeVO> list = new ArrayList<>();
 
-		String sql = "select t_number, f_number, c.c_number, c_name, t_amount, t_price, t_deposit, t_penalty, t_balance, t_receipt, t_unpaid, t_status, c_phone, t_registdate, t_address, t_remarks from trade t, customer c where t.c_number=c.c_number";
+		String sql = "select t_number, f.f_number, c.c_number, c_name, t_amount, t_price, t_deposit, t_penalty, t_balance, t_receipt, t_unpaid, t_status, c_phone, t_registdate, t_address, t_remarks,f_sort,f_name,f_color,f_size,f_weight,f_price,f_phone from trade t, customer c, fabric f where t.c_number=c.c_number and t.f_number=f.f_number";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -105,6 +49,13 @@ public class TradeDAO {
 				tVo.setT_registdate(rs.getDate("t_registdate") + "");
 				tVo.setT_address(rs.getString("t_address"));
 				tVo.setT_remarks(rs.getString("t_remarks"));
+				tVo.setF_f_sort(rs.getString("f_sort"));
+				tVo.setF_f_name(rs.getString("f_name"));
+				tVo.setF_f_color(rs.getString("f_color"));
+				tVo.setF_f_size(rs.getString("f_size"));
+				tVo.setF_f_weight(rs.getString("f_weight"));
+				tVo.setF_f_price(rs.getString("f_price"));
+				tVo.setF_f_phone(rs.getString("f_phone"));
 
 				list.add(tVo);
 			}

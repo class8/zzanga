@@ -217,7 +217,7 @@ public class CustomerInfoController implements Initializable {
 				c_txtBnumber.setText(selectedC_bnumber);
 				c_txtRemarks.setText(selectedC_remarks);
 
-				c_btnRegist.setDisable(true);
+				c_btnRegist.setDisable(false);
 				c_btnUpdate.setDisable(false);
 				c_btnInit.setDisable(false);
 				c_btnExit.setDisable(false);
