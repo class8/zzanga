@@ -359,4 +359,51 @@ public class TradeDAO {
 		}
 		return list;
 	}
+
+	public boolean getStatusUpdate(int t_number, String t_status) throws Exception {
+		boolean sucess = false;
+
+		String sql = "update trade set t_status=? where t_number=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, t_status);
+			pstmt.setInt(2, t_number);
+
+			int i = pstmt.executeUpdate();
+
+			if (i == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("상태 정보 변경");
+				alert.setHeaderText(t_number + "번 상태 변경 완료.");
+				alert.setContentText("상태 정보 변경 성공!");
+				alert.showAndWait();
+				sucess = true;
+			} else {
+
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("상태 정보 변경");
+				alert.setHeaderText("상태 정보 변경 실패");
+				alert.setContentText("상태 정보 변경 실패!");
+				alert.showAndWait();
+			}
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
+		} catch (Exception e) {
+			System.out.println("e=[" + e + "]");
+		} finally {
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		return sucess;
+	}
 }

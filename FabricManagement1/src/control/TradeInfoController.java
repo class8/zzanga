@@ -1,5 +1,6 @@
 package control;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -12,7 +13,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -23,7 +27,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.TradeVO;
 
 public class TradeInfoController implements Initializable {
@@ -83,12 +91,49 @@ public class TradeInfoController implements Initializable {
 	@FXML
 	Button t_or_btnRegist;
 
+	// 여기부터 주문 등록
+	@FXML
+	TextField or_f_txtNumber;
+	@FXML
+	TextField or_f_txtSort;
+	@FXML
+	TextField or_f_txtName;
+	@FXML
+	TextField or_f_txtColor;
+	@FXML
+	TextField or_f_txtSize;
+	@FXML
+	TextField or_f_txtWeight;
+	@FXML
+	TextField or_f_txtPrice;
+	@FXML
+	TextField or_f_txtPhone;
+	@FXML
+	TextField or_c_txtName;
+	@FXML
+	TextField or_o_txtAmount;
+	@FXML
+	TextField or_o_txtAddress;
+	@FXML
+	TextField or_o_txtCprice;
+	@FXML
+	Button or_o_btnTotal;
+	@FXML
+	TextField or_o_txtTotal;
+	@FXML
+	TextArea or_o_txtRemarks;
+	@FXML
+	Button or_o_btnRegist;
+	@FXML
+	Button or_o_btnCancel;
+
 	@FXML
 	private TableView<TradeVO> t_tableView = new TableView<>();
 
 	ObservableList<TradeVO> tradeDataList = FXCollections.observableArrayList();
 	ObservableList<TradeVO> selectTrade = null;
 	int selectedTradeIndex;
+	int toOrderIndex;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -194,11 +239,70 @@ public class TradeInfoController implements Initializable {
 			t_btnDelete.setOnAction(event -> handlerBtnDeleteAction(event)); // 삭제 버튼 이벤트
 			t_btnExit.setOnAction(event -> handlerBtnExitAction(event)); // 종료버튼 이벤트
 			t_btnSearch.setOnAction(event -> handlerBtnSearchAction(event)); // 검색버튼 이벤트
+			t_btnChange.setOnAction(event -> handlerBtnChangeAction(event));
 			t_tableView.setOnMouseClicked(event -> handlerTradeTableViewAction(event)); // 테이블뷰 더블클릭 이벤트
+			t_or_btnRegist.setOnAction(event -> handlerBtnOrderRegistAction(event));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void handlerBtnOrderRegistAction(ActionEvent event) {
+
+	}
+
+	public void handlerBtnChangeAction(ActionEvent event) {
+		try {
+			boolean sucess = false;
+			String value;
+			TradeDAO tdao = new TradeDAO();
+			if (selectedTradeIndex != 0 && t_cbStatus.getValue() != null) {
+				System.out.println(123);
+				value = t_cbStatus.getValue().toString();
+				sucess = tdao.getStatusUpdate(selectedTradeIndex, value);
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("상태 정보 변경");
+				alert.setHeaderText("거래 내역 및 거래상태가 선택되지 않았습니다.");
+				alert.setContentText("내역 및 상태를 선택해주세요.");
+				alert.showAndWait();
+				selectedTradeIndex = 0;
+			}
+			tradeDataList.removeAll(tradeDataList);
+			tradeTotalList();
+
+			t_txtNumber.clear();
+			f_txtNumber.clear();
+			c_txtNumber.clear();
+			c_txtName.clear();
+			t_txtAmount.clear();
+			t_txtPrice.clear();
+			t_txtDeposit.clear();
+			t_txtPenalty.clear();
+			t_txtBalance.clear();
+			t_txtReceipt.clear();
+			t_txtUnpaid.clear();
+			t_txtStatus.clear();
+			t_txtPhone.clear();
+			t_dpDate.setValue(null);
+			t_txtAddress.clear();
+			t_txtRemarks.clear();
+			t_cbStatus.getSelectionModel().clearSelection();
+
+			t_dpStart.setValue(null);
+			t_dpFinish.setValue(null);
+			t_txtNumber.setEditable(true);
+			f_txtNumber.setEditable(true);
+			c_txtNumber.setEditable(true);
+			c_txtName.setEditable(true);
+
+			t_btnUpdate.setDisable(true);
+			t_btnDelete.setDisable(true);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void handlerBtnSearchAction(ActionEvent event) {
@@ -401,6 +505,8 @@ public class TradeInfoController implements Initializable {
 	public void handlerBtnInitAction(ActionEvent event) {
 		try {
 			tradeDataList.removeAll(tradeDataList);
+			selectedTradeIndex = 0;
+
 			tradeTotalList();
 
 			t_txtNumber.clear();
@@ -421,7 +527,6 @@ public class TradeInfoController implements Initializable {
 			t_txtRemarks.clear();
 			t_dpStart.setValue(null);
 			t_dpFinish.setValue(null);
-
 			t_txtNumber.setEditable(true);
 			f_txtNumber.setEditable(true);
 			c_txtNumber.setEditable(true);
