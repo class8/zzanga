@@ -7,63 +7,45 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import model.AccountVO;
 import model.OrderVO;
 
 public class OrderDAO {
-	// 데이터베이스에서 거래처 테이블의 컬럼 갯수
-	public ArrayList<String> getOrderColumnName() throws Exception {
 
-		ArrayList<String> columnName = new ArrayList<String>();
+	// 주문 등록
+	public void getOrderRegist(OrderVO ovo) throws Exception {
 
-		String sql = "select o_number,o.a_number,f_number,o_name,o_phone,o_address,o_amount,o_price,o_status,o_registdate,o_remarks,a_email from order1 o, account a where o.a_number=a.a_number";
+		String sql = "insert into order1 values " + "(order_seq.nextval, ?, ?, ?, ?, ?, ?, ?, sysdate,?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		// ResultSetMetaData 객체 변수 선언
-		ResultSetMetaData rsmd = null;
 
 		try {
-
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			rsmd = rs.getMetaData();
+			pstmt.setString(1, ovo.getF_number());
+			pstmt.setInt(2, ovo.getC_number());
+			pstmt.setString(3, ovo.getO_email());
+			pstmt.setString(4, ovo.getO_address());
+			pstmt.setInt(5, ovo.getO_amount());
+			pstmt.setInt(6, ovo.getO_total());
+			pstmt.setString(7, ovo.getO_status());
+			pstmt.setString(8, ovo.getO_remarks());
 
-			int cols = rsmd.getColumnCount();
-
-			for (int i = 1; i <= cols; i++) {
-
-				columnName.add(rsmd.getColumnName(i));
-			}
-
-		} catch (SQLException se) {
-
-			System.out.println(se);
-
+			int i = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
 		} catch (Exception e) {
-
-			System.out.println(e);
-
+			System.out.println("e=[" + e + "]");
 		} finally {
-
 			try {
-
 				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
-				if (rs != null)
-					rs.close();
-
 				if (pstmt != null)
 					pstmt.close();
-
 				if (con != null)
 					con.close();
-
-			} catch (SQLException se) {
-
+			} catch (SQLException e) {
 			}
 		}
-
-		return columnName;
 	}
 
 	// 전체 목록
@@ -71,7 +53,7 @@ public class OrderDAO {
 
 		ArrayList<OrderVO> list = new ArrayList<>();
 
-		String sql = "select o_number,o.a_number,f_number,o_name,o_phone,o_address,o_amount,o_price,o_status,o_registdate,o_remarks,a_email from order1 o, account a where o.a_number=a.a_number";
+		String sql = "select o_number, o.a_number,f.f_number, f_name, o_amount, o_total, c_name, c_phone, o_status, o_registdate, a_email, o_address, o_remarks from order1 o, fabric f, account a, customer c where o.a_number=a.a_number";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -87,15 +69,16 @@ public class OrderDAO {
 				oVo.setO_number(rs.getInt("o_number"));
 				oVo.setA_number(rs.getInt("a_number"));
 				oVo.setF_number(rs.getString("f_number"));
-				oVo.setO_name(rs.getString("o_name"));
-				oVo.setO_phone(rs.getString("o_phone"));
+				oVo.setC_number(rs.getInt("c_number"));
+				oVo.setO_email(rs.getString("o_email"));
 				oVo.setO_address(rs.getString("o_address"));
 				oVo.setO_amount(rs.getInt("o_amount"));
-				oVo.setO_price(rs.getInt("o_price"));
+				oVo.setO_total(rs.getInt("o_total"));
 				oVo.setO_status(rs.getString("o_status"));
 				oVo.setO_registdate(rs.getDate("a_registdate") + "");
 				oVo.setO_remarks(rs.getString("o_remarks"));
-				oVo.setA_email(rs.getString("a_email"));
+				oVo.setC_name(rs.getString("c_name"));
+				oVo.setC_phone(rs.getString("c_phone"));
 
 				list.add(oVo);
 			}
@@ -117,5 +100,45 @@ public class OrderDAO {
 			}
 		}
 		return list;
+	}
+
+	// 검색
+	public String getSearchName(String name) throws Exception {
+
+		String sql = "select a_cname from account where a_number=?";
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		AccountVO aVo = null;
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, name);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				aVo = new AccountVO();
+				aVo.setA_cname(rs.getString("a_cname"));
+			}
+		} catch (SQLException se) {
+			System.out.println(se);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+			}
+		}
+		return aVo.getA_cname();
 	}
 }

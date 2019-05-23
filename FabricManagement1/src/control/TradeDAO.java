@@ -17,10 +17,10 @@ public class TradeDAO {
 
 	// 전체 목록
 	public ArrayList<TradeVO> getTradeTotalList() throws Exception {
-
+		
 		ArrayList<TradeVO> list = new ArrayList<>();
 
-		String sql = "select t_number, f.f_number, c.c_number, c_name, t_amount, t_price, t_deposit, t_penalty, t_balance, t_receipt, t_unpaid, t_status, c_phone, t_registdate, t_address, t_remarks,f_sort,f_name,f_color,f_size,f_weight,f_price,f_phone from trade t, customer c, fabric f where t.c_number=c.c_number and t.f_number=f.f_number";
+		String sql = "select t_number, f.f_number, c.c_number, c_name, t_amount, t_price, t_deposit, t_penalty, t_balance, t_receipt, t_unpaid, t_status, c_phone, t_registdate, t_address, t_remarks, f_sort, f_name, f_color, f_size, f_weight, f_price, f_phone from trade t, customer c, fabric f where t.c_number=c.c_number and t.f_number=f.f_number";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

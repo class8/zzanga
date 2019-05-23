@@ -8,6 +8,8 @@ public class TradeVO {
 	private String f_number; // 제품코드
 	private int c_number; // 고객번호
 	private String c_name; // 고객명
+	private String c_phone; // 연락처
+	private String t_email; // 이메일
 	private int t_amount; // 총수량
 	private int t_price; // 총가격
 	private int t_deposit; // 선금
@@ -16,7 +18,6 @@ public class TradeVO {
 	private int t_receipt; // 수령액
 	private int t_unpaid; // 미납금
 	private String t_status; // 거래상태
-	private String c_phone; // 연락처
 	private String t_registdate; // 거래일
 	private String t_address; // 배달주소
 	private String t_remarks; // 비고
@@ -28,22 +29,22 @@ public class TradeVO {
 	private String f_f_weight; // 중량
 	private String f_f_price; // 가격
 	private String f_f_phone; // 담당자연락처
-	
-	
 
 	public TradeVO() {
 		super();
 	}
 
-	public TradeVO(int t_number, String f_number, int c_number, String c_name, int t_amount, int t_price, int t_deposit,
-			int t_penalty, int t_balance, int t_receipt, int t_unpaid, String t_status, String c_phone,
-			String t_registdate, String t_address, String t_remarks, String f_f_sort, String f_f_name, String f_f_color,
-			String f_f_size, String f_f_weight, String f_f_price, String f_f_phone) {
+	public TradeVO(int t_number, String f_number, int c_number, String c_name, String c_phone, String t_email,
+			int t_amount, int t_price, int t_deposit, int t_penalty, int t_balance, int t_receipt, int t_unpaid,
+			String t_status, String t_registdate, String t_address, String t_remarks, String f_f_sort, String f_f_name,
+			String f_f_color, String f_f_size, String f_f_weight, String f_f_price, String f_f_phone) {
 		super();
 		this.t_number = t_number;
 		this.f_number = f_number;
 		this.c_number = c_number;
 		this.c_name = c_name;
+		this.c_phone = c_phone;
+		this.t_email = t_email;
 		this.t_amount = t_amount;
 		this.t_price = t_price;
 		this.t_deposit = t_deposit;
@@ -52,7 +53,6 @@ public class TradeVO {
 		this.t_receipt = t_receipt;
 		this.t_unpaid = t_unpaid;
 		this.t_status = t_status;
-		this.c_phone = c_phone;
 		this.t_registdate = t_registdate;
 		this.t_address = t_address;
 		this.t_remarks = t_remarks;
@@ -65,14 +65,16 @@ public class TradeVO {
 		this.f_f_phone = f_f_phone;
 	}
 
-	public TradeVO(int t_number, String f_number, int c_number, String c_name, int t_amount, int t_price, int t_deposit,
-			int t_penalty, int t_balance, int t_receipt, int t_unpaid, String t_status, String c_phone,
-			String t_registdate, String t_address, String t_remarks) {
+	public TradeVO(int t_number, String f_number, int c_number, String c_name, String c_phone, String t_email,
+			int t_amount, int t_price, int t_deposit, int t_penalty, int t_balance, int t_receipt, int t_unpaid,
+			String t_status, String t_registdate, String t_address, String t_remarks) {
 		super();
 		this.t_number = t_number;
 		this.f_number = f_number;
 		this.c_number = c_number;
 		this.c_name = c_name;
+		this.c_phone = c_phone;
+		this.t_email = t_email;
 		this.t_amount = t_amount;
 		this.t_price = t_price;
 		this.t_deposit = t_deposit;
@@ -81,7 +83,6 @@ public class TradeVO {
 		this.t_receipt = t_receipt;
 		this.t_unpaid = t_unpaid;
 		this.t_status = t_status;
-		this.c_phone = c_phone;
 		this.t_registdate = t_registdate;
 		this.t_address = t_address;
 		this.t_remarks = t_remarks;
@@ -117,6 +118,22 @@ public class TradeVO {
 
 	public void setC_name(String c_name) {
 		this.c_name = c_name;
+	}
+
+	public String getC_phone() {
+		return c_phone;
+	}
+
+	public void setC_phone(String c_phone) {
+		this.c_phone = c_phone;
+	}
+
+	public String getT_email() {
+		return t_email;
+	}
+
+	public void setT_email(String t_email) {
+		this.t_email = t_email;
 	}
 
 	public int getT_amount() {
@@ -181,14 +198,6 @@ public class TradeVO {
 
 	public void setT_status(String t_status) {
 		this.t_status = t_status;
-	}
-
-	public String getC_phone() {
-		return c_phone;
-	}
-
-	public void setC_phone(String c_phone) {
-		this.c_phone = c_phone;
 	}
 
 	public String getT_registdate() {

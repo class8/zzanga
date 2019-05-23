@@ -32,27 +32,37 @@ public class OrderRegController implements Initializable {
 	@FXML
 	TextField or_f_txtPhone;
 	@FXML
+	TextField or_c_txtNumber;
+	@FXML
 	TextField or_c_txtName;
 	@FXML
-	TextField or_o_txtAmount;
+	TextField or_c_txtPhone;
 	@FXML
-	TextField or_o_txtAddress;
+	TextField or_txtEmail;
 	@FXML
-	TextField or_o_txtCprice;
+	TextField or_txtAmount;
 	@FXML
-	Button or_o_btnTotal;
+	TextField or_txtAddress;
 	@FXML
-	TextField or_o_txtTotal;
+	TextField or_a_txtNumber;
 	@FXML
-	TextArea or_o_txtRemarks;
+	TextField or_a_txtName;
 	@FXML
-	Button or_o_btnRegist;
+	Button or_a_txtSearch;
 	@FXML
-	Button or_o_btnCancel;
+	Button or_btnTotal;
+	@FXML
+	TextField or_txtTotal;
+	@FXML
+	TextArea or_txtRemarks;
+	@FXML
+	Button or_btnRegist;
+	@FXML
+	Button or_btnCancel;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		or_o_btnCancel.setOnAction(event -> handlerBtnCancelAction(event));
+
 	}
 
 	public void handlerBtnCancelAction(ActionEvent event) {

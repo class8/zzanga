@@ -32,7 +32,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.AccountVO;
 import model.FabricVO;
+import model.OrderVO;
 import model.TradeVO;
 
 public class TradeInfoController implements Initializable {
@@ -110,23 +112,27 @@ public class TradeInfoController implements Initializable {
 	@FXML
 	TextField or_f_txtPhone;
 	@FXML
+	TextField or_c_txtNumber;
+	@FXML
 	TextField or_c_txtName;
 	@FXML
-	TextField or_o_txtAmount;
+	TextField or_c_txtPhone;
 	@FXML
-	TextField or_o_txtAddress;
+	TextField or_txtEmail;
 	@FXML
-	TextField or_o_txtCprice;
+	TextField or_txtAmount;
 	@FXML
-	Button or_o_btnTotal;
+	TextField or_txtAddress;
 	@FXML
-	TextField or_o_txtTotal;
+	Button or_btnTotal;
 	@FXML
-	TextArea or_o_txtRemarks;
+	TextField or_txtTotal;
 	@FXML
-	Button or_o_btnRegist;
+	TextArea or_txtRemarks;
 	@FXML
-	Button or_o_btnCancel;
+	Button or_btnRegist;
+	@FXML
+	Button or_btnCancel;
 
 	@FXML
 	private TableView<TradeVO> t_tableView = new TableView<>();
@@ -252,6 +258,7 @@ public class TradeInfoController implements Initializable {
 
 	}
 
+	// 주문등록 버튼
 	public void handlerBtnOrderRegistAction(ActionEvent event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/OrderReg.fxml"));
@@ -262,7 +269,6 @@ public class TradeInfoController implements Initializable {
 			mainStage.setResizable(false);
 			mainStage.setScene(scane);
 			mainStage.show();
-
 			TextField temp_f_number = (TextField) mainView.lookup("#or_f_txtNumber");
 			TextField temp_f_sort = (TextField) mainView.lookup("#or_f_txtSort");
 			TextField temp_f_name = (TextField) mainView.lookup("#or_f_txtName");
@@ -271,14 +277,20 @@ public class TradeInfoController implements Initializable {
 			TextField temp_f_weight = (TextField) mainView.lookup("#or_f_txtWeight");
 			TextField temp_f_price = (TextField) mainView.lookup("#or_f_txtPrice");
 			TextField temp_f_phone = (TextField) mainView.lookup("#or_f_txtPhone");
+			TextField temp_c_number = (TextField) mainView.lookup("#or_c_txtNumber");
+			TextField temp_a_number = (TextField) mainView.lookup("#or_a_txtNumber");
+			TextField temp_a_name = (TextField) mainView.lookup("#or_a_txtName");
 			TextField temp_c_name = (TextField) mainView.lookup("#or_c_txtName");
-			TextField temp_o_amount = (TextField) mainView.lookup("#or_o_txtAmount");
-			TextField temp_o_address = (TextField) mainView.lookup("#or_o_txtAddress");
-			TextField temp_o_cprice = (TextField) mainView.lookup("#or_o_txtCprice");
-			TextField temp_o_total = (TextField) mainView.lookup("#or_o_txtTotal");
+			TextField temp_c_phone = (TextField) mainView.lookup("#or_c_txtPhone");
+			TextField temp_o_email = (TextField) mainView.lookup("#or_txtEmail");
+			TextField temp_o_amount = (TextField) mainView.lookup("#or_txtAmount");
+			TextField temp_o_address = (TextField) mainView.lookup("#or_txtAddress");
+			TextField temp_o_total = (TextField) mainView.lookup("#or_txtTotal");
 
-			Button btnCancel = (Button) mainView.lookup("#or_o_btnCancel");
-			Button btnTotal = (Button) mainView.lookup("#or_o_btnTotal");
+			Button btnSearch = (Button) mainView.lookup("#or_a_txtSearch");
+			Button btnCancel = (Button) mainView.lookup("#or_btnCancel");
+			Button btnTotal = (Button) mainView.lookup("#or_btnTotal");
+			Button btnRegist = (Button) mainView.lookup("#or_btnRegist");
 
 			temp_f_number.setText(selectTrade.get(0).getF_number());
 			temp_f_sort.setText(selectTrade.get(0).getF_f_sort());
@@ -288,9 +300,10 @@ public class TradeInfoController implements Initializable {
 			temp_f_weight.setText(selectTrade.get(0).getF_f_weight());
 			temp_f_price.setText(selectTrade.get(0).getF_f_price());
 			temp_f_phone.setText(selectTrade.get(0).getF_f_phone());
+			temp_c_number.setText(selectTrade.get(0).getC_number() + "");
 			temp_c_name.setText(selectTrade.get(0).getC_name());
+			temp_c_phone.setText(selectTrade.get(0).getC_phone());
 			temp_o_amount.setText(selectTrade.get(0).getT_amount() + "");
-			temp_o_address.setText(selectTrade.get(0).getC_name());
 
 			temp_f_number.setEditable(false);
 			temp_f_sort.setEditable(false);
@@ -300,22 +313,70 @@ public class TradeInfoController implements Initializable {
 			temp_f_weight.setEditable(false);
 			temp_f_price.setEditable(false);
 			temp_f_phone.setEditable(false);
+			temp_c_number.setEditable(false);
 			temp_c_name.setEditable(false);
-			temp_o_amount.setEditable(false);
-			temp_o_address.setEditable(false);
-			
-			/*
-			 * temp_o_name.setText(selectTrade.get(0).getF_number());
-			 * temp_o_amount.setText(selectTrade.get(0).getF_number());
-			 * temp_o_address.setText(selectTrade.get(0).getF_number());
-			 * temp_o_cprice.setText(selectTrade.get(0).getF_number());
-			 * temp_o_total.setText(selectTrade.get(0).getF_number());
-			 */
+			temp_c_phone.setEditable(false);
 
-			btnTotal.setOnAction(e -> {
-				temp_o_total.setText(
-						selectTrade.get(0).getT_amount() * Integer.parseInt(selectTrade.get(0).getF_f_price()) + "");
+			// 주문 등록 창에서 등록 버튼
+			btnRegist.setOnAction(e -> {
+				try {
+					OrderVO ovo = null;
+					OrderDAO odao = null;
+
+					if (temp_a_number.getLength() != 0 && temp_o_amount.getLength() != 0
+							&& temp_o_address.getLength() != 0 && temp_o_total.getLength() != 0) {
+						ovo = new OrderVO(
+
+						);
+
+						odao = new OrderDAO();
+						odao.getOrderRegist(ovo);
+						tradeTotalList();
+
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("주문 입력");
+						alert.setHeaderText("주문이 성공적으로 추가되었습니다.");
+						alert.setContentText("다음 주문을 입력하세요.");
+						alert.showAndWait();
+
+						mainStage.close();
+
+					} else {
+						tradeTotalList();
+
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setTitle("주문 정보 미입력");
+						alert.setHeaderText("주문 정보중에 미입력된 항목이 있습니다.");
+						alert.setContentText("주문 정보를 정확히 입력하세요.");
+						alert.showAndWait();
+					}
+				} catch (Exception ex) {
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("주문 정보 입력");
+					alert.setHeaderText("주문 정보를 정확히 입력하세요.");
+					alert.setContentText("다음에는 주의하세요.");
+					alert.showAndWait();
+				}
 			});
+			btnTotal.setOnAction(e -> {
+				if (!(temp_o_amount.getText().equals(""))) {
+					int price = Integer.parseInt(temp_f_price.getText());
+					int amount = Integer.parseInt(temp_o_amount.getText());
+					temp_o_total.setText(price * amount + "");
+				} else {
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("정보 미입력");
+					alert.setHeaderText("수량이 입력되지 않았습니다.");
+					alert.setContentText("수량을 정확히 입력하세요.");
+					alert.showAndWait();
+				}
+			});
+
+			btnSearch.setOnAction(e -> {
+				// 검색
+			});
+
+			// 주문 등록 창에서 취소 버튼
 			btnCancel.setOnAction(e -> {
 				mainStage.close();
 			});
