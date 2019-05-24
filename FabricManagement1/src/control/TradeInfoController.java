@@ -286,6 +286,7 @@ public class TradeInfoController implements Initializable {
 			TextField temp_o_amount = (TextField) mainView.lookup("#or_txtAmount");
 			TextField temp_o_address = (TextField) mainView.lookup("#or_txtAddress");
 			TextField temp_o_total = (TextField) mainView.lookup("#or_txtTotal");
+			TextArea temp_o_remarks = (TextArea) mainView.lookup("#or_txtRemarks");
 
 			Button btnSearch = (Button) mainView.lookup("#or_a_txtSearch");
 			Button btnCancel = (Button) mainView.lookup("#or_btnCancel");
@@ -316,6 +317,8 @@ public class TradeInfoController implements Initializable {
 			temp_c_number.setEditable(false);
 			temp_c_name.setEditable(false);
 			temp_c_phone.setEditable(false);
+			temp_a_name.setEditable(false);
+			temp_o_total.setEditable(false);
 
 			// 주문 등록 창에서 등록 버튼
 			btnRegist.setOnAction(e -> {
@@ -325,9 +328,12 @@ public class TradeInfoController implements Initializable {
 
 					if (temp_a_number.getLength() != 0 && temp_o_amount.getLength() != 0
 							&& temp_o_address.getLength() != 0 && temp_o_total.getLength() != 0) {
-						ovo = new OrderVO(
-
-						);
+						ovo = new OrderVO(Integer.parseInt(temp_a_number.getText().trim()),
+								Integer.parseInt(temp_c_number.getText().trim()), temp_f_number.getText().trim(),
+								temp_f_name.getText().trim(), Integer.parseInt(temp_o_amount.getText().trim()),
+								Integer.parseInt(temp_o_total.getText().trim()), temp_c_name.getText().trim(),
+								temp_c_phone.getText().trim(), temp_o_email.getText().trim(),
+								temp_o_address.getText().trim(), temp_o_remarks.getText().trim());
 
 						odao = new OrderDAO();
 						odao.getOrderRegist(ovo);
@@ -373,7 +379,31 @@ public class TradeInfoController implements Initializable {
 			});
 
 			btnSearch.setOnAction(e -> {
-				// 검색
+				OrderDAO oDao = new OrderDAO();
+				String search = temp_a_number.getText();
+				String result = null;
+
+				try {
+
+					result = oDao.getSearchName(search);
+					if (result != null) {
+						temp_a_name.setText(result);
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setTitle("검색 성공");
+						alert.setHeaderText(search + "번 거래처를 찾았습니다.");
+						alert.setContentText(search + "번 거래처는 " + result + "입니다.");
+						alert.showAndWait();
+					} else {
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setTitle("검색 오류");
+						alert.setHeaderText("검색에 실패하였습니다.");
+						alert.setContentText("거래처 번호를 확인해주세요.");
+						alert.showAndWait();
+					}
+
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			});
 
 			// 주문 등록 창에서 취소 버튼

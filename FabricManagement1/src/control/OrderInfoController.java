@@ -105,25 +105,25 @@ public class OrderInfoController implements Initializable {
 			colFname.setStyle("-fx-alignment: CENTER");
 			colFname.setCellValueFactory(new PropertyValueFactory<>("f_name"));
 
-			TableColumn colOamount = new TableColumn("수량");
+			TableColumn colOamount = new TableColumn("총수량");
 			colOamount.setPrefWidth(150);
 			colOamount.setStyle("-fx-alignment: CENTER");
 			colOamount.setCellValueFactory(new PropertyValueFactory<>("o_amount"));
 
-			TableColumn colOprice = new TableColumn("금액");
-			colOprice.setPrefWidth(150);
-			colOprice.setStyle("-fx-alignment: CENTER");
-			colOprice.setCellValueFactory(new PropertyValueFactory<>("o_price"));
+			TableColumn colOtotal = new TableColumn("총금액");
+			colOtotal.setPrefWidth(150);
+			colOtotal.setStyle("-fx-alignment: CENTER");
+			colOtotal.setCellValueFactory(new PropertyValueFactory<>("o_total"));
 
-			TableColumn colOname = new TableColumn("주문자명");
-			colOname.setPrefWidth(100);
-			colOname.setStyle("-fx-alignment: CENTER");
-			colOname.setCellValueFactory(new PropertyValueFactory<>("o_name"));
+			TableColumn colCname = new TableColumn("주문자명");
+			colCname.setPrefWidth(100);
+			colCname.setStyle("-fx-alignment: CENTER");
+			colCname.setCellValueFactory(new PropertyValueFactory<>("c_name"));
 
-			TableColumn colOphone = new TableColumn("연락처");
-			colOphone.setPrefWidth(100);
-			colOphone.setStyle("-fx-alignment: CENTER");
-			colOphone.setCellValueFactory(new PropertyValueFactory<>("o_phone"));
+			TableColumn colCphone = new TableColumn("연락처");
+			colCphone.setPrefWidth(100);
+			colCphone.setStyle("-fx-alignment: CENTER");
+			colCphone.setCellValueFactory(new PropertyValueFactory<>("c_phone"));
 
 			TableColumn colOstatus = new TableColumn("상태");
 			colOstatus.setPrefWidth(90);
@@ -135,10 +135,10 @@ public class OrderInfoController implements Initializable {
 			colOregistdate.setStyle("-fx-alignment: CENTER");
 			colOregistdate.setCellValueFactory(new PropertyValueFactory<>("o_registdate"));
 
-			TableColumn colAemail = new TableColumn("담당자이메일");
-			colAemail.setPrefWidth(150);
-			colAemail.setStyle("-fx-alignment: CENTER");
-			colAemail.setCellValueFactory(new PropertyValueFactory<>("a_email"));
+			TableColumn colOemail = new TableColumn("이메일");
+			colOemail.setPrefWidth(150);
+			colOemail.setStyle("-fx-alignment: CENTER");
+			colOemail.setCellValueFactory(new PropertyValueFactory<>("o_email"));
 
 			TableColumn colOaddress = new TableColumn("주소");
 			colOaddress.setPrefWidth(100);
@@ -152,8 +152,8 @@ public class OrderInfoController implements Initializable {
 
 			o_tableView.setItems(orderDataList);
 
-			o_tableView.getColumns().addAll(colOnumber, colAnumber, colFnumber, colOname, colOphone, colOaddress,
-					colOamount, colOprice, colOstatus, colOregistdate, colOremarks, colAemail);
+			o_tableView.getColumns().addAll(colOnumber, colAnumber, colFnumber, colFname, colOamount, colOtotal,
+					colCname, colCphone, colOstatus, colOregistdate, colOemail, colOaddress, colOremarks);
 
 			// 전체 목록
 			orderTotalList();

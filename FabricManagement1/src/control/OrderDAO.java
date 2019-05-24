@@ -15,21 +15,22 @@ public class OrderDAO {
 	// 주문 등록
 	public void getOrderRegist(OrderVO ovo) throws Exception {
 
-		String sql = "insert into order1 values " + "(order_seq.nextval, ?, ?, ?, ?, ?, ?, ?, sysdate,?)";
+		String sql = "insert into order1 values " + "(order_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, sysdate,?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, ovo.getF_number());
-			pstmt.setInt(2, ovo.getC_number());
-			pstmt.setString(3, ovo.getO_email());
-			pstmt.setString(4, ovo.getO_address());
-			pstmt.setInt(5, ovo.getO_amount());
-			pstmt.setInt(6, ovo.getO_total());
-			pstmt.setString(7, ovo.getO_status());
-			pstmt.setString(8, ovo.getO_remarks());
+			pstmt.setInt(1, ovo.getA_number());
+			pstmt.setString(2, ovo.getF_number());
+			pstmt.setInt(3, ovo.getC_number());
+			pstmt.setString(4, ovo.getO_email());
+			pstmt.setString(5, ovo.getO_address());
+			pstmt.setInt(6, ovo.getO_amount());
+			pstmt.setInt(7, ovo.getO_total());
+			pstmt.setString(8, ovo.getO_status());
+			pstmt.setString(9, ovo.getO_remarks());
 
 			int i = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -53,7 +54,7 @@ public class OrderDAO {
 
 		ArrayList<OrderVO> list = new ArrayList<>();
 
-		String sql = "select o_number, o.a_number,f.f_number, f_name, o_amount, o_total, c_name, c_phone, o_status, o_registdate, a_email, o_address, o_remarks from order1 o, fabric f, account a, customer c where o.a_number=a.a_number";
+		String sql = "select o_number, o.a_number, f.f_number, c.c_number, o_email, o_address, o_amount, o_total, o_status, o_registdate, o_remarks, f_name,  c_name, c_phone from order1 o, fabric f, account a, customer c where o.f_number=f.f_number and o.a_number=a.a_number and o.c_number=c.c_number";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -75,10 +76,11 @@ public class OrderDAO {
 				oVo.setO_amount(rs.getInt("o_amount"));
 				oVo.setO_total(rs.getInt("o_total"));
 				oVo.setO_status(rs.getString("o_status"));
-				oVo.setO_registdate(rs.getDate("a_registdate") + "");
+				oVo.setO_registdate(rs.getDate("o_registdate") + "");
 				oVo.setO_remarks(rs.getString("o_remarks"));
 				oVo.setC_name(rs.getString("c_name"));
 				oVo.setC_phone(rs.getString("c_phone"));
+				oVo.setF_name(rs.getString("f_name"));
 
 				list.add(oVo);
 			}
@@ -106,6 +108,7 @@ public class OrderDAO {
 	public String getSearchName(String name) throws Exception {
 
 		String sql = "select a_cname from account where a_number=?";
+		String result = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -123,6 +126,7 @@ public class OrderDAO {
 
 				aVo = new AccountVO();
 				aVo.setA_cname(rs.getString("a_cname"));
+				result = aVo.getA_cname();
 			}
 		} catch (SQLException se) {
 			System.out.println(se);
@@ -139,6 +143,6 @@ public class OrderDAO {
 			} catch (SQLException se) {
 			}
 		}
-		return aVo.getA_cname();
+		return result;
 	}
 }

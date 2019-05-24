@@ -77,9 +77,9 @@
 				<HBox>
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Label text="예약자명: " prefWidth="60" />
+						<Label text="주문자명 : " prefWidth="60" />
 						<TextField fx:id="o_txtName" prefWidth="110"
-							promptText="예약자명" />
+							promptText="주문자명" />
 						<Label text="연락처 : " prefWidth="60" />
 						<TextField fx:id="o_txtPhone" prefWidth="110"
 							promptText="예약자연락처" />

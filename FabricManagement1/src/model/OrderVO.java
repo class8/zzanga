@@ -11,26 +11,28 @@ public class OrderVO {
 	private int o_total; // 총금액
 	private String c_name; // 예약자명
 	private String c_phone; // 예약자연락처
-	private String o_email; // 이메일
-	private String o_status; // 주문상태
+	private String o_email = null; // 이메일
+	private String o_status = "주문시작"; // 주문상태
 	private String o_registdate; // 주문일
 	private String o_address; // 배달주소
-	private String o_remarks; // 비고
+	private String o_remarks = null; // 비고
 
 	public OrderVO() {
 		super();
 	}
 
-	public OrderVO(int a_number, int c_number, String f_number, int o_amount, int o_total, String o_email,
-			String o_status, String o_address, String o_remarks) {
+	public OrderVO(int a_number, int c_number, String f_number, String f_name, int o_amount, int o_total, String c_name,
+			String c_phone, String o_email, String o_address, String o_remarks) {
 		super();
 		this.a_number = a_number;
 		this.c_number = c_number;
 		this.f_number = f_number;
+		this.f_name = f_name;
 		this.o_amount = o_amount;
 		this.o_total = o_total;
+		this.c_name = c_name;
+		this.c_phone = c_phone;
 		this.o_email = o_email;
-		this.o_status = o_status;
 		this.o_address = o_address;
 		this.o_remarks = o_remarks;
 	}
