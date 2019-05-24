@@ -21,7 +21,7 @@ public class CustomerDAO {
 
 		ArrayList<CustomerVO> list = new ArrayList<>();
 
-		String sql = "select c_number, c_name, c_cname, c_phone, c_address, c_bnumber, c_email, c_remarks, c_registdate from customer";
+		String sql = "select c_number, c_name, c_cname, c_phone, c_address, c_bnumber, c_email, c_remarks, c_registdate from customer order by c_number";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -280,7 +280,7 @@ public class CustomerDAO {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			
+
 			pstmt.setString(1, cvo.getC_name());
 			pstmt.setString(2, cvo.getC_cname());
 			pstmt.setString(3, cvo.getC_phone());
@@ -338,7 +338,7 @@ public class CustomerDAO {
 	public ArrayList<CustomerVO> getCustomerCheck(String name) throws Exception {
 		ArrayList<CustomerVO> list = new ArrayList<CustomerVO>();
 
-		String sql = "select * from customer where c_name like ? order by c_number desc";
+		String sql = "select * from customer where c_name like ? order by c_number";
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -366,7 +366,7 @@ public class CustomerDAO {
 				cVo.setC_registdate(rs.getDate("c_registdate") + "");
 				list.add(cVo);
 			}
-			
+
 		} catch (SQLException se) {
 			System.out.println(se);
 		} catch (Exception e) {

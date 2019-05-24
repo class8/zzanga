@@ -153,8 +153,8 @@ f_number varchar2(10) not null,
 c_number number not null,
 o_email varchar2(50),
 o_address varchar2(100) not null,
-o_amount number(5) DEFAULT 0 not null,
-o_total number(5) DEFAULT 0 not null,
+o_amount number(20) DEFAULT 0 not null,
+o_total number(20) DEFAULT 0 not null,
 o_status varchar2(10) DEFAULT '주문시작' not null,
 o_registdate date DEFAULT sysdate not null,
 o_remarks varchar2(50),
@@ -181,3 +181,11 @@ insert o_number,o.a_number,f_number, c.c_number, c_name,c_phone, o_email, o_addr
 
 
 select o_number, o.a_number,f.f_number, f_name, o_amount, o_total, c_name, c_phone, o_status, o_registdate, a_email, o_address, o_remarks from order1 o, fabric f, account a, customer c where o.a_number=a.a_number;
+
+
+select o_number, o.a_number, f.f_number, c.c_number, o_email, o_address, o_amount, o_total, o_status, o_registdate, o_remarks, f_name,  c_name, c_phone from order1 o, fabric f, account a, customer c where o.f_number=f.f_number and o.a_number=a.a_number and o.c_number=c.c_number;
+
+select o_number, a_number, f.f_number, f_name, o_amount, o_total, c_name, c_phone,  o_status, o_registdate, o_email, o_address,  o_remarks from order1 o, fabric f, customer c where o.f_number=f.f_number and o.c_number=c.c_number;
+
+select o_number, a_number, f.f_number, f_name, o_amount, o_total, c_name, c_phone,  o_status, o_registdate, o_email, o_address,  o_remarks from order1 o, fabric f, customer c where o.f_number=f.f_number and o.c_number=c.c_number and c_name like '';
+select o_number, o.a_number, f.f_number, c.c_number, o_email, o_address, o_amount, o_total, o_status, o_registdate, o_remarks, f_name,  c_name, c_phone from order1 o, fabric f, account a, customer c where o.f_number=f.f_number and o.a_number=a.a_number and o.c_number=c.c_number order by o_number a;

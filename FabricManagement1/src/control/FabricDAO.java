@@ -20,7 +20,7 @@ public class FabricDAO {
 
 		ArrayList<FabricVO> list = new ArrayList<>();
 
-		String sql = "select * from fabric";
+		String sql = "select * from fabric order by f_number";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -274,7 +274,7 @@ public class FabricDAO {
 	public ArrayList<FabricVO> getFabricCheck(String name) throws Exception {
 		ArrayList<FabricVO> list = new ArrayList<FabricVO>();
 
-		String sql = "select * from fabric where f_name like ? order by f_number desc";
+		String sql = "select * from fabric where f_name like ? order by f_number";
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -326,7 +326,7 @@ public class FabricDAO {
 
 	// 고객정보 수정
 	public boolean getfabricUpdate(FabricVO fvo) throws Exception {
-		
+
 		String sql = "update fabric set f_color=?, f_size=?, f_material=?, f_origin=?, f_cname=?, "
 				+ "f_phone=?, f_weight=?, f_trait=?, f_price=?, f_remarks=?, filename=? where f_number=?";
 

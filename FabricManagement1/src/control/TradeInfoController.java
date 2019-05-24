@@ -364,6 +364,8 @@ public class TradeInfoController implements Initializable {
 					alert.showAndWait();
 				}
 			});
+			
+			
 			btnTotal.setOnAction(e -> {
 				if (!(temp_o_amount.getText().equals(""))) {
 					int price = Integer.parseInt(temp_f_price.getText());
@@ -378,7 +380,9 @@ public class TradeInfoController implements Initializable {
 				}
 			});
 
+			// 거래처 정보 검색 이벤트 
 			btnSearch.setOnAction(e -> {
+				
 				OrderDAO oDao = new OrderDAO();
 				String search = temp_a_number.getText();
 				String result = null;
@@ -386,6 +390,7 @@ public class TradeInfoController implements Initializable {
 				try {
 
 					result = oDao.getSearchName(search);
+					
 					if (result != null) {
 						temp_a_name.setText(result);
 						Alert alert = new Alert(AlertType.WARNING);

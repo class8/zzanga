@@ -284,7 +284,7 @@ public class AccountDAO {
 	public ArrayList<AccountVO> getAccountCheck(String name) throws Exception {
 		ArrayList<AccountVO> list = new ArrayList<AccountVO>();
 
-		String sql = "select * from account where a_cname like ? order by a_number desc";
+		String sql = "select * from account where a_cname like ? order by a_number";
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
