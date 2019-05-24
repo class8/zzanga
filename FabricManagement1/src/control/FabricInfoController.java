@@ -8,9 +8,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,6 +38,7 @@ import javafx.stage.Modality;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.CustomerVO;
 import model.FabricVO;
 
 public class FabricInfoController implements Initializable {
@@ -93,8 +96,14 @@ public class FabricInfoController implements Initializable {
 	Button f_btnTrade;
 
 	@FXML
-	TableView<FabricVO> f_tableView = new TableView<>();
+	TableView<CustomerVO> c_tableView = new TableView<>();
 
+	ObservableList<CustomerVO> customerDataList = FXCollections.observableArrayList();
+	ObservableList<CustomerVO> selectCustomer = null; // 학생등록 테이블에서 선택한 정보 저장
+	int selectedCustomerIndex;
+
+	@FXML
+	TableView<FabricVO> f_tableView = new TableView<>();
 	ObservableList<FabricVO> fabricDataList = FXCollections.observableArrayList();
 	ObservableList<FabricVO> selectFabric = null;
 	// String selectedFabricIndex = "";
@@ -113,10 +122,55 @@ public class FabricInfoController implements Initializable {
 	// 이미지 저장할 폴더를 매개변수로 파일 객체 생성
 	private File dirSave = new File("C:/images");
 
+	// 거래등록필드
+
+	@FXML
+	TextField tr_f_txtNumber; // 제품코드
+	@FXML
+	TextField tr_f_txtSort; // 종류
+	@FXML
+	TextField tr_f_txtName; // 제품명
+	@FXML
+	TextField tr_f_txtColor; // 색상
+	@FXML
+	TextField tr_f_txtSize; // 사이즈
+	@FXML
+	TextField tr_f_txtWeight; // 중량
+	@FXML
+	TextField tr_f_txtPrice; // 가격
+	@FXML
+	TextField tr_f_txtPhone; // 담당자연락처
+	@FXML
+	TextField tr_c_txtNumber; // 고객 번호
+	@FXML
+	TextField tr_c_txtName; // 고객명
+	@FXML
+	TextField tr_c_txtPhone; // 연락처
+	@FXML
+	TextField tr_c_txtEmail; // 이메일
+	@FXML
+	TextField tr_txtAddress; // 배달주소
+	@FXML
+	TextField tr_Amount; // 수량
+	@FXML
+	TextField tr_txtTotal; // 총액
+	@FXML
+	Button tr_btnRegist; // 등록
+	@FXML
+	Button tr_btnCancel; // 취소
+	@FXML
+	Button tr_btnTotal; // 총액버튼
+	@FXML
+	Button tr_btnCsearch; // 고객정보불러오기 버
+	@FXML
+	TextField tr_txtRemarks; // 비고
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
 		try {
+
+			f_btnTrade.setDisable(true);
 
 			TableColumn colFnumber = new TableColumn("제품코드");
 			colFnumber.setPrefWidth(40);
@@ -216,20 +270,151 @@ public class FabricInfoController implements Initializable {
 	public void handlerBtnTradeAction(ActionEvent event) {
 
 		try {
-			Stage dialog = new Stage(StageStyle.UTILITY);
-			dialog.initModality(Modality.WINDOW_MODAL);
-			dialog.initOwner(f_btnRegist.getScene().getWindow());
-			dialog.setTitle("거래 등록");
-			Parent parent = FXMLLoader.load(getClass().getResource("/view/tradeReg.fxml"));
 
-			// Button btnClose = (Button) parent.lookup("#btnClose");
-			// btnClose.setOnAction(e -> dialog.close());
-			Scene scene = new Scene(parent);
-			dialog.setScene(scene);
-			dialog.show();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/tradeReg.fxml"));
+			Parent mainView = (Parent) loader.load();
+			Scene scane = new Scene(mainView);
+			Stage mainStage = new Stage();
+			mainStage.setTitle("거래 등록");
+			mainStage.setResizable(false);
+			mainStage.setScene(scane);
+			mainStage.show();
 
-		} catch (IOException e) {
-			System.out.println(e.toString());
+			FabricVO fabricReg = f_tableView.getSelectionModel().getSelectedItem();
+			selectedFabricIndex = String.valueOf(f_tableView.getSelectionModel().getSelectedIndex());
+
+			selectFabric = f_tableView.getSelectionModel().getSelectedItems();
+
+			selectedFabricIndex = selectFabric.get(0).getF_number();
+
+			// 원단정보 불러오기!
+
+			TextField f_txtNumber = (TextField) mainView.lookup("#tr_f_txtNumber");
+			TextField f_txtSort = (TextField) mainView.lookup("#tr_f_txtSort");
+			TextField f_txtName = (TextField) mainView.lookup("#tr_f_txtName");
+			TextField f_txtColor = (TextField) mainView.lookup("#tr_f_txtColor");
+			TextField f_txtSize = (TextField) mainView.lookup("#tr_f_txtSize");
+			TextField f_txtWeight = (TextField) mainView.lookup("#tr_f_txtWeight");
+			TextField f_txtPrice = (TextField) mainView.lookup("#tr_f_txtPrice");
+			TextField f_txtPhone = (TextField) mainView.lookup("#tr_f_txtPhone");
+			TextField c_txtNumber = (TextField) mainView.lookup("#tr_c_txtNumber");
+			TextField c_txtName = (TextField) mainView.lookup("#tr_c_txtName");
+			TextField c_txtPhone = (TextField) mainView.lookup("#tr_c_txtPhone");
+			TextField c_txtEmail = (TextField) mainView.lookup("#tr_c_txtEmail");
+			TextField t_txtAddress = (TextField) mainView.lookup("#tr_txtAddress");
+			TextField t_txtAmount = (TextField) mainView.lookup("#tr_txtAmount");
+			TextField t_txtTotal = (TextField) mainView.lookup("#tr_txtTotal");
+
+			f_txtNumber.setText(selectFabric.get(0).getF_number());
+			f_txtSort.setText(selectFabric.get(0).getF_sort());
+			f_txtName.setText(selectFabric.get(0).getF_sort());
+			f_txtColor.setText(selectFabric.get(0).getF_color());
+			f_txtSize.setText(selectFabric.get(0).getF_size());
+			f_txtPhone.setText(selectFabric.get(0).getF_phone());
+			f_txtWeight.setText(selectFabric.get(0).getF_weight());
+			f_txtPrice.setText(selectFabric.get(0).getF_price());
+
+			// 자동입력란은 수정불가
+			f_txtNumber.setDisable(true);
+			f_txtSort.setDisable(true);
+			f_txtName.setDisable(true);
+			f_txtColor.setDisable(true);
+			f_txtSize.setDisable(true);
+			f_txtPhone.setDisable(true);
+			f_txtWeight.setDisable(true);
+			f_txtPrice.setDisable(true);
+			c_txtName.setDisable(true);
+			c_txtPhone.setDisable(true);
+
+			// f_txtNumber.setText(fabricReg.getF_number() + "");
+			// f_txtSort.setText(fabricReg.getF_sort() + "");
+			// f_txtName.setText(fabricReg.getF_name() + "");
+			// f_txtColor.setText(fabricReg.getF_color() + "");
+			// f_txtSize.setText(fabricReg.getF_size() + "");
+			// f_txtPhone.setText(fabricReg.getF_phone() + "");
+			// f_txtWeight.setText(fabricReg.getF_weight() + "");
+			// f_txtPrice.setText(fabricReg.getF_price() + "");
+
+			Button tr_btnCancel = (Button) mainView.lookup("#tr_btnCancel");// 취소버튼 이벤트
+			Button tr_btnCsearch = (Button) mainView.lookup("#tr_btnCsearch"); // 고객검색 버튼
+			Button tr_btnTotal = (Button) mainView.lookup("#tr_btnTotal");// 총액
+			Button tr_btnRegistl = (Button) mainView.lookup("#tr_btnRegist");// 등록
+
+			// 고객정보불러오기 버튼 이벤트
+			tr_btnCsearch.setOnAction(e -> {
+
+				FabricDAO fDao = new FabricDAO();
+				String search = c_txtNumber.getText();
+				ArrayList<String> list = null;
+
+				try {
+
+					list = fDao.getSearchNumber(search);
+
+					if (search.equals("")) {
+						c_txtNumber.clear();
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setTitle("고객 정보 검색");
+						alert.setHeaderText("검색어를 입력하세요");
+						alert.setContentText("다시 시도해주세요.");
+						alert.showAndWait();
+
+					}
+
+					if (list != null) {
+
+						c_txtName.setText(list.get(0).toString());
+						c_txtPhone.setText(list.get(1).toString());
+
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setTitle("검색 성공");
+						alert.setHeaderText(search + "번 거래처를 찾았습니다.");
+						alert.setContentText(search + "번 거래처 정보를 불러 옵니다.");
+						alert.showAndWait();
+
+					}
+
+				} catch (Exception e1) {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("고객정보");
+					alert.setHeaderText("고객정보가 리스트에 없습니다.");
+					alert.setContentText("다시 시도해주세요.");
+					alert.showAndWait();
+				}
+
+			});
+
+			// 총액버튼 이벤트
+			tr_btnTotal.setOnAction(e -> {
+
+				if (!(t_txtAmount.getText().equals(""))) {
+
+					int price = Integer.parseInt(f_txtPrice.getText());
+					int amount = Integer.parseInt(t_txtAmount.getText());
+
+					t_txtTotal.setText(price * amount + "");
+
+				} else {
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("정보 미입력");
+					alert.setHeaderText("수량이 입력되지 않았습니다.");
+					alert.setContentText("수량을 정확히 입력하세요.");
+					alert.showAndWait();
+				}
+			});
+
+			// 취소버튼 이벤트
+			tr_btnCancel.setOnAction(e -> {
+
+				mainStage.close();
+				handlerBtnInitAction(event);
+
+			});
+
+		} catch (
+
+		IOException e1) {
+			System.out.println(e1.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -250,7 +435,6 @@ public class FabricInfoController implements Initializable {
 			searchName = f_txtSearch.getText().trim();
 			fDao = new FabricDAO();
 			searchList = fDao.getFabricCheck(searchName);
-			searchList = fDao.getFabricCheck(searchName);
 
 			if (searchList != null) {
 				int rowCount = searchList.size();
@@ -261,6 +445,7 @@ public class FabricInfoController implements Initializable {
 					fVo = searchList.get(index);
 					fabricDataList.add(fVo);
 					searchResult = true;
+
 				}
 			}
 
@@ -275,6 +460,7 @@ public class FabricInfoController implements Initializable {
 				fabricTotalList();
 			}
 		} catch (Exception e) {
+			e.toString();
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("원단 정보 검색 오류");
 			alert.setHeaderText("원단 정보 검색에 오류가 발생하였습니다.");
@@ -350,6 +536,10 @@ public class FabricInfoController implements Initializable {
 
 		try {
 
+			selectFabric = f_tableView.getSelectionModel().getSelectedItems();
+
+			selectedFabricIndex = selectFabric.get(0).getF_number();
+
 			fabricDataList.removeAll(fabricDataList);
 
 			FabricVO fvo = null;
@@ -368,7 +558,7 @@ public class FabricInfoController implements Initializable {
 			if (f_txtNumber.getLength() != 0 && f_txtSort.getLength() != 0 && f_txtName.getLength() != 0
 					&& f_txtColor.getLength() != 0 && f_txtSize.getLength() != 0 && f_txtMaterial.getLength() != 0
 					&& f_txtOrigin.getLength() != 0 && f_txtCname.getLength() != 0 && f_txtPhone.getLength() != 0
-					&& f_txtWeight.getLength() != 0 && f_txtPrice.getLength() != 0 && fileName.length() != 0)  {
+					&& f_txtWeight.getLength() != 0 && f_txtPrice.getLength() != 0 && fileName.length() != 0) {
 
 				fvo = new FabricVO(f_txtNumber.getText().trim(), f_txtSort.getText().trim(), f_txtName.getText().trim(),
 						f_txtColor.getText().trim(), f_txtSize.getText().trim(), f_txtMaterial.getText().trim(),
@@ -497,6 +687,7 @@ public class FabricInfoController implements Initializable {
 				f_btnInit.setDisable(false);
 				f_btnExit.setDisable(false);
 				f_btnDelete.setDisable(false);
+				f_btnTrade.setDisable(false);
 
 			} catch (Exception e) {
 
@@ -660,7 +851,7 @@ public class FabricInfoController implements Initializable {
 		f_btnDelete.setDisable(true);
 		f_btnRegist.setDisable(false);
 		btnImageFile.setDisable(false);
-
+		f_btnTrade.setDisable(true);
 		f_txtNumber.setEditable(true);
 		f_txtName.setEditable(true);
 		f_txtSort.setEditable(true);
