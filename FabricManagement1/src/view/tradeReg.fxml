@@ -93,11 +93,10 @@
 		<spacing>15</spacing>
 		<children>				<!-- 자식 컨트롤 추가 -->
 			<Label text="고객번호 : " prefWidth="60" />
-			<TextField fx:id="tr_c_txtNumber" prefWidth="50"
+			<TextField fx:id="tr_c_txtNumber" prefWidth="150"
 				promptText="고객번호" />
-			<Button fx:id="tr_btnCsearch" text="고객정보불러오기 " prefWidth="120" />
-			<Label text="고객명 : " prefWidth="50" />
-			<TextField fx:id="tr_c_txtName" prefWidth="130"
+			<Label text="고객명 : " prefWidth="60" />
+			<TextField fx:id="tr_c_txtName" prefWidth="150"
 				promptText="고객명" />
 		</children>
 	</HBox>
@@ -133,15 +132,6 @@
 			<Button fx:id="tr_btnTotal" text="총액 " prefWidth="60" />
 			<TextField fx:id="tr_txtTotal" prefWidth="150"
 				promptText="총액" />
-		</children>
-	</HBox>
-
-	<HBox>
-		<spacing>10</spacing>
-		<children>				<!-- 자식 컨트롤 추가 -->
-			<Label text="비고: " prefWidth="60" />
-			<TextArea fx:id="tr_txtRemarks" prefWidth="400"
-				prefHeight="50" promptText="비 고" />
 		</children>
 	</HBox>
 
