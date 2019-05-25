@@ -398,4 +398,50 @@ public class FabricDAO {
 		return fabricUpdateSucess;
 	}
 
+	// 고객번호를 받아 정보조회
+	public ArrayList<String> getSearchNumber(String number) throws Exception {
+
+		ArrayList<String> list = new ArrayList<String>();
+		String sql = "select c_name, c_phone from customer where c_number=?";
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CustomerVO cVo = null;
+		try {
+
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, number);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				cVo = new CustomerVO();
+				cVo.setC_name(rs.getString("c_name"));
+				cVo.setC_phone(rs.getString("c_phone"));
+
+				list.add(cVo.getC_name());
+				list.add(cVo.getC_phone());
+
+			}
+		} catch (SQLException se) {
+			System.out.println(se);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+			}
+		}
+		return list;
+	}
+
 }
