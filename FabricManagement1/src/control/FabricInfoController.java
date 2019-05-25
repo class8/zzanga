@@ -320,6 +320,7 @@ public class FabricInfoController implements Initializable {
 				f_txtTrait.clear();
 				f_txtPrice.clear();
 				f_txtRemarks.clear();
+				f_txtNumber.requestFocus();
 
 				f_txtNumber.setEditable(true);
 				f_txtName.setEditable(true);
@@ -368,7 +369,7 @@ public class FabricInfoController implements Initializable {
 			if (f_txtNumber.getLength() != 0 && f_txtSort.getLength() != 0 && f_txtName.getLength() != 0
 					&& f_txtColor.getLength() != 0 && f_txtSize.getLength() != 0 && f_txtMaterial.getLength() != 0
 					&& f_txtOrigin.getLength() != 0 && f_txtCname.getLength() != 0 && f_txtPhone.getLength() != 0
-					&& f_txtWeight.getLength() != 0 && f_txtPrice.getLength() != 0 && fileName.length() != 0)  {
+					&& f_txtWeight.getLength() != 0 && f_txtPrice.getLength() != 0 && fileName.length() != 0) {
 
 				fvo = new FabricVO(f_txtNumber.getText().trim(), f_txtSort.getText().trim(), f_txtName.getText().trim(),
 						f_txtColor.getText().trim(), f_txtSize.getText().trim(), f_txtMaterial.getText().trim(),
@@ -613,8 +614,8 @@ public class FabricInfoController implements Initializable {
 				fabricTotalList();
 
 				f_txtNumber.clear();
-				f_txtSort.clear();
 				f_txtName.clear();
+				f_txtSort.clear();
 				f_txtColor.clear();
 				f_txtSize.clear();
 				f_txtMaterial.clear();
@@ -625,6 +626,7 @@ public class FabricInfoController implements Initializable {
 				f_txtTrait.clear();
 				f_txtPrice.clear();
 				f_txtRemarks.clear();
+				f_txtNumber.requestFocus();
 
 				f_btnUpdate.setDisable(true);
 				f_btnDelete.setDisable(true);
@@ -643,8 +645,8 @@ public class FabricInfoController implements Initializable {
 	public void handlerBtnInitAction(ActionEvent event) {
 
 		f_txtNumber.clear();
-		f_txtSort.clear();
 		f_txtName.clear();
+		f_txtSort.clear();
 		f_txtColor.clear();
 		f_txtSize.clear();
 		f_txtMaterial.clear();
@@ -655,6 +657,7 @@ public class FabricInfoController implements Initializable {
 		f_txtTrait.clear();
 		f_txtPrice.clear();
 		f_txtRemarks.clear();
+		f_txtNumber.requestFocus();
 
 		f_btnUpdate.setDisable(true);
 		f_btnDelete.setDisable(true);
@@ -683,6 +686,30 @@ public class FabricInfoController implements Initializable {
 
 	// 원단 전체 리스트
 	public void fabricTotalList() throws Exception {
+
+		f_txtNumber.clear();
+		f_txtName.clear();
+		f_txtSort.clear();
+		f_txtColor.clear();
+		f_txtSize.clear();
+		f_txtMaterial.clear();
+		f_txtOrigin.clear();
+		f_txtCname.clear();
+		f_txtPhone.clear();
+		f_txtWeight.clear();
+		f_txtTrait.clear();
+		f_txtPrice.clear();
+		f_txtRemarks.clear();
+		f_txtNumber.requestFocus();
+
+		f_btnUpdate.setDisable(true);
+		f_btnDelete.setDisable(true);
+		f_btnRegist.setDisable(false);
+		btnImageFile.setDisable(false);
+
+		f_txtNumber.setEditable(true);
+		f_txtName.setEditable(true);
+		f_txtSort.setEditable(true);
 
 		fabricDataList.removeAll(fabricDataList);
 

@@ -57,7 +57,7 @@ public class OrderDAO {
 
 		ArrayList<OrderVO> list = new ArrayList<>();
 
-		String sql = "select o_number, o.a_number, f.f_number, c.c_number, o_email, o_address, o_amount, o_total, o_status, o_registdate, o_remarks, f_name,  c_name, c_phone from order1 o, fabric f, account a, customer c where o.f_number=f.f_number and o.a_number=a.a_number and o.c_number=c.c_number order by o_number asc";
+		String sql = "select o_number, o.a_number, f.f_number, c.c_number, o_email, o_address, o_amount, o_total, o_status, o_registdate, o_remarks, f_name,  c_name, c_phone from order1 o, fabric f, account a, customer c where o.f_number=f.f_number and o.a_number=a.a_number and o.c_number=c.c_number order by o_number";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -313,22 +313,36 @@ public class OrderDAO {
 			String o_address, String o_amount, String o_total, String o_status, String o_registdate, String o_remarks)
 			throws Exception {
 
-		String sql = "update trade set f_number=?, c_number=?, t_amount=?, t_price=?, t_deposit=?, t_penalty=?, t_balance=?, t_receipt=?, t_unpaid=?, t_status=?, t_registdate=?, t_address=?, t_remarks=? where t_number=?";
+		String sql = "update order1 set a_number=?, f_number=?, c_number=?, o_email=?, o_address=?, o_amount=?, o_total=?, o_status=?, o_registdate=?, o_remarks=? where o_number=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean accountUpdateSucess = false;
 		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, a_number);
+			pstmt.setString(2, f_number);
+			pstmt.setString(3, c_number);
+			pstmt.setString(4, o_email);
+			pstmt.setString(5, o_address);
+			pstmt.setString(6, o_amount);
+			pstmt.setString(7, o_total);
+			pstmt.setString(8, o_status);
+			pstmt.setString(9, o_registdate);
+			pstmt.setString(10, o_remarks);
+			pstmt.setString(11, o_number);
+
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("거래 정보 수정");
-				alert.setHeaderText("번 거래 수정 완료.");
-				alert.setContentText("거래 정보 수정 성공!");
+				alert.setTitle("주문 정보 수정");
+				alert.setHeaderText(o_number + "번 주문 수정 완료.");
+				alert.setContentText("주문 정보 수정 성공!");
 				alert.showAndWait();
 				accountUpdateSucess = true;
 			} else {
-
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("거래 정보 수정");
 				alert.setHeaderText("거래 정보 수정 실패");
@@ -353,10 +367,10 @@ public class OrderDAO {
 	}
 
 	// 정보 삭제
-	public boolean getOrderDelete(int t_number) throws Exception {
+	public boolean getOrderDelete(int o_number) throws Exception {
 
 		StringBuffer sql = new StringBuffer();
-		sql.append("delete from trade where t_number = ?");
+		sql.append("delete from order1 where o_number = ?");
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -366,25 +380,25 @@ public class OrderDAO {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql.toString());
-			pstmt.setInt(1, t_number);
+			pstmt.setInt(1, o_number);
 
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
 
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("거래 정보 삭제");
-				alert.setHeaderText(t_number + "번 거래 정보 삭제 완료.");
-				alert.setContentText("거래 정보 삭제 성공!!!");
+				alert.setTitle("주문 정보 삭제");
+				alert.setHeaderText(o_number + "번 주문 정보 삭제 완료.");
+				alert.setContentText("주문 정보 삭제 성공!!!");
 				alert.showAndWait();
 				accountDeleteSucess = true;
 
 			} else {
 
 				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("거래 정보 삭제");
-				alert.setHeaderText("거래 정보 삭제 실패");
-				alert.setContentText("거래 정보 삭제 실패!");
+				alert.setTitle("주문 정보 삭제");
+				alert.setHeaderText("주문 정보 삭제 실패");
+				alert.setContentText("주문 정보 삭제 실패!");
 				alert.showAndWait();
 			}
 		} catch (SQLException e) {

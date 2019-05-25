@@ -33,6 +33,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.AccountVO;
+import model.CustomerVO;
 import model.FabricVO;
 import model.OrderVO;
 import model.TradeVO;
@@ -44,7 +45,11 @@ public class TradeInfoController implements Initializable {
 	@FXML
 	TextField f_txtNumber;
 	@FXML
+	Button f_btnNumber;
+	@FXML
 	TextField c_txtNumber;
+	@FXML
+	Button c_btnNumber;
 	@FXML
 	TextField c_txtName;
 	@FXML
@@ -140,12 +145,18 @@ public class TradeInfoController implements Initializable {
 	ObservableList<TradeVO> tradeDataList = FXCollections.observableArrayList();
 	ObservableList<TradeVO> selectTrade = null;
 	ObservableList<FabricVO> selectfabric = null;
+	ObservableList<CustomerVO> selectcustomer = null;
 	int selectedTradeIndex;
 	int toOrderIndex;
+	String selectedFabricIndex;
+	int selectedCustomerIndex;
+	String selectedCustomerName;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
+			f_btnNumber.setDisable(true);
+			c_btnNumber.setDisable(true);
 
 			TradeDAO dao = new TradeDAO();
 
@@ -234,8 +245,8 @@ public class TradeInfoController implements Initializable {
 			t_tableView.setItems(tradeDataList);
 
 			t_tableView.getColumns().addAll(colTnumber, colFnumber, colCnumber, colCname, colTamount, colTprice,
-					colTdeposit, colTbalance, colTreceipt, colTunpaid, colTstatus, colTregistdate, colTaddress,
-					colTremarks);
+					colTdeposit, colTbalance, colTreceipt, colTunpaid, colTstatus, colTphone, colTregistdate,
+					colTaddress, colTremarks);
 
 			t_btnUpdate.setDisable(true);
 			t_btnDelete.setDisable(true);
@@ -252,10 +263,125 @@ public class TradeInfoController implements Initializable {
 			t_btnChange.setOnAction(event -> handlerBtnChangeAction(event));
 			t_tableView.setOnMouseClicked(event -> handlerTradeTableViewAction(event)); // 테이블뷰 더블클릭 이벤트
 			t_or_btnRegist.setOnAction(event -> handlerBtnOrderRegistAction(event));
+			f_btnNumber.setOnAction(event -> handlerBtnFabricSearchAction(event));
+			c_btnNumber.setOnAction(event -> handlerBtnCustomerSearchAction(event));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void handlerBtnCustomerSearchAction(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/tradeCustomerSearch.fxml"));
+			Parent customerView = (Parent) loader.load();
+			Scene scene = new Scene(customerView);
+			Stage mainStage = new Stage();
+			mainStage.setTitle("고객 정보 변경");
+			mainStage.setResizable(false);
+			mainStage.setScene(scene);
+			mainStage.show();
+
+			Button cs_btnCancel = (Button) customerView.lookup("#cs_btnCancel");
+			Button cs_btnRegist = (Button) customerView.lookup("#cs_btnRegist");
+			TableView<CustomerVO> cs_tableView = (TableView) customerView.lookup("#cs_tableView");
+
+			cs_btnCancel.setOnAction(e -> {
+				mainStage.close();
+			});
+
+			cs_btnRegist.setOnAction(e -> {
+				try {
+					c_txtNumber.setText(selectedCustomerIndex + "");
+					c_txtName.setText(selectedCustomerName);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				mainStage.close();
+			});
+
+			cs_tableView.setOnMouseClicked(e -> {
+				if (e.getClickCount() == 1) {
+					try {
+						selectcustomer = cs_tableView.getSelectionModel().getSelectedItems();
+						selectedCustomerIndex = selectcustomer.get(0).getC_number();
+						selectedCustomerName = selectcustomer.get(0).getC_name();
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+				if (e.getClickCount() == 2) {
+					try {
+						selectcustomer = cs_tableView.getSelectionModel().getSelectedItems();
+						selectedCustomerIndex = selectcustomer.get(0).getC_number();
+						selectedCustomerName = selectcustomer.get(0).getC_name();
+						c_txtNumber.setText(selectedCustomerIndex + "");
+						c_txtName.setText(selectedCustomerName);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					mainStage.close();
+				}
+			});
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	public void handlerBtnFabricSearchAction(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/tradeFabricSearch.fxml"));
+			Parent fabricView = (Parent) loader.load();
+			Scene scene = new Scene(fabricView);
+			Stage mainStage = new Stage();
+			mainStage.setTitle("원단 정보 변경");
+			mainStage.setResizable(false);
+			mainStage.setScene(scene);
+			mainStage.show();
+
+			Button fs_btnCancel = (Button) fabricView.lookup("#fs_btnCancel");
+			Button fs_btnRegist = (Button) fabricView.lookup("#fs_btnRegist");
+			TableView<FabricVO> fs_tableView = (TableView) fabricView.lookup("#fs_tableView");
+
+			fs_btnCancel.setOnAction(e -> {
+				mainStage.close();
+			});
+
+			fs_btnRegist.setOnAction(e -> {
+				try {
+					f_txtNumber.setText(selectedFabricIndex);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				mainStage.close();
+			});
+
+			fs_tableView.setOnMouseClicked(e -> {
+				if (e.getClickCount() == 1) {
+					try {
+						selectfabric = fs_tableView.getSelectionModel().getSelectedItems();
+						selectedFabricIndex = selectfabric.get(0).getF_number();
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+				if (e.getClickCount() == 2) {
+					try {
+						selectfabric = fs_tableView.getSelectionModel().getSelectedItems();
+						selectedFabricIndex = selectfabric.get(0).getF_number();
+
+						f_txtNumber.setText(selectedFabricIndex);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					mainStage.close();
+				}
+			});
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	// 주문등록 버튼
@@ -364,8 +490,7 @@ public class TradeInfoController implements Initializable {
 					alert.showAndWait();
 				}
 			});
-			
-			
+
 			btnTotal.setOnAction(e -> {
 				if (!(temp_o_amount.getText().equals(""))) {
 					int price = Integer.parseInt(temp_f_price.getText());
@@ -380,9 +505,9 @@ public class TradeInfoController implements Initializable {
 				}
 			});
 
-			// 거래처 정보 검색 이벤트 
+			// 거래처 정보 검색 이벤트
 			btnSearch.setOnAction(e -> {
-				
+
 				OrderDAO oDao = new OrderDAO();
 				String search = temp_a_number.getText();
 				String result = null;
@@ -390,7 +515,7 @@ public class TradeInfoController implements Initializable {
 				try {
 
 					result = oDao.getSearchName(search);
-					
+
 					if (result != null) {
 						temp_a_name.setText(result);
 						Alert alert = new Alert(AlertType.WARNING);
@@ -457,13 +582,24 @@ public class TradeInfoController implements Initializable {
 			t_txtAddress.clear();
 			t_txtRemarks.clear();
 			t_cbStatus.getSelectionModel().clearSelection();
-
 			t_dpStart.setValue(null);
 			t_dpFinish.setValue(null);
+			t_txtNumber.requestFocus();
+
 			t_txtNumber.setEditable(true);
+			c_txtName.setEditable(true);
 			f_txtNumber.setEditable(true);
 			c_txtNumber.setEditable(true);
-			c_txtName.setEditable(true);
+			t_txtStatus.setEditable(true);
+
+			t_txtNumber.setDisable(false);
+			c_txtName.setDisable(false);
+			f_txtNumber.setDisable(false);
+			c_txtNumber.setDisable(false);
+			t_txtStatus.setDisable(false);
+
+			f_btnNumber.setDisable(true);
+			c_btnNumber.setDisable(true);
 
 			t_btnUpdate.setDisable(true);
 			t_btnDelete.setDisable(true);
@@ -554,6 +690,45 @@ public class TradeInfoController implements Initializable {
 	// 전체 목록
 	public void tradeTotalList() throws Exception {
 
+		t_txtNumber.clear();
+		f_txtNumber.clear();
+		c_txtNumber.clear();
+		c_txtName.clear();
+		t_txtAmount.clear();
+		t_txtPrice.clear();
+		t_txtDeposit.clear();
+		t_txtPenalty.clear();
+		t_txtBalance.clear();
+		t_txtReceipt.clear();
+		t_txtUnpaid.clear();
+		t_txtStatus.clear();
+		t_txtPhone.clear();
+		t_dpDate.setValue(null);
+		t_txtAddress.clear();
+		t_txtRemarks.clear();
+		t_dpStart.setValue(null);
+		t_dpFinish.setValue(null);
+		t_txtNumber.requestFocus();
+
+		t_txtNumber.setEditable(true);
+		c_txtName.setEditable(true);
+		f_txtNumber.setEditable(true);
+		c_txtNumber.setEditable(true);
+		t_txtStatus.setEditable(true);
+
+		t_txtNumber.setDisable(false);
+		c_txtName.setDisable(false);
+		f_txtNumber.setDisable(false);
+		c_txtNumber.setDisable(false);
+		t_txtStatus.setDisable(false);
+
+		f_btnNumber.setDisable(true);
+		c_btnNumber.setDisable(true);
+
+		t_or_btnRegist.setDisable(true);
+		t_btnUpdate.setDisable(true);
+		t_btnDelete.setDisable(true);
+
 		tradeDataList.removeAll(tradeDataList);
 		TradeDAO tDao = new TradeDAO();
 		TradeVO tVo = null;
@@ -601,11 +776,22 @@ public class TradeInfoController implements Initializable {
 				t_txtRemarks.clear();
 				t_dpStart.setValue(null);
 				t_dpFinish.setValue(null);
+				t_txtNumber.requestFocus();
 
 				t_txtNumber.setEditable(true);
+				c_txtName.setEditable(true);
 				f_txtNumber.setEditable(true);
 				c_txtNumber.setEditable(true);
-				c_txtName.setEditable(true);
+				t_txtStatus.setEditable(true);
+
+				t_txtNumber.setDisable(false);
+				c_txtName.setDisable(false);
+				f_txtNumber.setDisable(false);
+				c_txtNumber.setDisable(false);
+				t_txtStatus.setDisable(false);
+
+				f_btnNumber.setDisable(true);
+				c_btnNumber.setDisable(true);
 
 				t_btnUpdate.setDisable(true);
 				t_btnDelete.setDisable(true);
@@ -645,11 +831,22 @@ public class TradeInfoController implements Initializable {
 				t_txtRemarks.clear();
 				t_dpStart.setValue(null);
 				t_dpFinish.setValue(null);
+				t_txtNumber.requestFocus();
 
 				t_txtNumber.setEditable(true);
+				c_txtName.setEditable(true);
 				f_txtNumber.setEditable(true);
 				c_txtNumber.setEditable(true);
-				c_txtName.setEditable(true);
+				t_txtStatus.setEditable(true);
+
+				t_txtNumber.setDisable(false);
+				c_txtName.setDisable(false);
+				f_txtNumber.setDisable(false);
+				c_txtNumber.setDisable(false);
+				t_txtStatus.setDisable(false);
+
+				f_btnNumber.setDisable(true);
+				c_btnNumber.setDisable(true);
 
 				t_btnUpdate.setDisable(true);
 				t_btnDelete.setDisable(true);
@@ -692,10 +889,22 @@ public class TradeInfoController implements Initializable {
 			t_txtRemarks.clear();
 			t_dpStart.setValue(null);
 			t_dpFinish.setValue(null);
+			t_txtNumber.requestFocus();
+
 			t_txtNumber.setEditable(true);
+			c_txtName.setEditable(true);
 			f_txtNumber.setEditable(true);
 			c_txtNumber.setEditable(true);
-			c_txtName.setEditable(true);
+			t_txtStatus.setEditable(true);
+
+			t_txtNumber.setDisable(false);
+			c_txtName.setDisable(false);
+			f_txtNumber.setDisable(false);
+			c_txtNumber.setDisable(false);
+			t_txtStatus.setDisable(false);
+
+			f_btnNumber.setDisable(true);
+			c_btnNumber.setDisable(true);
 
 			t_or_btnRegist.setDisable(true);
 			t_btnUpdate.setDisable(true);
@@ -746,7 +955,18 @@ public class TradeInfoController implements Initializable {
 
 				t_txtNumber.setEditable(false);
 				c_txtName.setEditable(false);
-				t_txtPhone.setEditable(false);
+				f_txtNumber.setEditable(false);
+				c_txtNumber.setEditable(false);
+				t_txtStatus.setEditable(false);
+
+				t_txtNumber.setDisable(true);
+				c_txtName.setDisable(true);
+				f_txtNumber.setDisable(true);
+				c_txtNumber.setDisable(true);
+				t_txtStatus.setDisable(true);
+
+				f_btnNumber.setDisable(false);
+				c_btnNumber.setDisable(false);
 
 				t_btnUpdate.setDisable(false);
 				t_btnDelete.setDisable(false);

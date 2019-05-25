@@ -207,6 +207,7 @@ public class AccountInfoController implements Initializable {
 				a_txtMsubject.clear();
 				a_txtRemarks.clear();
 				a_txtCname.requestFocus();
+
 			} else {
 				accountDataList.removeAll(accountDataList);
 
@@ -229,6 +230,20 @@ public class AccountInfoController implements Initializable {
 
 	// 전체 목록
 	public void accountTotalList() throws Exception {
+
+		a_txtCname.clear();
+		a_txtMname.clear();
+		a_txtPhone.clear();
+		a_txtEmail.clear();
+		a_txtAddress.clear();
+		a_txtBnumber.clear();
+		a_txtMsubject.clear();
+		a_txtRemarks.clear();
+		a_txtCname.requestFocus();
+
+		a_txtCname.setEditable(true);
+		a_btnUpdate.setDisable(true);
+		a_btnDelete.setDisable(true);
 
 		accountDataList.removeAll(accountDataList);
 		AccountDAO aDao = new AccountDAO();
@@ -271,6 +286,7 @@ public class AccountInfoController implements Initializable {
 			a_txtBnumber.clear();
 			a_txtMsubject.clear();
 			a_txtRemarks.clear();
+			a_txtCname.requestFocus();
 
 			a_txtCname.setEditable(true);
 			a_btnUpdate.setDisable(true);
@@ -303,6 +319,7 @@ public class AccountInfoController implements Initializable {
 				a_txtBnumber.clear();
 				a_txtMsubject.clear();
 				a_txtRemarks.clear();
+				a_txtCname.requestFocus();
 
 				a_txtCname.setEditable(true);
 				a_btnUpdate.setDisable(true);
@@ -332,6 +349,7 @@ public class AccountInfoController implements Initializable {
 				a_txtBnumber.clear();
 				a_txtMsubject.clear();
 				a_txtRemarks.clear();
+				a_txtCname.requestFocus();
 
 				a_txtCname.setEditable(true);
 				a_btnUpdate.setDisable(true);
