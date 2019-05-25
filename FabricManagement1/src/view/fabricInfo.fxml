@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.beans.*?>
+<?import javafx.collections.ObservableList?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+	prefHeight="300" prefWidth="1200"
+	fx:controller="control.FabricInfoController">
+	<HBox>
+		<children>
+			<VBox>
+				<padding>
+					<Insets top="10" right="10" bottom="10" left="10" />
+				</padding>
+				<spacing>10</spacing>
+				<HBox alignment="CENTER"> 		   				<!-- HBox 컨테이너 선언 -->
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="원단 정보" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="제품코드 : " prefWidth="60" />
+						<TextField fx:id="f_txtNumber" prefWidth="110"
+							promptText="제품코드" />
+						<Label text="종    류: " prefWidth="50" />
+						<TextField fx:id="f_txtSort" prefWidth="110"
+							promptText="종 류" />
+					</children>
+				</HBox>
+
+				<HBox>
+
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="제품명 : " prefWidth="60" />
+						<TextField fx:id="f_txtName" prefWidth="110"
+							promptText="제품명" />
+						<Label text="색상 : " prefWidth="50" />
+						<TextField fx:id="f_txtColor" prefWidth="110"
+							promptText="색 상" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="사이즈 : " prefWidth="60" />
+						<TextField fx:id="f_txtSize" prefWidth="110"
+							promptText="사이즈" />
+						<Label text="중량 : " prefWidth="50" />
+						<TextField fx:id="f_txtWeight" prefWidth="110"
+							promptText="중 량" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="원산지 : " prefWidth="60" />
+						<TextField fx:id="f_txtOrigin" prefWidth="110"
+							promptText="원산지" />
+						<Label text="제조사 : " prefWidth="50" />
+						<TextField fx:id="f_txtCname" prefWidth="110"
+							promptText="제조사" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="가격 : " prefWidth="60" />
+						<TextField fx:id="f_txtPrice" prefWidth="110"
+							promptText="가 격" />
+						<Label text="연락처 : " prefWidth="50" />
+						<TextField fx:id="f_txtPhone" prefWidth="110"
+							promptText="담당자연락처" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="소재 : " prefWidth="60" />
+						<TextField fx:id="f_txtMaterial" prefWidth="290"
+							promptText="소 재" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="특징 : " prefWidth="60" />
+						<TextField fx:id="f_txtTrait" prefWidth="290"
+							promptText="특 징" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="비고 : " prefWidth="60" />
+						<TextArea fx:id="f_txtRemarks" prefWidth="290"
+							prefHeight="50" promptText="비고" />
+					</children>
+				</HBox>
+
+				<VBox alignment="center">
+					<spacing>10</spacing>
+					<children>
+						<ImageView fx:id="imageView" fitWidth="130"
+							fitHeight="100" pickOnBounds="true" preserveRatio="true" />
+						<Button fx:id="btnImageFile">이미지 파일 선택</Button>
+					</children>
+				</VBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="---------------------------------------" />
+					</children>
+				</HBox>
+
+				<HBox alignment="center">
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Button fx:id="f_btnRegist">등 록</Button>
+						<Button fx:id="f_btnInit">초기화</Button>
+						<Button fx:id="f_btnUpdate">수 정</Button>
+					</children>
+				</HBox>
+				<HBox alignment="center">
+					<spacing>20</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Button fx:id="f_btnDelete">삭 제</Button>
+						<Button fx:id="f_btnExit">종 료</Button>
+					</children>
+				</HBox>
+			</VBox>
+		</children>
+
+		<VBox>
+			<padding>
+				<Insets top="10" right="10" bottom="10" left="10" />
+			</padding>
+			<spacing>10</spacing>
+
+			<HBox>
+				<Label text="원단 정보" />
+			</HBox>
+
+			<HBox>
+
+				<HBox>
+					<TextField fx:id="f_txtSearch" promptText="제품명" />
+					<Button fx:id="f_btnSearch" text="검색" />
+				</HBox>
+
+				<HBox>
+					<padding>
+						<Insets left="600" />
+					</padding>
+					<Button fx:id="f_btnTrade" text="거래등록" />
+				</HBox>
+
+			</HBox>
+
+			<HBox>
+				<TableView fx:id="f_tableView" prefWidth="850.0" prefHeight="450.0" />
+			</HBox>
+
+		</VBox>
+
+	</HBox>
+
+</AnchorPane>

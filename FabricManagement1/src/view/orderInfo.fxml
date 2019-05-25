@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.beans.*?>
+<?import javafx.collections.ObservableList?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+	prefHeight="300" prefWidth="1200"
+	fx:controller="control.OrderInfoController">
+
+	<HBox>
+		<children>
+
+			<VBox>
+				<padding>
+					<Insets top="10" right="10" bottom="10" left="10" />
+				</padding>
+				<spacing>10</spacing>
+
+				<HBox alignment="CENTER"> 		   				<!-- HBox 컨테이너 선언 -->
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="주문 정보" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="주문번호 : " prefWidth="60" />
+						<TextField fx:id="o_txtNumber" prefWidth="110"
+							promptText="주문번호" />
+
+						<HBox>
+							<children>
+								<Label text="거래처번호 : " prefWidth="80" />
+								<TextField fx:id="a_txtNumber" prefWidth="60"
+									promptText="번호" />
+							</children>
+						</HBox>
+						<Button fx:id="a_btnNumber" prefWidth="40" text="변경" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="제품코드 : " prefWidth="60" />
+						<TextField fx:id="f_txtNumber" prefWidth="60"
+							promptText="코드" />
+						<Button fx:id="f_btnNumber" prefWidth="40" text="변경" />
+						<Label text="제품명 : " prefWidth="70" />
+						<TextField fx:id="f_txtName" prefWidth="110"
+							promptText="제품명" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="총수량: " prefWidth="60" />
+						<TextField fx:id="o_txtAmount" prefWidth="110"
+							promptText="총수량" />
+						<Label text="총금액 : " prefWidth="70" />
+						<TextField fx:id="o_txtPrice" prefWidth="110"
+							promptText="총금액" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="고객번호: " prefWidth="60" />
+						<TextField fx:id="c_txtNumber" prefWidth="60"
+							promptText="번호" />
+						<Button fx:id="c_btnNumber" prefWidth="40" text="변경" />
+						<Label text="고객명 : " prefWidth="70" />
+						<TextField fx:id="c_txtName" prefWidth="110"
+							promptText="고객명" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="연락처 : " prefWidth="60" />
+						<TextField fx:id="c_txtPhone" prefWidth="110"
+							promptText="예약자연락처" />
+						<Label text="이메일 : " prefWidth="70" />
+						<TextField fx:id="o_txtEmail" prefWidth="110"
+							promptText="담당자이메일" />
+
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="주문상태: " prefWidth="60" />
+						<TextField fx:id="o_txtStatus" prefWidth="110"
+							promptText="주문상태" />
+						<Label text="주문일 : " prefWidth="70" />
+						<DatePicker fx:id="o_dpDate" prefWidth="110"></DatePicker>
+					</children>
+				</HBox>
+
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="배달주소: " prefWidth="60" />
+						<TextField fx:id="o_txtAddress" prefWidth="310"
+							promptText="배달주소" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="비고: " prefWidth="60" />
+						<TextArea fx:id="o_txtRemarks" prefWidth="310"
+							prefHeight="50" promptText="비 고" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Label text="---------------------------------------" />
+					</children>
+				</HBox>
+
+				<HBox alignment="center">
+					<padding>
+						<Insets top="20" right="10" bottom="10" left="10" />
+					</padding>
+					<spacing>20</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Button fx:id="o_btnInit">초기화</Button>
+						<Button fx:id="o_btnUpdate">수 정</Button>
+					</children>
+				</HBox>
+				<HBox alignment="center">
+					<spacing>20</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
+						<Button fx:id="o_btnDelete">삭 제</Button>
+						<Button fx:id="o_btnExit">종 료</Button>
+					</children>
+				</HBox>
+			</VBox>
+		</children>
+
+		<VBox>
+			<padding>
+				<Insets top="10" right="10" bottom="10" left="10" />
+			</padding>
+			<spacing>10</spacing>
+
+			<HBox>
+				<Label text="주문 내역" />
+			</HBox>
+
+			<HBox>
+				<HBox>
+					<spacing>20</spacing>
+					<DatePicker fx:id="o_dpStart" prefWidth="110"></DatePicker>
+					<Label text="~" />
+					<DatePicker fx:id="o_dpFinish" prefWidth="110"></DatePicker>
+				</HBox>
+
+				<HBox>
+					<padding>
+						<Insets left="60" />
+					</padding>
+					<TextField fx:id="o_txtSearch" promptText="예약자명" />
+					<Button fx:id="o_btnSearch" text="검색" />
+				</HBox>
+
+				<HBox>
+					<padding>
+						<Insets left="60" />
+					</padding>
+					<ComboBox fx:id="o_cbStatus" promptText="주문상태"></ComboBox>
+					<Button fx:id="o_btnChange" text="변 경" />
+				</HBox>
+
+			</HBox>
+
+			<HBox>
+				<TableView fx:id="o_tableView" prefWidth="850.0"
+					prefHeight="450.0" />
+			</HBox>
+
+		</VBox>
+
+	</HBox>
+
+</AnchorPane>
+
