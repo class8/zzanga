@@ -73,7 +73,6 @@ public class CustomerInfoController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		try {
-
 			// 고객등록초기화
 			c_btnUpdate.setDisable(true);
 			c_btnDelete.setDisable(true);
@@ -92,27 +91,27 @@ public class CustomerInfoController implements Initializable {
 			colC_cname.setCellValueFactory(new PropertyValueFactory<>("c_cname"));
 
 			TableColumn colC_phone = new TableColumn("연락처");
-			colC_phone.setPrefWidth(90);
-			colC_cname.setCellValueFactory(new PropertyValueFactory<>("c_phone"));
+			colC_phone.setPrefWidth(70);
+			colC_phone.setCellValueFactory(new PropertyValueFactory<>("c_phone"));
 
 			TableColumn colC_bnumber = new TableColumn("사업자번호");
-			colC_bnumber.setPrefWidth(100);
+			colC_bnumber.setPrefWidth(70);
 			colC_bnumber.setCellValueFactory(new PropertyValueFactory<>("c_bnumber"));
 
 			TableColumn colC_address = new TableColumn("주소");
-			colC_address.setPrefWidth(150);
+			colC_address.setPrefWidth(70);
 			colC_address.setCellValueFactory(new PropertyValueFactory<>("c_address"));
 
 			TableColumn colC_email = new TableColumn("이메일");
-			colC_email.setPrefWidth(100);
+			colC_email.setPrefWidth(70);
 			colC_email.setCellValueFactory(new PropertyValueFactory<>("c_email"));
 
 			TableColumn colC_remarks = new TableColumn("비고");
-			colC_remarks.setPrefWidth(150);
+			colC_remarks.setPrefWidth(70);
 			colC_remarks.setCellValueFactory(new PropertyValueFactory<>("c_remarks"));
 
 			TableColumn colC_registdate = new TableColumn("등록일");
-			colC_registdate.setPrefWidth(80);
+			colC_registdate.setPrefWidth(70);
 			colC_registdate.setCellValueFactory(new PropertyValueFactory<>("c_registdate"));
 
 			c_tableView.setItems(customerDataList);
@@ -393,6 +392,18 @@ public class CustomerInfoController implements Initializable {
 	// 고객전체 목록 메소드
 	public void customerTotalList() throws Exception {
 		customerDataList.removeAll(customerDataList);
+
+		c_txtName.clear();
+		c_txtCname.clear();
+		c_txtPhone.clear();
+		c_txtBnumber.clear();
+		c_txtAddress.clear();
+		c_txtEmail.clear();
+		c_txtRemarks.clear();
+		c_txtName.requestFocus();
+
+		c_btnUpdate.setDisable(true);
+		c_btnDelete.setDisable(true);
 
 		CustomerDAO cDao = new CustomerDAO();
 		CustomerVO cVo = null;

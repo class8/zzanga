@@ -11,7 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -23,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import model.OrderVO;
 import model.TradeVO;
 
@@ -33,7 +37,11 @@ public class OrderInfoController implements Initializable {
 	@FXML
 	TextField a_txtNumber;
 	@FXML
+	Button a_btnNumber;
+	@FXML
 	TextField f_txtNumber;
+	@FXML
+	Button f_btnNumber;
 	@FXML
 	TextField f_txtName;
 	@FXML
@@ -41,9 +49,13 @@ public class OrderInfoController implements Initializable {
 	@FXML
 	TextField o_txtPrice;
 	@FXML
-	TextField o_txtName;
+	TextField c_txtNumber;
 	@FXML
-	TextField o_txtPhone;
+	Button c_btnNumber;
+	@FXML
+	TextField c_txtName;
+	@FXML
+	TextField c_txtPhone;
 	@FXML
 	TextField o_txtStatus;
 	@FXML
@@ -121,7 +133,12 @@ public class OrderInfoController implements Initializable {
 			colOtotal.setStyle("-fx-alignment: CENTER");
 			colOtotal.setCellValueFactory(new PropertyValueFactory<>("o_total"));
 
-			TableColumn colCname = new TableColumn("주문자명");
+			TableColumn colCnumber = new TableColumn("고객번호");
+			colCnumber.setPrefWidth(80);
+			colCnumber.setStyle("-fx-alignment: CENTER");
+			colCnumber.setCellValueFactory(new PropertyValueFactory<>("c_number"));
+
+			TableColumn colCname = new TableColumn("고객명");
 			colCname.setPrefWidth(80);
 			colCname.setStyle("-fx-alignment: CENTER");
 			colCname.setCellValueFactory(new PropertyValueFactory<>("c_name"));
@@ -130,6 +147,11 @@ public class OrderInfoController implements Initializable {
 			colCphone.setPrefWidth(80);
 			colCphone.setStyle("-fx-alignment: CENTER");
 			colCphone.setCellValueFactory(new PropertyValueFactory<>("c_phone"));
+
+			TableColumn colOemail = new TableColumn("이메일");
+			colOemail.setPrefWidth(80);
+			colOemail.setStyle("-fx-alignment: CENTER");
+			colOemail.setCellValueFactory(new PropertyValueFactory<>("o_email"));
 
 			TableColumn colOstatus = new TableColumn("상태");
 			colOstatus.setPrefWidth(80);
@@ -140,11 +162,6 @@ public class OrderInfoController implements Initializable {
 			colOregistdate.setPrefWidth(80);
 			colOregistdate.setStyle("-fx-alignment: CENTER");
 			colOregistdate.setCellValueFactory(new PropertyValueFactory<>("o_registdate"));
-
-			TableColumn colOemail = new TableColumn("이메일");
-			colOemail.setPrefWidth(80);
-			colOemail.setStyle("-fx-alignment: CENTER");
-			colOemail.setCellValueFactory(new PropertyValueFactory<>("o_email"));
 
 			TableColumn colOaddress = new TableColumn("주소");
 			colOaddress.setPrefWidth(80);
@@ -159,7 +176,7 @@ public class OrderInfoController implements Initializable {
 			o_tableView.setItems(orderDataList);
 
 			o_tableView.getColumns().addAll(colOnumber, colAnumber, colFnumber, colFname, colOamount, colOtotal,
-					colCname, colCphone, colOstatus, colOregistdate, colOemail, colOaddress, colOremarks);
+					colCnumber, colCname, colCphone, colOemail, colOstatus, colOregistdate, colOaddress, colOremarks);
 
 			// 전체 목록
 			orderTotalList();
@@ -171,10 +188,38 @@ public class OrderInfoController implements Initializable {
 			o_btnSearch.setOnAction(event -> handlerBtnSearchAction(event)); // 검색버튼 이벤트
 			o_tableView.setOnMouseClicked(event -> handlerOrderTableViewAction(event)); // 테이블뷰 더블클릭 이벤트
 			o_btnChange.setOnAction(event -> handlerBtnChangeAction(event));
+			c_btnNumber.setOnAction(event -> handlerBtnCustomerSearchAction(event));
+			a_btnNumber.setOnAction(event -> handlerBtnAccountSearchAction(event));
+			f_btnNumber.setOnAction(event -> handlerBtnFabricSearchAction(event));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	private Object handlerBtnFabricSearchAction(ActionEvent event) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private Object handlerBtnAccountSearchAction(ActionEvent event) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void handlerBtnCustomerSearchAction(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/OrderReg.fxml"));
+			Parent mainView = (Parent) loader.load();
+			Scene scane = new Scene(mainView);
+			Stage mainStage = new Stage();
+			mainStage.setTitle("주문 등록");
+			mainStage.setResizable(false);
+			mainStage.setScene(scane);
+			mainStage.show();
+		} catch (Exception e1) {
+
+		}
 	}
 
 	public void handlerBtnChangeAction(ActionEvent event) {
@@ -201,8 +246,9 @@ public class OrderInfoController implements Initializable {
 			f_txtName.clear();
 			o_txtAmount.clear();
 			o_txtPrice.clear();
-			o_txtName.clear();
-			o_txtPhone.clear();
+			c_txtNumber.clear();
+			c_txtName.clear();
+			c_txtPhone.clear();
 			o_txtStatus.clear();
 			o_dpDate.setValue(null);
 			o_txtEmail.clear();
@@ -211,14 +257,25 @@ public class OrderInfoController implements Initializable {
 			o_dpStart.setValue(null);
 			o_dpFinish.setValue(null);
 			o_cbStatus.getSelectionModel().clearSelection();
+			o_txtNumber.requestFocus();
 
 			f_txtNumber.setEditable(true);
 			a_txtNumber.setEditable(true);
 			o_txtNumber.setEditable(true);
+			c_txtNumber.setEditable(true);
 			f_txtName.setEditable(true);
 			o_txtAmount.setEditable(true);
 			o_txtPrice.setEditable(true);
 			o_txtStatus.setEditable(true);
+
+			f_txtNumber.setDisable(false);
+			a_txtNumber.setDisable(false);
+			o_txtNumber.setDisable(false);
+			c_txtNumber.setDisable(false);
+			f_txtName.setDisable(false);
+			o_txtAmount.setDisable(false);
+			o_txtPrice.setDisable(false);
+			o_txtStatus.setDisable(false);
 
 			o_btnUpdate.setDisable(true);
 			o_btnDelete.setDisable(true);
@@ -252,21 +309,32 @@ public class OrderInfoController implements Initializable {
 				f_txtName.setText(selectedF_name);
 				o_txtAmount.setText(selectedO_amount + "");
 				o_txtPrice.setText(selectedO_total + "");
-				o_txtName.setText(selectedC_name);
-				o_txtPhone.setText(selectedC_phone);
+				c_txtNumber.setText(selectedC_number + "");
+				c_txtName.setText(selectedC_name);
+				c_txtPhone.setText(selectedC_phone);
+				o_txtEmail.setText(selectedO_email);
 				o_txtStatus.setText(selectedO_status);
 				o_dpDate.setValue(LocalDate.parse(selectedO_registdate));
-				o_txtEmail.setText(selectedO_email);
 				o_txtAddress.setText(selectedO_address);
 				o_txtRemarks.setText(selectedO_remarks);
 
 				f_txtNumber.setEditable(false);
 				a_txtNumber.setEditable(false);
 				o_txtNumber.setEditable(false);
+				c_txtNumber.setEditable(false);
 				f_txtName.setEditable(false);
 				o_txtAmount.setEditable(false);
 				o_txtPrice.setEditable(false);
 				o_txtStatus.setEditable(false);
+
+				f_txtNumber.setDisable(true);
+				a_txtNumber.setDisable(true);
+				o_txtNumber.setDisable(true);
+				c_txtNumber.setDisable(true);
+				f_txtName.setDisable(true);
+				o_txtAmount.setDisable(true);
+				o_txtPrice.setDisable(true);
+				o_txtStatus.setDisable(true);
 
 				o_btnUpdate.setDisable(false);
 				o_btnDelete.setDisable(false);
@@ -375,8 +443,9 @@ public class OrderInfoController implements Initializable {
 				f_txtName.clear();
 				o_txtAmount.clear();
 				o_txtPrice.clear();
-				o_txtName.clear();
-				o_txtPhone.clear();
+				c_txtNumber.clear();
+				c_txtName.clear();
+				c_txtPhone.clear();
 				o_txtStatus.clear();
 				o_dpDate.setValue(null);
 				o_txtEmail.clear();
@@ -384,14 +453,25 @@ public class OrderInfoController implements Initializable {
 				o_txtRemarks.clear();
 				o_dpStart.setValue(null);
 				o_dpFinish.setValue(null);
+				o_txtNumber.requestFocus();
 
 				f_txtNumber.setEditable(true);
 				a_txtNumber.setEditable(true);
 				o_txtNumber.setEditable(true);
+				c_txtNumber.setEditable(true);
 				f_txtName.setEditable(true);
 				o_txtAmount.setEditable(true);
 				o_txtPrice.setEditable(true);
 				o_txtStatus.setEditable(true);
+
+				f_txtNumber.setDisable(false);
+				a_txtNumber.setDisable(false);
+				o_txtNumber.setDisable(false);
+				c_txtNumber.setDisable(false);
+				f_txtName.setDisable(false);
+				o_txtAmount.setDisable(false);
+				o_txtPrice.setDisable(false);
+				o_txtStatus.setDisable(false);
 
 				o_btnUpdate.setDisable(true);
 				o_btnDelete.setDisable(true);
@@ -407,14 +487,10 @@ public class OrderInfoController implements Initializable {
 		try {
 			boolean sucess = false;
 			OrderDAO odao = new OrderDAO();
-			// sucess = odao.getOrderUpdate(o_txtNumber.getText().trim(),
-			// a_txtNumber.getText().trim(),
-			// f_txtNumber.getText().trim(), o_txtName.getText().trim(),
-			// f_txtName.getText().trim(), o_txtAmount.getText().trim(),
-			// o_txtPrice.getText().trim(), o_txtPhone.getText().trim(),
-			// o_txtStatus.getText().trim(), o_dpDate.getValue().toString(),
-			// o_txtEmail.getText().trim(),
-			// o_txtAddress.getText().trim(), o_txtRemarks.getText().trim());
+			sucess = odao.getOrderUpdate(o_txtNumber.getText().trim(), a_txtNumber.getText().trim(),
+					f_txtNumber.getText().trim(), c_txtNumber.getText().trim(), o_txtEmail.getText(),
+					o_txtAddress.getText().trim(), o_txtAmount.getText().trim(), o_txtPrice.getText().trim(),
+					o_txtStatus.getText().trim(), o_dpDate.getValue().toString(), o_txtRemarks.getText());
 
 			if (sucess) {
 				orderDataList.removeAll(orderDataList);
@@ -426,8 +502,9 @@ public class OrderInfoController implements Initializable {
 				f_txtName.clear();
 				o_txtAmount.clear();
 				o_txtPrice.clear();
-				o_txtName.clear();
-				o_txtPhone.clear();
+				c_txtNumber.clear();
+				c_txtName.clear();
+				c_txtPhone.clear();
 				o_txtStatus.clear();
 				o_dpDate.setValue(null);
 				o_txtEmail.clear();
@@ -435,14 +512,25 @@ public class OrderInfoController implements Initializable {
 				o_txtRemarks.clear();
 				o_dpStart.setValue(null);
 				o_dpFinish.setValue(null);
+				o_txtNumber.requestFocus();
 
 				f_txtNumber.setEditable(true);
 				a_txtNumber.setEditable(true);
 				o_txtNumber.setEditable(true);
+				c_txtNumber.setEditable(true);
 				f_txtName.setEditable(true);
 				o_txtAmount.setEditable(true);
 				o_txtPrice.setEditable(true);
 				o_txtStatus.setEditable(true);
+
+				f_txtNumber.setDisable(false);
+				a_txtNumber.setDisable(false);
+				o_txtNumber.setDisable(false);
+				c_txtNumber.setDisable(false);
+				f_txtName.setDisable(false);
+				o_txtAmount.setDisable(false);
+				o_txtPrice.setDisable(false);
+				o_txtStatus.setDisable(false);
 
 				o_btnUpdate.setDisable(true);
 				o_btnDelete.setDisable(true);
@@ -465,8 +553,9 @@ public class OrderInfoController implements Initializable {
 			f_txtName.clear();
 			o_txtAmount.clear();
 			o_txtPrice.clear();
-			o_txtName.clear();
-			o_txtPhone.clear();
+			c_txtNumber.clear();
+			c_txtName.clear();
+			c_txtPhone.clear();
 			o_txtStatus.clear();
 			o_dpDate.setValue(null);
 			o_txtEmail.clear();
@@ -474,14 +563,25 @@ public class OrderInfoController implements Initializable {
 			o_txtRemarks.clear();
 			o_dpStart.setValue(null);
 			o_dpFinish.setValue(null);
+			o_txtNumber.requestFocus();
 
 			f_txtNumber.setEditable(true);
 			a_txtNumber.setEditable(true);
 			o_txtNumber.setEditable(true);
+			c_txtNumber.setEditable(true);
 			f_txtName.setEditable(true);
 			o_txtAmount.setEditable(true);
 			o_txtPrice.setEditable(true);
 			o_txtStatus.setEditable(true);
+
+			f_txtNumber.setDisable(false);
+			a_txtNumber.setDisable(false);
+			o_txtNumber.setDisable(false);
+			c_txtNumber.setDisable(false);
+			f_txtName.setDisable(false);
+			o_txtAmount.setDisable(false);
+			o_txtPrice.setDisable(false);
+			o_txtStatus.setDisable(false);
 
 			o_btnUpdate.setDisable(true);
 			o_btnDelete.setDisable(true);
@@ -492,6 +592,46 @@ public class OrderInfoController implements Initializable {
 	}
 
 	public void orderTotalList() throws Exception {
+
+		o_txtNumber.clear();
+		a_txtNumber.clear();
+		f_txtNumber.clear();
+		f_txtName.clear();
+		o_txtAmount.clear();
+		o_txtPrice.clear();
+		c_txtNumber.clear();
+		c_txtName.clear();
+		c_txtPhone.clear();
+		o_txtStatus.clear();
+		o_dpDate.setValue(null);
+		o_txtEmail.clear();
+		o_txtAddress.clear();
+		o_txtRemarks.clear();
+		o_dpStart.setValue(null);
+		o_dpFinish.setValue(null);
+		o_txtNumber.requestFocus();
+
+		f_txtNumber.setEditable(true);
+		a_txtNumber.setEditable(true);
+		o_txtNumber.setEditable(true);
+		c_txtNumber.setEditable(true);
+		f_txtName.setEditable(true);
+		o_txtAmount.setEditable(true);
+		o_txtPrice.setEditable(true);
+		o_txtStatus.setEditable(true);
+
+		f_txtNumber.setDisable(false);
+		a_txtNumber.setDisable(false);
+		o_txtNumber.setDisable(false);
+		c_txtNumber.setDisable(false);
+		f_txtName.setDisable(false);
+		o_txtAmount.setDisable(false);
+		o_txtPrice.setDisable(false);
+		o_txtStatus.setDisable(false);
+
+		o_btnUpdate.setDisable(true);
+		o_btnDelete.setDisable(true);
+
 		orderDataList.removeAll(orderDataList);
 		OrderDAO oDao = new OrderDAO();
 		OrderVO oVo = null;

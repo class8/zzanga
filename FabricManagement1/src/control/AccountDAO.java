@@ -17,6 +17,7 @@ public class AccountDAO {
 	// 거래처 등록
 	public void getAccountRegist(AccountVO avo) throws Exception {
 
+		// 거래처 삽입 하는 sql문
 		String sql = "insert into account values " + "(account_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -25,14 +26,15 @@ public class AccountDAO {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, avo.getA_cname());
-			pstmt.setString(2, avo.getA_mname());
-			pstmt.setString(3, avo.getA_phone());
-			pstmt.setString(4, avo.getA_email());
-			pstmt.setString(5, avo.getA_address());
-			pstmt.setString(6, avo.getA_bnumber());
-			pstmt.setString(7, avo.getA_msubject());
-			pstmt.setString(8, avo.getA_remarks());
+			// sql문 ? 부분에 해당하는 곳에 추가
+			pstmt.setString(1, avo.getA_cname()); // 거래처명
+			pstmt.setString(2, avo.getA_mname()); // 거래처 담당자 명
+			pstmt.setString(3, avo.getA_phone()); // 거래처 담당자 연락처
+			pstmt.setString(4, avo.getA_email()); // 거래처 이메일
+			pstmt.setString(5, avo.getA_address()); // 거래처 주소 
+			pstmt.setString(6, avo.getA_bnumber()); // 거래처 사업자번호
+			pstmt.setString(7, avo.getA_msubject()); // 거래처 주종목
+			pstmt.setString(8, avo.getA_remarks()); // 비고
 
 			int i = pstmt.executeUpdate();
 
@@ -118,13 +120,16 @@ public class AccountDAO {
 		return columnName;
 	}
 
-	// 학생 전체 목록
+	//거래처 전체 목록
 	public ArrayList<AccountVO> getAccountTotalList() throws Exception {
 
+		// VO형태로 데이터를 받을 리스트 생성
 		ArrayList<AccountVO> list = new ArrayList<>();
 
+		// 거래처 정보를 가져오는 sql문
 		String sql = "select a_number, a_cname, a_mname, a_phone, a_email, a_bnumber, a_msubject, a_address, a_remarks, a_registdate "
 				+ " from account" + " order by a_number";
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -138,17 +143,17 @@ public class AccountDAO {
 			while (rs.next()) {
 
 				aVo = new AccountVO();
-				aVo.setA_number(rs.getInt("a_number"));
-				aVo.setA_cname(rs.getString("a_cname"));
-				aVo.setA_mname(rs.getString("a_mname"));
-				aVo.setA_phone(rs.getString("a_phone"));
-				aVo.setA_email(rs.getString("a_email"));
-				aVo.setA_bnumber(rs.getString("a_bnumber"));
-				aVo.setA_msubject(rs.getString("a_msubject"));
-				aVo.setA_address(rs.getString("a_address"));
-				aVo.setA_remarks(rs.getString("a_remarks"));
-				aVo.setA_registdate(rs.getDate("a_registdate") + "");
-				list.add(aVo);
+				aVo.setA_number(rs.getInt("a_number")); //거래처 번호
+				aVo.setA_cname(rs.getString("a_cname")); //거래처명
+				aVo.setA_mname(rs.getString("a_mname")); // 거래처 담당자명
+				aVo.setA_phone(rs.getString("a_phone")); // 거래처 담당자 연락처
+				aVo.setA_email(rs.getString("a_email")); // 거래처 이메일
+				aVo.setA_bnumber(rs.getString("a_bnumber")); //거래처 사업자번호
+				aVo.setA_msubject(rs.getString("a_msubject")); //거래처 주종목
+				aVo.setA_address(rs.getString("a_address")); //거래처 주소
+				aVo.setA_remarks(rs.getString("a_remarks"));// 비고
+				aVo.setA_registdate(rs.getDate("a_registdate") + ""); // 등록일
+				list.add(aVo); //준비해둔 리스트에 VO형태로 추가
 			}
 		} catch (SQLException se) {
 			System.out.println(se);
@@ -166,6 +171,7 @@ public class AccountDAO {
 			} catch (SQLException se) {
 			}
 		}
+		//리스트로 리턴
 		return list;
 	}
 

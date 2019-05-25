@@ -44,9 +44,15 @@
 						<Label text="주문번호 : " prefWidth="60" />
 						<TextField fx:id="o_txtNumber" prefWidth="110"
 							promptText="주문번호" />
-						<Label text="거래처번호 : " prefWidth="90" />
-						<TextField fx:id="a_txtNumber" prefWidth="80"
-							promptText="거래처번호" />
+
+						<HBox>
+							<children>
+								<Label text="거래처번호 : " prefWidth="80" />
+								<TextField fx:id="a_txtNumber" prefWidth="60"
+									promptText="번호" />
+							</children>
+						</HBox>
+						<Button fx:id="a_btnNumber" prefWidth="40" text="변경" />
 					</children>
 				</HBox>
 
@@ -54,9 +60,10 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="제품코드 : " prefWidth="60" />
-						<TextField fx:id="f_txtNumber" prefWidth="110"
-							promptText="제품코드" />
-						<Label text="제품명 : " prefWidth="60" />
+						<TextField fx:id="f_txtNumber" prefWidth="60"
+							promptText="코드" />
+						<Button fx:id="f_btnNumber" prefWidth="40" text="변경" />
+						<Label text="제품명 : " prefWidth="70" />
 						<TextField fx:id="f_txtName" prefWidth="110"
 							promptText="제품명" />
 					</children>
@@ -68,7 +75,7 @@
 						<Label text="총수량: " prefWidth="60" />
 						<TextField fx:id="o_txtAmount" prefWidth="110"
 							promptText="총수량" />
-						<Label text="총금액 : " prefWidth="60" />
+						<Label text="총금액 : " prefWidth="70" />
 						<TextField fx:id="o_txtPrice" prefWidth="110"
 							promptText="총금액" />
 					</children>
@@ -77,12 +84,26 @@
 				<HBox>
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
-						<Label text="주문자명 : " prefWidth="60" />
-						<TextField fx:id="o_txtName" prefWidth="110"
-							promptText="주문자명" />
+						<Label text="고객번호: " prefWidth="60" />
+						<TextField fx:id="c_txtNumber" prefWidth="60"
+							promptText="번호" />
+						<Button fx:id="c_btnNumber" prefWidth="40" text="변경" />
+						<Label text="고객명 : " prefWidth="70" />
+						<TextField fx:id="c_txtName" prefWidth="110"
+							promptText="고객명" />
+					</children>
+				</HBox>
+
+				<HBox>
+					<spacing>10</spacing>
+					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="연락처 : " prefWidth="60" />
-						<TextField fx:id="o_txtPhone" prefWidth="110"
+						<TextField fx:id="c_txtPhone" prefWidth="110"
 							promptText="예약자연락처" />
+						<Label text="이메일 : " prefWidth="70" />
+						<TextField fx:id="o_txtEmail" prefWidth="110"
+							promptText="담당자이메일" />
+
 					</children>
 				</HBox>
 
@@ -92,17 +113,8 @@
 						<Label text="주문상태: " prefWidth="60" />
 						<TextField fx:id="o_txtStatus" prefWidth="110"
 							promptText="주문상태" />
-						<Label text="주문일 : " prefWidth="60" />
+						<Label text="주문일 : " prefWidth="70" />
 						<DatePicker fx:id="o_dpDate" prefWidth="110"></DatePicker>
-					</children>
-				</HBox>
-
-				<HBox>
-					<spacing>10</spacing>
-					<children>				<!-- 자식 컨트롤 추가 -->
-						<Label text="담당자 이메일: " prefWidth="90" />
-						<TextField fx:id="o_txtEmail" prefWidth="270"
-							promptText="담당자 이메일" />
 					</children>
 				</HBox>
 
@@ -111,7 +123,7 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="배달주소: " prefWidth="60" />
-						<TextField fx:id="o_txtAddress" prefWidth="300"
+						<TextField fx:id="o_txtAddress" prefWidth="310"
 							promptText="배달주소" />
 					</children>
 				</HBox>
@@ -120,7 +132,7 @@
 					<spacing>10</spacing>
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="비고: " prefWidth="60" />
-						<TextArea fx:id="o_txtRemarks" prefWidth="300"
+						<TextArea fx:id="o_txtRemarks" prefWidth="310"
 							prefHeight="50" promptText="비 고" />
 					</children>
 				</HBox>

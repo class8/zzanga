@@ -14,9 +14,6 @@ drop table administrator;
 insert into administrator(id,name,password)
 VALUES ('admin','admin','admin');
 
-select *
-from administrator;
-
 drop table account;
 
 create table account(
@@ -189,3 +186,8 @@ select o_number, a_number, f.f_number, f_name, o_amount, o_total, c_name, c_phon
 
 select o_number, a_number, f.f_number, f_name, o_amount, o_total, c_name, c_phone,  o_status, o_registdate, o_email, o_address,  o_remarks from order1 o, fabric f, customer c where o.f_number=f.f_number and o.c_number=c.c_number and c_name like '';
 select o_number, o.a_number, f.f_number, c.c_number, o_email, o_address, o_amount, o_total, o_status, o_registdate, o_remarks, f_name,  c_name, c_phone from order1 o, fabric f, account a, customer c where o.f_number=f.f_number and o.a_number=a.a_number and o.c_number=c.c_number order by o_number a;
+
+
+
+select o_number, o.a_number, f.f_number, c.c_number, o_email, o_address, o_amount, o_total, o_status, o_registdate, o_remarks, f_name,  c_name, c_phone from order1 o, fabric f, account a, customer c where o.f_number=f.f_number and o.a_number=a.a_number and o.c_number=c.c_number order by o_number;
+
