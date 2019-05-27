@@ -27,11 +27,15 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.AccountVO;
+import model.CustomerVO;
+import model.FabricVO;
 import model.OrderVO;
 import model.TradeVO;
 
 public class OrderInfoController implements Initializable {
 
+	private static final String selectedFabricIndex = null;
 	@FXML
 	TextField o_txtNumber;
 	@FXML
@@ -92,6 +96,30 @@ public class OrderInfoController implements Initializable {
 	ObservableList<OrderVO> orderDataList = FXCollections.observableArrayList();
 	ObservableList<OrderVO> selectOrder = null;
 	int selectedOrderIndex;
+
+	// Account
+	ObservableList<AccountVO> accountDataList = FXCollections.observableArrayList();
+	ObservableList<AccountVO> selectAccount = null;
+	int selectedAccountIndex;
+
+	// Fabric
+	@FXML
+	TableView<FabricVO> f_tableView = new TableView<>();
+	ObservableList<FabricVO> fabricDataList = FXCollections.observableArrayList();
+	ObservableList<FabricVO> selectFabric = null;
+	// String selectedFabricIndex = "";
+	String selectedFabricIndex1;
+	String selectedFabricName;
+
+	// Customer
+	CustomerVO customer = new CustomerVO();
+	ObservableList<CustomerVO> customerDataList = FXCollections.observableArrayList();
+	ObservableList<CustomerVO> selectCustomer = null; // 학생등록 테이블에서 선택한 정보 저장
+	int selectedCustomerIndex; // 테이블에서 선택한 정보 인덱스 저장
+	String selectedCustomerName;
+	String selectedCustomerEmail;
+	String selectedCustomerAddress;
+	String selectedCustomerPhone;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -197,29 +225,219 @@ public class OrderInfoController implements Initializable {
 
 	}
 
-	private Object handlerBtnFabricSearchAction(ActionEvent event) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	// 거래처 정보 변경버튼 이벤트
+	public void handlerBtnAccountSearchAction(ActionEvent event) {
 
-	private Object handlerBtnAccountSearchAction(ActionEvent event) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void handlerBtnCustomerSearchAction(ActionEvent event) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/OrderReg.fxml"));
-			Parent mainView = (Parent) loader.load();
-			Scene scane = new Scene(mainView);
-			Stage mainStage = new Stage();
-			mainStage.setTitle("주문 등록");
-			mainStage.setResizable(false);
-			mainStage.setScene(scane);
-			mainStage.show();
-		} catch (Exception e1) {
 
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/orderAccountSearch.fxml"));
+			Parent accountView = (Parent) loader.load();
+
+			Scene scene = new Scene(accountView);
+			Stage mainStage = new Stage();
+			mainStage.setTitle("거래처 정보 변경");
+			mainStage.setResizable(false);
+			mainStage.setScene(scene);
+			mainStage.show();
+
+			Button as_btnCancel = (Button) accountView.lookup("#as_btnCancel");
+			Button as_btnRegist = (Button) accountView.lookup("#as_btnRegist");
+			TableView<AccountVO> as_tableView = (TableView) accountView.lookup("#as_tableView");
+
+			as_btnCancel.setOnAction(e -> {
+				mainStage.close();
+			});
+
+			as_btnRegist.setOnAction(e -> {
+
+				try {
+
+					a_txtNumber.setText(selectedAccountIndex + "");
+
+				} catch (Exception e1) {
+
+					e1.printStackTrace();
+				}
+
+				mainStage.close();
+			});
+
+			as_tableView.setOnMouseClicked(e -> {
+
+				if (e.getClickCount() == 1) {
+					try {
+						selectAccount = as_tableView.getSelectionModel().getSelectedItems();
+						selectedAccountIndex = selectAccount.get(0).getA_number();
+
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+				if (e.getClickCount() == 2) {
+					try {
+						selectAccount = as_tableView.getSelectionModel().getSelectedItems();
+						selectedAccountIndex = selectAccount.get(0).getA_number();
+
+						a_txtNumber.setText(selectedAccountIndex + "");
+
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					mainStage.close();
+				}
+			});
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
+	}
+
+	// 제품코드 변경 버튼 이벤트
+	public void handlerBtnFabricSearchAction(ActionEvent event) {
+
+		try {
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/orderFabricSearch.fxml"));
+			Parent fabricView = (Parent) loader.load();
+
+			Scene scene = new Scene(fabricView);
+			Stage mainStage = new Stage();
+			mainStage.setTitle("제품코드 정보 변경");
+			mainStage.setResizable(false);
+			mainStage.setScene(scene);
+			mainStage.show();
+
+			Button fs_btnCancel = (Button) fabricView.lookup("#fs_btnCancel");
+			Button fs_btnRegist = (Button) fabricView.lookup("#fs_btnRegist");
+			TableView<FabricVO> fs_tableView = (TableView) fabricView.lookup("#fs_tableView");
+
+			fs_btnCancel.setOnAction(e -> {
+				mainStage.close();
+			});
+
+			fs_btnRegist.setOnAction(e -> {
+
+				try {
+
+					f_txtNumber.setText(selectedFabricIndex1);
+					f_txtName.setText(selectedFabricName);
+
+				} catch (Exception e1) {
+
+					e1.printStackTrace();
+				}
+
+				mainStage.close();
+			});
+
+			fs_tableView.setOnMouseClicked(e -> {
+
+				if (e.getClickCount() == 1) {
+
+					try {
+						selectFabric = fs_tableView.getSelectionModel().getSelectedItems();
+
+						selectedFabricIndex1 = selectFabric.get(0).getF_number();
+						selectedFabricName = selectFabric.get(0).getF_name();
+
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+				if (e.getClickCount() == 2) {
+
+					try {
+						selectFabric = fs_tableView.getSelectionModel().getSelectedItems();
+						selectedFabricIndex1 = selectFabric.get(0).getF_number();
+
+						f_txtNumber.setText(selectedFabricIndex1);
+
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					mainStage.close();
+				}
+			});
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	// 고객정보변경 버튼 이벤트
+	public void handlerBtnCustomerSearchAction(ActionEvent event) {
+
+		try {
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/orderCustomerSearch.fxml"));
+			Parent customerView = (Parent) loader.load();
+
+			Scene scene = new Scene(customerView);
+			Stage mainStage = new Stage();
+			mainStage.setTitle("고객 정보 변경");
+			mainStage.setResizable(false);
+			mainStage.setScene(scene);
+			mainStage.show();
+
+			Button cs_btnCancel = (Button) customerView.lookup("#cs_btnCancel");
+			Button cs_btnRegist = (Button) customerView.lookup("#cs_btnRegist");
+			TableView<CustomerVO> cs_tableView = (TableView) customerView.lookup("#cs_tableView");
+
+			cs_btnCancel.setOnAction(e -> {
+				mainStage.close();
+			});
+
+			cs_btnRegist.setOnAction(e -> {
+
+				try {
+
+					c_txtNumber.setText(selectedCustomerIndex + "");
+					c_txtName.setText(selectedCustomerName);
+					c_txtPhone.setText(selectedCustomerPhone);
+					o_txtEmail.setText(selectedCustomerEmail);
+					o_txtAddress.setText(selectedCustomerAddress);
+
+				} catch (Exception e1) {
+
+					e1.printStackTrace();
+				}
+
+				mainStage.close();
+			});
+
+			cs_tableView.setOnMouseClicked(e -> {
+
+				if (e.getClickCount() == 1) {
+					try {
+						selectCustomer = cs_tableView.getSelectionModel().getSelectedItems();
+						selectedCustomerIndex = selectCustomer.get(0).getC_number();
+						selectedCustomerName = selectCustomer.get(0).getC_name();
+						selectedCustomerEmail = selectCustomer.get(0).getC_email();
+						selectedCustomerAddress = selectCustomer.get(0).getC_address();
+						selectedCustomerPhone = selectCustomer.get(0).getC_phone();
+
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+				}
+				if (e.getClickCount() == 2) {
+					try {
+						selectCustomer = cs_tableView.getSelectionModel().getSelectedItems();
+						selectedCustomerIndex = selectCustomer.get(0).getC_number();
+
+						c_txtNumber.setText(selectedCustomerIndex + "");
+
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					mainStage.close();
+				}
+			});
+
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
 	}
 
 	public void handlerBtnChangeAction(ActionEvent event) {

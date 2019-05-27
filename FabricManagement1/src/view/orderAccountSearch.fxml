@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.beans.*?>
+<?import javafx.collections.ObservableList?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Button?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="480"
+	prefWidth="500" fx:controller="control.OrderAccountSearchController">
+
+	<padding>
+		<Insets top="10" right="10" bottom="10" left="10" />
+	</padding>
+	<spacing>15</spacing>
+
+	<HBox alignment="CENTER_LEFT"> 		   				<!-- HBox 컨테이너 선언 -->
+		<children>				<!-- 자식 컨트롤 추가 -->
+			<Label text="거래처 변경" />
+		</children>
+	</HBox>
+
+	<HBox>
+		<spacing>15</spacing>
+		<children>				<!-- 자식 컨트롤 추가 -->
+			<TableView fx:id="as_tableView" prefWidth="400"
+				prefHeight="500" />
+		</children>
+	</HBox>
+
+	<HBox alignment="center">
+		<spacing>15</spacing>
+		<children>				<!-- 자식 컨트롤 추가 -->
+			<Button fx:id="as_btnRegist">등 록</Button>
+			<Button fx:id="as_btnCancel">취 소</Button>
+		</children>
+	</HBox>
+
+
+</VBox>
+
