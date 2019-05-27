@@ -367,6 +367,8 @@ public class FabricInfoController implements Initializable {
 
 						c_txtName.setText(list.get(0).toString());
 						c_txtPhone.setText(list.get(1).toString());
+						c_txtEmail.setText(list.get(3).toString());
+						t_txtAddress.setText(list.get(2).toString());
 
 						Alert alert = new Alert(AlertType.WARNING);
 						alert.setTitle("검색 성공");

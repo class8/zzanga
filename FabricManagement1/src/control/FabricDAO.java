@@ -330,7 +330,7 @@ public class FabricDAO {
 	public ArrayList<String> getSearchNumber(String number) throws Exception {
 
 		ArrayList<String> list = new ArrayList<String>();
-		String sql = "select c_name, c_phone from customer where c_number=?";
+		String sql = "select c_name, c_phone, c_email, c_address from customer where c_number=?";
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -349,9 +349,13 @@ public class FabricDAO {
 				cVo = new CustomerVO();
 				cVo.setC_name(rs.getString("c_name"));
 				cVo.setC_phone(rs.getString("c_phone"));
+				cVo.setC_email(rs.getString("c_email"));
+				cVo.setC_address(rs.getString("c_address"));
 
 				list.add(cVo.getC_name());
 				list.add(cVo.getC_phone());
+				list.add(cVo.getC_email());
+				list.add(cVo.getC_address());
 
 			}
 		} catch (SQLException se) {
