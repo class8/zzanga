@@ -357,4 +357,44 @@ public class TradeDAO {
 		}
 		return sucess;
 	}
+
+	// 거래등록
+	public void getTradeRegist(TradeVO tvo) throws Exception {
+
+		String sql = "insert into trade values " + "(trade_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?, ?)";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, tvo.getF_number()); // 원단코드
+			pstmt.setInt(2, tvo.getC_number()); // 고객번호
+			pstmt.setInt(3, tvo.getT_amount()); // 수량
+			pstmt.setInt(4, tvo.getT_price()); // 총가격
+			pstmt.setInt(5, tvo.getT_deposit()); // 석금
+			pstmt.setInt(6, tvo.getT_penalty()); // 위약금
+			pstmt.setInt(7, tvo.getT_balance()); // 잔금
+			pstmt.setInt(8, tvo.getT_receipt()); // 수령액
+			pstmt.setInt(9, tvo.getT_unpaid()); // 미수금
+			pstmt.setString(10, tvo.getT_status()); // 거래상태
+			pstmt.setString(11, tvo.getT_address()); // 주소
+			pstmt.setString(12, tvo.getT_remarks()); // 비고
+
+			int i = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
+		} catch (Exception e) {
+			System.out.println("e=[" + e + "]");
+		} finally {
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+	}
 }

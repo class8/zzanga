@@ -40,6 +40,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.CustomerVO;
 import model.FabricVO;
+import model.TradeVO;
 
 public class FabricInfoController implements Initializable {
 
@@ -163,7 +164,7 @@ public class FabricInfoController implements Initializable {
 	@FXML
 	Button tr_btnCsearch; // 고객정보불러오기 버
 	@FXML
-	TextField tr_txtRemarks; // 비고
+	TextArea tr_txtRemarks; // 비고
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -304,6 +305,7 @@ public class FabricInfoController implements Initializable {
 			TextField t_txtAddress = (TextField) mainView.lookup("#tr_txtAddress");
 			TextField t_txtAmount = (TextField) mainView.lookup("#tr_txtAmount");
 			TextField t_txtTotal = (TextField) mainView.lookup("#tr_txtTotal");
+			TextArea t_txtRemarks = (TextArea) mainView.lookup("#tr_txtRemarks");
 
 			f_txtNumber.setText(selectFabric.get(0).getF_number());
 			f_txtSort.setText(selectFabric.get(0).getF_sort());
@@ -338,7 +340,7 @@ public class FabricInfoController implements Initializable {
 			Button tr_btnCancel = (Button) mainView.lookup("#tr_btnCancel");// 취소버튼 이벤트
 			Button tr_btnCsearch = (Button) mainView.lookup("#tr_btnCsearch"); // 고객검색 버튼
 			Button tr_btnTotal = (Button) mainView.lookup("#tr_btnTotal");// 총액
-			Button tr_btnRegistl = (Button) mainView.lookup("#tr_btnRegist");// 등록
+			Button tr_btnRegist = (Button) mainView.lookup("#tr_btnRegist");// 등록
 
 			// 고객정보불러오기 버튼 이벤트
 			tr_btnCsearch.setOnAction(e -> {
@@ -410,6 +412,59 @@ public class FabricInfoController implements Initializable {
 				handlerBtnInitAction(event);
 
 			});
+			// 거래등록 버튼 이벤트
+			tr_btnRegist.setOnAction(e -> {
+
+				try {
+
+					TradeVO tvo = null;
+					TradeDAO tdao = null;
+
+					if (t_txtAddress.getLength() != 0 && t_txtAmount.getLength() != 0 && t_txtTotal.getLength() != 0
+							&& c_txtNumber.getLength() != 0 && c_txtName.getLength() != 0
+							&& c_txtPhone.getLength() != 0) {
+
+						tvo = new TradeVO(f_txtNumber.getText().trim(), Integer.parseInt(c_txtNumber.getText().trim()),
+								c_txtName.getText().trim(), c_txtPhone.getText().trim(), c_txtEmail.getText().trim(),
+								Integer.parseInt(t_txtAmount.getText().trim()),
+								Integer.parseInt(t_txtTotal.getText().trim()), t_txtAddress.getText().trim(),
+								t_txtRemarks.getText().trim(), f_txtSort.getText().trim(), f_txtName.getText().trim(),
+								f_txtColor.getText().trim(), f_txtSize.getText().trim(), f_txtWeight.getText().trim(),
+								f_txtPrice.getText().trim(), c_txtPhone.getText().trim());
+
+						tdao = new TradeDAO();
+						tdao.getTradeRegist(tvo);
+
+						// tradeTotalList();
+
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("거래 입력");
+						alert.setHeaderText("거래가 성공적으로 추가되었습니다.");
+						alert.setContentText("다음 거래를 입력하세요.");
+						alert.showAndWait();
+
+						mainStage.close();
+
+					} else {
+
+						// tradeTotalList();
+
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setTitle("거래 정보 미입력");
+						alert.setHeaderText("거래 정보중에 미입력된 항목이 있습니다.");
+						alert.setContentText("거래 정보를 정확히 입력하세요.");
+						alert.showAndWait();
+
+					}
+				} catch (Exception ex) {
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("거래 정보 입력");
+					alert.setHeaderText("거래 정보입력 중 오류가 발생했습니다.");
+					alert.setContentText("다음에는 주의하세요.");
+					alert.showAndWait();
+				}
+
+			});
 
 		} catch (
 
@@ -418,6 +473,7 @@ public class FabricInfoController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	// 검색버튼 이벤트
@@ -539,7 +595,7 @@ public class FabricInfoController implements Initializable {
 
 			selectFabric = f_tableView.getSelectionModel().getSelectedItems();
 
-			selectedFabricIndex = selectFabric.get(0).getF_number();
+			// selectedFabricIndex = selectFabric.get(0).getF_number();
 
 			fabricDataList.removeAll(fabricDataList);
 
@@ -559,7 +615,7 @@ public class FabricInfoController implements Initializable {
 			if (f_txtNumber.getLength() != 0 && f_txtSort.getLength() != 0 && f_txtName.getLength() != 0
 					&& f_txtColor.getLength() != 0 && f_txtSize.getLength() != 0 && f_txtMaterial.getLength() != 0
 					&& f_txtOrigin.getLength() != 0 && f_txtCname.getLength() != 0 && f_txtPhone.getLength() != 0
-					&& f_txtWeight.getLength() != 0 && f_txtPrice.getLength() != 0 && fileName.length() != 0) {
+					&& f_txtWeight.getLength() != 0 && f_txtPrice.getLength() != 0 && (fileName != null)) {
 
 				fvo = new FabricVO(f_txtNumber.getText().trim(), f_txtSort.getText().trim(), f_txtName.getText().trim(),
 						f_txtColor.getText().trim(), f_txtSize.getText().trim(), f_txtMaterial.getText().trim(),
@@ -580,13 +636,14 @@ public class FabricInfoController implements Initializable {
 					alert.setContentText("다음 원단정보를 입력하세요");
 					alert.showAndWait();
 
-					btnImageFile.setDisable(true);
-
 					// 기본 이미지
 					localUrl = "/image/default.png";
 					localImage = new Image(localUrl, false);
 					imageView.setImage(localImage);
+					imageView.setFitHeight(200);
+					imageView.setFitWidth(180);
 
+					btnImageFile.setDisable(true);
 					f_txtNumber.setEditable(true);
 					f_txtSort.setEditable(true);
 					f_txtName.setEditable(true);
@@ -611,7 +668,7 @@ public class FabricInfoController implements Initializable {
 
 				fabricDataList.removeAll(fabricDataList);
 
-				fabricTotalList();
+				// fabricTotalList();
 
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("원단 정보 미입력");
@@ -621,7 +678,7 @@ public class FabricInfoController implements Initializable {
 			}
 
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			Alert alert = new Alert(AlertType.WARNING);
 
 			alert.setTitle("원단정보 입력");
@@ -720,7 +777,6 @@ public class FabricInfoController implements Initializable {
 			// 이미지 파일명 생성
 			fileName = "fabric" + System.currentTimeMillis() + "_" + file.getName(); // 이게 무슨 네임이 오는 걸까?
 
-			System.out.println(fileName);
 			bis = new BufferedInputStream(new FileInputStream(file));
 			bos = new BufferedOutputStream(new FileOutputStream(dirSave.getAbsolutePath() + "\\" + fileName));
 
@@ -848,6 +904,7 @@ public class FabricInfoController implements Initializable {
 		f_txtTrait.clear();
 		f_txtPrice.clear();
 		f_txtRemarks.clear();
+		fileName = null;
 		f_txtNumber.requestFocus();
 
 		f_btnUpdate.setDisable(true);
