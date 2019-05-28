@@ -44,8 +44,8 @@ public class CustomerVO {
 		this.c_email = c_email;
 		this.c_remarks = c_remarks;
 	}
-	
 
+	// 등록일을 제외한 모든 생성자
 	public CustomerVO(int c_number, String c_name, String c_cname, String c_phone, String c_bnumber, String c_address,
 			String c_email, String c_remarks) {
 		super();

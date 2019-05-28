@@ -17,14 +17,13 @@ import model.CustomerVO;
 public class CustomerDAO {
 
 	// 고객 전체 목록
-
 	public ArrayList<CustomerVO> getCustomerTotalList() throws Exception {
 
 		ArrayList<CustomerVO> list = new ArrayList<>();
 
 		String sql = "select c_number, c_name, c_cname, c_phone, c_address, c_bnumber, c_email, c_remarks, c_registdate from customer order by c_number";
 		Connection con = null;
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null; 
 		ResultSet rs = null;
 		CustomerVO cVo = null;
 

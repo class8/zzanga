@@ -343,6 +343,7 @@ public class FabricDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		CustomerVO cVo = null;
+
 		try {
 
 			con = DBUtil.getConnection();
@@ -354,6 +355,7 @@ public class FabricDAO {
 			while (rs.next()) {
 
 				cVo = new CustomerVO();
+
 				cVo.setC_name(rs.getString("c_name"));
 				cVo.setC_phone(rs.getString("c_phone"));
 				cVo.setC_email(rs.getString("c_email"));
@@ -361,8 +363,8 @@ public class FabricDAO {
 
 				list.add(cVo.getC_name());
 				list.add(cVo.getC_phone());
-				list.add(cVo.getC_email());
-				list.add(cVo.getC_address());
+				list.add(cVo.getC_email() + "");
+				list.add(cVo.getC_address() + "");
 
 			}
 		} catch (SQLException se) {
