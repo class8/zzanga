@@ -80,38 +80,47 @@ public class CustomerInfoController implements Initializable {
 
 			TableColumn colC_number = new TableColumn("번호");
 			colC_number.setPrefWidth(40);
+			colC_number.setStyle("-fx-alignment: CENTER");
 			colC_number.setCellValueFactory(new PropertyValueFactory<>("c_number"));
 
 			TableColumn colC_name = new TableColumn("고객명");
-			colC_name.setPrefWidth(70);
+			colC_name.setPrefWidth(100);
+			colC_name.setStyle("-fx-alignment: CENTER");
 			colC_name.setCellValueFactory(new PropertyValueFactory<>("c_name"));
 
 			TableColumn colC_cname = new TableColumn("업체명");
-			colC_cname.setPrefWidth(70);
+			colC_cname.setPrefWidth(100);
+			colC_cname.setStyle("-fx-alignment: CENTER");
 			colC_cname.setCellValueFactory(new PropertyValueFactory<>("c_cname"));
 
 			TableColumn colC_phone = new TableColumn("연락처");
-			colC_phone.setPrefWidth(70);
+			colC_phone.setPrefWidth(100);
+			colC_phone.setStyle("-fx-alignment: CENTER");
 			colC_phone.setCellValueFactory(new PropertyValueFactory<>("c_phone"));
 
 			TableColumn colC_bnumber = new TableColumn("사업자번호");
-			colC_bnumber.setPrefWidth(70);
+			colC_bnumber.setPrefWidth(100);
+			colC_bnumber.setStyle("-fx-alignment: CENTER");
 			colC_bnumber.setCellValueFactory(new PropertyValueFactory<>("c_bnumber"));
 
 			TableColumn colC_address = new TableColumn("주소");
-			colC_address.setPrefWidth(70);
+			colC_address.setPrefWidth(100);
+			colC_address.setStyle("-fx-alignment: CENTER");
 			colC_address.setCellValueFactory(new PropertyValueFactory<>("c_address"));
 
 			TableColumn colC_email = new TableColumn("이메일");
-			colC_email.setPrefWidth(70);
+			colC_email.setPrefWidth(100);
+			colC_email.setStyle("-fx-alignment: CENTER");
 			colC_email.setCellValueFactory(new PropertyValueFactory<>("c_email"));
 
 			TableColumn colC_remarks = new TableColumn("비고");
-			colC_remarks.setPrefWidth(70);
+			colC_remarks.setPrefWidth(100);
+			colC_remarks.setStyle("-fx-alignment: CENTER");
 			colC_remarks.setCellValueFactory(new PropertyValueFactory<>("c_remarks"));
 
 			TableColumn colC_registdate = new TableColumn("등록일");
-			colC_registdate.setPrefWidth(70);
+			colC_registdate.setPrefWidth(100);
+			colC_registdate.setStyle("-fx-alignment: CENTER");
 			colC_registdate.setCellValueFactory(new PropertyValueFactory<>("c_registdate"));
 
 			c_tableView.setItems(customerDataList);
@@ -281,9 +290,9 @@ public class CustomerInfoController implements Initializable {
 
 			CustomerDAO cdao = new CustomerDAO();
 
-			sucess = cdao.getcustomerUpdate(selectedCustomerIndex, c_txtName.getText().trim(),
-					c_txtCname.getText().trim(), c_txtPhone.getText().trim(), c_txtBnumber.getText().trim(),
-					c_txtAddress.getText().trim(), c_txtEmail.getText().trim(), c_txtRemarks.getText().trim(), null);
+			sucess = cdao.getcustomerUpdate(selectedCustomerIndex, c_txtName.getText().trim(), c_txtCname.getText(),
+					c_txtPhone.getText().trim(), c_txtBnumber.getText(), c_txtAddress.getText(), c_txtEmail.getText(),
+					c_txtRemarks.getText(), null);
 
 			if (sucess) {
 				customerDataList.removeAll(customerDataList);

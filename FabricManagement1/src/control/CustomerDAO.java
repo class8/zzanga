@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
@@ -99,16 +100,13 @@ public class CustomerDAO {
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
-
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("고객정보 삭제");
 				alert.setHeaderText("고객정보 삭제 완료.");
 				alert.setContentText("고객정보 삭제 성공!!!");
 				alert.showAndWait();
 				customerDeleteSucess = true;
-
 			} else {
-
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("고객정보 삭제");
 				alert.setHeaderText("고객정보 삭제 실패");
@@ -116,6 +114,12 @@ public class CustomerDAO {
 				alert.showAndWait();
 			}
 
+		} catch (SQLIntegrityConstraintViolationException sqle) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("고객 정보 삭제");
+			alert.setHeaderText("고객 정보 삭제 실패!");
+			alert.setContentText("고객 정보가 사용되고 있습니다.\n거래내역이나 주문 내역에서 사용중인 고객 정보를 삭제하고 다시 시도해주세요.");
+			alert.showAndWait();
 		} catch (SQLException e) {
 
 			System.out.println("e=[" + e + "]");

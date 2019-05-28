@@ -14,6 +14,8 @@ import java.util.ResourceBundle;
 
 import application.Main;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -168,37 +170,70 @@ public class FabricInfoController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		// 수량입력에 숫자만 입력할수 있게해줌
+		f_txtSize.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					f_txtSize.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+		// 중량 입력에 숫자만 입력할수 있게해줌
+		f_txtWeight.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					f_txtWeight.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+		// 가격 입력에 숫자만 입력할수 있게해줌
+		f_txtPrice.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					f_txtPrice.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
 		try {
 
 			f_btnTrade.setDisable(true);
 
 			TableColumn colFnumber = new TableColumn("제품코드");
 			colFnumber.setPrefWidth(40);
+			colFnumber.setStyle("-fx-alignment: CENTER");
 			colFnumber.setCellValueFactory(new PropertyValueFactory<>("f_number"));
 
 			TableColumn colFsort = new TableColumn("종류");
 			colFsort.setPrefWidth(100);
+			colFsort.setStyle("-fx-alignment: CENTER");
 			colFsort.setCellValueFactory(new PropertyValueFactory<>("f_sort"));
 
 			TableColumn colFname = new TableColumn("제품명");
 			colFname.setPrefWidth(100);
+			colFname.setStyle("-fx-alignment: CENTER");
 			colFname.setCellValueFactory(new PropertyValueFactory<>("f_name"));
 
 			TableColumn colFcolor = new TableColumn("색상");
 			colFcolor.setPrefWidth(100);
+			colFcolor.setStyle("-fx-alignment: CENTER");
 			colFcolor.setCellValueFactory(new PropertyValueFactory<>("f_color"));
 
 			TableColumn colFsize = new TableColumn("사이즈");
 			colFsize.setPrefWidth(100);
+			colFsize.setStyle("-fx-alignment: CENTER");
 			colFsize.setCellValueFactory(new PropertyValueFactory<>("f_size"));
 
 			TableColumn colFweight = new TableColumn("중량");
 			colFweight.setPrefWidth(100);
+			colFweight.setStyle("-fx-alignment: CENTER");
 			colFweight.setCellValueFactory(new PropertyValueFactory<>("f_weight"));
 
 			TableColumn colForigin = new TableColumn("원산지");
 			colForigin.setPrefWidth(100);
+			colForigin.setStyle("-fx-alignment: CENTER");
 			colForigin.setCellValueFactory(new PropertyValueFactory<>("f_origin"));
 
 			TableColumn colFcname = new TableColumn("제조사");
@@ -208,30 +243,37 @@ public class FabricInfoController implements Initializable {
 
 			TableColumn colFprice = new TableColumn("가격");
 			colFprice.setPrefWidth(100);
+			colFprice.setStyle("-fx-alignment: CENTER");
 			colFprice.setCellValueFactory(new PropertyValueFactory<>("f_price"));
 
 			TableColumn colFphone = new TableColumn("연락처");
 			colFphone.setPrefWidth(100);
+			colFphone.setStyle("-fx-alignment: CENTER");
 			colFphone.setCellValueFactory(new PropertyValueFactory<>("f_phone"));
 
 			TableColumn colFmaterial = new TableColumn("소재");
 			colFmaterial.setPrefWidth(100);
+			colFmaterial.setStyle("-fx-alignment: CENTER");
 			colFmaterial.setCellValueFactory(new PropertyValueFactory<>("f_material"));
 
 			TableColumn colFtrait = new TableColumn("특징");
 			colFtrait.setPrefWidth(100);
+			colFtrait.setStyle("-fx-alignment: CENTER");
 			colFtrait.setCellValueFactory(new PropertyValueFactory<>("f_trait"));
 
 			TableColumn colFremarks = new TableColumn("비고");
 			colFremarks.setPrefWidth(100);
+			colFremarks.setStyle("-fx-alignment: CENTER");
 			colFremarks.setCellValueFactory(new PropertyValueFactory<>("f_remarks"));
 
 			TableColumn colFregistdate = new TableColumn("등록일");
 			colFregistdate.setPrefWidth(80);
+			colFregistdate.setStyle("-fx-alignment: CENTER");
 			colFregistdate.setCellValueFactory(new PropertyValueFactory<>("f_registdate"));
 
 			TableColumn colImageFileName = new TableColumn("이미지");
 			colImageFileName.setMinWidth(260);
+			colImageFileName.setStyle("-fx-alignment: CENTER");
 			colImageFileName.setCellValueFactory(new PropertyValueFactory<>("filename"));
 
 			f_tableView.setItems(fabricDataList);
