@@ -495,20 +495,23 @@ public class TradeInfoController implements Initializable {
 			temp_c_name.setText(selectTrade.get(0).getC_name());
 			temp_c_phone.setText(selectTrade.get(0).getC_phone());
 			temp_o_amount.setText(selectTrade.get(0).getT_amount() + "");
+			temp_o_address.setText(selectTrade.get(0).getT_address());
+			System.out.println(selectTrade.get(0).getT_email());
+			temp_o_email.setText(selectTrade.get(0).getT_email());
 
-			temp_f_number.setEditable(false);
-			temp_f_sort.setEditable(false);
-			temp_f_name.setEditable(false);
-			temp_f_color.setEditable(false);
-			temp_f_size.setEditable(false);
-			temp_f_weight.setEditable(false);
-			temp_f_price.setEditable(false);
-			temp_f_phone.setEditable(false);
-			temp_c_number.setEditable(false);
-			temp_c_name.setEditable(false);
-			temp_c_phone.setEditable(false);
-			temp_a_name.setEditable(false);
-			temp_o_total.setEditable(false);
+			temp_f_number.setDisable(true);
+			temp_f_sort.setDisable(true);
+			temp_f_name.setDisable(true);
+			temp_f_color.setDisable(true);
+			temp_f_size.setDisable(true);
+			temp_f_weight.setDisable(true);
+			temp_f_price.setDisable(true);
+			temp_f_phone.setDisable(true);
+			temp_c_number.setDisable(true);
+			temp_c_name.setDisable(true);
+			temp_c_phone.setDisable(true);
+			temp_a_name.setDisable(true);
+			temp_o_total.setDisable(true);
 
 			// 주문 등록 창에서 등록 버튼
 			btnRegist.setOnAction(e -> {

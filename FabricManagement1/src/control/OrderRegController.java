@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -62,11 +64,23 @@ public class OrderRegController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		// 거래처번호입력에 숫자만 입력할수 있게해줌
+		or_a_txtNumber.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					or_a_txtNumber.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+		// 수량입력에 숫자만 입력할수 있게해줌
+		or_txtAmount.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					or_txtAmount.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
 	}
-
-	public void handlerBtnCancelAction(ActionEvent event) {
-
-	}
-
 }

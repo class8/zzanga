@@ -369,6 +369,7 @@ public class FabricInfoController implements Initializable {
 			f_txtPrice.setDisable(true);
 			c_txtName.setDisable(true);
 			c_txtPhone.setDisable(true);
+			t_txtTotal.setDisable(true);
 
 			// f_txtNumber.setText(fabricReg.getF_number() + "");
 			// f_txtSort.setText(fabricReg.getF_sort() + "");

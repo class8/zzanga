@@ -57,7 +57,24 @@ public class TradeRegController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		// 고객번호입력에 숫자만 입력할수 있게해줌
+		tr_c_txtNumber.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					tr_c_txtNumber.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+		// 수량입력에 숫자만 입력할수 있게해줌
+		tr_txtAmount.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					tr_txtAmount.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
 	}
 
 }
