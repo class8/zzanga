@@ -353,16 +353,6 @@ public class FabricInfoController implements Initializable {
 
 					list = fDao.getSearchNumber(search);
 
-					if (search.equals("")) {
-						c_txtNumber.clear();
-						Alert alert = new Alert(AlertType.WARNING);
-						alert.setTitle("고객 정보 검색");
-						alert.setHeaderText("검색어를 입력하세요");
-						alert.setContentText("다시 시도해주세요.");
-						alert.showAndWait();
-
-					}
-
 					if (list != null) {
 
 						c_txtName.setText(list.get(0).toString());
@@ -376,14 +366,24 @@ public class FabricInfoController implements Initializable {
 						alert.setContentText(search + "번 거래처 정보를 불러 옵니다.");
 						alert.showAndWait();
 
+					} else {
+
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("고객정보");
+						alert.setHeaderText("고객정보가 리스트에 없습니다.");
+						alert.setContentText("다시 시도해주세요.");
+						alert.showAndWait();
+
 					}
 
 				} catch (Exception e1) {
+
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("고객정보");
 					alert.setHeaderText("고객정보가 리스트에 없습니다.");
 					alert.setContentText("다시 시도해주세요.");
 					alert.showAndWait();
+
 				}
 
 			});
@@ -670,7 +670,7 @@ public class FabricInfoController implements Initializable {
 
 				fabricDataList.removeAll(fabricDataList);
 
-				// fabricTotalList();
+				fabricTotalList();
 
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("원단 정보 미입력");

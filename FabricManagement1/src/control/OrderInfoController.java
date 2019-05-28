@@ -133,12 +133,10 @@ public class OrderInfoController implements Initializable {
 
 			TableColumn colOnumber = new TableColumn("주문번호");
 			colOnumber.setPrefWidth(80);
-			colOnumber.setStyle("-fx-alignment: CENTER");
 			colOnumber.setCellValueFactory(new PropertyValueFactory<>("o_number"));
 
 			TableColumn colAnumber = new TableColumn("거래처번호");
 			colAnumber.setPrefWidth(80);
-			colAnumber.setStyle("-fx-alignment: CENTER");
 			colAnumber.setCellValueFactory(new PropertyValueFactory<>("a_number"));
 
 			TableColumn colFnumber = new TableColumn("제품코드");
@@ -148,22 +146,18 @@ public class OrderInfoController implements Initializable {
 
 			TableColumn colFname = new TableColumn("제품명");
 			colFname.setPrefWidth(80);
-			colFname.setStyle("-fx-alignment: CENTER");
 			colFname.setCellValueFactory(new PropertyValueFactory<>("f_name"));
 
 			TableColumn colOamount = new TableColumn("총수량");
 			colOamount.setPrefWidth(80);
-			colOamount.setStyle("-fx-alignment: CENTER");
 			colOamount.setCellValueFactory(new PropertyValueFactory<>("o_amount"));
 
 			TableColumn colOtotal = new TableColumn("총금액");
 			colOtotal.setPrefWidth(80);
-			colOtotal.setStyle("-fx-alignment: CENTER");
 			colOtotal.setCellValueFactory(new PropertyValueFactory<>("o_total"));
 
 			TableColumn colCnumber = new TableColumn("고객번호");
 			colCnumber.setPrefWidth(80);
-			colCnumber.setStyle("-fx-alignment: CENTER");
 			colCnumber.setCellValueFactory(new PropertyValueFactory<>("c_number"));
 
 			TableColumn colCname = new TableColumn("고객명");
@@ -173,22 +167,18 @@ public class OrderInfoController implements Initializable {
 
 			TableColumn colCphone = new TableColumn("연락처");
 			colCphone.setPrefWidth(80);
-			colCphone.setStyle("-fx-alignment: CENTER");
 			colCphone.setCellValueFactory(new PropertyValueFactory<>("c_phone"));
 
 			TableColumn colOemail = new TableColumn("이메일");
 			colOemail.setPrefWidth(80);
-			colOemail.setStyle("-fx-alignment: CENTER");
 			colOemail.setCellValueFactory(new PropertyValueFactory<>("o_email"));
 
 			TableColumn colOstatus = new TableColumn("상태");
 			colOstatus.setPrefWidth(80);
-			colOstatus.setStyle("-fx-alignment: CENTER");
 			colOstatus.setCellValueFactory(new PropertyValueFactory<>("o_status"));
 
 			TableColumn colOregistdate = new TableColumn("주문일");
 			colOregistdate.setPrefWidth(80);
-			colOregistdate.setStyle("-fx-alignment: CENTER");
 			colOregistdate.setCellValueFactory(new PropertyValueFactory<>("o_registdate"));
 
 			TableColumn colOaddress = new TableColumn("주소");
@@ -198,7 +188,6 @@ public class OrderInfoController implements Initializable {
 
 			TableColumn colOremarks = new TableColumn("비고");
 			colOremarks.setPrefWidth(80);
-			colOremarks.setStyle("-fx-alignment: CENTER");
 			colOremarks.setCellValueFactory(new PropertyValueFactory<>("o_remarks"));
 
 			o_tableView.setItems(orderDataList);
@@ -351,6 +340,7 @@ public class OrderInfoController implements Initializable {
 						selectedFabricIndex1 = selectFabric.get(0).getF_number();
 
 						f_txtNumber.setText(selectedFabricIndex1);
+						f_txtName.setText(selectedFabricName);
 
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -426,6 +416,10 @@ public class OrderInfoController implements Initializable {
 						selectedCustomerIndex = selectCustomer.get(0).getC_number();
 
 						c_txtNumber.setText(selectedCustomerIndex + "");
+						c_txtName.setText(selectedCustomerName);
+						c_txtPhone.setText(selectedCustomerPhone);
+						o_txtEmail.setText(selectedCustomerEmail);
+						o_txtAddress.setText(selectedCustomerAddress);
 
 					} catch (Exception e1) {
 						e1.printStackTrace();
@@ -441,13 +435,17 @@ public class OrderInfoController implements Initializable {
 	}
 
 	public void handlerBtnChangeAction(ActionEvent event) {
+		
 		try {
+			
 			String value;
 			OrderDAO tdao = new OrderDAO();
 			if (selectedOrderIndex != 0 && o_cbStatus.getValue() != null) {
 				value = o_cbStatus.getValue().toString();
 				tdao.getStatusUpdate(selectedOrderIndex, value);
+				
 			} else {
+				
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("상태 정보 변경");
 				alert.setHeaderText("거래 내역 및 거래상태가 선택되지 않았습니다.");
@@ -455,6 +453,7 @@ public class OrderInfoController implements Initializable {
 				alert.showAndWait();
 				selectedOrderIndex = 0;
 			}
+			
 			orderDataList.removeAll(orderDataList);
 			orderTotalList();
 
