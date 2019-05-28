@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -154,6 +156,68 @@ public class TradeInfoController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		// 수량입력에 숫자만 입력할수 있게해줌
+		t_txtAmount.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					t_txtAmount.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+		// 가격입력에 숫자만 입력할수 있게해줌
+		t_txtPrice.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					t_txtPrice.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});// 선금입력에 숫자만 입력할수 있게해줌
+		t_txtDeposit.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					t_txtDeposit.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});// 위약금입력에 숫자만 입력할수 있게해줌
+		t_txtPenalty.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					t_txtPenalty.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});// 잔금입력에 숫자만 입력할수 있게해줌
+		t_txtBalance.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					t_txtBalance.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+		// 수령액입력에 숫자만 입력할수 있게해줌
+		t_txtReceipt.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					t_txtReceipt.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+		// 미납금입력에 숫자만 입력할수 있게해줌
+		t_txtUnpaid.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					t_txtUnpaid.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+
 		try {
 			f_btnNumber.setDisable(true);
 			c_btnNumber.setDisable(true);
@@ -586,17 +650,24 @@ public class TradeInfoController implements Initializable {
 			t_dpFinish.setValue(null);
 			t_txtNumber.requestFocus();
 
-			t_txtNumber.setEditable(true);
-			c_txtName.setEditable(true);
-			f_txtNumber.setEditable(true);
-			c_txtNumber.setEditable(true);
-			t_txtStatus.setEditable(true);
-
-			t_txtNumber.setDisable(false);
-			c_txtName.setDisable(false);
-			f_txtNumber.setDisable(false);
-			c_txtNumber.setDisable(false);
-			t_txtStatus.setDisable(false);
+			t_txtNumber.setDisable(true);
+			f_txtNumber.setDisable(true);
+			f_btnNumber.setDisable(true);
+			c_txtNumber.setDisable(true);
+			c_btnNumber.setDisable(true);
+			c_txtName.setDisable(true);
+			t_txtAmount.setDisable(true);
+			t_txtPrice.setDisable(true);
+			t_txtDeposit.setDisable(true);
+			t_txtPenalty.setDisable(true);
+			t_txtBalance.setDisable(true);
+			t_txtReceipt.setDisable(true);
+			t_txtUnpaid.setDisable(true);
+			t_txtStatus.setDisable(true);
+			t_txtPhone.setDisable(true);
+			t_dpDate.setDisable(true);
+			t_txtAddress.setDisable(true);
+			t_txtRemarks.setDisable(true);
 
 			f_btnNumber.setDisable(true);
 			c_btnNumber.setDisable(true);
@@ -710,17 +781,24 @@ public class TradeInfoController implements Initializable {
 		t_dpFinish.setValue(null);
 		t_txtNumber.requestFocus();
 
-		t_txtNumber.setEditable(true);
-		c_txtName.setEditable(true);
-		f_txtNumber.setEditable(true);
-		c_txtNumber.setEditable(true);
-		t_txtStatus.setEditable(true);
-
-		t_txtNumber.setDisable(false);
-		c_txtName.setDisable(false);
-		f_txtNumber.setDisable(false);
-		c_txtNumber.setDisable(false);
-		t_txtStatus.setDisable(false);
+		t_txtNumber.setDisable(true);
+		f_txtNumber.setDisable(true);
+		f_btnNumber.setDisable(true);
+		c_txtNumber.setDisable(true);
+		c_btnNumber.setDisable(true);
+		c_txtName.setDisable(true);
+		t_txtAmount.setDisable(true);
+		t_txtPrice.setDisable(true);
+		t_txtDeposit.setDisable(true);
+		t_txtPenalty.setDisable(true);
+		t_txtBalance.setDisable(true);
+		t_txtReceipt.setDisable(true);
+		t_txtUnpaid.setDisable(true);
+		t_txtStatus.setDisable(true);
+		t_txtPhone.setDisable(true);
+		t_dpDate.setDisable(true);
+		t_txtAddress.setDisable(true);
+		t_txtRemarks.setDisable(true);
 
 		f_btnNumber.setDisable(true);
 		c_btnNumber.setDisable(true);
@@ -778,17 +856,24 @@ public class TradeInfoController implements Initializable {
 				t_dpFinish.setValue(null);
 				t_txtNumber.requestFocus();
 
-				t_txtNumber.setEditable(true);
-				c_txtName.setEditable(true);
-				f_txtNumber.setEditable(true);
-				c_txtNumber.setEditable(true);
-				t_txtStatus.setEditable(true);
-
-				t_txtNumber.setDisable(false);
-				c_txtName.setDisable(false);
-				f_txtNumber.setDisable(false);
-				c_txtNumber.setDisable(false);
-				t_txtStatus.setDisable(false);
+				t_txtNumber.setDisable(true);
+				f_txtNumber.setDisable(true);
+				f_btnNumber.setDisable(true);
+				c_txtNumber.setDisable(true);
+				c_btnNumber.setDisable(true);
+				c_txtName.setDisable(true);
+				t_txtAmount.setDisable(true);
+				t_txtPrice.setDisable(true);
+				t_txtDeposit.setDisable(true);
+				t_txtPenalty.setDisable(true);
+				t_txtBalance.setDisable(true);
+				t_txtReceipt.setDisable(true);
+				t_txtUnpaid.setDisable(true);
+				t_txtStatus.setDisable(true);
+				t_txtPhone.setDisable(true);
+				t_dpDate.setDisable(true);
+				t_txtAddress.setDisable(true);
+				t_txtRemarks.setDisable(true);
 
 				f_btnNumber.setDisable(true);
 				c_btnNumber.setDisable(true);
@@ -833,17 +918,24 @@ public class TradeInfoController implements Initializable {
 				t_dpFinish.setValue(null);
 				t_txtNumber.requestFocus();
 
-				t_txtNumber.setEditable(true);
-				c_txtName.setEditable(true);
-				f_txtNumber.setEditable(true);
-				c_txtNumber.setEditable(true);
-				t_txtStatus.setEditable(true);
-
-				t_txtNumber.setDisable(false);
-				c_txtName.setDisable(false);
-				f_txtNumber.setDisable(false);
-				c_txtNumber.setDisable(false);
-				t_txtStatus.setDisable(false);
+				t_txtNumber.setDisable(true);
+				f_txtNumber.setDisable(true);
+				f_btnNumber.setDisable(true);
+				c_txtNumber.setDisable(true);
+				c_btnNumber.setDisable(true);
+				c_txtName.setDisable(true);
+				t_txtAmount.setDisable(true);
+				t_txtPrice.setDisable(true);
+				t_txtDeposit.setDisable(true);
+				t_txtPenalty.setDisable(true);
+				t_txtBalance.setDisable(true);
+				t_txtReceipt.setDisable(true);
+				t_txtUnpaid.setDisable(true);
+				t_txtStatus.setDisable(true);
+				t_txtPhone.setDisable(true);
+				t_dpDate.setDisable(true);
+				t_txtAddress.setDisable(true);
+				t_txtRemarks.setDisable(true);
 
 				f_btnNumber.setDisable(true);
 				c_btnNumber.setDisable(true);
@@ -891,17 +983,24 @@ public class TradeInfoController implements Initializable {
 			t_dpFinish.setValue(null);
 			t_txtNumber.requestFocus();
 
-			t_txtNumber.setEditable(true);
-			c_txtName.setEditable(true);
-			f_txtNumber.setEditable(true);
-			c_txtNumber.setEditable(true);
-			t_txtStatus.setEditable(true);
-
-			t_txtNumber.setDisable(false);
-			c_txtName.setDisable(false);
-			f_txtNumber.setDisable(false);
-			c_txtNumber.setDisable(false);
-			t_txtStatus.setDisable(false);
+			t_txtNumber.setDisable(true);
+			f_txtNumber.setDisable(true);
+			f_btnNumber.setDisable(true);
+			c_txtNumber.setDisable(true);
+			c_btnNumber.setDisable(true);
+			c_txtName.setDisable(true);
+			t_txtAmount.setDisable(true);
+			t_txtPrice.setDisable(true);
+			t_txtDeposit.setDisable(true);
+			t_txtPenalty.setDisable(true);
+			t_txtBalance.setDisable(true);
+			t_txtReceipt.setDisable(true);
+			t_txtUnpaid.setDisable(true);
+			t_txtStatus.setDisable(true);
+			t_txtPhone.setDisable(true);
+			t_dpDate.setDisable(true);
+			t_txtAddress.setDisable(true);
+			t_txtRemarks.setDisable(true);
 
 			f_btnNumber.setDisable(true);
 			c_btnNumber.setDisable(true);
@@ -953,17 +1052,17 @@ public class TradeInfoController implements Initializable {
 				t_dpDate.setValue(LocalDate.parse(selectedT_registdate));
 				t_txtRemarks.setText(selectedT_remarks);
 
-				t_txtNumber.setEditable(false);
-				c_txtName.setEditable(false);
-				f_txtNumber.setEditable(false);
-				c_txtNumber.setEditable(false);
-				t_txtStatus.setEditable(false);
-
-				t_txtNumber.setDisable(true);
-				c_txtName.setDisable(true);
-				f_txtNumber.setDisable(true);
-				c_txtNumber.setDisable(true);
-				t_txtStatus.setDisable(true);
+				t_txtAmount.setDisable(false);
+				t_txtPrice.setDisable(false);
+				t_txtDeposit.setDisable(false);
+				t_txtPenalty.setDisable(false);
+				t_txtBalance.setDisable(false);
+				t_txtReceipt.setDisable(false);
+				t_txtUnpaid.setDisable(false);
+				t_txtPhone.setDisable(false);
+				t_dpDate.setDisable(false);
+				t_txtAddress.setDisable(false);
+				t_txtRemarks.setDisable(false);
 
 				f_btnNumber.setDisable(false);
 				c_btnNumber.setDisable(false);

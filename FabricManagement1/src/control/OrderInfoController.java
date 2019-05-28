@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,7 +37,6 @@ import model.TradeVO;
 
 public class OrderInfoController implements Initializable {
 
-	private static final String selectedFabricIndex = null;
 	@FXML
 	TextField o_txtNumber;
 	@FXML
@@ -123,8 +124,25 @@ public class OrderInfoController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// 수량입력에 숫자만 입력할수 있게해줌
+		o_txtAmount.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					o_txtAmount.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+		// 금액입력에 숫자만 입력할수 있게해줌
+		o_txtPrice.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					o_txtPrice.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
 		try {
-
 			TradeDAO dao = new TradeDAO();
 			o_btnUpdate.setDisable(true);
 			o_btnDelete.setDisable(true);
@@ -487,26 +505,26 @@ public class OrderInfoController implements Initializable {
 			o_cbStatus.getSelectionModel().clearSelection();
 			o_txtNumber.requestFocus();
 
-			f_txtNumber.setEditable(true);
-			a_txtNumber.setEditable(true);
-			o_txtNumber.setEditable(true);
-			c_txtNumber.setEditable(true);
-			f_txtName.setEditable(true);
-			o_txtAmount.setEditable(true);
-			o_txtPrice.setEditable(true);
-			o_txtStatus.setEditable(true);
-
-			f_txtNumber.setDisable(false);
-			a_txtNumber.setDisable(false);
-			o_txtNumber.setDisable(false);
-			c_txtNumber.setDisable(false);
-			f_txtName.setDisable(false);
-			o_txtAmount.setDisable(false);
-			o_txtPrice.setDisable(false);
-			o_txtStatus.setDisable(false);
+			o_txtNumber.setDisable(true);
+			a_txtNumber.setDisable(true);
+			f_txtNumber.setDisable(true);
+			f_txtName.setDisable(true);
+			o_txtAmount.setDisable(true);
+			o_txtPrice.setDisable(true);
+			c_txtNumber.setDisable(true);
+			c_txtName.setDisable(true);
+			c_txtPhone.setDisable(true);
+			o_txtStatus.setDisable(true);
+			o_dpDate.setDisable(true);
+			o_txtEmail.setDisable(true);
+			o_txtAddress.setDisable(true);
+			o_txtRemarks.setDisable(true);
 
 			o_btnUpdate.setDisable(true);
 			o_btnDelete.setDisable(true);
+			c_btnNumber.setDisable(true);
+			f_btnNumber.setDisable(true);
+			a_btnNumber.setDisable(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -546,23 +564,20 @@ public class OrderInfoController implements Initializable {
 				o_txtAddress.setText(selectedO_address);
 				o_txtRemarks.setText(selectedO_remarks);
 
-				f_txtNumber.setEditable(false);
-				a_txtNumber.setEditable(false);
-				o_txtNumber.setEditable(false);
-				c_txtNumber.setEditable(false);
-				f_txtName.setEditable(false);
-				o_txtAmount.setEditable(false);
-				o_txtPrice.setEditable(false);
-				o_txtStatus.setEditable(false);
+				o_txtAmount.setDisable(false);
+				o_txtPrice.setDisable(false);
+				c_txtName.setDisable(false);
+				c_txtPhone.setDisable(false);
+				o_dpDate.setDisable(false);
+				o_txtEmail.setDisable(false);
+				o_txtAddress.setDisable(false);
+				o_txtRemarks.setDisable(false);
 
-				f_txtNumber.setDisable(true);
-				a_txtNumber.setDisable(true);
-				o_txtNumber.setDisable(true);
-				c_txtNumber.setDisable(true);
-				f_txtName.setDisable(true);
-				o_txtAmount.setDisable(true);
-				o_txtPrice.setDisable(true);
-				o_txtStatus.setDisable(true);
+				o_btnUpdate.setDisable(false);
+				o_btnDelete.setDisable(false);
+				c_btnNumber.setDisable(false);
+				f_btnNumber.setDisable(false);
+				a_btnNumber.setDisable(false);
 
 				o_btnUpdate.setDisable(false);
 				o_btnDelete.setDisable(false);
@@ -683,26 +698,26 @@ public class OrderInfoController implements Initializable {
 				o_dpFinish.setValue(null);
 				o_txtNumber.requestFocus();
 
-				f_txtNumber.setEditable(true);
-				a_txtNumber.setEditable(true);
-				o_txtNumber.setEditable(true);
-				c_txtNumber.setEditable(true);
-				f_txtName.setEditable(true);
-				o_txtAmount.setEditable(true);
-				o_txtPrice.setEditable(true);
-				o_txtStatus.setEditable(true);
-
-				f_txtNumber.setDisable(false);
-				a_txtNumber.setDisable(false);
-				o_txtNumber.setDisable(false);
-				c_txtNumber.setDisable(false);
-				f_txtName.setDisable(false);
-				o_txtAmount.setDisable(false);
-				o_txtPrice.setDisable(false);
-				o_txtStatus.setDisable(false);
+				o_txtNumber.setDisable(true);
+				a_txtNumber.setDisable(true);
+				f_txtNumber.setDisable(true);
+				f_txtName.setDisable(true);
+				o_txtAmount.setDisable(true);
+				o_txtPrice.setDisable(true);
+				c_txtNumber.setDisable(true);
+				c_txtName.setDisable(true);
+				c_txtPhone.setDisable(true);
+				o_txtStatus.setDisable(true);
+				o_dpDate.setDisable(true);
+				o_txtEmail.setDisable(true);
+				o_txtAddress.setDisable(true);
+				o_txtRemarks.setDisable(true);
 
 				o_btnUpdate.setDisable(true);
 				o_btnDelete.setDisable(true);
+				c_btnNumber.setDisable(true);
+				f_btnNumber.setDisable(true);
+				a_btnNumber.setDisable(true);
 			}
 
 		} catch (Exception e) {
@@ -742,26 +757,26 @@ public class OrderInfoController implements Initializable {
 				o_dpFinish.setValue(null);
 				o_txtNumber.requestFocus();
 
-				f_txtNumber.setEditable(true);
-				a_txtNumber.setEditable(true);
-				o_txtNumber.setEditable(true);
-				c_txtNumber.setEditable(true);
-				f_txtName.setEditable(true);
-				o_txtAmount.setEditable(true);
-				o_txtPrice.setEditable(true);
-				o_txtStatus.setEditable(true);
-
-				f_txtNumber.setDisable(false);
-				a_txtNumber.setDisable(false);
-				o_txtNumber.setDisable(false);
-				c_txtNumber.setDisable(false);
-				f_txtName.setDisable(false);
-				o_txtAmount.setDisable(false);
-				o_txtPrice.setDisable(false);
-				o_txtStatus.setDisable(false);
+				o_txtNumber.setDisable(true);
+				a_txtNumber.setDisable(true);
+				f_txtNumber.setDisable(true);
+				f_txtName.setDisable(true);
+				o_txtAmount.setDisable(true);
+				o_txtPrice.setDisable(true);
+				c_txtNumber.setDisable(true);
+				c_txtName.setDisable(true);
+				c_txtPhone.setDisable(true);
+				o_txtStatus.setDisable(true);
+				o_dpDate.setDisable(true);
+				o_txtEmail.setDisable(true);
+				o_txtAddress.setDisable(true);
+				o_txtRemarks.setDisable(true);
 
 				o_btnUpdate.setDisable(true);
 				o_btnDelete.setDisable(true);
+				c_btnNumber.setDisable(true);
+				f_btnNumber.setDisable(true);
+				a_btnNumber.setDisable(true);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -793,26 +808,26 @@ public class OrderInfoController implements Initializable {
 			o_dpFinish.setValue(null);
 			o_txtNumber.requestFocus();
 
-			f_txtNumber.setEditable(true);
-			a_txtNumber.setEditable(true);
-			o_txtNumber.setEditable(true);
-			c_txtNumber.setEditable(true);
-			f_txtName.setEditable(true);
-			o_txtAmount.setEditable(true);
-			o_txtPrice.setEditable(true);
-			o_txtStatus.setEditable(true);
-
-			f_txtNumber.setDisable(false);
-			a_txtNumber.setDisable(false);
-			o_txtNumber.setDisable(false);
-			c_txtNumber.setDisable(false);
-			f_txtName.setDisable(false);
-			o_txtAmount.setDisable(false);
-			o_txtPrice.setDisable(false);
-			o_txtStatus.setDisable(false);
+			o_txtNumber.setDisable(true);
+			a_txtNumber.setDisable(true);
+			f_txtNumber.setDisable(true);
+			f_txtName.setDisable(true);
+			o_txtAmount.setDisable(true);
+			o_txtPrice.setDisable(true);
+			c_txtNumber.setDisable(true);
+			c_txtName.setDisable(true);
+			c_txtPhone.setDisable(true);
+			o_txtStatus.setDisable(true);
+			o_dpDate.setDisable(true);
+			o_txtEmail.setDisable(true);
+			o_txtAddress.setDisable(true);
+			o_txtRemarks.setDisable(true);
 
 			o_btnUpdate.setDisable(true);
 			o_btnDelete.setDisable(true);
+			c_btnNumber.setDisable(true);
+			f_btnNumber.setDisable(true);
+			a_btnNumber.setDisable(true);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -839,26 +854,26 @@ public class OrderInfoController implements Initializable {
 		o_dpFinish.setValue(null);
 		o_txtNumber.requestFocus();
 
-		f_txtNumber.setEditable(true);
-		a_txtNumber.setEditable(true);
-		o_txtNumber.setEditable(true);
-		c_txtNumber.setEditable(true);
-		f_txtName.setEditable(true);
-		o_txtAmount.setEditable(true);
-		o_txtPrice.setEditable(true);
-		o_txtStatus.setEditable(true);
-
-		f_txtNumber.setDisable(false);
-		a_txtNumber.setDisable(false);
-		o_txtNumber.setDisable(false);
-		c_txtNumber.setDisable(false);
-		f_txtName.setDisable(false);
-		o_txtAmount.setDisable(false);
-		o_txtPrice.setDisable(false);
-		o_txtStatus.setDisable(false);
+		o_txtNumber.setDisable(true);
+		a_txtNumber.setDisable(true);
+		f_txtNumber.setDisable(true);
+		f_txtName.setDisable(true);
+		o_txtAmount.setDisable(true);
+		o_txtPrice.setDisable(true);
+		c_txtNumber.setDisable(true);
+		c_txtName.setDisable(true);
+		c_txtPhone.setDisable(true);
+		o_txtStatus.setDisable(true);
+		o_dpDate.setDisable(true);
+		o_txtEmail.setDisable(true);
+		o_txtAddress.setDisable(true);
+		o_txtRemarks.setDisable(true);
 
 		o_btnUpdate.setDisable(true);
 		o_btnDelete.setDisable(true);
+		c_btnNumber.setDisable(true);
+		f_btnNumber.setDisable(true);
+		a_btnNumber.setDisable(true);
 
 		orderDataList.removeAll(orderDataList);
 		OrderDAO oDao = new OrderDAO();
