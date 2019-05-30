@@ -1,10 +1,15 @@
 package control;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.MessageFormat;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -67,6 +73,23 @@ public class AccountInfoController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// 텍스트필드 15글자로 제한
+		MessageFormat format = new MessageFormat("{0}");
+		a_txtCname.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+
 		try {
 			// 수정과 삭제 버튼의 기본값을 사용불가로
 			a_btnUpdate.setDisable(true);
@@ -170,9 +193,6 @@ public class AccountInfoController implements Initializable {
 				a_txtMsubject.setText(selectedA_msubject);
 				a_txtRemarks.setText(selectedA_remarks);
 
-				// 거래처명 텍스트 필드 수정 불가로
-				a_txtCname.setEditable(false);
-
 				// 수정과 삭제 버튼을 사용가능으로
 				a_btnUpdate.setDisable(false);
 				a_btnDelete.setDisable(false);
@@ -260,8 +280,6 @@ public class AccountInfoController implements Initializable {
 		a_txtRemarks.clear();
 		a_txtCname.requestFocus();
 
-		// 거래처명 텍스트필드를 수정 가능으로
-		a_txtCname.setEditable(true);
 		// 수정과 삭제버튼을 사용 불가로
 		a_btnUpdate.setDisable(true);
 		a_btnDelete.setDisable(true);
@@ -314,8 +332,6 @@ public class AccountInfoController implements Initializable {
 			a_txtRemarks.clear();
 			a_txtCname.requestFocus();
 
-			// 거래처명 텍스트필드를 수정 가능으로
-			a_txtCname.setEditable(true);
 			// 수정과 삭제버튼을 사용 불가로
 			a_btnUpdate.setDisable(true);
 			a_btnDelete.setDisable(true);
@@ -352,7 +368,6 @@ public class AccountInfoController implements Initializable {
 				a_txtRemarks.clear();
 				a_txtCname.requestFocus();
 
-				a_txtCname.setEditable(true);
 				a_btnUpdate.setDisable(true);
 				a_btnDelete.setDisable(true);
 			}
@@ -384,7 +399,6 @@ public class AccountInfoController implements Initializable {
 				a_txtRemarks.clear();
 				a_txtCname.requestFocus();
 
-				a_txtCname.setEditable(true);
 				a_btnUpdate.setDisable(true);
 				a_btnDelete.setDisable(true);
 			}

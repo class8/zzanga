@@ -218,6 +218,11 @@ public class AccountDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println("e=[" + e + "]");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처 정보 수정");
+			alert.setHeaderText("거래처 정보 수정 실패");
+			alert.setContentText("거래처 정보 수정 실패!");
+			alert.showAndWait();
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");
 		} finally {
