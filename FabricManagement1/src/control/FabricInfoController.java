@@ -574,11 +574,14 @@ public class FabricInfoController implements Initializable {
 
 			// 고객정보불러오기 버튼 이벤트
 			tr_btnCsearch.setOnAction(e -> {
+				c_txtName.clear();
+				c_txtPhone.clear();
+				c_txtEmail.clear();
+				t_txtAddress.clear();
 
 				FabricDAO fDao = new FabricDAO();
 				String search = c_txtNumber.getText();
 				ArrayList<String> list = null;
-
 				try {
 
 					list = fDao.getSearchNumber(search);
@@ -587,13 +590,18 @@ public class FabricInfoController implements Initializable {
 
 						c_txtName.setText(list.get(0).toString());
 						c_txtPhone.setText(list.get(1).toString());
-						c_txtEmail.setText(list.get(3).toString());
-						t_txtAddress.setText(list.get(2).toString());
+
+						if (!list.get(3).toString().equals("null") && !list.get(2).toString().equals("null")) {
+
+							c_txtEmail.setText(list.get(3).toString());
+
+							t_txtAddress.setText(list.get(2).toString());
+						}
 
 						Alert alert = new Alert(AlertType.WARNING);
 						alert.setTitle("검색 성공");
-						alert.setHeaderText(search + "번 거래처를 찾았습니다.");
-						alert.setContentText(search + "번 거래처 정보를 불러 옵니다.");
+						alert.setHeaderText(search + "번 고객정보를 찾았습니다.");
+						alert.setContentText(search + "번 고객정보를 불러 옵니다.");
 						alert.showAndWait();
 
 					} else {
@@ -806,8 +814,8 @@ public class FabricInfoController implements Initializable {
 				f_txtRemarks.clear();
 				f_txtNumber.requestFocus();
 
-				f_txtNumber.setEditable(true);
-				f_txtName.setEditable(true);
+				f_txtNumber.setDisable(false);
+				f_txtSort.setDisable(false);
 
 				f_btnDelete.setDisable(true);
 				f_btnUpdate.setDisable(true);
@@ -979,8 +987,8 @@ public class FabricInfoController implements Initializable {
 
 				imageView.setImage(localImage);
 
-				f_txtNumber.setEditable(false);
-				f_txtSort.setEditable(false);
+				f_txtNumber.setDisable(true);
+				f_txtSort.setDisable(true);
 
 				f_btnRegist.setDisable(true);
 				f_btnUpdate.setDisable(false);
@@ -1117,6 +1125,9 @@ public class FabricInfoController implements Initializable {
 				f_txtRemarks.clear();
 				f_txtNumber.requestFocus();
 
+				f_txtNumber.setDisable(false);
+				f_txtSort.setDisable(false);
+
 				f_btnUpdate.setDisable(true);
 				f_btnDelete.setDisable(true);
 				f_btnRegist.setDisable(false);
@@ -1154,9 +1165,9 @@ public class FabricInfoController implements Initializable {
 		f_btnRegist.setDisable(false);
 		btnImageFile.setDisable(false);
 		f_btnTrade.setDisable(true);
-		f_txtNumber.setEditable(true);
-		f_txtName.setEditable(true);
-		f_txtSort.setEditable(true);
+
+		f_txtNumber.setDisable(false);
+		f_txtSort.setDisable(false);
 
 		// 기본 이미지
 		localUrl = "/image/default.png";
@@ -1197,9 +1208,8 @@ public class FabricInfoController implements Initializable {
 		f_btnRegist.setDisable(false);
 		btnImageFile.setDisable(false);
 
-		f_txtNumber.setEditable(true);
-		f_txtName.setEditable(true);
-		f_txtSort.setEditable(true);
+		f_txtNumber.setDisable(false);
+		f_txtSort.setDisable(false);
 
 		fabricDataList.removeAll(fabricDataList);
 

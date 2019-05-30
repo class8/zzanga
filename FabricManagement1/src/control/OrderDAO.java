@@ -337,22 +337,32 @@ public class OrderDAO {
 
 			if (i == 1) {
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("주문 정보 수정");
+				alert.setTitle("주문 내역 수정");
 				alert.setHeaderText(o_number + "번 주문 수정 완료.");
-				alert.setContentText("주문 정보 수정 성공!");
+				alert.setContentText("주문 내역 수정 성공!");
 				alert.showAndWait();
 				accountUpdateSucess = true;
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("거래 정보 수정");
-				alert.setHeaderText("거래 정보 수정 실패");
-				alert.setContentText("거래 정보 수정 실패!");
+				alert.setTitle("주문 내역 수정");
+				alert.setHeaderText("주문 내역 수정 실패");
+				alert.setContentText("주문 내역 수정 실패!");
 				alert.showAndWait();
 			}
 		} catch (SQLException e) {
 			System.out.println("e=[" + e + "]");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("주문 내역 수정 실패");
+			alert.setHeaderText("미입력된 항목이 있습니다.");
+			alert.setContentText("다시 확인후 시도하세요.");
+			alert.showAndWait();
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("주문 내역 수정 실패");
+			alert.setHeaderText("미입력된 항목이 있습니다.");
+			alert.setContentText("다시 확인후 시도하세요.");
+			alert.showAndWait();
 		} finally {
 			try {
 				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.

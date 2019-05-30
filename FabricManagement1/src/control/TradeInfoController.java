@@ -282,7 +282,7 @@ public class TradeInfoController implements Initializable {
 			if (event.getControlNewText().isEmpty()) {
 				return event;
 			}
-			ParsePosition parsePosition = new ParsePosition(0);	
+			ParsePosition parsePosition = new ParsePosition(0);
 			Object object = format.parse(event.getControlNewText(), parsePosition);
 			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
 					|| event.getControlNewText().length() == 50) {
