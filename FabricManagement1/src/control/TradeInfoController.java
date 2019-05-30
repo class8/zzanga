@@ -357,6 +357,10 @@ public class TradeInfoController implements Initializable {
 			f_btnNumber.setDisable(true);
 			c_btnNumber.setDisable(true);
 
+			t_or_btnRegist.setDisable(true);
+			t_btnUpdate.setDisable(true);
+			t_btnDelete.setDisable(true);
+
 			TradeDAO dao = new TradeDAO();
 
 			t_cbStatus.setItems(FXCollections.observableArrayList("주문확인", "입금완료", "배송중", "거래완료"));
@@ -898,52 +902,6 @@ public class TradeInfoController implements Initializable {
 
 	// 전체 목록
 	public void tradeTotalList() throws Exception {
-
-		t_txtNumber.clear();
-		f_txtNumber.clear();
-		c_txtNumber.clear();
-		c_txtName.clear();
-		t_txtAmount.clear();
-		t_txtPrice.clear();
-		t_txtDeposit.clear();
-		t_txtPenalty.clear();
-		t_txtBalance.clear();
-		t_txtReceipt.clear();
-		t_txtUnpaid.clear();
-		t_txtStatus.clear();
-		t_txtPhone.clear();
-		t_dpDate.setValue(null);
-		t_txtAddress.clear();
-		t_txtRemarks.clear();
-		t_dpStart.setValue(null);
-		t_dpFinish.setValue(null);
-		t_txtNumber.requestFocus();
-
-		t_txtNumber.setDisable(true);
-		f_txtNumber.setDisable(true);
-		f_btnNumber.setDisable(true);
-		c_txtNumber.setDisable(true);
-		c_btnNumber.setDisable(true);
-		c_txtName.setDisable(true);
-		t_txtAmount.setDisable(true);
-		t_txtPrice.setDisable(true);
-		t_txtDeposit.setDisable(true);
-		t_txtPenalty.setDisable(true);
-		t_txtBalance.setDisable(true);
-		t_txtReceipt.setDisable(true);
-		t_txtUnpaid.setDisable(true);
-		t_txtStatus.setDisable(true);
-		t_txtPhone.setDisable(true);
-		t_dpDate.setDisable(true);
-		t_txtAddress.setDisable(true);
-		t_txtRemarks.setDisable(true);
-
-		f_btnNumber.setDisable(true);
-		c_btnNumber.setDisable(true);
-
-		t_or_btnRegist.setDisable(true);
-		t_btnUpdate.setDisable(true);
-		t_btnDelete.setDisable(true);
 
 		tradeDataList.removeAll(tradeDataList);
 		TradeDAO tDao = new TradeDAO();

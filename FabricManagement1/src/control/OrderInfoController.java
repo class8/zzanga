@@ -238,7 +238,30 @@ public class OrderInfoController implements Initializable {
 				}
 			}
 		});
+
 		try {
+			// 초기값 설정
+			o_txtNumber.setDisable(true);
+			a_txtNumber.setDisable(true);
+			f_txtNumber.setDisable(true);
+			f_txtName.setDisable(true);
+			o_txtAmount.setDisable(true);
+			o_txtPrice.setDisable(true);
+			c_txtNumber.setDisable(true);
+			c_txtName.setDisable(true);
+			c_txtPhone.setDisable(true);
+			o_txtStatus.setDisable(true);
+			o_dpDate.setDisable(true);
+			o_txtEmail.setDisable(true);
+			o_txtAddress.setDisable(true);
+			o_txtRemarks.setDisable(true);
+
+			o_btnUpdate.setDisable(true);
+			o_btnDelete.setDisable(true);
+			c_btnNumber.setDisable(true);
+			f_btnNumber.setDisable(true);
+			a_btnNumber.setDisable(true);
+
 			TradeDAO dao = new TradeDAO();
 			o_btnUpdate.setDisable(true);
 			o_btnDelete.setDisable(true);
@@ -929,45 +952,6 @@ public class OrderInfoController implements Initializable {
 	}
 
 	public void orderTotalList() throws Exception {
-
-		o_txtNumber.clear();
-		a_txtNumber.clear();
-		f_txtNumber.clear();
-		f_txtName.clear();
-		o_txtAmount.clear();
-		o_txtPrice.clear();
-		c_txtNumber.clear();
-		c_txtName.clear();
-		c_txtPhone.clear();
-		o_txtStatus.clear();
-		o_dpDate.setValue(null);
-		o_txtEmail.clear();
-		o_txtAddress.clear();
-		o_txtRemarks.clear();
-		o_dpStart.setValue(null);
-		o_dpFinish.setValue(null);
-		o_txtNumber.requestFocus();
-
-		o_txtNumber.setDisable(true);
-		a_txtNumber.setDisable(true);
-		f_txtNumber.setDisable(true);
-		f_txtName.setDisable(true);
-		o_txtAmount.setDisable(true);
-		o_txtPrice.setDisable(true);
-		c_txtNumber.setDisable(true);
-		c_txtName.setDisable(true);
-		c_txtPhone.setDisable(true);
-		o_txtStatus.setDisable(true);
-		o_dpDate.setDisable(true);
-		o_txtEmail.setDisable(true);
-		o_txtAddress.setDisable(true);
-		o_txtRemarks.setDisable(true);
-
-		o_btnUpdate.setDisable(true);
-		o_btnDelete.setDisable(true);
-		c_btnNumber.setDisable(true);
-		f_btnNumber.setDisable(true);
-		a_btnNumber.setDisable(true);
 
 		orderDataList.removeAll(orderDataList);
 		OrderDAO oDao = new OrderDAO();

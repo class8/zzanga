@@ -525,18 +525,6 @@ public class CustomerInfoController implements Initializable {
 	public void customerTotalList() throws Exception {
 		customerDataList.removeAll(customerDataList);
 
-		c_txtName.clear();
-		c_txtCname.clear();
-		c_txtPhone.clear();
-		c_txtBnumber.clear();
-		c_txtAddress.clear();
-		c_txtEmail.clear();
-		c_txtRemarks.clear();
-		c_txtName.requestFocus();
-
-		c_btnUpdate.setDisable(true);
-		c_btnDelete.setDisable(true);
-
 		CustomerDAO cDao = new CustomerDAO();
 		CustomerVO cVo = null;
 		ArrayList<String> title;

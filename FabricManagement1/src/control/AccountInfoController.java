@@ -338,6 +338,8 @@ public class AccountInfoController implements Initializable {
 				// 다른 메소드에서 쓰이고 남은 값이 있을수 있으니 전부 삭제
 				accountDataList.removeAll(accountDataList);
 
+				accountTotalList();
+
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("거래처 정보 미입력");
 				alert.setHeaderText("거래처 정보중에 미입력된 항목이 있습니다.");
@@ -355,22 +357,6 @@ public class AccountInfoController implements Initializable {
 
 	// 거래처 전체 목록
 	public void accountTotalList() throws Exception {
-
-		// 거래처 정보 텍스트 필드 비우기
-		a_txtCname.clear();
-		a_txtMname.clear();
-		a_txtPhone.clear();
-		a_txtEmail.clear();
-		a_txtAddress.clear();
-		a_txtBnumber.clear();
-		a_txtMsubject.clear();
-		a_txtRemarks.clear();
-		a_txtCname.requestFocus();
-
-		// 수정과 삭제버튼을 사용 불가로
-		a_btnUpdate.setDisable(true);
-		a_btnDelete.setDisable(true);
-
 		accountDataList.removeAll(accountDataList);
 
 		AccountDAO aDao = new AccountDAO();

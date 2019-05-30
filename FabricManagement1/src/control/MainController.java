@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -52,6 +53,8 @@ public class MainController implements Initializable {
 	@FXML
 	private MenuItem menuInfo;
 
+	ActionEvent event = new ActionEvent();
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
@@ -61,30 +64,41 @@ public class MainController implements Initializable {
 				public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
 					if (newValue == customer) {
 						try {
+							event = (ActionEvent) customer.getOnSelectionChanged();
+							customerInfoController.handlerC_btnInitAction(event);
 							customerInfoController.customerTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					} else if (newValue == account) {
 						try {
+							event = (ActionEvent) account.getOnSelectionChanged();
+							accountInfoController.handlerBtnInitAction(event);
 							accountInfoController.accountTotalList();
+
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					} else if (newValue == fabric) {
 						try {
+							event = (ActionEvent) fabric.getOnSelectionChanged();
+							fabricInfoController.handlerBtnInitAction(event);
 							fabricInfoController.fabricTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					} else if (newValue == trade) {
 						try {
+							event = (ActionEvent) trade.getOnSelectionChanged();
+							tradeInfoController.handlerBtnInitAction(event);
 							tradeInfoController.tradeTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					} else if (newValue == order) {
 						try {
+							event = (ActionEvent) order.getOnSelectionChanged();
+							orderInfoController.handlerBtnInitAction(event);
 							orderInfoController.orderTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
