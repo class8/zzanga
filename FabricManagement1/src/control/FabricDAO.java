@@ -385,7 +385,7 @@ public class FabricDAO {
 		return list;
 	}
 
-	// 고객정보 수정
+	// 원단정보 수정
 	public boolean getfabricUpdate(FabricVO fvo) throws Exception {
 
 		String sql = "update fabric set f_color=?, f_size=?, f_material=?, f_origin=?, f_cname=?, "

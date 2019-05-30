@@ -47,7 +47,7 @@
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="고객명 : " prefWidth="75" alignment="CENTER" />
 							<TextField fx:id="c_txtName" prefWidth="220"
-								promptText="고객명" />
+								promptText="고객명(15자이내)" />
 						</children>
 					</HBox>
 
@@ -56,7 +56,7 @@
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="업체명 : " prefWidth="75" alignment="CENTER" />
 							<TextField fx:id="c_txtCname" prefWidth="220"
-								promptText="업체명" />
+								promptText="업체명(15자이내)" />
 						</children>
 					</HBox>
 
@@ -65,7 +65,7 @@
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="연락처 : " prefWidth="75" alignment="CENTER" />
 							<TextField fx:id="c_txtPhone" prefWidth="220"
-								promptText="연락처" />
+								promptText="연락처(15자이내)" />
 						</children>
 					</HBox>
 
@@ -74,7 +74,7 @@
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="주 소 : " prefWidth="75" alignment="CENTER" />
 							<TextField fx:id="c_txtAddress" prefWidth="220"
-								promptText="주 소" />
+								promptText="주 소(100자이내)" />
 						</children>
 					</HBox>
 
@@ -83,7 +83,7 @@
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="사업자번호 : " prefWidth="75" alignment="CENTER" />
 							<TextField fx:id="c_txtBnumber" prefWidth="220"
-								promptText="사업자번호" />
+								promptText="사업자번호(20자이내)" />
 						</children>
 					</HBox>
 
@@ -92,7 +92,7 @@
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="이메일 : " prefWidth="75" alignment="CENTER" />
 							<TextField fx:id="c_txtEmail" prefWidth="220"
-								promptText="이메일" />
+								promptText="이메일(50자이내)" />
 						</children>
 					</HBox>
 
@@ -101,7 +101,7 @@
 						<children>				<!-- 자식 컨트롤 추가 -->
 							<Label text="비 고 : " prefWidth="75" alignment="CENTER" />
 							<TextArea fx:id="c_txtRemarks" prefWidth="220"
-								prefHeight="50" promptText="비 고" />
+								prefHeight="50" promptText="비 고(50자이내)" />
 						</children>
 					</HBox>
 
@@ -146,15 +146,15 @@
 						promptText="찾으려는 고객명" />
 					<Button fx:id="c_btnSearch" text="검  색" />
 				</HBox>
-				
+
 				<HBox>
 					<TableView fx:id="c_tableView" prefWidth="900.0"
 						prefHeight="450.0" />
 				</HBox>
-				
+
 			</children>
 		</VBox>
-		
+
 	</HBox>
 </AnchorPane>
 

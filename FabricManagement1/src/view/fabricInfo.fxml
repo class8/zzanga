@@ -40,10 +40,10 @@
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="제품코드 : " prefWidth="60" />
 						<TextField fx:id="f_txtNumber" prefWidth="110"
-							promptText="제품코드" />
+							promptText="제품코드(10자 이내)" />
 						<Label text="종    류: " prefWidth="50" />
 						<TextField fx:id="f_txtSort" prefWidth="110"
-							promptText="종 류" />
+							promptText="종 류(10자 이내)" />
 					</children>
 				</HBox>
 
@@ -53,10 +53,10 @@
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="제품명 : " prefWidth="60" />
 						<TextField fx:id="f_txtName" prefWidth="110"
-							promptText="제품명" />
+							promptText="제품명(20자 이내)" />
 						<Label text="색상 : " prefWidth="50" />
 						<TextField fx:id="f_txtColor" prefWidth="110"
-							promptText="색 상" />
+							promptText="색 상(10자 이내)" />
 					</children>
 				</HBox>
 
@@ -65,10 +65,10 @@
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="사이즈 : " prefWidth="60" />
 						<TextField fx:id="f_txtSize" prefWidth="110"
-							promptText="사이즈" />
+							promptText="사이즈(10자 이내)" />
 						<Label text="중량 : " prefWidth="50" />
 						<TextField fx:id="f_txtWeight" prefWidth="110"
-							promptText="중 량" />
+							promptText="중 량(10자 이내)" />
 					</children>
 				</HBox>
 
@@ -77,10 +77,10 @@
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="원산지 : " prefWidth="60" />
 						<TextField fx:id="f_txtOrigin" prefWidth="110"
-							promptText="원산지" />
+							promptText="원산지(10자 이내)" />
 						<Label text="제조사 : " prefWidth="50" />
 						<TextField fx:id="f_txtCname" prefWidth="110"
-							promptText="제조사" />
+							promptText="제조사(15자 이내)" />
 					</children>
 				</HBox>
 
@@ -89,10 +89,10 @@
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="가격 : " prefWidth="60" />
 						<TextField fx:id="f_txtPrice" prefWidth="110"
-							promptText="가 격" />
+							promptText="가 격(15자 이내)" />
 						<Label text="연락처 : " prefWidth="50" />
 						<TextField fx:id="f_txtPhone" prefWidth="110"
-							promptText="담당자연락처" />
+							promptText="담당자연락처(15자 이내)" />
 					</children>
 				</HBox>
 
@@ -101,7 +101,7 @@
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="소재 : " prefWidth="60" />
 						<TextField fx:id="f_txtMaterial" prefWidth="290"
-							promptText="소 재" />
+							promptText="소 재(20자 이내)" />
 					</children>
 				</HBox>
 
@@ -110,7 +110,7 @@
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="특징 : " prefWidth="60" />
 						<TextField fx:id="f_txtTrait" prefWidth="290"
-							promptText="특 징" />
+							promptText="특 징(50자 이내)" />
 					</children>
 				</HBox>
 
@@ -119,7 +119,7 @@
 					<children>				<!-- 자식 컨트롤 추가 -->
 						<Label text="비고 : " prefWidth="60" />
 						<TextArea fx:id="f_txtRemarks" prefWidth="290"
-							prefHeight="50" promptText="비고" />
+							prefHeight="50" promptText="비고(50자 이내)" />
 					</children>
 				</HBox>
 
@@ -184,7 +184,8 @@
 			</HBox>
 
 			<HBox>
-				<TableView fx:id="f_tableView" prefWidth="850.0" prefHeight="450.0" />
+				<TableView fx:id="f_tableView" prefWidth="850.0"
+					prefHeight="450.0" />
 			</HBox>
 
 		</VBox>

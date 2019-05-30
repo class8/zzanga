@@ -1,6 +1,8 @@
 package control;
 
 import java.net.URL;
+import java.text.MessageFormat;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -16,7 +18,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -71,12 +73,111 @@ public class CustomerInfoController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
+		MessageFormat format = new MessageFormat("{0}");
+		c_txtName.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+
+		c_txtCname.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+
+		c_txtPhone.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+
+		c_txtEmail.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 50) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+
+		c_txtAddress.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 100) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+
+		c_txtBnumber.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 20) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+
+		c_txtRemarks.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 50) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+
 		try {
 
 			// 고객등록초기화
 			c_btnUpdate.setDisable(true); // 수정버튼 설정
 			c_btnDelete.setDisable(true); // 삭제버튼 설정
-			c_tableView.setEditable(false); // 테이블뷰 설정 
+			c_tableView.setEditable(false); // 테이블뷰 설정
 
 			// 고객테이블뷰에 들어갈 컬럼이름 설정
 			TableColumn colC_number = new TableColumn("번호"); // 컬럼명
@@ -150,51 +251,51 @@ public class CustomerInfoController implements Initializable {
 	// 검색버튼 이벤트
 	public void handlerBtnSearchAction(ActionEvent event) {
 
-		ArrayList<CustomerVO> searchList = new ArrayList<CustomerVO>(); // 검색된 고객의 정보를 저장할 어레이리스트를 생성  
-		CustomerVO cVo = null; // customerVO를 null값으로 초기화 
-		CustomerDAO cDao = null; // customerDAO를 null값으로 초기화 
+		ArrayList<CustomerVO> searchList = new ArrayList<CustomerVO>(); // 검색된 고객의 정보를 저장할 어레이리스트를 생성
+		CustomerVO cVo = null; // customerVO를 null값으로 초기화
+		CustomerDAO cDao = null; // customerDAO를 null값으로 초기화
 
-		String searchName = ""; // 입력된 고객이름을 저장 
-		boolean searchResult = false; // 검색결과 초기화 
+		String searchName = ""; // 입력된 고객이름을 저장
+		boolean searchResult = false; // 검색결과 초기화
 
 		try {
-			
-			searchName = c_txtSearch.getText().trim(); // 찾으려는 고객명과 고객정보의 고객명을 
-			cDao = new CustomerDAO(); // 고객DAO를 호출 
-			searchList = cDao.getCustomerCheck(searchName); // 검색된 고객명을 고객정보리스트에 넣어 줌 
+
+			searchName = c_txtSearch.getText().trim(); // 찾으려는 고객명과 고객정보의 고객명을
+			cDao = new CustomerDAO(); // 고객DAO를 호출
+			searchList = cDao.getCustomerCheck(searchName); // 검색된 고객명을 고객정보리스트에 넣어 줌
 
 			if (searchName.equals("")) { // 고객명을 입력하지 않고 검색버튼 클릭시 고객명을 입력하라는 알람창을 띄움
-				searchResult = true; 
-				Alert alert = new Alert(AlertType.WARNING); 
+				searchResult = true;
+				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("고객 정보 검색");
 				alert.setHeaderText("고객명을 입력하세요.");
 				alert.setContentText("다시 시도해주세요.");
 				alert.showAndWait();
 			}
 
-			if (searchList != null) { // 고객정보리스트에 고객명이 하나이상 존재 하는지에 대한 조건문 
-				int rowCount = searchList.size();  // 검색된 고객명만큼의 출력사이즈를 설정 
+			if (searchList != null) { // 고객정보리스트에 고객명이 하나이상 존재 하는지에 대한 조건문
+				int rowCount = searchList.size(); // 검색된 고객명만큼의 출력사이즈를 설정
 
-				c_txtSearch.clear(); // 검색텍스트필드를 초기화 
-				customerDataList.removeAll(customerDataList); // 고객정보데이터리스트를 
-				for (int index = 0; index < rowCount; index++) { // 선택된 고객명에따른 칼럼정보들을 전부 불러옴 
-					cVo = searchList.get(index); // 불러온 고객의 정보를 초기화된 cVo에 넣음 
-					customerDataList.add(cVo); // 고객정보리스트에 cVo에 저장된 고객의 정보를 보여줌 
-					searchResult = true; // 검색결과를 수정할 수 없음 
+				c_txtSearch.clear(); // 검색텍스트필드를 초기화
+				customerDataList.removeAll(customerDataList); // 고객정보데이터리스트를
+				for (int index = 0; index < rowCount; index++) { // 선택된 고객명에따른 칼럼정보들을 전부 불러옴
+					cVo = searchList.get(index); // 불러온 고객의 정보를 초기화된 cVo에 넣음
+					customerDataList.add(cVo); // 고객정보리스트에 cVo에 저장된 고객의 정보를 보여줌
+					searchResult = true; // 검색결과를 수정할 수 없음
 				}
 			}
 
-			if (!searchResult) { // 검색텍스트필드에 입력된 이름이 고객정보에 없을 때 고객정보가 존재하지 않음을 알려줌 
-				c_txtSearch.clear(); // 검색버튼 클릭시 검색텍스트필드를 초기화  
+			if (!searchResult) { // 검색텍스트필드에 입력된 이름이 고객정보에 없을 때 고객정보가 존재하지 않음을 알려줌
+				c_txtSearch.clear(); // 검색버튼 클릭시 검색텍스트필드를 초기화
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("고객 정보 검색");
 				alert.setHeaderText(searchName + "이(가) 리스트에 없습니다.");
 				alert.setContentText("다시 시도해주세요.");
 				alert.showAndWait();
 
-				customerTotalList(); //고객전체정보를 테이블뷰에 불러옴 
+				customerTotalList(); // 고객전체정보를 테이블뷰에 불러옴
 			}
-		} catch (Exception e) { // 고객정보검색과정에서 오류가 발생하면 알람을 띄움 
+		} catch (Exception e) { // 고객정보검색과정에서 오류가 발생하면 알람을 띄움
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("고객 정보 검색 오류");
 			alert.setHeaderText("고객 정보 검색에 오류가 발생하였습니다.");
@@ -205,7 +306,7 @@ public class CustomerInfoController implements Initializable {
 	// 테이블뷰마우스
 	public void handlerCustomerTableViewAction(MouseEvent event) {
 
-		if (event.getClickCount() == 2) { // 테이블뷰에서의 특정 행에서 마우스클릭을 두번 했을 때  
+		if (event.getClickCount() == 2) { // 테이블뷰에서의 특정 행에서 마우스클릭을 두번 했을 때
 
 			try {
 
@@ -291,6 +392,26 @@ public class CustomerInfoController implements Initializable {
 			boolean sucess;
 
 			CustomerDAO cdao = new CustomerDAO();
+
+			if (c_txtName.getLength() != 0) {
+
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("고객정보 수정");
+				alert.setHeaderText("고객명은 필수 입력사항입니다.");
+				alert.setContentText("고객명을 입력하신 후 수정버튼을 눌러주세요!");
+				alert.showAndWait();
+			}
+
+			if (c_txtPhone.getLength() != 0) {
+
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("고객정보 수정");
+				alert.setHeaderText("고객연락처는 필수 입력사항입니다.");
+				alert.setContentText("연락처를 입력하신 후 수정버튼을 눌러주세요!");
+				alert.showAndWait();
+			}
 
 			sucess = cdao.getcustomerUpdate(selectedCustomerIndex, c_txtName.getText().trim(), c_txtCname.getText(),
 					c_txtPhone.getText().trim(), c_txtBnumber.getText(), c_txtAddress.getText(), c_txtEmail.getText(),
