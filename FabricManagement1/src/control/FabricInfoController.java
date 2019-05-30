@@ -791,7 +791,7 @@ public class FabricInfoController implements Initializable {
 			fvo = new FabricVO(selectedFabricIndex, f_txtColor.getText().trim(), f_txtSize.getText().trim(),
 					f_txtMaterial.getText().trim(), f_txtOrigin.getText().trim(), f_txtCname.getText().trim(),
 					f_txtPhone.getText().trim(), f_txtWeight.getText().trim(), f_txtTrait.getText(),
-					f_txtPrice.getText().trim(), f_txtRemarks.getText(), selectFileName);
+					f_txtPrice.getText().trim(), f_txtRemarks.getText(), fileName);
 
 			sucess = fdao.getfabricUpdate(fvo);
 
