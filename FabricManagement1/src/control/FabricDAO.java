@@ -86,7 +86,6 @@ public class FabricDAO {
 		PreparedStatement pstmt = null;
 
 		try {
-
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql.toString());
 
@@ -108,34 +107,29 @@ public class FabricDAO {
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
-
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("원단 등록");
 				alert.setHeaderText(fvo.getF_name() + " 원단 등록 완료.");
 				alert.setContentText("원단 등록 성공!!!");
 				alert.showAndWait();
-
 			} else {
-
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("원단 등록");
 				alert.setHeaderText("원단 등록 실패");
 				alert.setContentText("원단 등록 실패!");
 				alert.showAndWait();
 			}
-
 		} catch (SQLException e) {
-
 			System.out.println("e=[" + e + "]");
-
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("원단 등록");
+			alert.setHeaderText("원단 등록 실패");
+			alert.setContentText("원단 등록 실패!");
+			alert.showAndWait();
 		} catch (Exception e) {
-
 			System.out.println("e=[" + e + "]");
-
 		} finally {
-
 			try {
-
 				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
 				if (pstmt != null)
 					pstmt.close();

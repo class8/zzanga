@@ -179,6 +179,19 @@ public class AccountInfoController implements Initializable {
 				return event;
 			}
 		}));
+		a_txtSearch.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
 
 		try {
 			// 수정과 삭제 버튼의 기본값을 사용불가로

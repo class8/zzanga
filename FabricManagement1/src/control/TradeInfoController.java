@@ -181,7 +181,7 @@ public class TradeInfoController implements Initializable {
 			ParsePosition parsePosition = new ParsePosition(0);
 			Object object = format.parse(event.getControlNewText(), parsePosition);
 			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
+					|| event.getControlNewText().length() == 10) {
 				return null;
 			} else {
 				return event;
@@ -194,7 +194,7 @@ public class TradeInfoController implements Initializable {
 			ParsePosition parsePosition = new ParsePosition(0);
 			Object object = format.parse(event.getControlNewText(), parsePosition);
 			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
+					|| event.getControlNewText().length() == 10) {
 				return null;
 			} else {
 				return event;
@@ -207,7 +207,7 @@ public class TradeInfoController implements Initializable {
 			ParsePosition parsePosition = new ParsePosition(0);
 			Object object = format.parse(event.getControlNewText(), parsePosition);
 			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
+					|| event.getControlNewText().length() == 10) {
 				return null;
 			} else {
 				return event;
@@ -220,7 +220,7 @@ public class TradeInfoController implements Initializable {
 			ParsePosition parsePosition = new ParsePosition(0);
 			Object object = format.parse(event.getControlNewText(), parsePosition);
 			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
+					|| event.getControlNewText().length() == 10) {
 				return null;
 			} else {
 				return event;
@@ -233,7 +233,7 @@ public class TradeInfoController implements Initializable {
 			ParsePosition parsePosition = new ParsePosition(0);
 			Object object = format.parse(event.getControlNewText(), parsePosition);
 			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
+					|| event.getControlNewText().length() == 10) {
 				return null;
 			} else {
 				return event;
@@ -246,7 +246,7 @@ public class TradeInfoController implements Initializable {
 			ParsePosition parsePosition = new ParsePosition(0);
 			Object object = format.parse(event.getControlNewText(), parsePosition);
 			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
+					|| event.getControlNewText().length() == 10) {
 				return null;
 			} else {
 				return event;
@@ -286,6 +286,19 @@ public class TradeInfoController implements Initializable {
 			Object object = format.parse(event.getControlNewText(), parsePosition);
 			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
 					|| event.getControlNewText().length() == 50) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		t_txtSearch.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
 				return null;
 			} else {
 				return event;
@@ -767,6 +780,7 @@ public class TradeInfoController implements Initializable {
 				alert.setContentText("내역 및 상태를 선택해주세요.");
 				alert.showAndWait();
 				selectedTradeIndex = 0;
+
 			}
 			tradeDataList.removeAll(tradeDataList);
 			tradeTotalList();
@@ -813,6 +827,7 @@ public class TradeInfoController implements Initializable {
 
 			f_btnNumber.setDisable(true);
 			c_btnNumber.setDisable(true);
+			t_or_btnRegist.setDisable(true);
 
 			t_btnUpdate.setDisable(true);
 			t_btnDelete.setDisable(true);

@@ -220,6 +220,20 @@ public class OrderInfoController implements Initializable {
 				return event;
 			}
 		}));
+		o_txtSearch.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+
 		// 수량입력에 숫자만 입력할수 있게해줌
 		o_txtAmount.textProperty().addListener(new ChangeListener<String>() {
 			@Override

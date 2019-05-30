@@ -116,20 +116,6 @@ public class CustomerInfoController implements Initializable {
 			}
 		}));
 
-		c_txtEmail.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 50) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
 		c_txtAddress.setTextFormatter(new TextFormatter<>(event -> {
 			if (event.getControlNewText().isEmpty()) {
 				return event;
@@ -157,7 +143,19 @@ public class CustomerInfoController implements Initializable {
 				return event;
 			}
 		}));
-
+		c_txtEmail.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 50) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
 		c_txtRemarks.setTextFormatter(new TextFormatter<>(event -> {
 			if (event.getControlNewText().isEmpty()) {
 				return event;

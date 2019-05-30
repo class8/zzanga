@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.MessageFormat;
 import java.text.ParsePosition;
 import java.time.LocalDate;
@@ -383,6 +384,19 @@ public class FabricInfoController implements Initializable {
 				return event;
 			}
 		}));
+		f_txtSearch.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
 
 		try {
 
@@ -732,6 +746,17 @@ public class FabricInfoController implements Initializable {
 			fDao = new FabricDAO();
 			searchList = fDao.getFabricCheck(searchName);
 
+			if (searchName.equals("")) {
+				searchResult = true;
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("원단 정보 검색");
+				alert.setHeaderText("원단명을 입력하세요.");
+				alert.setContentText("다시 시도해주세요.");
+				alert.showAndWait();
+				fabricDataList.removeAll(fabricDataList);
+				fabricTotalList();
+			}
+
 			if (searchList != null) {
 				int rowCount = searchList.size();
 
@@ -741,7 +766,6 @@ public class FabricInfoController implements Initializable {
 					fVo = searchList.get(index);
 					fabricDataList.add(fVo);
 					searchResult = true;
-
 				}
 			}
 
@@ -755,6 +779,8 @@ public class FabricInfoController implements Initializable {
 
 				fabricTotalList();
 			}
+		} catch (SQLException sqle) {
+			sqle.toString();
 		} catch (Exception e) {
 			e.toString();
 			Alert alert = new Alert(AlertType.ERROR);
