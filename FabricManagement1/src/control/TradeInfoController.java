@@ -833,7 +833,7 @@ public class TradeInfoController implements Initializable {
 					t_txtAmount.getText().trim(), t_txtPrice.getText().trim(), t_txtDeposit.getText().trim(),
 					t_txtPenalty.getText().trim(), t_txtBalance.getText().trim(), t_txtReceipt.getText().trim(),
 					t_txtUnpaid.getText().trim(), t_txtStatus.getText().trim(), t_dpDate.getValue().toString(),
-					t_txtAddress.getText().trim(), t_txtRemarks.getText().trim());
+					t_txtAddress.getText().trim(), t_txtRemarks.getText());
 
 			if (sucess) {
 				tradeDataList.removeAll(tradeDataList);
