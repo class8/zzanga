@@ -126,8 +126,18 @@ public class TradeDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println("e=[" + e + "]");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래 내역 수정 실패");
+			alert.setHeaderText("미입력된 항목이 있습니다.");
+			alert.setContentText("다시 확인후 시도하세요.");
+			alert.showAndWait();
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래 내역 수정 실패");
+			alert.setHeaderText("미입력된 항목이 있습니다.");
+			alert.setContentText("다시 확인후 시도하세요.");
+			alert.showAndWait();
 		} finally {
 			try {
 				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
@@ -258,7 +268,7 @@ public class TradeDAO {
 	public ArrayList<TradeVO> getTradeCheck(String name) throws Exception {
 		ArrayList<TradeVO> list = new ArrayList<TradeVO>();
 
-		String sql = "select t_number,f_number,c.c_number,c_name,t_amount,t_price,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,c_phone,t_registdate,t_address,t_remarks from trade t, customer c where t.c_number=c.c_number and c_name like ?";
+		String sql = "select t_number,f_number,c.c_number,c_name,t_amount,t_price,t_deposit,t_penalty,t_balance,t_receipt,t_unpaid,t_status,c_phone,t_registdate,t_address,t_remarks from trade t, customer c where t.c_number=c.c_number and c_name like ? order by t_number";
 
 		Connection con = null;
 		PreparedStatement pstmt = null;

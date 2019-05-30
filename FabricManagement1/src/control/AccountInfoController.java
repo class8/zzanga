@@ -81,9 +81,99 @@ public class AccountInfoController implements Initializable {
 			}
 			ParsePosition parsePosition = new ParsePosition(0);
 			Object object = format.parse(event.getControlNewText(), parsePosition);
-
 			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
 					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		a_txtMname.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		a_txtPhone.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		a_txtEmail.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 50) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		a_txtAddress.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 100) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		a_txtBnumber.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 20) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		a_txtMsubject.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 20) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		a_txtRemarks.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 50) {
 				return null;
 			} else {
 				return event;
@@ -247,9 +337,6 @@ public class AccountInfoController implements Initializable {
 			} else {
 				// 다른 메소드에서 쓰이고 남은 값이 있을수 있으니 전부 삭제
 				accountDataList.removeAll(accountDataList);
-
-				// 거래처 정보 새로 불러오기
-				accountTotalList();
 
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("거래처 정보 미입력");

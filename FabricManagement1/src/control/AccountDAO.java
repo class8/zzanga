@@ -219,9 +219,9 @@ public class AccountDAO {
 		} catch (SQLException e) {
 			System.out.println("e=[" + e + "]");
 			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처 정보 수정");
-			alert.setHeaderText("거래처 정보 수정 실패");
-			alert.setContentText("거래처 정보 수정 실패!");
+			alert.setTitle("거래처 정보 수정 실패");
+			alert.setHeaderText("미입력된 항목이 있습니다.");
+			alert.setContentText("비고를 제외한 모든 항목을 입력해야 합니다.");
 			alert.showAndWait();
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");

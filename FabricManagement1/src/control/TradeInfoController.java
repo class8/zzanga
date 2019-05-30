@@ -3,6 +3,8 @@ package control;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.text.ParsePosition;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +29,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -156,6 +159,138 @@ public class TradeInfoController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		// 텍스트필드 글자수 제한
+		MessageFormat format = new MessageFormat("{0}");
+		t_txtAmount.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 10) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		t_txtPrice.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		t_txtDeposit.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		t_txtPenalty.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		t_txtBalance.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		t_txtReceipt.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		t_txtUnpaid.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		t_txtPhone.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 15) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		t_txtAddress.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 100) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
+		t_txtRemarks.setTextFormatter(new TextFormatter<>(event -> {
+			if (event.getControlNewText().isEmpty()) {
+				return event;
+			}
+			ParsePosition parsePosition = new ParsePosition(0);	
+			Object object = format.parse(event.getControlNewText(), parsePosition);
+			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
+					|| event.getControlNewText().length() == 50) {
+				return null;
+			} else {
+				return event;
+			}
+		}));
 
 		// 수량입력에 숫자만 입력할수 있게해줌
 		t_txtAmount.textProperty().addListener(new ChangeListener<String>() {
