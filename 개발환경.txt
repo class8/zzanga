@@ -1,0 +1,6 @@
+운영체제 : Windows 10 Home 64bit 
+DBMS : Oracle 11.2.0.1.0
+개발도구 : Eclipse IDE 2018-12(4.10.0) , SQL Developer 19.1.0.094
+설계 툴 : ERWin
+JML : StarUML
+개발언어 : Java8 (1.8.0_201), JavaFX(2.4.0.201..)
