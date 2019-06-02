@@ -15,7 +15,7 @@ public class Main extends Application {
 
 			primaryStage.setTitle("원단 관리 프로그램 v0.01");
 			primaryStage.setScene(scene);
-			primaryStage.setResizable(false);
+			primaryStage.setResizable(false);	
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
