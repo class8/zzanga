@@ -72,103 +72,7 @@ public class CustomerInfoController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
-		MessageFormat format = new MessageFormat("{0}");
-		c_txtName.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		c_txtCname.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		c_txtPhone.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		c_txtAddress.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 100) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		c_txtBnumber.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 20) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-		c_txtEmail.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 50) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-		c_txtRemarks.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 50) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
+		c_txtName.setPrefColumnCount(5);
 
 		try {
 
@@ -326,7 +230,7 @@ public class CustomerInfoController implements Initializable {
 				c_txtBnumber.setText(selectedC_bnumber);
 				c_txtRemarks.setText(selectedC_remarks);
 
-				c_btnRegist.setDisable(false);
+				c_btnRegist.setDisable(true);
 				c_btnUpdate.setDisable(false);
 				c_btnInit.setDisable(false);
 				c_btnExit.setDisable(false);
@@ -428,8 +332,9 @@ public class CustomerInfoController implements Initializable {
 				c_txtRemarks.clear();
 				c_txtName.requestFocus();
 
+				c_btnRegist.setDisable(false);
+				c_btnUpdate.setDisable(true);
 				c_btnDelete.setDisable(true);
-				c_btnInit.setDisable(true);
 
 			}
 		} catch (Exception e) {
@@ -453,6 +358,7 @@ public class CustomerInfoController implements Initializable {
 			c_txtRemarks.clear();
 			c_txtName.requestFocus();
 
+			c_btnRegist.setDisable(false);
 			c_btnUpdate.setDisable(true);
 			c_btnDelete.setDisable(true);
 

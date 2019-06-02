@@ -201,203 +201,6 @@ public class FabricInfoController implements Initializable {
 				}
 			}
 		});
-
-		MessageFormat format = new MessageFormat("{0}");
-		f_txtNumber.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		f_txtSort.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 10) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		f_txtName.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 20) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		f_txtColor.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 10) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		f_txtSize.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 10) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		f_txtMaterial.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 20) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		f_txtOrigin.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 10) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		f_txtCname.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		f_txtPhone.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		f_txtWeight.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 10) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		f_txtTrait.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 50) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		f_txtPrice.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
-		f_txtRemarks.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 50) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-		f_txtSearch.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-
 		try {
 
 			f_btnTrade.setDisable(true);
@@ -802,7 +605,7 @@ public class FabricInfoController implements Initializable {
 			FabricDAO fdao = new FabricDAO();
 
 			// 이미지 파일 저장
-			String fileName = imageSave(selectedFile);
+			imageSave(selectedFile);
 
 			if (f_txtColor.getLength() != 0) {
 
@@ -817,7 +620,7 @@ public class FabricInfoController implements Initializable {
 			fvo = new FabricVO(selectedFabricIndex, f_txtColor.getText().trim(), f_txtSize.getText().trim(),
 					f_txtMaterial.getText().trim(), f_txtOrigin.getText().trim(), f_txtCname.getText().trim(),
 					f_txtPhone.getText().trim(), f_txtWeight.getText().trim(), f_txtTrait.getText(),
-					f_txtPrice.getText().trim(), f_txtRemarks.getText(), fileName);
+					f_txtPrice.getText().trim(), f_txtRemarks.getText(), selectFileName);
 
 			sucess = fdao.getfabricUpdate(fvo);
 
@@ -886,7 +689,7 @@ public class FabricInfoController implements Initializable {
 			}
 
 			// 이미지 파일 저장
-			String fileName = imageSave(selectedFile);
+			imageSave(selectedFile);
 
 			if (f_txtNumber.getLength() != 0 && f_txtSort.getLength() != 0 && f_txtName.getLength() != 0
 					&& f_txtColor.getLength() != 0 && f_txtSize.getLength() != 0 && f_txtMaterial.getLength() != 0
@@ -897,7 +700,7 @@ public class FabricInfoController implements Initializable {
 						f_txtColor.getText().trim(), f_txtSize.getText().trim(), f_txtMaterial.getText().trim(),
 						f_txtOrigin.getText().trim(), f_txtCname.getText().trim(), f_txtPhone.getText().trim(),
 						f_txtWeight.getText().trim(), f_txtTrait.getText().trim(), f_txtPrice.getText().trim(),
-						f_txtRemarks.getText().trim(), fileName);
+						f_txtRemarks.getText().trim(), selectFileName);
 
 				fdao = new FabricDAO();
 				fdao.getFabricRegist(fvo);
@@ -990,6 +793,7 @@ public class FabricInfoController implements Initializable {
 				String selectedF_trait = selectFabric.get(0).getF_trait();
 				String selectedF_price = selectFabric.get(0).getF_price();
 				String selectedF_remarks = selectFabric.get(0).getF_remarks();
+				String selectedF_filename = selectFabric.get(0).getFilename();
 
 				f_txtNumber.setText(selectedF_number);
 				f_txtSort.setText(selectedF_sort);
@@ -1004,6 +808,7 @@ public class FabricInfoController implements Initializable {
 				f_txtTrait.setText(selectedF_trait);
 				f_txtPrice.setText(selectedF_price);
 				f_txtRemarks.setText(selectedF_remarks);
+				selectFileName = selectedF_filename;
 
 				// 이미지 가져오기
 				selectFileName = selectFabric.get(0).getFilename();

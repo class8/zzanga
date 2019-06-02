@@ -73,125 +73,6 @@ public class AccountInfoController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// 텍스트필드 15글자로 제한
-		MessageFormat format = new MessageFormat("{0}");
-		a_txtCname.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-		a_txtMname.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-		a_txtPhone.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-		a_txtEmail.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 50) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-		a_txtAddress.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 100) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-		a_txtBnumber.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 20) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-		a_txtMsubject.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 20) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-		a_txtRemarks.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 50) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
-		a_txtSearch.setTextFormatter(new TextFormatter<>(event -> {
-			if (event.getControlNewText().isEmpty()) {
-				return event;
-			}
-			ParsePosition parsePosition = new ParsePosition(0);
-			Object object = format.parse(event.getControlNewText(), parsePosition);
-			if (object == null || parsePosition.getIndex() < event.getControlNewText().length()
-					|| event.getControlNewText().length() == 15) {
-				return null;
-			} else {
-				return event;
-			}
-		}));
 
 		try {
 			// 수정과 삭제 버튼의 기본값을 사용불가로
@@ -297,6 +178,7 @@ public class AccountInfoController implements Initializable {
 				a_txtRemarks.setText(selectedA_remarks);
 
 				// 수정과 삭제 버튼을 사용가능으로
+				a_btnRegist.setDisable(true);
 				a_btnUpdate.setDisable(false);
 				a_btnDelete.setDisable(false);
 			} catch (Exception e) {
@@ -422,6 +304,8 @@ public class AccountInfoController implements Initializable {
 			a_btnUpdate.setDisable(true);
 			a_btnDelete.setDisable(true);
 
+			a_btnRegist.setDisable(false);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -454,6 +338,7 @@ public class AccountInfoController implements Initializable {
 				a_txtRemarks.clear();
 				a_txtCname.requestFocus();
 
+				a_btnRegist.setDisable(false);
 				a_btnUpdate.setDisable(true);
 				a_btnDelete.setDisable(true);
 			}
@@ -485,6 +370,7 @@ public class AccountInfoController implements Initializable {
 				a_txtRemarks.clear();
 				a_txtCname.requestFocus();
 
+				a_btnRegist.setDisable(false);
 				a_btnUpdate.setDisable(true);
 				a_btnDelete.setDisable(true);
 			}
