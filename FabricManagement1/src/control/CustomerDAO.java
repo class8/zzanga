@@ -287,9 +287,9 @@ public class CustomerDAO {
 			pstmt.setString(1, cvo.getC_name());
 			pstmt.setString(2, cvo.getC_cname());
 			pstmt.setString(3, cvo.getC_phone());
-			pstmt.setString(4, cvo.getC_address());
-			pstmt.setString(5, cvo.getC_bnumber());
-			pstmt.setString(6, cvo.getC_email());
+			pstmt.setString(4, cvo.getC_email());
+			pstmt.setString(5, cvo.getC_address());
+			pstmt.setString(6, cvo.getC_bnumber());
 			pstmt.setString(7, cvo.getC_remarks());
 
 			int i = pstmt.executeUpdate();
