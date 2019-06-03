@@ -1,6 +1,7 @@
 package control;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.text.ParsePosition;
@@ -211,11 +212,6 @@ public class AccountInfoController implements Initializable {
 				// 거래처 정보 새로 불러오기
 				accountTotalList();
 
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("거래처 입력");
-				alert.setHeaderText(a_txtCname.getText() + " 거래처가 성공적으로 추가되었습니다.");
-				alert.setContentText("다음 거래처를 입력하세요.");
-				alert.showAndWait();
 
 				// 거래처 정보 텍스트 필드 비우기
 				a_txtCname.clear();
@@ -241,6 +237,12 @@ public class AccountInfoController implements Initializable {
 				alert.setContentText("거래처 정보를 정확히 입력하세요.");
 				alert.showAndWait();
 			}
+		} catch (SQLException sqe) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처 정보 입력");
+			alert.setHeaderText("거래처 정보를 정확히 입력하세요.");
+			alert.setContentText("다음에는 주의하세요.");
+			alert.showAndWait();
 		} catch (Exception e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("거래처 정보 입력");

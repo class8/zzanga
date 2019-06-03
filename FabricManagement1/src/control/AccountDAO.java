@@ -16,7 +16,8 @@ import model.AccountVO;
 public class AccountDAO {
 
 	// 거래처 등록
-	public void getAccountRegist(AccountVO avo) throws Exception {
+	public boolean getAccountRegist(AccountVO avo) throws Exception {
+		boolean sucess = false;
 
 		// 거래처 삽입 하는 sql문
 		String sql = "insert into account values " + "(account_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
@@ -39,14 +40,31 @@ public class AccountDAO {
 
 			int i = pstmt.executeUpdate();
 
+			if (i == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("거래처 입력");
+				alert.setHeaderText("거래처가 성공적으로 추가되었습니다.");
+				alert.setContentText("다음 거래처를 입력하세요.");
+				alert.showAndWait();
+				sucess = true;
+			}
+
 		} catch (SQLException e) {
 
 			System.out.println("e=[" + e + "]");
-
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("등록 오류");
+			alert.setHeaderText("거래처 등록에 실패하였습니다.");
+			alert.setContentText("다시 한번 확인후 시도하세요.");
+			alert.showAndWait();
 		} catch (Exception e) {
 
 			System.out.println("e=[" + e + "]");
-
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("등록 오류");
+			alert.setHeaderText("거래처 등록에 실패하였습니다.");
+			alert.setContentText("다시 한번 확인후 시도하세요.");
+			alert.showAndWait();
 		} finally {
 
 			try {
@@ -62,7 +80,7 @@ public class AccountDAO {
 
 			}
 		}
-
+		return sucess;
 	}
 
 	// 데이터베이스에서 거래처 테이블의 컬럼 갯수
@@ -220,8 +238,8 @@ public class AccountDAO {
 			System.out.println("e=[" + e + "]");
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("거래처 정보 수정 실패");
-			alert.setHeaderText("미입력된 항목이 있습니다.");
-			alert.setContentText("비고를 제외한 모든 항목을 입력해야 합니다.");
+			alert.setHeaderText("거래처 정보 수정에 실패하였습니다.");
+			alert.setContentText("다시 한번 확인후 시도하세요.");
 			alert.showAndWait();
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");

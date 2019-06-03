@@ -406,11 +406,11 @@ public class FabricInfoController implements Initializable {
 						c_txtName.setText(list.get(0).toString());
 						c_txtPhone.setText(list.get(1).toString());
 
-						if (!list.get(3).toString().equals("null") && !list.get(2).toString().equals("null")) {
+						if (!list.get(2).toString().equals("null") && !list.get(3).toString().equals("null")) {
 
-							c_txtEmail.setText(list.get(3).toString());
+							c_txtEmail.setText(list.get(2).toString());
 
-							t_txtAddress.setText(list.get(2).toString());
+							t_txtAddress.setText(list.get(3).toString());
 						}
 
 						Alert alert = new Alert(AlertType.WARNING);
