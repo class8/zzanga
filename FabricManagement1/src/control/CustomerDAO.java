@@ -23,7 +23,7 @@ public class CustomerDAO {
 
 		String sql = "select c_number, c_name, c_cname, c_phone, c_address, c_bnumber, c_email, c_remarks, c_registdate from customer order by c_number";
 		Connection con = null;
-		PreparedStatement pstmt = null; 
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		CustomerVO cVo = null;
 
@@ -162,10 +162,10 @@ public class CustomerDAO {
 			pstmt.setString(1, c_name);
 			pstmt.setString(2, c_cname);
 			pstmt.setString(3, c_phone);
-			pstmt.setString(4, c_address);
-			pstmt.setString(5, c_bnumber);
-			pstmt.setString(6, c_remarks);
-			pstmt.setString(7, c_email);
+			pstmt.setString(4, c_email);
+			pstmt.setString(5, c_address);
+			pstmt.setString(6, c_bnumber);
+			pstmt.setString(7, c_remarks);
 
 			pstmt.setInt(8, c_number);
 
