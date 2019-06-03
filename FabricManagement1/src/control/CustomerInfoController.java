@@ -316,7 +316,7 @@ public class CustomerInfoController implements Initializable {
 			}
 
 			sucess = cdao.getcustomerUpdate(selectedCustomerIndex, c_txtName.getText().trim(), c_txtCname.getText(),
-					c_txtPhone.getText().trim(), c_txtBnumber.getText(), c_txtAddress.getText(), c_txtEmail.getText(),
+					c_txtPhone.getText().trim(), c_txtAddress.getText(), c_txtBnumber.getText(), c_txtEmail.getText(),
 					c_txtRemarks.getText(), null);
 
 			if (sucess) {
@@ -380,7 +380,7 @@ public class CustomerInfoController implements Initializable {
 			if (c_txtName.getLength() != 0 && c_txtPhone.getLength() != 0) {
 
 				cvo = new CustomerVO(c_txtName.getText().trim(), c_txtCname.getText().trim(),
-						c_txtPhone.getText().trim(), c_txtBnumber.getText().trim(), c_txtAddress.getText().trim(),
+						c_txtPhone.getText().trim(), c_txtAddress.getText().trim(), c_txtBnumber.getText().trim(),
 						c_txtEmail.getText().trim(), c_txtRemarks.getText().trim());
 
 				cdao = new CustomerDAO();

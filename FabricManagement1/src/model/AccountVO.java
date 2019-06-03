@@ -7,9 +7,9 @@ public class AccountVO {
 	private String a_mname; // 담당자명
 	private String a_phone; // 담당자 연락처
 	private String a_email; // 담당자 이메일
+	private String a_address; // 주소
 	private String a_bnumber; // 사업자번호
 	private String a_msubject; // 주종목
-	private String a_address; // 주소
 	private String a_remarks = null; // 비고
 	private String a_registdate; // 등록일
 
@@ -17,45 +17,45 @@ public class AccountVO {
 		super();
 	}
 
-	public AccountVO(int a_number, String a_cname, String a_mname, String a_phone, String a_email, String a_bnumber,
-			String a_msubject, String a_address, String a_remarks, String a_registdate) {
+	public AccountVO(int a_number, String a_cname, String a_mname, String a_phone, String a_email, String a_address,
+			String a_bnumber, String a_msubject, String a_remarks, String a_registdate) {
 		super();
 		this.a_number = a_number;
 		this.a_cname = a_cname;
 		this.a_mname = a_mname;
 		this.a_phone = a_phone;
 		this.a_email = a_email;
+		this.a_address = a_address;
 		this.a_bnumber = a_bnumber;
 		this.a_msubject = a_msubject;
-		this.a_address = a_address;
 		this.a_remarks = a_remarks;
 		this.a_registdate = a_registdate;
 	}
 
-	public AccountVO(String a_cname, String a_mname, String a_phone, String a_email, String a_bnumber,
-			String a_msubject, String a_address, String a_remarks) {
-		super();
-		this.a_cname = a_cname;
-		this.a_mname = a_mname;
-		this.a_phone = a_phone;
-		this.a_email = a_email;
-		this.a_bnumber = a_bnumber;
-		this.a_msubject = a_msubject;
-		this.a_address = a_address;
-		this.a_remarks = a_remarks;
-	}
-
-	public AccountVO(int a_number, String a_cname, String a_mname, String a_phone, String a_email, String a_bnumber,
-			String a_msubject, String a_address, String a_remarks) {
+	public AccountVO(int a_number, String a_cname, String a_mname, String a_phone, String a_email, String a_address,
+			String a_bnumber, String a_msubject, String a_remarks) {
 		super();
 		this.a_number = a_number;
 		this.a_cname = a_cname;
 		this.a_mname = a_mname;
 		this.a_phone = a_phone;
 		this.a_email = a_email;
+		this.a_address = a_address;
 		this.a_bnumber = a_bnumber;
 		this.a_msubject = a_msubject;
+		this.a_remarks = a_remarks;
+	}
+
+	public AccountVO(String a_cname, String a_mname, String a_phone, String a_email, String a_address, String a_bnumber,
+			String a_msubject, String a_remarks) {
+		super();
+		this.a_cname = a_cname;
+		this.a_mname = a_mname;
+		this.a_phone = a_phone;
+		this.a_email = a_email;
 		this.a_address = a_address;
+		this.a_bnumber = a_bnumber;
+		this.a_msubject = a_msubject;
 		this.a_remarks = a_remarks;
 	}
 
@@ -99,6 +99,14 @@ public class AccountVO {
 		this.a_email = a_email;
 	}
 
+	public String getA_address() {
+		return a_address;
+	}
+
+	public void setA_address(String a_address) {
+		this.a_address = a_address;
+	}
+
 	public String getA_bnumber() {
 		return a_bnumber;
 	}
@@ -113,14 +121,6 @@ public class AccountVO {
 
 	public void setA_msubject(String a_msubject) {
 		this.a_msubject = a_msubject;
-	}
-
-	public String getA_address() {
-		return a_address;
-	}
-
-	public void setA_address(String a_address) {
-		this.a_address = a_address;
 	}
 
 	public String getA_remarks() {

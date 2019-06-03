@@ -6,66 +6,61 @@ public class CustomerVO {
 	private String c_name; // 고객명
 	private String c_cname; // 업체명
 	private String c_phone; // 연락처
-	private String c_bnumber; // 사업자번호
 	private String c_address; // 주소
+	private String c_bnumber; // 사업자번호
 	private String c_email; // 이메일
 	private String c_remarks; // 비고
 	private String c_registdate; // 등록일
 
-	// 디폴트 생성자
 	public CustomerVO() {
 		super();
 	}
 
-	// 모든 생성자
-	public CustomerVO(int c_number, String c_name, String c_cname, String c_phone, String c_bnumber, String c_address,
+	public CustomerVO(int c_number, String c_name, String c_cname, String c_phone, String c_address, String c_bnumber,
 			String c_email, String c_remarks, String c_registdate) {
 		super();
 		this.c_number = c_number;
 		this.c_name = c_name;
 		this.c_cname = c_cname;
 		this.c_phone = c_phone;
-		this.c_bnumber = c_bnumber;
 		this.c_address = c_address;
+		this.c_bnumber = c_bnumber;
 		this.c_email = c_email;
 		this.c_remarks = c_remarks;
 		this.c_registdate = c_registdate;
 	}
 
-	// 고객번호와 등록일을 제외한 모든 생성자
-	public CustomerVO(String c_name, String c_cname, String c_phone, String c_bnumber, String c_address, String c_email,
+	public CustomerVO(String c_name, String c_cname, String c_phone, String c_address, String c_bnumber, String c_email,
 			String c_remarks) {
 		super();
 		this.c_name = c_name;
 		this.c_cname = c_cname;
 		this.c_phone = c_phone;
-		this.c_bnumber = c_bnumber;
 		this.c_address = c_address;
+		this.c_bnumber = c_bnumber;
 		this.c_email = c_email;
 		this.c_remarks = c_remarks;
 	}
 
-	// 등록일을 제외한 모든 생성자
-	public CustomerVO(int c_number, String c_name, String c_cname, String c_phone, String c_bnumber, String c_address,
+	public CustomerVO(int c_number, String c_name, String c_cname, String c_phone, String c_address, String c_bnumber,
 			String c_email, String c_remarks) {
 		super();
 		this.c_number = c_number;
 		this.c_name = c_name;
 		this.c_cname = c_cname;
 		this.c_phone = c_phone;
-		this.c_bnumber = c_bnumber;
 		this.c_address = c_address;
+		this.c_bnumber = c_bnumber;
 		this.c_email = c_email;
 		this.c_remarks = c_remarks;
 	}
 
-	// 접근자와 설정자 생성
 	public int getC_number() {
 		return c_number;
 	}
 
-	public void setC_number(int c_no) {
-		this.c_number = c_no;
+	public void setC_number(int c_number) {
+		this.c_number = c_number;
 	}
 
 	public String getC_name() {
@@ -92,20 +87,20 @@ public class CustomerVO {
 		this.c_phone = c_phone;
 	}
 
-	public String getC_bnumber() {
-		return c_bnumber;
-	}
-
-	public void setC_bnumber(String c_bnumber) {
-		this.c_bnumber = c_bnumber;
-	}
-
 	public String getC_address() {
 		return c_address;
 	}
 
 	public void setC_address(String c_address) {
 		this.c_address = c_address;
+	}
+
+	public String getC_bnumber() {
+		return c_bnumber;
+	}
+
+	public void setC_bnumber(String c_bnumber) {
+		this.c_bnumber = c_bnumber;
 	}
 
 	public String getC_email() {
