@@ -296,7 +296,7 @@ public class TradeInfoController implements Initializable {
 			TableColumn colTphone = new TableColumn("연락처");
 			colTphone.setPrefWidth(150);
 			colTphone.setStyle("-fx-alignment: CENTER");
-			colTphone.setCellValueFactory(new PropertyValueFactory<>("t_phone"));
+			colTphone.setCellValueFactory(new PropertyValueFactory<>("c_phone"));
 
 			TableColumn colTregistdate = new TableColumn("거래일");
 			colTregistdate.setPrefWidth(150);
@@ -523,6 +523,7 @@ public class TradeInfoController implements Initializable {
 			// 주문 등록 창에서 등록 버튼
 			btnRegist.setOnAction(e -> {
 				try {
+					boolean sucess = false;
 					OrderVO ovo = null;
 					OrderDAO odao = null;
 
@@ -792,60 +793,82 @@ public class TradeInfoController implements Initializable {
 		try {
 			boolean sucess;
 			TradeDAO tdao = new TradeDAO();
-			sucess = tdao.getTradeUpdate(selectedTradeIndex, f_txtNumber.getText().trim(), c_txtNumber.getText().trim(),
-					t_txtAmount.getText().trim(), t_txtPrice.getText().trim(), t_txtDeposit.getText().trim(),
-					t_txtPenalty.getText().trim(), t_txtBalance.getText().trim(), t_txtReceipt.getText().trim(),
-					t_txtUnpaid.getText().trim(), t_txtStatus.getText().trim(), t_dpDate.getValue().toString(),
-					t_txtAddress.getText().trim(), t_txtRemarks.getText());
 
-			if (sucess) {
-				tradeDataList.removeAll(tradeDataList);
-				tradeTotalList();
+			if (t_txtAmount.getLength() != 0 && t_txtPrice.getLength() != 0 && t_txtDeposit.getLength() != 0
+					&& t_txtPenalty.getLength() != 0 && t_txtBalance.getLength() != 0 && t_txtReceipt.getLength() != 0
+					&& t_txtUnpaid.getLength() != 0 && t_txtPhone.getLength() != 0 && t_dpDate.getValue() != null
+					&& t_txtAddress.getLength() != 0) {
 
-				t_txtNumber.clear();
-				f_txtNumber.clear();
-				c_txtNumber.clear();
-				c_txtName.clear();
-				t_txtAmount.clear();
-				t_txtPrice.clear();
-				t_txtDeposit.clear();
-				t_txtPenalty.clear();
-				t_txtBalance.clear();
-				t_txtReceipt.clear();
-				t_txtUnpaid.clear();
-				t_txtStatus.clear();
-				t_txtPhone.clear();
-				t_dpDate.setValue(null);
-				t_txtAddress.clear();
-				t_txtRemarks.clear();
-				t_dpStart.setValue(null);
-				t_dpFinish.setValue(null);
-				t_txtNumber.requestFocus();
+				sucess = tdao.getTradeUpdate(selectedTradeIndex, f_txtNumber.getText().trim(),
+						c_txtNumber.getText().trim(), t_txtAmount.getText().trim(), t_txtPrice.getText().trim(),
+						t_txtDeposit.getText().trim(), t_txtPenalty.getText().trim(), t_txtBalance.getText().trim(),
+						t_txtReceipt.getText().trim(), t_txtUnpaid.getText().trim(), t_txtStatus.getText().trim(),
+						t_dpDate.getValue().toString(), t_txtAddress.getText().trim(), t_txtRemarks.getText());
 
-				t_txtNumber.setDisable(true);
-				f_txtNumber.setDisable(true);
-				f_btnNumber.setDisable(true);
-				c_txtNumber.setDisable(true);
-				c_btnNumber.setDisable(true);
-				c_txtName.setDisable(true);
-				t_txtAmount.setDisable(true);
-				t_txtPrice.setDisable(true);
-				t_txtDeposit.setDisable(true);
-				t_txtPenalty.setDisable(true);
-				t_txtBalance.setDisable(true);
-				t_txtReceipt.setDisable(true);
-				t_txtUnpaid.setDisable(true);
-				t_txtStatus.setDisable(true);
-				t_txtPhone.setDisable(true);
-				t_dpDate.setDisable(true);
-				t_txtAddress.setDisable(true);
-				t_txtRemarks.setDisable(true);
+				if (sucess) {
+					tradeDataList.removeAll(tradeDataList);
+					tradeTotalList();
 
-				f_btnNumber.setDisable(true);
-				c_btnNumber.setDisable(true);
+					t_txtNumber.clear();
+					f_txtNumber.clear();
+					c_txtNumber.clear();
+					c_txtName.clear();
+					t_txtAmount.clear();
+					t_txtPrice.clear();
+					t_txtDeposit.clear();
+					t_txtPenalty.clear();
+					t_txtBalance.clear();
+					t_txtReceipt.clear();
+					t_txtUnpaid.clear();
+					t_txtStatus.clear();
+					t_txtPhone.clear();
+					t_dpDate.setValue(null);
+					t_txtAddress.clear();
+					t_txtRemarks.clear();
+					t_dpStart.setValue(null);
+					t_dpFinish.setValue(null);
+					t_txtNumber.requestFocus();
 
-				t_btnUpdate.setDisable(true);
-				t_btnDelete.setDisable(true);
+					t_txtNumber.setDisable(true);
+					f_txtNumber.setDisable(true);
+					f_btnNumber.setDisable(true);
+					c_txtNumber.setDisable(true);
+					c_btnNumber.setDisable(true);
+					c_txtName.setDisable(true);
+					t_txtAmount.setDisable(true);
+					t_txtPrice.setDisable(true);
+					t_txtDeposit.setDisable(true);
+					t_txtPenalty.setDisable(true);
+					t_txtBalance.setDisable(true);
+					t_txtReceipt.setDisable(true);
+					t_txtUnpaid.setDisable(true);
+					t_txtStatus.setDisable(true);
+					t_txtPhone.setDisable(true);
+					t_dpDate.setDisable(true);
+					t_txtAddress.setDisable(true);
+					t_txtRemarks.setDisable(true);
+
+					f_btnNumber.setDisable(true);
+					c_btnNumber.setDisable(true);
+
+					t_btnUpdate.setDisable(true);
+					t_btnDelete.setDisable(true);
+				} else {
+					tradeDataList.removeAll(tradeDataList);
+					tradeTotalList();
+
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("거래 정보 수정 실패");
+					alert.setHeaderText("입력된 값이 범위를 초과했습니다.");
+					alert.setContentText("거래 정보 수정에 실패하였습니다.");
+					alert.showAndWait();
+				}
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("거래 정보 미입력");
+				alert.setHeaderText("거래 정보 중에 미입력된 항목이 있습니다.");
+				alert.setContentText("거래 정보를 정확히 입력하세요.");
+				alert.showAndWait();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

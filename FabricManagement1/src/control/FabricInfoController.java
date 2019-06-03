@@ -471,39 +471,30 @@ public class FabricInfoController implements Initializable {
 			tr_btnRegist.setOnAction(e -> {
 
 				try {
-
+					boolean sucess = false;
 					TradeVO tvo = null;
 					TradeDAO tdao = null;
 
-					if (t_txtAddress.getLength() != 0 && t_txtAmount.getLength() != 0 && t_txtTotal.getLength() != 0
-							&& c_txtNumber.getLength() != 0 && c_txtName.getLength() != 0
+					if (c_txtNumber.getLength() != 0 && t_txtAddress.getLength() != 0 && t_txtAmount.getLength() != 0
+							&& t_txtTotal.getLength() != 0 && c_txtNumber.getLength() != 0 && c_txtName.getLength() != 0
 							&& c_txtPhone.getLength() != 0) {
 
 						tvo = new TradeVO(f_txtNumber.getText().trim(), Integer.parseInt(c_txtNumber.getText().trim()),
 								c_txtName.getText().trim(), c_txtPhone.getText().trim(), c_txtEmail.getText().trim(),
 								Integer.parseInt(t_txtAmount.getText().trim()),
-								Integer.parseInt(t_txtTotal.getText().trim()), t_txtAddress.getText().trim(),
+								Integer.parseInt(t_txtTotal.getText().trim()), "거래시작", t_txtAddress.getText().trim(),
 								t_txtRemarks.getText().trim(), f_txtSort.getText().trim(), f_txtName.getText().trim(),
 								f_txtColor.getText().trim(), f_txtSize.getText().trim(), f_txtWeight.getText().trim(),
 								f_txtPrice.getText().trim(), c_txtPhone.getText().trim());
 
 						tdao = new TradeDAO();
-						tdao.getTradeRegist(tvo);
-
+						sucess = tdao.getTradeRegist(tvo);
+						if (sucess) {
+							mainStage.close();
+						}
 						// tradeTotalList();
-
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("거래 입력");
-						alert.setHeaderText("거래가 성공적으로 추가되었습니다.");
-						alert.setContentText("다음 거래를 입력하세요.");
-						alert.showAndWait();
-
-						mainStage.close();
-
 					} else {
-
 						// tradeTotalList();
-
 						Alert alert = new Alert(AlertType.WARNING);
 						alert.setTitle("거래 정보 미입력");
 						alert.setHeaderText("거래 정보중에 미입력된 항목이 있습니다.");
@@ -515,7 +506,7 @@ public class FabricInfoController implements Initializable {
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.setTitle("거래 정보 입력");
 					alert.setHeaderText("거래 정보입력 중 오류가 발생했습니다.");
-					alert.setContentText("다음에는 주의하세요.");
+					alert.setContentText("다시 한번 확인후 시도하세요.");
 					alert.showAndWait();
 				}
 

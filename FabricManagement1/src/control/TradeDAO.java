@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -117,7 +118,6 @@ public class TradeDAO {
 				alert.showAndWait();
 				accountUpdateSucess = true;
 			} else {
-
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("거래 정보 수정");
 				alert.setHeaderText("거래 정보 수정 실패");
@@ -126,18 +126,8 @@ public class TradeDAO {
 			}
 		} catch (SQLException e) {
 			System.out.println("e=[" + e + "]");
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래 내역 수정 실패");
-			alert.setHeaderText("미입력된 항목이 있습니다.");
-			alert.setContentText("다시 확인후 시도하세요.");
-			alert.showAndWait();
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래 내역 수정 실패");
-			alert.setHeaderText("미입력된 항목이 있습니다.");
-			alert.setContentText("다시 확인후 시도하세요.");
-			alert.showAndWait();
 		} finally {
 			try {
 				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.
@@ -369,8 +359,8 @@ public class TradeDAO {
 	}
 
 	// 거래등록
-	public void getTradeRegist(TradeVO tvo) throws Exception {
-
+	public boolean getTradeRegist(TradeVO tvo) throws Exception {
+		boolean sucess = false;
 		String sql = "insert into trade values " + "(trade_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?, ?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -392,8 +382,28 @@ public class TradeDAO {
 			pstmt.setString(12, tvo.getT_remarks()); // 비고
 
 			int i = pstmt.executeUpdate();
+			if (i == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("거래 입력");
+				alert.setHeaderText("거래가 성공적으로 추가되었습니다.");
+				alert.setContentText("다음 거래를 입력하세요.");
+				alert.showAndWait();
+				sucess = true;
+			}
+		} catch (SQLIntegrityConstraintViolationException sqle) {
+			System.out.println("e=[" + sqle + "]");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("거래 등록 실패");
+			alert.setHeaderText("고객번호가 없으므로 거래 등록에 실패하였습니다.");
+			alert.setContentText("다시 한번 확인후 시도하세요.");
+			alert.showAndWait();
 		} catch (SQLException e) {
 			System.out.println("e=[" + e + "]");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("거래 정보 등록 실패");
+			alert.setHeaderText("입력된 값이 범위를 초과했습니다.");
+			alert.setContentText("거래 정보 등록에 실패하였습니다.");
+			alert.showAndWait();
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");
 		} finally {
@@ -406,5 +416,6 @@ public class TradeDAO {
 			} catch (SQLException e) {
 			}
 		}
+		return sucess;
 	}
 }

@@ -35,6 +35,29 @@ public class TradeVO {
 	}
 
 	public TradeVO(String f_number, int c_number, String c_name, String c_phone, String t_email, int t_amount,
+			int t_price, String t_status, String t_address, String t_remarks, String f_f_sort, String f_f_name,
+			String f_f_color, String f_f_size, String f_f_weight, String f_f_price, String f_f_phone) {
+		super();
+		this.f_number = f_number;
+		this.c_number = c_number;
+		this.c_name = c_name;
+		this.c_phone = c_phone;
+		this.t_email = t_email;
+		this.t_amount = t_amount;
+		this.t_price = t_price;
+		this.t_status = t_status;
+		this.t_address = t_address;
+		this.t_remarks = t_remarks;
+		this.f_f_sort = f_f_sort;
+		this.f_f_name = f_f_name;
+		this.f_f_color = f_f_color;
+		this.f_f_size = f_f_size;
+		this.f_f_weight = f_f_weight;
+		this.f_f_price = f_f_price;
+		this.f_f_phone = f_f_phone;
+	}
+
+	public TradeVO(String f_number, int c_number, String c_name, String c_phone, String t_email, int t_amount,
 			int t_price, String t_address, String t_remarks, String f_f_sort, String f_f_name, String f_f_color,
 			String f_f_size, String f_f_weight, String f_f_price, String f_f_phone) {
 		super();
