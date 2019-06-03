@@ -79,8 +79,9 @@ public class FabricDAO {
 	}
 
 	// 원단 등록
-	public void getFabricRegist(FabricVO fvo) throws Exception {
+	public boolean getFabricRegist(FabricVO fvo) throws Exception {
 
+		boolean sucess = false;
 		String sql = "insert into fabric values " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -110,21 +111,23 @@ public class FabricDAO {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("원단 등록");
 				alert.setHeaderText(fvo.getF_name() + " 원단 등록 완료.");
-				alert.setContentText("원단 등록 성공!!!");
+				alert.setContentText("원단 등록 성공!");
 				alert.showAndWait();
-			} else {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("원단 등록");
-				alert.setHeaderText("원단 등록 실패");
-				alert.setContentText("원단 등록 실패!");
-				alert.showAndWait();
+				sucess = true;
 			}
+		} catch (SQLIntegrityConstraintViolationException sqle) {
+			System.out.println("e=[" + sqle + "]");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("원단 등록 실패");
+			alert.setHeaderText("제품 코드의 중복으로 인하여 원단 등록에 실패하였습니다.");
+			alert.setContentText("다시 한번 확인후 시도하세요.");
+			alert.showAndWait();
 		} catch (SQLException e) {
 			System.out.println("e=[" + e + "]");
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("원단 등록");
-			alert.setHeaderText("원단 등록 실패");
-			alert.setContentText("원단 등록 실패!");
+			alert.setTitle("원단 정보 등록 실패");
+			alert.setHeaderText("입력된 값이 범위를 초과했습니다.");
+			alert.setContentText("원단 정보 등록에 실패하였습니다.");
 			alert.showAndWait();
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");
@@ -141,7 +144,7 @@ public class FabricDAO {
 
 			}
 		}
-
+		return sucess;
 	}
 
 	// 데이터베이스에서 거래처 테이블의 컬럼 갯수
@@ -409,16 +412,13 @@ public class FabricDAO {
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
-
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("원단정보 수정");
 				alert.setHeaderText(" 원단정보 수정 완료.");
 				alert.setContentText("원단정보 수정 성공!!!");
 				alert.showAndWait();
 				fabricUpdateSucess = true;
-
 			} else {
-
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("원단정보 수정");
 				alert.setHeaderText("원단정보 수정 실패");
