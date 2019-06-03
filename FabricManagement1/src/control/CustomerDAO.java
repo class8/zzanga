@@ -148,7 +148,7 @@ public class CustomerDAO {
 
 	// 고객정보 수정
 	public boolean getcustomerUpdate(int c_number, String c_name, String c_cname, String c_phone, String c_address,
-			String c_bnumber, String c_email, String c_remarks, String c_registdate) throws Exception {
+			String c_bnumber, String c_email, String c_remarks) throws Exception {
 
 		String sql = "update customer set c_name=?, c_cname=?, c_phone=?, c_email=?, c_address=?, c_bnumber=?, c_remarks=? where c_number=?";
 		Connection con = null;
@@ -273,8 +273,9 @@ public class CustomerDAO {
 	}
 
 	// 고객 등록
-	public void getCustomerRegiste(CustomerVO cvo) throws Exception {
+	public boolean getCustomerRegiste(CustomerVO cvo) throws Exception {
 
+		boolean sucess = false;
 		String sql = "insert into customer values " + "(customer_seq.nextval, ?, ?, ?, ?, ?, ?, ?, sysdate)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -295,15 +296,14 @@ public class CustomerDAO {
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
-
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("고객 등록");
 				alert.setHeaderText(cvo.getC_name() + " 고객 등록 완료.");
 				alert.setContentText("고객 등록 성공!!!");
 				alert.showAndWait();
+				sucess = true;
 
 			} else {
-
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("고객 등록");
 				alert.setHeaderText("고객 등록 실패");
@@ -334,7 +334,7 @@ public class CustomerDAO {
 
 			}
 		}
-
+		return sucess;
 	}
 
 	// 고객이름 검색

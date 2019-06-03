@@ -190,6 +190,7 @@ public class AccountInfoController implements Initializable {
 
 	// 등록버튼 이벤트
 	public void handlerBtnRegistAction(ActionEvent event) {
+		boolean sucess;
 		try {
 			// 다른 메소드에서 쓰이고 남은 값이 있을수 있으니 전부 삭제
 			accountDataList.removeAll(accountDataList);
@@ -207,34 +208,39 @@ public class AccountInfoController implements Initializable {
 						a_txtPhone.getText().trim(), a_txtEmail.getText().trim(), a_txtAddress.getText().trim(),
 						a_txtBnumber.getText().trim(), a_txtMsubject.getText().trim(), a_txtRemarks.getText().trim());
 				adao = new AccountDAO();
-				adao.getAccountRegist(avo); // 거래처 정보를 가지고있는 VO 정보를 DB에 등록한다.
+				sucess = adao.getAccountRegist(avo); // 거래처 정보를 가지고있는 VO 정보를 DB에 등록한다.
 
-				// 거래처 정보 새로 불러오기
-				accountTotalList();
-
-
-				// 거래처 정보 텍스트 필드 비우기
-				a_txtCname.clear();
-				a_txtMname.clear();
-				a_txtPhone.clear();
-				a_txtEmail.clear();
-				a_txtAddress.clear();
-				a_txtBnumber.clear();
-				a_txtMsubject.clear();
-				a_txtRemarks.clear();
-				// 거래처명 텍스트필드에 포커스 두기
-				a_txtCname.requestFocus();
-
+				if (sucess) {
+					accountDataList.removeAll(accountDataList);
+					accountTotalList();
+					// 거래처 정보 텍스트 필드 비우기
+					a_txtCname.clear();
+					a_txtMname.clear();
+					a_txtPhone.clear();
+					a_txtEmail.clear();
+					a_txtAddress.clear();
+					a_txtBnumber.clear();
+					a_txtMsubject.clear();
+					a_txtRemarks.clear();
+					// 거래처명 텍스트필드에 포커스 두기
+					a_txtCname.requestFocus();
+				} else {
+					accountDataList.removeAll(accountDataList);
+					accountTotalList();
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("거래처 정보 등록 실패");
+					alert.setHeaderText("입력된 값이 범위를 초과했습니다.");
+					alert.setContentText("거래처 정보 등록에 실패하였습니다.");
+					alert.showAndWait();
+				}
 			} else {
 				// 다른 메소드에서 쓰이고 남은 값이 있을수 있으니 전부 삭제
 				accountDataList.removeAll(accountDataList);
-
 				accountTotalList();
-
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("거래처 정보 미입력");
-				alert.setHeaderText("거래처 정보중에 미입력된 항목이 있습니다.");
-				alert.setContentText("거래처 정보를 정확히 입력하세요.");
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("거래처 정보 등록 실패");
+				alert.setHeaderText("미입력된 항목이 있어서 거래처 등록에 실패하였습니다.");
+				alert.setContentText("다시 한번 확인후 시도해주세요.");
 				alert.showAndWait();
 			}
 		} catch (SQLException sqe) {
@@ -318,32 +324,59 @@ public class AccountInfoController implements Initializable {
 		try {
 			boolean sucess;
 
-			AccountDAO sdao = new AccountDAO();
-			// 텍스트필드 정보로 수정 메소드 호출
-			sucess = sdao.getAccountUpdate(selectedAccountIndex, a_txtCname.getText().trim(),
-					a_txtMname.getText().trim(), a_txtPhone.getText().trim(), a_txtEmail.getText().trim(),
-					a_txtAddress.getText().trim(), a_txtBnumber.getText().trim(), a_txtMsubject.getText().trim(),
-					a_txtRemarks.getText());
+			AccountDAO adao = new AccountDAO();
+			if (a_txtCname.getLength() != 0 && a_txtMname.getLength() != 0 && a_txtPhone.getLength() != 0
+					&& a_txtEmail.getLength() != 0 && a_txtAddress.getLength() != 0 && a_txtBnumber.getLength() != 0
+					&& a_txtMsubject.getLength() != 0) {
+				// 텍스트필드 정보로 수정 메소드 호출
+				sucess = adao.getAccountUpdate(selectedAccountIndex, a_txtCname.getText().trim(),
+						a_txtMname.getText().trim(), a_txtPhone.getText().trim(), a_txtEmail.getText().trim(),
+						a_txtAddress.getText().trim(), a_txtBnumber.getText().trim(), a_txtMsubject.getText().trim(),
+						a_txtRemarks.getText());
+				// 수정에 성공한 경우
+				if (sucess) {
+					accountDataList.removeAll(accountDataList);
+					accountTotalList();
 
-			// 수정에 성공한 경우
-			if (sucess) {
+					a_txtCname.clear();
+					a_txtMname.clear();
+					a_txtPhone.clear();
+					a_txtEmail.clear();
+					a_txtAddress.clear();
+					a_txtBnumber.clear();
+					a_txtMsubject.clear();
+					a_txtRemarks.clear();
+					a_txtCname.requestFocus();
+
+					a_btnRegist.setDisable(false);
+					a_btnUpdate.setDisable(true);
+					a_btnDelete.setDisable(true);
+				} else {
+					accountDataList.removeAll(accountDataList);
+					accountTotalList();
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("거래처 정보 등록 실패");
+					alert.setHeaderText("입력된 값이 범위를 초과했습니다.");
+					alert.setContentText("거래처 정보 등록에 실패하였습니다.");
+					alert.showAndWait();
+				}
+			} else {
+				// 다른 메소드에서 쓰이고 남은 값이 있을수 있으니 전부 삭제
 				accountDataList.removeAll(accountDataList);
 				accountTotalList();
-
-				a_txtCname.clear();
-				a_txtMname.clear();
-				a_txtPhone.clear();
-				a_txtEmail.clear();
-				a_txtAddress.clear();
-				a_txtBnumber.clear();
-				a_txtMsubject.clear();
-				a_txtRemarks.clear();
-				a_txtCname.requestFocus();
-
-				a_btnRegist.setDisable(false);
-				a_btnUpdate.setDisable(true);
-				a_btnDelete.setDisable(true);
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("거래처 정보 수정 실패");
+				alert.setHeaderText("미입력된 항목이 있어서 거래처 수정에 실패하였습니다.");
+				alert.setContentText("다시 한번 확인후 시도해주세요.");
+				alert.showAndWait();
 			}
+		} catch (SQLException sqe) {
+			sqe.printStackTrace();
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처 정보 수정 실패");
+			alert.setHeaderText("거래처 정보 수정에 실패하였습니다.");
+			alert.setContentText("다시 한번 확인후 시도하세요.");
+			alert.showAndWait();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

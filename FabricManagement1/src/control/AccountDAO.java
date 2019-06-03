@@ -50,21 +50,9 @@ public class AccountDAO {
 			}
 
 		} catch (SQLException e) {
-
 			System.out.println("e=[" + e + "]");
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("등록 오류");
-			alert.setHeaderText("거래처 등록에 실패하였습니다.");
-			alert.setContentText("다시 한번 확인후 시도하세요.");
-			alert.showAndWait();
 		} catch (Exception e) {
-
 			System.out.println("e=[" + e + "]");
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("등록 오류");
-			alert.setHeaderText("거래처 등록에 실패하였습니다.");
-			alert.setContentText("다시 한번 확인후 시도하세요.");
-			alert.showAndWait();
 		} finally {
 
 			try {
@@ -227,20 +215,9 @@ public class AccountDAO {
 				alert.setContentText("거래처 정보 수정 성공!");
 				alert.showAndWait();
 				accountUpdateSucess = true;
-			} else { // 수정에 실패한 경우
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("거래처 정보 수정");
-				alert.setHeaderText("거래처 정보 수정 실패");
-				alert.setContentText("거래처 정보 수정 실패!");
-				alert.showAndWait();
 			}
 		} catch (SQLException e) {
 			System.out.println("e=[" + e + "]");
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처 정보 수정 실패");
-			alert.setHeaderText("거래처 정보 수정에 실패하였습니다.");
-			alert.setContentText("다시 한번 확인후 시도하세요.");
-			alert.showAndWait();
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");
 		} finally {

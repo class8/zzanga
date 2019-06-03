@@ -290,52 +290,51 @@ public class CustomerInfoController implements Initializable {
 	public void handlerC_btnUpdateAction(ActionEvent event) {
 
 		try {
-
 			boolean sucess;
 
 			CustomerDAO cdao = new CustomerDAO();
+			if (c_txtName.getLength() != 0 && c_txtPhone.getLength() != 0) {
 
-			if (c_txtName.getLength() != 0) {
+				sucess = cdao.getcustomerUpdate(selectedCustomerIndex, c_txtName.getText().trim(), c_txtCname.getText(),
+						c_txtPhone.getText().trim(), c_txtAddress.getText(), c_txtBnumber.getText(),
+						c_txtEmail.getText(), c_txtRemarks.getText());
 
+				if (sucess) {
+					customerDataList.removeAll(customerDataList);
+					customerTotalList();
+
+					c_txtName.clear();
+					c_txtCname.clear();
+					c_txtPhone.clear();
+					c_txtBnumber.clear();
+					c_txtAddress.clear();
+					c_txtEmail.clear();
+					c_txtRemarks.clear();
+					c_txtName.requestFocus();
+
+					c_btnRegist.setDisable(false);
+					c_btnUpdate.setDisable(true);
+					c_btnDelete.setDisable(true);
+
+				} else {
+					customerDataList.removeAll(customerDataList);
+					customerTotalList();
+
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("고객 정보 수정 실패");
+					alert.setHeaderText("입력된 값이 범위를 초과했습니다.");
+					alert.setContentText("고객 정보 수정에 실패하였습니다.");
+					alert.showAndWait();
+				}
 			} else {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("고객정보 수정");
-				alert.setHeaderText("고객명은 필수 입력사항입니다.");
-				alert.setContentText("고객명을 입력하신 후 수정버튼을 눌러주세요!");
-				alert.showAndWait();
-			}
-
-			if (c_txtPhone.getLength() != 0) {
-
-			} else {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("고객정보 수정");
-				alert.setHeaderText("고객연락처는 필수 입력사항입니다.");
-				alert.setContentText("연락처를 입력하신 후 수정버튼을 눌러주세요!");
-				alert.showAndWait();
-			}
-
-			sucess = cdao.getcustomerUpdate(selectedCustomerIndex, c_txtName.getText().trim(), c_txtCname.getText(),
-					c_txtPhone.getText().trim(), c_txtAddress.getText(), c_txtBnumber.getText(), c_txtEmail.getText(),
-					c_txtRemarks.getText(), null);
-
-			if (sucess) {
 				customerDataList.removeAll(customerDataList);
 				customerTotalList();
 
-				c_txtName.clear();
-				c_txtCname.clear();
-				c_txtPhone.clear();
-				c_txtBnumber.clear();
-				c_txtAddress.clear();
-				c_txtEmail.clear();
-				c_txtRemarks.clear();
-				c_txtName.requestFocus();
-
-				c_btnRegist.setDisable(false);
-				c_btnUpdate.setDisable(true);
-				c_btnDelete.setDisable(true);
-
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("고객 정보 수정 ");
+				alert.setHeaderText("고객명과 연락처는 필수 입력사항입니다.");
+				alert.setContentText("고객명과 연락처를 입력하신 후 수정을 눌러주세요!");
+				alert.showAndWait();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -369,7 +368,7 @@ public class CustomerInfoController implements Initializable {
 
 	// 고객등록버튼 이벤트 핸들러
 	public void handlerC_btnRegistAction(ActionEvent event) {
-
+		boolean sucess;
 		try {
 
 			customerDataList.removeAll(customerDataList);
@@ -384,40 +383,48 @@ public class CustomerInfoController implements Initializable {
 						c_txtEmail.getText().trim(), c_txtRemarks.getText().trim());
 
 				cdao = new CustomerDAO();
-				cdao.getCustomerRegiste(cvo);
+				sucess = cdao.getCustomerRegiste(cvo);
 
 				customerTotalList();
+				if (sucess) {
+					c_txtName.clear();
+					c_txtCname.clear();
+					c_txtPhone.clear();
+					c_txtBnumber.clear();
+					c_txtAddress.clear();
+					c_txtEmail.clear();
+					c_txtRemarks.clear();
+					c_txtName.requestFocus();
 
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("고객 등록");
-				alert.setHeaderText(c_txtName.getText() + " 고객님이 성공적으로 추가되었습니다.");
-				alert.setContentText("다음 고객님을 입력하세요.");
-				alert.showAndWait();
+					customerDataList.removeAll(customerDataList);
 
-				c_txtName.clear();
-				c_txtCname.clear();
-				c_txtPhone.clear();
-				c_txtBnumber.clear();
-				c_txtAddress.clear();
-				c_txtEmail.clear();
-				c_txtRemarks.clear();
-				c_txtName.requestFocus();
+					customerTotalList();
+				} else {
+					customerDataList.removeAll(customerDataList);
+
+					customerTotalList();
+
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("고객 정보 등록 실패");
+					alert.setHeaderText("입력된 값이 범위를 초과했습니다.");
+					alert.setContentText("고객 정보 등록에 실패하였습니다.");
+					alert.showAndWait();
+				}
 			} else {
 				customerDataList.removeAll(customerDataList);
-
 				customerTotalList();
 
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("고객 정보 미입력");
-				alert.setHeaderText("고객 정보중에 미입력된 항목이 있습니다.");
-				alert.setContentText("고객 정보를 정확히 입력하세요.");
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("고객 정보 등록 ");
+				alert.setHeaderText("고객명과 연락처는 필수 입력사항입니다.");
+				alert.setContentText("고객명과 연락처를 입력하신 후 등록을 눌러주세요!");
 				alert.showAndWait();
 			}
 
 		} catch (Exception e) {
 
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("고객 등록");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("고객 정보 등록");
 			alert.setHeaderText("고객 정보를 정확히 입력하세요.");
 			alert.setContentText("다음에는 주의하세요.");
 			alert.showAndWait();
