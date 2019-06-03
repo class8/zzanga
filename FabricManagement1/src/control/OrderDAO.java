@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
@@ -16,8 +17,8 @@ import model.TradeVO;
 public class OrderDAO {
 
 	// 주문 등록
-	public void getOrderRegist(OrderVO ovo) throws Exception {
-
+	public boolean getOrderRegist(OrderVO ovo) throws Exception {
+		boolean sucess = false;
 		String sql = "insert into order1 values " + "(order_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, sysdate,?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -36,8 +37,28 @@ public class OrderDAO {
 			pstmt.setString(9, ovo.getO_remarks());
 
 			int i = pstmt.executeUpdate();
+			if (i == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("주문 입력");
+				alert.setHeaderText("주문이 성공적으로 추가되었습니다.");
+				alert.setContentText("다음 주문을 입력하세요.");
+				alert.showAndWait();
+				sucess = true;
+			}
+		} catch (SQLIntegrityConstraintViolationException sqle) {
+			System.out.println("e=[" + sqle + "]");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("주문 등록 실패");
+			alert.setHeaderText("거래처번호가 없으므로 주문 등록에 실패하였습니다.");
+			alert.setContentText("다시 한번 확인후 시도하세요.");
+			alert.showAndWait();
 		} catch (SQLException e) {
 			System.out.println("e=[" + e + "]");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("주문 정보 등록 실패");
+			alert.setHeaderText("입력된 값이 범위를 초과했습니다.");
+			alert.setContentText("주문 정보 등록에 실패하였습니다.");
+			alert.showAndWait();
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");
 		} finally {
@@ -50,6 +71,7 @@ public class OrderDAO {
 			} catch (SQLException e) {
 			}
 		}
+		return sucess;
 	}
 
 	// 전체 목록
@@ -342,27 +364,16 @@ public class OrderDAO {
 				alert.setContentText("주문 내역 수정 성공!");
 				alert.showAndWait();
 				accountUpdateSucess = true;
-			} else {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("주문 내역 수정");
-				alert.setHeaderText("주문 내역 수정 실패");
-				alert.setContentText("주문 내역 수정 실패!");
-				alert.showAndWait();
 			}
 		} catch (SQLException e) {
 			System.out.println("e=[" + e + "]");
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("주문 내역 수정 실패");
-			alert.setHeaderText("미입력된 항목이 있습니다.");
-			alert.setContentText("다시 확인후 시도하세요.");
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("주문 정보 수정 실패");
+			alert.setHeaderText("입력된 값이 범위를 초과했습니다.");
+			alert.setContentText("주문 정보 수정에 실패하였습니다.");
 			alert.showAndWait();
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("주문 내역 수정 실패");
-			alert.setHeaderText("미입력된 항목이 있습니다.");
-			alert.setContentText("다시 확인후 시도하세요.");
-			alert.showAndWait();
 		} finally {
 			try {
 				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제한다.

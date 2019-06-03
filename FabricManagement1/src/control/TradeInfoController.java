@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import com.sun.javafx.image.impl.ByteIndexed.Getter;
+
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -503,7 +505,6 @@ public class TradeInfoController implements Initializable {
 			temp_c_phone.setText(selectTrade.get(0).getC_phone());
 			temp_o_amount.setText(selectTrade.get(0).getT_amount() + "");
 			temp_o_address.setText(selectTrade.get(0).getT_address());
-			System.out.println(selectTrade.get(0).getT_email());
 			temp_o_email.setText(selectTrade.get(0).getT_email());
 
 			temp_f_number.setDisable(true);
@@ -526,31 +527,23 @@ public class TradeInfoController implements Initializable {
 					boolean sucess = false;
 					OrderVO ovo = null;
 					OrderDAO odao = null;
-
-					if (temp_a_number.getLength() != 0 && temp_o_amount.getLength() != 0
-							&& temp_o_address.getLength() != 0 && temp_o_total.getLength() != 0) {
+					if (!(temp_a_number.getText().equals("")) && !(temp_o_amount.getText().equals(""))
+							&& !(temp_o_address.getText().equals("")) && !(temp_o_total.getText().equals(""))) {
 						ovo = new OrderVO(Integer.parseInt(temp_a_number.getText().trim()),
 								Integer.parseInt(temp_c_number.getText().trim()), temp_f_number.getText().trim(),
 								temp_f_name.getText().trim(), Integer.parseInt(temp_o_amount.getText().trim()),
 								Integer.parseInt(temp_o_total.getText().trim()), temp_c_name.getText().trim(),
-								temp_c_phone.getText().trim(), temp_o_email.getText().trim(),
-								temp_o_address.getText().trim(), temp_o_remarks.getText().trim());
+								temp_c_phone.getText().trim(), temp_o_email.getText(), temp_o_address.getText().trim(),
+								temp_o_remarks.getText().trim());
 
 						odao = new OrderDAO();
-						odao.getOrderRegist(ovo);
-						tradeTotalList();
-
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("주문 입력");
-						alert.setHeaderText("주문이 성공적으로 추가되었습니다.");
-						alert.setContentText("다음 주문을 입력하세요.");
-						alert.showAndWait();
-
-						mainStage.close();
-
+						sucess = odao.getOrderRegist(ovo);
+						// tradeTotalList();
+						if (sucess) {
+							mainStage.close();
+						}
 					} else {
-						tradeTotalList();
-
+						// tradeTotalList();
 						Alert alert = new Alert(AlertType.WARNING);
 						alert.setTitle("주문 정보 미입력");
 						alert.setHeaderText("주문 정보중에 미입력된 항목이 있습니다.");
@@ -558,6 +551,7 @@ public class TradeInfoController implements Initializable {
 						alert.showAndWait();
 					}
 				} catch (Exception ex) {
+					ex.printStackTrace();
 					Alert alert = new Alert(AlertType.WARNING);
 					alert.setTitle("주문 정보 입력");
 					alert.setHeaderText("주문 정보를 정확히 입력하세요.");

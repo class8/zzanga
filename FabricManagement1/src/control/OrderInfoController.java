@@ -755,53 +755,68 @@ public class OrderInfoController implements Initializable {
 		try {
 			boolean sucess = false;
 			OrderDAO odao = new OrderDAO();
-			sucess = odao.getOrderUpdate(o_txtNumber.getText().trim(), a_txtNumber.getText().trim(),
-					f_txtNumber.getText().trim(), c_txtNumber.getText().trim(), o_txtEmail.getText(),
-					o_txtAddress.getText().trim(), o_txtAmount.getText().trim(), o_txtPrice.getText().trim(),
-					o_txtStatus.getText().trim(), o_dpDate.getValue().toString(), o_txtRemarks.getText());
+			if (!(o_txtAmount.getText().equals("")) && !(o_txtPrice.getText().equals(""))
+					&& !(o_dpDate.getValue().toString().equals("") && !(o_txtAddress.getText().equals("")))) {
 
-			if (sucess) {
+				sucess = odao.getOrderUpdate(o_txtNumber.getText().trim(), a_txtNumber.getText().trim(),
+						f_txtNumber.getText().trim(), c_txtNumber.getText().trim(), o_txtEmail.getText(),
+						o_txtAddress.getText().trim(), o_txtAmount.getText().trim(), o_txtPrice.getText().trim(),
+						o_txtStatus.getText().trim(), o_dpDate.getValue().toString(), o_txtRemarks.getText());
+
+				if (sucess) {
+					orderDataList.removeAll(orderDataList);
+					orderTotalList();
+
+					o_txtNumber.clear();
+					a_txtNumber.clear();
+					f_txtNumber.clear();
+					f_txtName.clear();
+					o_txtAmount.clear();
+					o_txtPrice.clear();
+					c_txtNumber.clear();
+					c_txtName.clear();
+					c_txtPhone.clear();
+					o_txtStatus.clear();
+					o_dpDate.setValue(null);
+					o_txtEmail.clear();
+					o_txtAddress.clear();
+					o_txtRemarks.clear();
+					o_dpStart.setValue(null);
+					o_dpFinish.setValue(null);
+					o_txtNumber.requestFocus();
+
+					o_txtNumber.setDisable(true);
+					a_txtNumber.setDisable(true);
+					f_txtNumber.setDisable(true);
+					f_txtName.setDisable(true);
+					o_txtAmount.setDisable(true);
+					o_txtPrice.setDisable(true);
+					c_txtNumber.setDisable(true);
+					c_txtName.setDisable(true);
+					c_txtPhone.setDisable(true);
+					o_txtStatus.setDisable(true);
+					o_dpDate.setDisable(true);
+					o_txtEmail.setDisable(true);
+					o_txtAddress.setDisable(true);
+					o_txtRemarks.setDisable(true);
+
+					o_btnUpdate.setDisable(true);
+					o_btnDelete.setDisable(true);
+					c_btnNumber.setDisable(true);
+					f_btnNumber.setDisable(true);
+					a_btnNumber.setDisable(true);
+				} else {
+					orderDataList.removeAll(orderDataList);
+					orderTotalList();
+				}
+			} else {
 				orderDataList.removeAll(orderDataList);
 				orderTotalList();
-
-				o_txtNumber.clear();
-				a_txtNumber.clear();
-				f_txtNumber.clear();
-				f_txtName.clear();
-				o_txtAmount.clear();
-				o_txtPrice.clear();
-				c_txtNumber.clear();
-				c_txtName.clear();
-				c_txtPhone.clear();
-				o_txtStatus.clear();
-				o_dpDate.setValue(null);
-				o_txtEmail.clear();
-				o_txtAddress.clear();
-				o_txtRemarks.clear();
-				o_dpStart.setValue(null);
-				o_dpFinish.setValue(null);
-				o_txtNumber.requestFocus();
-
-				o_txtNumber.setDisable(true);
-				a_txtNumber.setDisable(true);
-				f_txtNumber.setDisable(true);
-				f_txtName.setDisable(true);
-				o_txtAmount.setDisable(true);
-				o_txtPrice.setDisable(true);
-				c_txtNumber.setDisable(true);
-				c_txtName.setDisable(true);
-				c_txtPhone.setDisable(true);
-				o_txtStatus.setDisable(true);
-				o_dpDate.setDisable(true);
-				o_txtEmail.setDisable(true);
-				o_txtAddress.setDisable(true);
-				o_txtRemarks.setDisable(true);
-
-				o_btnUpdate.setDisable(true);
-				o_btnDelete.setDisable(true);
-				c_btnNumber.setDisable(true);
-				f_btnNumber.setDisable(true);
-				a_btnNumber.setDisable(true);
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("주문 정보 미입력");
+				alert.setHeaderText("주문 정보 중에 미입력된 항목이 있습니다.");
+				alert.setContentText("주문 정보를 정확히 입력하세요.");
+				alert.showAndWait();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

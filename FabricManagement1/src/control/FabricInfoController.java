@@ -984,6 +984,7 @@ public class FabricInfoController implements Initializable {
 		f_txtPrice.clear();
 		f_txtRemarks.clear();
 		selectFileName = null;
+		selectedFile = null;
 		f_txtNumber.requestFocus();
 
 		f_btnUpdate.setDisable(true);
@@ -999,7 +1000,7 @@ public class FabricInfoController implements Initializable {
 		localUrl = "/image/default.png";
 		localImage = new Image(localUrl, false);
 		imageView.setImage(localImage);
-		imageView.setFitHeight(200);
+		imageView.setFitHeight(150);
 		imageView.setFitWidth(180);
 
 		try {
