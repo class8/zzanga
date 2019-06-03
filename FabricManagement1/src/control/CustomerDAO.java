@@ -150,7 +150,7 @@ public class CustomerDAO {
 	public boolean getcustomerUpdate(int c_number, String c_name, String c_cname, String c_phone, String c_address,
 			String c_bnumber, String c_email, String c_remarks, String c_registdate) throws Exception {
 
-		String sql = "update customer set c_name=?, c_cname=?, c_phone=?, c_address=?, c_bnumber=?, c_email=?, c_remarks=? where c_number=?";
+		String sql = "update customer set c_name=?, c_cname=?, c_phone=?, c_email=?, c_address=?, c_bnumber=?, c_remarks=? where c_number=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean customerUpdateSucess = false;
